@@ -1,6 +1,6 @@
 @echo off
 REM ============================================================
-REM  OnPharm LP - GitHub Pages 첫 푸시 스크립트
+REM  OnPharm LP - GitHub 푸시 + Pages 자동 배포 스크립트
 REM  사용법: github.com/new 에서 onpharm-lp Public 레포 만든 뒤 더블클릭
 REM ============================================================
 chcp 65001 >nul
@@ -14,7 +14,6 @@ echo ============================================================
 echo.
 
 REM 1. 레포 URL 확인
-git remote -v >nul 2>&1
 git remote get-url origin >nul 2>&1
 if errorlevel 1 (
     echo  [필수] GitHub 레포 URL 을 입력해주세요.
@@ -34,13 +33,14 @@ REM 3. 커밋 (변경사항이 있을 때만)
 git diff --cached --quiet
 if errorlevel 1 (
     echo  [2/3] 커밋 생성...
-    git commit -m "feat: OnPharm LP 초기 배포"
+    git commit -m "chore: OnPharm LP 배포"
 ) else (
     echo  [SKIP] 커밋할 변경사항 없음
 )
 
 REM 4. 푸시
 echo  [3/3] GitHub 푸시...
+git branch -M main
 git push -u origin main
 if errorlevel 1 (
     echo.
@@ -56,8 +56,8 @@ echo ============================================================
 echo.
 echo  다음 단계:
 echo  1) github.com - 본 레포 - Settings - Pages
-echo  2) Source: Deploy from a branch
-echo  3) Branch: main /  ^(root^)  - Save
-echo  4) 1~2분 뒤 https://DoDrag.github.io/^<레포명^>/ 에서 라이브 확인
+echo  2) Source: GitHub Actions  선택  (Deploy from a branch 아님)
+echo  3) Actions 탭에서 "Deploy to GitHub Pages" 빌드 완료 대기 (약 2분)
+echo  4) 빌드 후 https://DoDrag.github.io/onpharm-lp/  에서 라이브 확인
 echo.
 pause

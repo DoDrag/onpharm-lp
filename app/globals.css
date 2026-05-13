@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-sans bg-white text-ink antialiased;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 {
+    @apply text-navy;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-container px-6 lg:px-8;
+  }
+
+  .pill-btn {
+    @apply inline-flex items-center justify-center rounded-full font-semibold text-[15px] transition-all duration-300 ease-smooth;
+  }
+  .pill-btn-primary {
+    @apply bg-green text-white px-8 py-3.5 hover:bg-navy hover:-translate-y-0.5 hover:shadow-button;
+  }
+  .pill-btn-outline {
+    @apply bg-transparent border border-black/10 text-ink px-8 py-3.5 hover:border-navy hover:bg-navy hover:text-white;
+  }
+  .pill-btn-ghost {
+    @apply bg-transparent border border-black/10 text-ink px-6 py-2.5 text-sm hover:border-navy hover:bg-navy hover:text-white;
+  }
+
+  .badge-base {
+    @apply inline-block rounded-full px-3 py-1 text-[12px] font-bold uppercase tracking-wider;
+  }
+  .badge-green {
+    @apply badge-base bg-green-50 text-green;
+  }
+  .badge-orange {
+    @apply badge-base bg-orange-100 text-orange;
+  }
+
+  .section-rounded {
+    @apply mx-3 sm:mx-5 rounded-4xl sm:rounded-6xl;
+  }
+}
+
+/* Hero capsule visual — keeps Variant's 35deg rotated stack */
+.capsule-group {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
+}
+.capsule-item {
+  position: absolute;
+  border-radius: 200px;
+  overflow: hidden;
+  transform: rotate(-35deg);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+}
+.capsule-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: rotate(35deg) scale(1.4);
+}
+.capsule-1 { width: 28%; height: 76%; top: 0; right: 44%; background: #eaeaea; }
+.capsule-2 { width: 28%; height: 90%; top: 8%; right: 12%; background: #dcdcdc; }
+.capsule-3 { width: 20%; height: 56%; top: 36%; right: -10%; background: #0F6E56; }
+
+@media (max-width: 1024px) {
+  .capsule-group { max-width: 420px; }
+}
+@media (max-width: 640px) {
+  .capsule-group { max-width: 340px; }
+}
+
+.dot-accent {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  z-index: 5;
+}
