@@ -75,7 +75,7 @@ export function Hero() {
               </div>
               <div className="capsule-item capsule-2">
                 <img
-                  src="https://images.unsplash.com/photo-1631549916768-4119b295f926?auto=format&fit=crop&q=80&w=800"
+                  src="https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&q=80&w=800"
                   alt="Herbal medicine workspace"
                   loading="lazy"
                 />

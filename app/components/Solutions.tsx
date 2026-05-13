@@ -10,7 +10,7 @@ const services = [
   },
   {
     tag: '제품 개발',
-    img: 'https://images.unsplash.com/photo-1550577624-42c7cf5dd824?auto=format&fit=crop&q=80&w=900',
+    img: 'https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?auto=format&fit=crop&q=80&w=900',
     alt: 'Compounding',
     title: '커스텀 소분 조제 포맷',
     body: '환자 개별 맞춤형 상담 결과를 데이터화하여 최적의 패키징과 조제 솔루션을 제공합니다.'

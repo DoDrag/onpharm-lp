@@ -23,7 +23,7 @@ const items: Array<{
       '기존의 낡은 이미지를 벗고 현대적인 웰니스 약국으로 거듭났어요. 젊은 층 고객 유입이 꾸준히 늘었습니다.',
     name: '이서윤 약사님',
     pharmacy: '자연숨 한약국',
-    img: 'https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&q=80&w=240'
+    img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=240'
   },
   {
     tone: 'navy',
