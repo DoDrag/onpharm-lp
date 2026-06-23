@@ -53,12 +53,12 @@ export function FinalCTA() {
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 placeholder="약국 이름 또는 성함을 입력하세요"
-                className="flex-1 rounded-full bg-white px-6 py-3.5 text-base text-ink placeholder:text-ink-sub/60 outline-none focus:ring-2 focus:ring-green-700"
+                className="flex-1 rounded-full bg-white px-6 py-3.5 text-base text-ink placeholder:text-ink-sub/60 outline-none focus:ring-2 focus:ring-orange"
                 required
               />
               <button
                 type="submit"
-                className="pill-btn pill-btn-primary !bg-green-700 hover:!bg-navy px-10 py-3.5"
+                className="pill-btn pill-btn-primary !bg-orange hover:!bg-orange-600 px-10 py-3.5"
               >
                 상담 신청하기
               </button>

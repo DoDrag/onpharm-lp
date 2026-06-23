@@ -7,8 +7,8 @@ const nextConfig = {
   output: 'export',
   reactStrictMode: true,
   trailingSlash: true,
-  basePath: isProd ? `/${repo}` : '',
-  assetPrefix: isProd ? `/${repo}/` : '',
+  basePath: '',
+  assetPrefix: '',
   images: {
     unoptimized: true,
     remotePatterns: [

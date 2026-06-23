@@ -5,7 +5,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        navy: '#1A1A2E',
+        navy: '#333333',
         orange: {
           DEFAULT: '#F57820',
           50: '#FFF5EC',
@@ -15,13 +15,13 @@ const config: Config = {
           600: '#D8620F'
         },
         green: {
-          DEFAULT: '#0F6E56',
-          50: '#E8F3F1',
-          100: '#D2E7E2',
-          400: '#3A8E78',
-          500: '#0F6E56',
-          600: '#0A5743',
-          700: '#074333'
+          DEFAULT: '#333333',
+          50: '#F2F2F2',
+          100: '#E5E5E5',
+          400: '#767171',
+          500: '#333333',
+          600: '#1F1F1F',
+          700: '#111111'
         },
         bone: '#F9F8F6',
         surface: '#F2F4F7',
@@ -51,7 +51,7 @@ const config: Config = {
       boxShadow: {
         soft: '0 20px 40px rgba(0, 0, 0, 0.05)',
         card: '0 30px 60px rgba(0, 0, 0, 0.08)',
-        button: '0 10px 20px rgba(15, 110, 86, 0.2)'
+        button: '0 10px 20px rgba(245, 120, 32, 0.22)'
       },
       transitionTimingFunction: {
         smooth: 'cubic-bezier(0.23, 1, 0.32, 1)'

@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 
 const stats = [
-  { value: '500+', label: '제휴 약국 (목표)' },
-  { value: '1.2k', label: '전용 상품군' },
-  { value: '98%', label: '서비스 만족도' }
+  { value: '873곳', label: '한약사 개설 약국' },
+  { value: '전용', label: '한약사 약국 맞춤' },
+  { value: '2026', label: '1호 파트너 오픈 예정' }
 ];
 
 export function Hero() {

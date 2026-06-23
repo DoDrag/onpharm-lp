@@ -26,7 +26,7 @@
     @apply inline-flex items-center justify-center rounded-full font-semibold text-[15px] transition-all duration-300 ease-smooth;
   }
   .pill-btn-primary {
-    @apply bg-green text-white px-8 py-3.5 hover:bg-navy hover:-translate-y-0.5 hover:shadow-button;
+    @apply bg-orange text-white px-8 py-3.5 hover:bg-orange-600 hover:-translate-y-0.5 hover:shadow-button;
   }
   .pill-btn-outline {
     @apply bg-transparent border border-black/10 text-ink px-8 py-3.5 hover:border-navy hover:bg-navy hover:text-white;
@@ -73,7 +73,7 @@
 }
 .capsule-1 { width: 28%; height: 76%; top: 0; right: 44%; background: #eaeaea; }
 .capsule-2 { width: 28%; height: 90%; top: 8%; right: 12%; background: #dcdcdc; }
-.capsule-3 { width: 20%; height: 56%; top: 36%; right: -10%; background: #0F6E56; }
+.capsule-3 { width: 20%; height: 56%; top: 36%; right: -10%; background: #333333; }
 
 @media (max-width: 1024px) {
   .capsule-group { max-width: 420px; }

@@ -4,12 +4,12 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'OnPharm | 한약사 약국, 새로운 표준',
   description:
-    '복잡한 유통 구조와 마케팅 고민은 온팜에게 맡기세요. 한약사 약국 전용 큐레이션·직거래 공급·디지털 고객 확보를 한 자리에서.',
-  metadataBase: new URL('https://dodrag.github.io/onpharm-lp/'),
+    '한약사 약국을 위한 건강기능식품 큐레이션·맞춤 소분과 디지털 고객 확보를 한 자리에서. 약사님은 환자의 건강에만 집중하세요.',
+  metadataBase: new URL('https://onpharm.kr/'),
   openGraph: {
     title: 'OnPharm | 한약사 약국, 새로운 표준',
     description:
-      '한약사 약국 전용 큐레이션·직거래 공급·디지털 고객 확보 플랫폼. 약사님은 환자의 건강에만 집중하세요.',
+      '한약사 약국 전용 건강기능식품 큐레이션·맞춤 소분·디지털 고객 확보 플랫폼. 약사님은 환자의 건강에만 집중하세요.',
     type: 'website',
     locale: 'ko_KR'
   },

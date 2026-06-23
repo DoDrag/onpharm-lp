@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Logo } from './Logo';
 
 const links = [
-  { label: '온팜스토리', href: '#story' },
+  { label: '온팜 소개', href: '#problem' },
   { label: '공급망 안내', href: '#solutions' },
   { label: '마케팅 지원', href: '#solutions' },
   { label: '약사 커뮤니티', href: '#testimonials' }
@@ -42,7 +42,7 @@ export function Nav() {
             href="#cta"
             className="pill-btn pill-btn-ghost hidden sm:inline-flex"
           >
-            로그인
+            파트너 문의
           </a>
           <button
             type="button"
@@ -95,7 +95,7 @@ export function Nav() {
               onClick={() => setOpen(false)}
               className="mt-2 pill-btn pill-btn-primary justify-center"
             >
-              로그인
+              파트너 문의
             </a>
           </div>
         </div>

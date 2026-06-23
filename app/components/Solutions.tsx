@@ -2,18 +2,18 @@
 
 const services = [
   {
-    tag: '유통 혁신',
+    tag: '상품 큐레이션',
     img: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&q=80&w=900',
-    alt: 'Supply chain',
-    title: '큐레이션 & 직거래 공급',
-    body: '중간 마진을 뺀 제조사 직거래 시스템으로 프리미엄 한방 제품을 경쟁력 있게 공급합니다.'
+    alt: 'Curation',
+    title: '약국 맞춤 큐레이션',
+    body: '한약사 약국에 어울리는 건강기능식품과 전용 상품을 엄선해 제안합니다. 약국의 전문성을 살리는 라인업.'
   },
   {
     tag: '제품 개발',
     img: 'https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?auto=format&fit=crop&q=80&w=900',
     alt: 'Compounding',
-    title: '커스텀 소분 조제 포맷',
-    body: '환자 개별 맞춤형 상담 결과를 데이터화하여 최적의 패키징과 조제 솔루션을 제공합니다.'
+    title: '맞춤 소분 포맷',
+    body: '한약사 상담을 살린 맞춤형 소분·조합 포맷을 함께 설계합니다. 약국만의 차별화를 만드는 전문성.'
   },
   {
     tag: '마케팅 지원',
