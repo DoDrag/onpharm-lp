@@ -60,11 +60,13 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
      - prefers-reduced-motion 이면 자동전환/리빌은 끄고 수동 조작만 남긴다.
      - 전역 오염 0. 모든 구성요소는 개별 try/catch 로 격리한다.
    담당
-     1) 캐러셀   [data-carousel]
-     2) 아코디언 [data-accordion] > details
-     3) 리빌     [data-reveal]
+     1) 캐러셀     [data-carousel]
+     2) 아코디언   [data-accordion] > details
+     3) 리빌       [data-reveal]
      4) 히어로 영상 .op-heromedia__video
-     5) 폼       [data-form]
+     5) 폼         [data-form]
+     6) 고민 고르기 [data-concern-picker] > [data-concern] + [data-suggest]
+     7) 부드러운 스크롤 [data-scroll-to]
    ========================================================================== */
 (function () {
   "use strict";
@@ -584,6 +586,172 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
   }
 
   /* ======================================================================
+     6) 고민 고르기  [data-concern-picker]
+
+     계약
+       <section data-concern-picker>
+         <button data-concern="fatigue" aria-pressed="true">          <- 선택형
+         <button data-concern="unsure"  data-scroll-to="#signup">     <- 이동형
+         <div data-suggest>
+           <div class="fa-suggest__panel" data-for="fatigue"> …성분 칩… </div>
+
+     ★ 무JS 열화의 핵심
+       패널을 숨기는 CSS 는 \`.op-js:not(.op-static) .fa-suggest.is-live\` 하위에만 있다.
+       .is-live 는 **여기서 초기화에 성공했을 때만** 붙인다. 그래서
+         - JS 없음        -> op-js 자체가 없음        -> 8개 전부 보임
+         - 정지모드(캡처) -> :not(.op-static) 이 끊음 -> 8개 전부 보임
+         - 초기화 실패    -> is-live 를 안 붙임       -> 8개 전부 보임
+       .is-on 을 먼저 칠하고 .is-live 를 나중에 붙여, 한 프레임도 빈 화면이 없다.
+     ====================================================================== */
+  function scrollToEl(target) {
+    if (!target) { return; }
+    if (typeof target.scrollIntoView !== "function") { return; }
+    try {
+      target.scrollIntoView({
+        behavior: reduceMotion ? "auto" : "smooth",
+        block: "start"
+      });
+    } catch (e) {
+      /* 옵션 객체를 모르는 구형 브라우저 */
+      try { target.scrollIntoView(true); } catch (e2) {}
+    }
+  }
+
+  /* "#signup" / "signup" 둘 다 받는다. querySelector 대신 getElementById 라
+     id 에 특수문자가 있어도 셀렉터 파싱으로 터지지 않는다. */
+  function elementFor(ref) {
+    var raw = (ref || "").replace(/^\\s+|\\s+$/g, "");
+    if (!raw) { return null; }
+    if (raw.charAt(0) === "#") { raw = raw.slice(1); }
+    if (!raw) { return null; }
+    try { return doc.getElementById(raw); } catch (e) { return null; }
+  }
+
+  function initPicker(box) {
+    var buttons = list("[data-concern]", box);
+    if (!buttons.length) { return; }
+
+    var wrap = box.querySelector("[data-suggest]");
+    var panels = wrap ? list("[data-for]", wrap) : [];
+
+    function select(key) {
+      var found = false;
+      for (var i = 0; i < panels.length; i++) {
+        var on_ = (panels[i].getAttribute("data-for") === key);
+        if (panels[i].classList) { panels[i].classList.toggle("is-on", on_); }
+        if (on_) { found = true; }
+      }
+      if (!found) { return false; }
+      for (var j = 0; j < buttons.length; j++) {
+        /* aria-pressed 가 없는 버튼(= 이동형)은 선택 상태를 갖지 않는다 */
+        if (!buttons[j].hasAttribute || !buttons[j].hasAttribute("aria-pressed")) { continue; }
+        buttons[j].setAttribute(
+          "aria-pressed",
+          buttons[j].getAttribute("data-concern") === key ? "true" : "false"
+        );
+      }
+      return true;
+    }
+
+    function keyOf(btn) { return btn.getAttribute("data-concern") || ""; }
+
+    /* 마크업이 이미 정해 둔 기본 선택을 그대로 따른다 */
+    var initial = "";
+    for (var a = 0; a < buttons.length; a++) {
+      if (buttons[a].getAttribute("aria-pressed") === "true") { initial = keyOf(buttons[a]); break; }
+    }
+    if (!initial) {
+      for (var b = 0; b < buttons.length; b++) {
+        if (buttons[b].hasAttribute && buttons[b].hasAttribute("aria-pressed")) {
+          initial = keyOf(buttons[b]);
+          break;
+        }
+      }
+    }
+
+    var live = false;
+    if (panels.length && initial && select(initial) && wrap && wrap.classList) {
+      wrap.classList.add("is-live");     /* ← 여기서만 "하나만 보이기" 가 켜진다 */
+      live = true;
+    }
+
+    for (var k = 0; k < buttons.length; k++) {
+      (function (btn) {
+        if (btn.tagName === "BUTTON" && !btn.getAttribute("type")) {
+          btn.setAttribute("type", "button");
+        }
+
+        on(btn, "click", function (ev) {
+          if (isStatic()) { return; }
+          var jump = trimmed(btn, "data-scroll-to");
+          if (jump) {
+            var target = elementFor(jump);
+            if (!target) { return; }           /* 대상이 없으면 기본동작에 맡긴다 */
+            if (ev && ev.preventDefault) { ev.preventDefault(); }
+            scrollToEl(target);
+            return;                            /* 이동형은 성분 패널을 건드리지 않는다 */
+          }
+          if (!live) { return; }
+          if (ev && ev.preventDefault) { ev.preventDefault(); }
+          select(keyOf(btn));
+        });
+
+        /* 좌우 화살표로 카드 사이 이동 (roving tabindex 는 쓰지 않는다 -
+           전부 Tab 으로 닿아야 무JS 폴백과 초점 순서가 같다) */
+        on(btn, "keydown", function (ev) {
+          var key = ev && ev.key;
+          if (key !== "ArrowLeft" && key !== "ArrowRight") { return; }
+          var idx = -1;
+          for (var q = 0; q < buttons.length; q++) {
+            if (buttons[q] === btn) { idx = q; break; }
+          }
+          if (idx < 0) { return; }
+          if (ev.preventDefault) { ev.preventDefault(); }
+          var step = (key === "ArrowRight") ? 1 : (buttons.length - 1);
+          var next = buttons[(idx + step) % buttons.length];
+          try { next.focus(); } catch (e) {}
+          if (live && !trimmed(next, "data-scroll-to")) { select(keyOf(next)); }
+        });
+      })(buttons[k]);
+    }
+
+    onRestore(function () {
+      /* 정지 모드 = 8개 전부 보이는 상태로 되돌린다 (섹션 PNG 에 다 담긴다) */
+      if (wrap && wrap.classList) { wrap.classList.remove("is-live"); }
+    });
+  }
+
+  function setupPickers() {
+    var boxes = list("[data-concern-picker]");
+    for (var i = 0; i < boxes.length; i++) {
+      (function (box) {
+        guard("고민 고르기", function () { initPicker(box); });
+      })(boxes[i]);
+    }
+  }
+
+  /* ======================================================================
+     7) 부드러운 스크롤 [data-scroll-to]  (히어로 "쿠폰받기" 칩 등)
+     앵커의 기본동작을 대신한다. JS 가 없으면 <a href="#..."> 가 그대로 동작한다.
+     피커 버튼은 6) 이 직접 처리하므로 여기서 건너뛴다.
+     ====================================================================== */
+  function setupScrollLinks() {
+    var links = list("[data-scroll-to]");
+    for (var i = 0; i < links.length; i++) {
+      (function (el) {
+        if (el.hasAttribute && el.hasAttribute("data-concern")) { return; }
+        on(el, "click", function (ev) {
+          if (isStatic()) { return; }
+          var target = elementFor(trimmed(el, "data-scroll-to"));
+          if (!target) { return; }
+          if (ev && ev.preventDefault) { ev.preventDefault(); }
+          scrollToEl(target);
+        });
+      })(links[i]);
+    }
+  }
+
+  /* ======================================================================
      정지 모드 감시 - 캡처 스크립트가 나중에 op-static 을 붙여도 최종 프레임 고정
      ====================================================================== */
   function watchStatic() {
@@ -607,6 +775,8 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
     guard("리빌", setupReveal);
     guard("히어로 영상 묶음", setupHeroVideo);
     guard("폼", setupForms);
+    guard("고민 고르기 묶음", setupPickers);
+    guard("부드러운 스크롤", setupScrollLinks);
     guard("정지 모드 감시", watchStatic);
   }
 

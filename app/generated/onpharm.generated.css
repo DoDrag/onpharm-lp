@@ -1487,6 +1487,31 @@
 .fa-hero-phone { display: flex; justify-content: flex-end; }
 .fa-hero-cta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
 
+/* 히어로 칩 중 유일하게 누를 수 있는 칩(사전등록 폼으로 이동).
+   정적 칩(.op-chip 회색면)과 구분되게 오렌지 테두리 + 틴트면을 준다.
+   기능은 "폼으로 스크롤"이 전부다 - 쿠폰 발급을 약속하는 문구를 붙이지 말 것. */
+/* ⚠ color 는 반드시 `.op-page a.fa-chip-cta` 로 써야 한다. 지우지 말 것.
+   테마의 `.op-page a:not([class*="op-btn"]){color:inherit}` 이 특이도 0-2-1 이라
+   `.fa-chip-cta`(0-1-0) 를 이긴다. 이 칩은 히어로(.op-veil-content, color:#FFFFFF)
+   안에 있어서 흰 글자를 상속받고, 틴트면(#FEF3E9) 위라 실측 대비 1.09:1 = 안 보였다.
+   같은 특이도(0-2-1) + 뒤 순서로 되찾는다. */
+.fa-chip-cta {
+  background: var(--op-orange-tint);
+  border-color: var(--op-orange);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+.fa-chip-cta,
+.op-page a.fa-chip-cta { color: var(--op-charcoal); }
+.fa-chip-cta:hover {
+  background: var(--op-orange);
+  border-color: var(--op-orange);
+}
+.fa-chip-cta:hover,
+.op-page a.fa-chip-cta:hover { color: #FFFFFF; }
+.fa-chip-cta:focus-visible { outline: 2px solid var(--op-orange); outline-offset: 3px; }
+
 /* --- 사진 밴드 (a05 / a08 공용) ---------------------------------------- */
 .fa-photoband {
   position: relative;
@@ -1593,12 +1618,32 @@
 }
 .fa-bub--me .fa-bub__time { color: rgba(255, 255, 255, 0.72); }
 
-/* --- a02 고민 카드 ------------------------------------------------------ */
+/* --- a02 고민 카드 (선택형) --------------------------------------------- */
 /* 8칸 중 "선택됨" 칩이 붙은 카드 하나만 키가 커서, 그 카드가 낀 1행 전체가
    2행보다 52px 높아지고 1행 나머지 카드 아래에 빈 공간이 남았다(그리드 기본
    align stretch). 전 행을 같은 높이로 묶어 균일한 격자로 만든다. */
 .fa-concerns { grid-auto-rows: 1fr; }
-.fa-concern { padding: 26px 22px; }
+/* 카드가 <button> 이라 브라우저 기본값(가운데정렬·시스템폰트·회색면)을 먼저 지운다.
+   요소 선택자를 쓰지 않으려고 전부 클래스 스코프로만 쓴다(호스트 안전). */
+.fa-concern {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 26px 22px;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  background: var(--op-bg);
+  /* 선택/비선택 사이 1px 레이아웃 점프를 없애려고 항상 2px 로 잡고 색만 바꾼다 */
+  border: 2px solid var(--op-line);
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color var(--op-dur-fast) var(--op-ease),
+              box-shadow var(--op-dur-fast) var(--op-ease);
+}
+.fa-concern:hover { border-color: var(--op-orange); box-shadow: var(--op-shadow-lift); }
+.fa-concern:focus-visible { outline: 2px solid var(--op-orange); outline-offset: 3px; }
 .fa-concern__ico {
   display: flex;
   align-items: center;
@@ -1610,10 +1655,103 @@
   color: var(--op-charcoal);
   margin-bottom: 18px;
 }
-.fa-concern--on { border: 2px solid var(--op-orange); box-shadow: var(--op-shadow-lift); }
-.fa-concern--on .fa-concern__ico { background: var(--op-orange-tint); color: var(--op-orange); }
-.fa-concern__label { font-size: 19px; margin-bottom: 6px; }
-.fa-concern__chip { margin-top: 16px; padding: 7px 14px; font-size: 13px; }
+/* 선택 상태는 aria-pressed 하나로 표현한다.
+   -> 무JS 에서도 마크업에 박힌 aria-pressed="true" 가 그대로 그려진다. */
+.fa-concern[aria-pressed="true"] { border-color: var(--op-orange); box-shadow: var(--op-shadow-lift); }
+.fa-concern[aria-pressed="true"] .fa-concern__ico {
+  background: var(--op-orange-tint);
+  color: var(--op-orange);
+}
+.fa-concern__label { display: block; font-size: 19px; margin-bottom: 6px; }
+.fa-concern__desc  { display: block; }
+/* 칩은 자리를 늘 차지한다(visibility) -> 선택이 바뀌어도 격자 높이가 안 흔들린다 */
+.fa-concern__chip {
+  margin-top: 16px;
+  padding: 7px 14px;
+  font-size: 13px;
+  visibility: hidden;
+}
+.fa-concern[aria-pressed="true"] .fa-concern__chip { visibility: visible; }
+/* 성분 패널 대신 사전등록 폼으로 보내는 카드 */
+.fa-concern__go {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 16px;
+  padding: 7px 14px;
+  border: 1.5px solid var(--op-orange);
+  border-radius: var(--op-radius-pill);
+  color: var(--op-orange);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* --- a02 성분 추천 패널 -------------------------------------------------
+   ★ 무JS / 정지모드(캡처) 에서는 8개 패널이 전부 보인다(세로 스택).
+     "하나만 보이기" 규칙은 .op-js:not(.op-static) 이면서, JS 가 스스로
+     .is-live 를 붙였을 때만 걸린다. JS 가 없거나 초기화가 실패하면
+     .is-live 가 없어 콘텐츠가 절대 사라지지 않는다. */
+.fa-suggest {
+  padding: 32px;
+  border: 1.5px solid var(--op-line);
+  border-radius: var(--op-radius-card);
+  background: var(--op-bg-warm);
+}
+.fa-suggest__lead { font-size: 15px; line-height: 1.6; color: var(--op-gray); }
+.fa-suggest__panels { display: grid; gap: 22px; margin-top: 22px; }
+.fa-suggest__panel { text-align: center; }
+.fa-suggest__title {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--op-charcoal);
+}
+.fa-suggest__for { color: var(--op-orange); }
+.fa-suggest__sep { margin: 0 8px; color: var(--op-gray); font-weight: 500; }
+.fa-suggest__hint { font-size: 15px; line-height: 1.6; color: var(--op-gray); margin-top: 8px; }
+.fa-suggest__chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+/* 성분 칩: 오렌지 틴트 + 차콜. 아이콘 없이 이름만. 누를 수 없으니 hover 도 고정. */
+.fa-ing,
+.fa-ing:hover {
+  background: var(--op-orange-tint);
+  border-color: var(--op-orange-tint);
+  color: var(--op-charcoal);
+  font-weight: 700;
+}
+.fa-suggest__note { margin-top: 26px; }
+
+.op-js:not(.op-static) .fa-suggest.is-live .fa-suggest__panel { display: none; }
+.op-js:not(.op-static) .fa-suggest.is-live .fa-suggest__panel.is-on {
+  display: block;
+  animation: faSuggestIn 180ms var(--op-ease) both;
+}
+/* .op-static / prefers-reduced-motion 에서는 테마의 animation:none !important 가
+   이 키프레임을 통째로 끈다(= 최종 프레임 고정). 따로 막을 필요가 없다. */
+@keyframes faSuggestIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* --- a02b 제품 소개 ------------------------------------------------------ */
+.fa-product__shot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 44px 36px;
+  border: 1.5px solid var(--op-line);
+  border-radius: var(--op-radius-card);
+  background: var(--op-bg);
+}
+.fa-product__shot .fa-ptp { max-width: 380px; margin: 0 auto; }
+.fa-product__photo { display: block; width: 100%; height: auto; border-radius: 16px; }
+.fa-product__points { margin-top: 0; }
+.fa-product__caption { margin-top: 22px; }
 
 /* --- a03 스텝 (연결선) -------------------------------------------------- */
 .fa-steps { position: relative; }
@@ -1985,6 +2123,7 @@
   .fa-idcard { padding: 28px; }
   .fa-form { padding: 32px; }
   .fa-map { padding: 32px 24px; }
+  .fa-product__shot { padding: 32px 24px; }
 }
 
 @media (max-width: 767px) {
@@ -2001,6 +2140,9 @@
   .fa-ex__q { padding: 18px; }
   .fa-ex__a { margin-top: 20px; padding-left: 16px; }
   .fa-concern__label { font-size: 18px; }
+  .fa-concern { padding: 22px 18px; }
+  .fa-suggest { padding: 24px 18px; }
+  .fa-product__shot { padding: 24px 16px; }
   .fa-card-desc { min-height: 0; }
   .op-footer { padding: 28px 0; }
 }

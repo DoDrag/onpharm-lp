@@ -41,11 +41,9 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
   </svg>
   <span>카카오톡으로 상담하기</span>
 </a>
-        </div>
-
-        <div class="op-row op-row--wrap op-mt-24">
+        </div><div class="op-row op-row--wrap op-mt-24">
           <span class="op-chip">상담 무료</span>
-          <span class="op-chip">6일 카드 3,900원부터</span>
+          <a class="op-chip fa-chip-cta" href="#signup" data-scroll-to="#signup">쿠폰받기</a>
           <span class="op-chip">동네 약국 픽업</span>
         </div>
       </div>
@@ -78,7 +76,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
   </div>
 </section>
 
-<section class="op-sec" data-section="a02_concerns" data-reveal>
+<section class="op-sec" data-section="a02_concerns" data-concern-picker data-reveal>
   <div class="op-inner">
     <div class="op-center">
       <span class="op-eyebrow">고민 고르기</span>
@@ -86,86 +84,248 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
       <p class="op-lead op-mt-16 op-measure--center">하나만 골라 주셔도 괜찮아요. 전담 한약사가 거기서부터 같이 봅니다.</p>
     </div>
 
-    <div class="op-grid-4 fa-concerns op-mt-48">
-      <div class="op-card op-card--pad fa-concern fa-concern--on">
+    <div class="op-grid-4 fa-concerns op-mt-48" role="group" aria-label="고민 선택">
+      <button type="button" class="op-card op-card--pad fa-concern"
+              data-concern="fatigue"
+              aria-pressed="true"              aria-controls="a02-panel-fatigue">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
      stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
   <rect x="2.6" y="7.4" width="15" height="9.2" rx="3"/>
   <path d="M20.4 11v2"/>
   <rect x="5.2" y="9.9" width="4" height="4.2" rx="1.3" fill="currentColor" stroke="none"/>
 </svg></span>
-        <h3 class="op-h3 fa-concern__label">피로</h3>
-        <p class="op-caption">오후만 되면 축 처져요</p>
+        <span class="op-h3 fa-concern__label">피로</span>
+        <span class="op-caption fa-concern__desc">오후만 되면 축 처져요</span>
         <span class="op-chip op-chip--on fa-concern__chip">선택됨</span>
-      </div>
-      <div class="op-card op-card--pad fa-concern">
+      </button>
+      <button type="button" class="op-card op-card--pad fa-concern"
+              data-concern="gut"
+              aria-pressed="false"              aria-controls="a02-panel-gut">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
      stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
   <circle cx="12" cy="12" r="9"/>
   <path d="M7.2 9.3c1.6-2 2.9-2 4.4 0s2.8 2 4.4 0"/>
   <path d="M7.2 14.1c1.6-2 2.9-2 4.4 0s2.8 2 4.4 0"/>
 </svg></span>
-        <h3 class="op-h3 fa-concern__label">장 컨디션</h3>
-        <p class="op-caption">매일이 들쭉날쭉해요</p>
-      </div>
-      <div class="op-card op-card--pad fa-concern">
+        <span class="op-h3 fa-concern__label">장 컨디션</span>
+        <span class="op-caption fa-concern__desc">매일이 들쭉날쭉해요</span>
+        <span class="op-chip op-chip--on fa-concern__chip">선택됨</span>
+      </button>
+      <button type="button" class="op-card op-card--pad fa-concern"
+              data-concern="sleep"
+              aria-pressed="false"              aria-controls="a02-panel-sleep">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
      stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
   <path d="M20 14.4A8.6 8.6 0 0 1 9.6 4 8.6 8.6 0 1 0 20 14.4z"/>
 </svg></span>
-        <h3 class="op-h3 fa-concern__label">잠</h3>
-        <p class="op-caption">누워도 한참 뒤척여요</p>
-      </div>
-      <div class="op-card op-card--pad fa-concern">
+        <span class="op-h3 fa-concern__label">잠</span>
+        <span class="op-caption fa-concern__desc">누워도 한참 뒤척여요</span>
+        <span class="op-chip op-chip--on fa-concern__chip">선택됨</span>
+      </button>
+      <button type="button" class="op-card op-card--pad fa-concern"
+              data-concern="skin"
+              aria-pressed="false"              aria-controls="a02-panel-skin">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
      stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
   <path d="M12 3.4c3.5 4 5.4 6.4 5.4 8.9a5.4 5.4 0 0 1-10.8 0c0-2.5 1.9-4.9 5.4-8.9z"/>
   <path d="M9.6 13.4a2.6 2.6 0 0 0 2.6 2.6"/>
 </svg></span>
-        <h3 class="op-h3 fa-concern__label">피부</h3>
-        <p class="op-caption">푸석한 느낌이 오래가요</p>
-      </div>
-      <div class="op-card op-card--pad fa-concern">
+        <span class="op-h3 fa-concern__label">피부</span>
+        <span class="op-caption fa-concern__desc">푸석한 느낌이 오래가요</span>
+        <span class="op-chip op-chip--on fa-concern__chip">선택됨</span>
+      </button>
+      <button type="button" class="op-card op-card--pad fa-concern"
+              data-concern="women"
+              aria-pressed="false"              aria-controls="a02-panel-women">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
      stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
   <circle cx="12" cy="8.6" r="4.6"/>
   <path d="M12 13.2V21"/>
   <path d="M9 17.9h6"/>
 </svg></span>
-        <h3 class="op-h3 fa-concern__label">여성 컨디션</h3>
-        <p class="op-caption">달마다 차이가 커요</p>
-      </div>
-      <div class="op-card op-card--pad fa-concern">
+        <span class="op-h3 fa-concern__label">여성 컨디션</span>
+        <span class="op-caption fa-concern__desc">달마다 차이가 커요</span>
+        <span class="op-chip op-chip--on fa-concern__chip">선택됨</span>
+      </button>
+      <button type="button" class="op-card op-card--pad fa-concern"
+              data-concern="eye"
+              aria-pressed="false"              aria-controls="a02-panel-eye">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
      stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
   <path d="M2.6 12S6.2 6.4 12 6.4 21.4 12 21.4 12 17.8 17.6 12 17.6 2.6 12 2.6 12z"/>
   <circle cx="12" cy="12" r="2.6"/>
 </svg></span>
-        <h3 class="op-h3 fa-concern__label">눈</h3>
-        <p class="op-caption">화면을 오래 보면 뻑뻑해요</p>
-      </div>
-      <div class="op-card op-card--pad fa-concern">
+        <span class="op-h3 fa-concern__label">눈</span>
+        <span class="op-caption fa-concern__desc">화면을 오래 보면 뻑뻑해요</span>
+        <span class="op-chip op-chip--on fa-concern__chip">선택됨</span>
+      </button>
+      <button type="button" class="op-card op-card--pad fa-concern"
+              data-concern="immune"
+              aria-pressed="false"              aria-controls="a02-panel-immune">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
      stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
   <path d="M12 3.2l7 2.8v5.2c0 4.3-2.9 7.5-7 8.8-4.1-1.3-7-4.5-7-8.8V6z"/>
   <path d="M9.4 12.1l1.9 1.9 3.4-3.6"/>
 </svg></span>
-        <h3 class="op-h3 fa-concern__label">면역</h3>
-        <p class="op-caption">환절기마다 힘이 빠져요</p>
-      </div>
-      <div class="op-card op-card--pad fa-concern">
+        <span class="op-h3 fa-concern__label">면역</span>
+        <span class="op-caption fa-concern__desc">환절기마다 힘이 빠져요</span>
+        <span class="op-chip op-chip--on fa-concern__chip">선택됨</span>
+      </button>
+      <button type="button" class="op-card op-card--pad fa-concern fa-concern--go"
+              data-concern="unsure"
+              data-scroll-to="#signup">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
      stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
   <circle cx="12" cy="12" r="9"/>
   <path d="M9.6 9.5a2.5 2.5 0 1 1 3.3 2.9c-.7.3-1.1.9-1.1 1.6v.4"/>
   <path d="M11.9 17.2h.1"/>
 </svg></span>
-        <h3 class="op-h3 fa-concern__label">뭐부터일지 모르겠어요</h3>
-        <p class="op-caption">고르는 것부터 어려워요</p>
+        <span class="op-h3 fa-concern__label">뭐부터일지 모르겠어요</span>
+        <span class="op-caption fa-concern__desc">고르는 것부터 어려워요</span>
+        <span class="fa-concern__go">사전 등록으로 이동</span>
+      </button>
+    </div>
+
+    <div class="fa-suggest op-mt-40" data-suggest>
+      <p class="fa-suggest__lead op-center">고민을 고르면, 전담 한약사와 상담에서 자주 같이 살펴보는 성분을 이름만 보여드려요.</p>
+      <div class="fa-suggest__panels">
+        <div class="fa-suggest__panel is-on"
+             id="a02-panel-fatigue" data-for="fatigue"
+             role="group" aria-label="피로">
+          <p class="fa-suggest__title"><span class="fa-suggest__for">피로</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
+          <div class="fa-suggest__chips">
+            <span class="op-chip fa-ing">비타민 C</span>
+            <span class="op-chip fa-ing">비타민 B군</span>
+          </div>
+        </div>
+        <div class="fa-suggest__panel"
+             id="a02-panel-gut" data-for="gut"
+             role="group" aria-label="장 컨디션">
+          <p class="fa-suggest__title"><span class="fa-suggest__for">장 컨디션</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
+          <div class="fa-suggest__chips">
+            <span class="op-chip fa-ing">프로바이오틱스</span>
+          </div>
+        </div>
+        <div class="fa-suggest__panel"
+             id="a02-panel-sleep" data-for="sleep"
+             role="group" aria-label="잠">
+          <p class="fa-suggest__title"><span class="fa-suggest__for">잠</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
+          <div class="fa-suggest__chips">
+            <span class="op-chip fa-ing">테아닌</span>
+            <span class="op-chip fa-ing">락티움</span>
+          </div>
+        </div>
+        <div class="fa-suggest__panel"
+             id="a02-panel-skin" data-for="skin"
+             role="group" aria-label="피부">
+          <p class="fa-suggest__title"><span class="fa-suggest__for">피부</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
+          <div class="fa-suggest__chips">
+            <span class="op-chip fa-ing">콜라겐</span>
+            <span class="op-chip fa-ing">글루타치온</span>
+          </div>
+        </div>
+        <div class="fa-suggest__panel"
+             id="a02-panel-women" data-for="women"
+             role="group" aria-label="여성 컨디션">
+          <p class="fa-suggest__title"><span class="fa-suggest__for">여성 컨디션</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
+          <div class="fa-suggest__chips">
+            <span class="op-chip fa-ing">보라지유</span>
+          </div>
+        </div>
+        <div class="fa-suggest__panel"
+             id="a02-panel-eye" data-for="eye"
+             role="group" aria-label="눈">
+          <p class="fa-suggest__title"><span class="fa-suggest__for">눈</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
+          <div class="fa-suggest__chips">
+            <span class="op-chip fa-ing">루테인</span>
+            <span class="op-chip fa-ing">지아잔틴</span>
+          </div>
+        </div>
+        <div class="fa-suggest__panel"
+             id="a02-panel-immune" data-for="immune"
+             role="group" aria-label="면역">
+          <p class="fa-suggest__title"><span class="fa-suggest__for">면역</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
+          <div class="fa-suggest__chips">
+            <span class="op-chip fa-ing">아연</span>
+          </div>
+        </div>
+        <div class="fa-suggest__panel"
+             id="a02-panel-unsure" data-for="unsure"
+             role="group" aria-label="뭐부터일지 모르겠어요">
+          <p class="fa-suggest__title"><span class="fa-suggest__for">뭐부터일지 모르겠어요</span></p>
+          <p class="fa-suggest__hint">괜찮아요. 무엇부터 볼지 고르는 것부터 같이 하면 됩니다.</p>
+          <p class="op-mt-16"><a class="op-btn op-btn--ghost"
+             href="#signup"
+             data-scroll-to="#signup">사전 등록하고 상담부터 시작하기</a></p>
+        </div>
       </div>
+      <p class="op-note fa-suggest__note op-center">성분 이름만 적어 둔 안내예요. 실제 추천은 상담에서 개인별로 달라집니다.</p>
     </div>
 
     <p class="op-note op-mt-32 op-center">여러 개를 골라도 괜찮아요. 고른 내용은 전담 한약사에게만 전달됩니다.</p>
+  </div>
+</section>
+
+<section class="op-sec op-sec--tint" data-section="a02b_products" data-reveal>
+  <div class="op-inner">
+    <div class="op-center">
+      <span class="op-eyebrow">제품 소개</span>
+      <h2 class="op-h2">온팜은 이렇게 생겼어요</h2>
+      <p class="op-lead op-mt-16 op-measure--center">상담에서 정한 조합을 6일치 한 장에 담아 둡니다. 이어서 볼 때는 카드를 여러 장 묶은 30일 박스로 고르시면 돼요. 동네 조합 약국에 들러 받아 가시면 됩니다.</p>
+    </div>
+
+    <div class="op-grid-2 op-grid--loose op-grid--mid fa-product op-mt-64">
+      <div class="fa-product__shot">
+        <span class="fa-ptp" aria-hidden="true">
+<svg viewBox="0 0 200 132" xmlns="http://www.w3.org/2000/svg">
+  <rect x="16" y="4" width="180" height="104" rx="18" fill="#F2F2F2" stroke="#EAEAEA" stroke-width="1.5"/>
+  <rect x="11" y="10" width="180" height="104" rx="18" fill="#F9F8F6" stroke="#EAEAEA" stroke-width="1.5"/>
+  <rect x="6" y="16" width="180" height="104" rx="18" fill="#F9F8F6" stroke="#EAEAEA" stroke-width="1.5"/>
+  <rect x="22" y="34" width="44" height="28" rx="14"
+        fill="#FF6900"
+        stroke="#FF6900" stroke-width="1.5"/>
+  <rect x="76" y="34" width="44" height="28" rx="14"
+        fill="#FF6900"
+        stroke="#FF6900" stroke-width="1.5"/>
+  <rect x="130" y="34" width="44" height="28" rx="14"
+        fill="#FF6900"
+        stroke="#FF6900" stroke-width="1.5"/>
+  <rect x="22" y="74" width="44" height="28" rx="14"
+        fill="#FF6900"
+        stroke="#FF6900" stroke-width="1.5"/>
+  <rect x="76" y="74" width="44" height="28" rx="14"
+        fill="#FF6900"
+        stroke="#FF6900" stroke-width="1.5"/>
+  <rect x="130" y="74" width="44" height="28" rx="14"
+        fill="#FF6900"
+        stroke="#FF6900" stroke-width="1.5"/>
+</svg>
+</span>
+      </div>
+      <div>
+        <ul class="op-list op-list--check fa-product__points">
+          <li>하루 한 칸씩 6일, 뜯어서 챙기는 카드형 소포장</li>
+          <li>무엇을 담을지는 전담 한약사와 상담에서 정합니다</li>
+          <li>동네 조합 약국에서 직접 받아 가는 픽업 방식</li>
+        </ul>
+        <p class="op-note fa-product__caption">카드와 패키지 형태를 보여드리는 예시예요. 실제 구성은 상담에서 정합니다.</p>
+      </div>
+    </div>    <div class="op-grid-2 op-grid--top op-mt-48">
+      <div>
+        <div class="op-media op-media--16x9">
+          <img src="/onpharm/a02b_card.jpg" alt=""
+               width="1364" height="1023">
+        </div>
+        <p class="op-caption op-mt-12 op-center">6일 소포장 카드</p>
+      </div>
+      <div>
+        <div class="op-media op-media--16x9">
+          <img src="/onpharm/a02b_lineup.jpg" alt=""
+               width="1536" height="864">
+        </div>
+        <p class="op-caption op-mt-12 op-center">박스 패키지 예시</p>
+      </div>
+    </div>
   </div>
 </section>
 
