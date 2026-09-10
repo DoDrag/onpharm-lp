@@ -1700,6 +1700,9 @@
 .fa-suggest__lead { font-size: 15px; line-height: 1.6; color: var(--op-gray); }
 .fa-suggest__panels { display: grid; gap: 22px; margin-top: 22px; }
 .fa-suggest__panel { text-align: center; }
+/* 패널 속 래퍼. 이미지가 없으면 그냥 블록이라 기존 1단 중앙정렬과 완전히 같다.
+   (여백이 상쇄되지 않도록 padding/border 를 주지 않는다) */
+.fa-suggest__body { display: block; }
 .fa-suggest__title {
   font-size: 17px;
   font-weight: 700;
@@ -1725,6 +1728,33 @@
   font-weight: 700;
 }
 .fa-suggest__note { margin-top: 26px; }
+
+/* --- a02 고민 상황 이미지(2단) ------------------------------------------
+   소재(assets["a02_c_<key>"])가 있는 패널에만 --media 가 붙는다.
+   소재가 없으면 이미지 칸 자체를 렌더하지 않으므로 위의 1단 규칙만 남는다.
+   7장 중 몇 장만 있어도 패널별로 각각 1단/2단이 된다. */
+.fa-suggest__panel--media { text-align: left; }
+.fa-suggest__panel--media .fa-suggest__body {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  align-items: center;
+  gap: 28px;
+  /* 카드가 1200 폭까지 넓어져도 이미지+텍스트 짝은 가운데에 모아 둔다
+     (섹션의 안내문·주석이 중앙정렬이라 그 축과 맞춘다) */
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* .op-media 가 radius/overflow/배경을 이미 갖고 있다. 여기선 줄어들지만 않게. */
+.fa-suggest__media { width: 100%; min-width: 0; }
+.fa-suggest__text  { min-width: 0; }
+.fa-suggest__panel--media .fa-suggest__chips { justify-content: flex-start; }
+.fa-suggest__desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--op-gray);
+  margin-top: 10px;
+}
 
 .op-js:not(.op-static) .fa-suggest.is-live .fa-suggest__panel { display: none; }
 .op-js:not(.op-static) .fa-suggest.is-live .fa-suggest__panel.is-on {
@@ -2124,6 +2154,10 @@
   .fa-form { padding: 32px; }
   .fa-map { padding: 32px 24px; }
   .fa-product__shot { padding: 32px 24px; }
+  .fa-suggest__panel--media .fa-suggest__body {
+    grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+    gap: 22px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -2142,6 +2176,8 @@
   .fa-concern__label { font-size: 18px; }
   .fa-concern { padding: 22px 18px; }
   .fa-suggest { padding: 24px 18px; }
+  /* 세로 스택: 이미지 위, 텍스트 아래 */
+  .fa-suggest__panel--media .fa-suggest__body { grid-template-columns: 1fr; gap: 18px; }
   .fa-product__shot { padding: 24px 16px; }
   .fa-card-desc { min-height: 0; }
   .op-footer { padding: 28px 0; }

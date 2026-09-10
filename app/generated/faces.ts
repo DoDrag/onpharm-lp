@@ -189,74 +189,141 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
     <div class="fa-suggest op-mt-40" data-suggest>
       <p class="fa-suggest__lead op-center">고민을 고르면, 전담 한약사와 상담에서 자주 같이 살펴보는 성분을 이름만 보여드려요.</p>
       <div class="fa-suggest__panels">
-        <div class="fa-suggest__panel is-on"
+        <div class="fa-suggest__panel fa-suggest__panel--media is-on"
              id="a02-panel-fatigue" data-for="fatigue"
              role="group" aria-label="피로">
-          <p class="fa-suggest__title"><span class="fa-suggest__for">피로</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
-          <div class="fa-suggest__chips">
-            <span class="op-chip fa-ing">비타민 C</span>
-            <span class="op-chip fa-ing">비타민 B군</span>
+          <div class="fa-suggest__body">
+            <div class="op-media op-media--4x3 fa-suggest__media">
+              <img src="/onpharm/a02_c_fatigue.jpg" alt="" width="1200" height="900"
+                   loading="eager" decoding="async">
+            </div>
+            <div class="fa-suggest__text">
+              <p class="fa-suggest__title"><span class="fa-suggest__for">피로</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
+              <p class="fa-suggest__desc">오후만 되면 축 처져요</p>
+              <div class="fa-suggest__chips">
+                <span class="op-chip fa-ing">비타민 C</span>
+                <span class="op-chip fa-ing">비타민 B군</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="fa-suggest__panel"
+        <div class="fa-suggest__panel fa-suggest__panel--media"
              id="a02-panel-gut" data-for="gut"
              role="group" aria-label="장 컨디션">
-          <p class="fa-suggest__title"><span class="fa-suggest__for">장 컨디션</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
-          <div class="fa-suggest__chips">
-            <span class="op-chip fa-ing">프로바이오틱스</span>
+          <div class="fa-suggest__body">
+            <div class="op-media op-media--4x3 fa-suggest__media">
+              <img src="/onpharm/a02_c_gut.jpg" alt="" width="1200" height="900"
+                   loading="lazy" decoding="async">
+            </div>
+            <div class="fa-suggest__text">
+              <p class="fa-suggest__title"><span class="fa-suggest__for">장 컨디션</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
+              <p class="fa-suggest__desc">매일이 들쭉날쭉해요</p>
+              <div class="fa-suggest__chips">
+                <span class="op-chip fa-ing">프로바이오틱스</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="fa-suggest__panel"
+        <div class="fa-suggest__panel fa-suggest__panel--media"
              id="a02-panel-sleep" data-for="sleep"
              role="group" aria-label="잠">
-          <p class="fa-suggest__title"><span class="fa-suggest__for">잠</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
-          <div class="fa-suggest__chips">
-            <span class="op-chip fa-ing">테아닌</span>
-            <span class="op-chip fa-ing">락티움</span>
+          <div class="fa-suggest__body">
+            <div class="op-media op-media--4x3 fa-suggest__media">
+              <img src="/onpharm/a02_c_sleep.jpg" alt="" width="1200" height="900"
+                   loading="lazy" decoding="async">
+            </div>
+            <div class="fa-suggest__text">
+              <p class="fa-suggest__title"><span class="fa-suggest__for">잠</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
+              <p class="fa-suggest__desc">누워도 한참 뒤척여요</p>
+              <div class="fa-suggest__chips">
+                <span class="op-chip fa-ing">테아닌</span>
+                <span class="op-chip fa-ing">락티움</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="fa-suggest__panel"
+        <div class="fa-suggest__panel fa-suggest__panel--media"
              id="a02-panel-skin" data-for="skin"
              role="group" aria-label="피부">
-          <p class="fa-suggest__title"><span class="fa-suggest__for">피부</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
-          <div class="fa-suggest__chips">
-            <span class="op-chip fa-ing">콜라겐</span>
-            <span class="op-chip fa-ing">글루타치온</span>
+          <div class="fa-suggest__body">
+            <div class="op-media op-media--4x3 fa-suggest__media">
+              <img src="/onpharm/a02_c_skin.jpg" alt="" width="1200" height="900"
+                   loading="lazy" decoding="async">
+            </div>
+            <div class="fa-suggest__text">
+              <p class="fa-suggest__title"><span class="fa-suggest__for">피부</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
+              <p class="fa-suggest__desc">푸석한 느낌이 오래가요</p>
+              <div class="fa-suggest__chips">
+                <span class="op-chip fa-ing">콜라겐</span>
+                <span class="op-chip fa-ing">글루타치온</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="fa-suggest__panel"
+        <div class="fa-suggest__panel fa-suggest__panel--media"
              id="a02-panel-women" data-for="women"
              role="group" aria-label="여성 컨디션">
-          <p class="fa-suggest__title"><span class="fa-suggest__for">여성 컨디션</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
-          <div class="fa-suggest__chips">
-            <span class="op-chip fa-ing">보라지유</span>
+          <div class="fa-suggest__body">
+            <div class="op-media op-media--4x3 fa-suggest__media">
+              <img src="/onpharm/a02_c_women.jpg" alt="" width="1200" height="900"
+                   loading="lazy" decoding="async">
+            </div>
+            <div class="fa-suggest__text">
+              <p class="fa-suggest__title"><span class="fa-suggest__for">여성 컨디션</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
+              <p class="fa-suggest__desc">달마다 차이가 커요</p>
+              <div class="fa-suggest__chips">
+                <span class="op-chip fa-ing">보라지유</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="fa-suggest__panel"
+        <div class="fa-suggest__panel fa-suggest__panel--media"
              id="a02-panel-eye" data-for="eye"
              role="group" aria-label="눈">
-          <p class="fa-suggest__title"><span class="fa-suggest__for">눈</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
-          <div class="fa-suggest__chips">
-            <span class="op-chip fa-ing">루테인</span>
-            <span class="op-chip fa-ing">지아잔틴</span>
+          <div class="fa-suggest__body">
+            <div class="op-media op-media--4x3 fa-suggest__media">
+              <img src="/onpharm/a02_c_eye.jpg" alt="" width="1200" height="900"
+                   loading="lazy" decoding="async">
+            </div>
+            <div class="fa-suggest__text">
+              <p class="fa-suggest__title"><span class="fa-suggest__for">눈</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
+              <p class="fa-suggest__desc">화면을 오래 보면 뻑뻑해요</p>
+              <div class="fa-suggest__chips">
+                <span class="op-chip fa-ing">루테인</span>
+                <span class="op-chip fa-ing">지아잔틴</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="fa-suggest__panel"
+        <div class="fa-suggest__panel fa-suggest__panel--media"
              id="a02-panel-immune" data-for="immune"
              role="group" aria-label="면역">
-          <p class="fa-suggest__title"><span class="fa-suggest__for">면역</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
-          <div class="fa-suggest__chips">
-            <span class="op-chip fa-ing">아연</span>
+          <div class="fa-suggest__body">
+            <div class="op-media op-media--4x3 fa-suggest__media">
+              <img src="/onpharm/a02_c_immune.jpg" alt="" width="1200" height="900"
+                   loading="lazy" decoding="async">
+            </div>
+            <div class="fa-suggest__text">
+              <p class="fa-suggest__title"><span class="fa-suggest__for">면역</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
+              <p class="fa-suggest__desc">환절기마다 힘이 빠져요</p>
+              <div class="fa-suggest__chips">
+                <span class="op-chip fa-ing">아연</span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="fa-suggest__panel"
              id="a02-panel-unsure" data-for="unsure"
              role="group" aria-label="뭐부터일지 모르겠어요">
-          <p class="fa-suggest__title"><span class="fa-suggest__for">뭐부터일지 모르겠어요</span></p>
-          <p class="fa-suggest__hint">괜찮아요. 무엇부터 볼지 고르는 것부터 같이 하면 됩니다.</p>
-          <p class="op-mt-16"><a class="op-btn op-btn--ghost"
-             href="#signup"
-             data-scroll-to="#signup">사전 등록하고 상담부터 시작하기</a></p>
+          <div class="fa-suggest__body">
+            <div class="fa-suggest__text">
+              <p class="fa-suggest__title"><span class="fa-suggest__for">뭐부터일지 모르겠어요</span></p>
+              <p class="fa-suggest__hint">괜찮아요. 무엇부터 볼지 고르는 것부터 같이 하면 됩니다.</p>
+              <p class="op-mt-16"><a class="op-btn op-btn--ghost"
+                 href="#signup"
+                 data-scroll-to="#signup">사전 등록하고 상담부터 시작하기</a></p>
+            </div>
+          </div>
         </div>
       </div>
       <p class="op-note fa-suggest__note op-center">성분 이름만 적어 둔 안내예요. 실제 추천은 상담에서 개인별로 달라집니다.</p>
