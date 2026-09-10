@@ -27,14 +27,17 @@ export const metadata: Metadata = {
     siteName: '온팜',
     title: TITLE,
     description: DESCRIPTION,
-    // export_nextjs.py 가 public/onpharm/ 으로 복사하는 면 A 히어로 소재
-    images: [{ url: '/onpharm/a01_hero.png', width: 1536, height: 864 }]
+    // 공유 미리보기 전용 카드. BI 매뉴얼북(2026.08)의 온팜약국 매장 목업 +
+    // 로고·슬로건을 얹어 만든 1200x630 이미지. 재생성은
+    // landing-page-generator-main/templates/onpharm/og_image.html 참고.
+    images: [{ url: 'https://onpharm.kr/og-image.jpg', width: 1200, height: 630,
+               alt: '온팜 - 들르면, 건강이 켜집니다' }]
   },
   twitter: {
     card: 'summary_large_image',
     title: TITLE,
     description: DESCRIPTION,
-    images: ['/onpharm/a01_hero.png']
+    images: ['https://onpharm.kr/og-image.jpg']
   }
 };
 

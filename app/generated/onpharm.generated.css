@@ -56,14 +56,10 @@
 .op-page *::before,
 .op-page *::after {
   box-sizing: border-box;
-}
-.op-page h1, .op-page h2, .op-page h3,
-.op-page h4, .op-page h5, .op-page h6,
-.op-page p, .op-page figure, .op-page blockquote,
-.op-page dl, .op-page dd {
+}.op-page :where(h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd) {
   margin: 0;
 }
-.op-page ul, .op-page ol {
+.op-page :where(ul, ol) {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1502,6 +1498,12 @@
 .fa-photoband > img {
   display: block; width: 100%; height: 100%; object-fit: cover;
 }
+/* 밴드는 4.3:1 인데 소재는 4:3 이라 cover 가 세로 가운데 31%만 남긴다.
+   a05 는 카운터 위에 놓인 소포장이 주인공이고, 카운터는 구도상 항상 화면
+   아래쪽에 앉는다 -> 기본 중앙 크롭이면 상자 윗면만 남고 잘린다.
+   크롭 기준선을 피사체 쪽(아래)으로 내린다. a08(거리 원경)은 중앙이 맞으므로
+   전역이 아니라 이 변형 클래스에만 건다. */
+.fa-photoband--low > img { object-position: 50% 76%; }
 
 /* --- 폰 목업 (순수 CSS/HTML) -------------------------------------------- */
 .fa-phone {
@@ -1592,6 +1594,10 @@
 .fa-bub--me .fa-bub__time { color: rgba(255, 255, 255, 0.72); }
 
 /* --- a02 고민 카드 ------------------------------------------------------ */
+/* 8칸 중 "선택됨" 칩이 붙은 카드 하나만 키가 커서, 그 카드가 낀 1행 전체가
+   2행보다 52px 높아지고 1행 나머지 카드 아래에 빈 공간이 남았다(그리드 기본
+   align stretch). 전 행을 같은 높이로 묶어 균일한 격자로 만든다. */
+.fa-concerns { grid-auto-rows: 1fr; }
 .fa-concern { padding: 26px 22px; }
 .fa-concern__ico {
   display: flex;
@@ -1724,7 +1730,10 @@
   letter-spacing: 0.10em;
   color: rgba(255, 255, 255, 0.62);
 }
-.fa-checks { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; height: 100%; padding: 8px 0; }
+/* space-between + height:100% 는 왼쪽 전담 한약사 카드(키 큰 요소) 높이에 맞춰
+   체크 4개를 양 끝으로 밀어 항목 사이가 143px 까지 벌어졌다. 리듬을 고정하고
+   묶음 전체를 세로 가운데로 둔다. */
+.fa-checks { display: flex; flex-direction: column; justify-content: center; gap: 34px; height: 100%; padding: 8px 0; }
 .fa-check { display: flex; align-items: flex-start; gap: 16px; }
 .fa-check__ico { flex: 0 0 auto; margin-top: 2px; }
 .fa-check__t {
@@ -1817,8 +1826,9 @@
   font-size: 17px;
   color: rgba(255, 255, 255, 0.60);
 }
+/* 0.42 는 어두운 폼에서 대비 3.0:1 로 WCAG AA(4.5:1) 미달이었다. */
 .fa-input::placeholder,
-.fa-textarea::placeholder { color: rgba(255, 255, 255, 0.42); }
+.fa-textarea::placeholder { color: rgba(255, 255, 255, 0.68); }
 /* 동의 항목은 테마의 .op-check 컴포넌트를 그대로 쓴다(미체크 시작 · :checked 로만 켜짐) */
 .fa-consents { display: grid; gap: 14px; margin-top: 30px; }
 
@@ -1942,6 +1952,35 @@
   .fa-hero-grid { grid-template-columns: 1fr; gap: 40px; }
   .fa-hero-phone { justify-content: flex-start; }
   .fa-topbar { padding-bottom: 32px; }
+
+  /* 히어로 사진 -> 상단 밴드.
+     2열이 1열로 접히면 히어로 박스가 768x1400 / 390x1504 처럼 세로로 길어진다.
+     16:9 소재를 그 박스에 cover 로 깔면 원본 가로의 15~40%만 남기고 1.6~1.7배
+     확대돼서 (a) 인물이 프레임 밖으로 통째로 잘려 나가고 (b) 확대분만큼 뭉갠다.
+     실측: 390px 에서 보이는 원본 구간이 x 656~880 (전체 1536 중 14.6%) 뿐이었다.
+     밴드로 바꾸면 축소 배율로 들어가므로 원본의 65~100%가 선명하게 남는다.
+     밴드 아래는 잉크 바탕으로 떨어뜨려 흰 글자(.op-veil-content) 대비를 지킨다. */
+  .fa-hero-photo { background: var(--op-ink); }
+  .fa-hero-bg { height: 380px; bottom: auto; }
+  .fa-hero-bg::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 34%;
+    background: linear-gradient(180deg, rgba(45, 45, 45, 0) 0%, #2D2D2D 100%);
+    z-index: 2;
+    pointer-events: none;
+  }
+  /* 베일도 세로로 바꾼다. 가로 그라디언트(--side)는 좁은 밴드에서 왼쪽만 어둡게
+     하고 오른쪽 글자를 밝은 사진 위에 남긴다.
+     위쪽을 가장 진하게 두는 이유: 로고와 아이브로우가 거기 얹힌다. BI 사용금지
+     규정상 로고는 사진 위에 직접 놓지 않고 단색 면 안에 있어야 하고, 오렌지
+     아이브로우도 밝은 크림 사진 위에서는 읽히지 않는다. */
+  .fa-hero-bg .op-veil--side {
+    background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0.82) 0%,
+      rgba(0, 0, 0, 0.72) 38%,
+      rgba(0, 0, 0, 0.62) 100%);
+  }
   .fa-price-grid { grid-template-columns: 1fr; }
   .fa-idcard { padding: 28px; }
   .fa-form { padding: 32px; }
@@ -1951,6 +1990,7 @@
 @media (max-width: 767px) {
   .fa-phone { width: 100%; max-width: 348px; }
   .fa-hero-phone { justify-content: center; }
+  .fa-hero-bg { height: 300px; }
   .fa-steps::before { display: none; }
   .fa-how-footer { flex-direction: column; align-items: flex-start; gap: 14px; padding: 24px; }
   .fa-form { padding: 22px; }
@@ -2088,7 +2128,9 @@
 .fb-node__desc {
   margin-top: 9px; font-size: 14px; line-height: 1.6; color: var(--op-gray);
 }
-.fb-node--on .fb-node__desc { color: rgba(255, 255, 255, 0.90); }
+/* 오렌지 카드 위 14px 본문은 알파를 먹이면 대비가 2.52:1 까지 떨어진다.
+   브랜드 오렌지 위 흰 글자의 상한(2.89:1)까지는 올려 둔다. */
+.fb-node--on .fb-node__desc { color: #FFFFFF; }
 .fb-arrow {
   display: flex; align-items: center; justify-content: center;
   flex: 0 0 auto; width: 12px;
@@ -2119,7 +2161,8 @@
   border: 1.5px solid rgba(255, 255, 255, 0.18);
   border-radius: 12px;
 }
-.fb-input::placeholder, .fb-textarea::placeholder { color: rgba(255, 255, 255, 0.36); }
+/* 0.36 은 어두운 면에서 대비 2.7:1 로 WCAG AA(4.5:1) 미달이었다. */
+.fb-input::placeholder, .fb-textarea::placeholder { color: rgba(255, 255, 255, 0.66); }
 /* 호버만 면 B 가 잡는다. 포커스 링은 테마의 .op-page input:focus-visible 이
    이미 얹어 준다(어두운 면에서는 흰 링). 여기서 덮으면 면 A 와 어긋난다. */
 .fb-input:hover, .fb-select:hover, .fb-textarea:hover {
@@ -2144,4 +2187,34 @@
   border-top: 1px solid rgba(255, 255, 255, 0.16);
   font-size: 17px; font-weight: 700; letter-spacing: 0;
   color: rgba(255, 255, 255, 0.80);
+}
+
+/* =========================================================================
+   반응형 (면 B 전용 · 1200px 캡처에는 영향 없음)
+   테마 기본(≤1023 / ≤767) 위에 면 B 컴포넌트만 얹는다. 클래스 스코프만 쓴다.
+   ========================================================================= */
+@media (max-width: 1023px) {
+  /* 5칸이 한 줄에 안 들어가 2~3칸씩 접히는 구간(대략 768~1023px).
+     어디서 접힐지 알 수 없으므로 줄 끝에 남는 셰브론은 가리키는 대상이 없다.
+     실측(768px): 1행 끝 x 732~744 에 화살표가 홀로 떠 있었다. */
+  .fb-arrow { display: none; }
+  /* 화살표를 빼면 기본 basis(168px)로는 4+1 로 접혀 마지막 카드만 전폭이 된다.
+     3+2 로 고정해 카드 폭을 균일하게 맞춘다(grow 0 이라 남는 줄이 늘어나지 않는다). */
+  .fb-node { flex: 0 1 calc(33.333% - 6px); }
+}
+
+@media (max-width: 767px) {
+  /* b03 플로우: flex-direction 이 row 인 채로 wrap 만 되니, 카드가 한 줄을
+     통째로 차지하면서 사이의 셰브론(›)이 카드 열 밖 우측 여백으로 밀려났다.
+     실측(390px): 카드는 x 20~350 인데 화살표 4개가 전부 x 358~370 에 세로로
+     쌓여 있었고, 여전히 오른쪽을 가리켜 흐름을 뜻하지도 못했다.
+     세로 스택으로 바꾸고 셰브론을 아래 방향으로 돌린다.
+     (박스 가운데에 글리프가 정렬돼 있으므로 박스를 돌려도 글리프 위치는 그대로다) */
+  .fb-flow { flex-direction: column; gap: 6px; }
+  .fb-node { flex: 0 0 auto; width: 100%; }
+  .fb-arrow { display: flex; width: 100%; height: 26px; transform: rotate(90deg); }
+
+  .fb-hero-head { margin-bottom: 32px; gap: 10px; }
+  .fb-value { padding: 30px 24px 28px; }
+  .fb-sign { margin-top: 40px; padding-top: 26px; font-size: 16px; }
 }

@@ -86,7 +86,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
       <p class="op-lead op-mt-16 op-measure--center">하나만 골라 주셔도 괜찮아요. 전담 한약사가 거기서부터 같이 봅니다.</p>
     </div>
 
-    <div class="op-grid-4 op-mt-48">
+    <div class="op-grid-4 fa-concerns op-mt-48">
       <div class="op-card op-card--pad fa-concern fa-concern--on">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
      stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
@@ -423,7 +423,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
         </div>
       </div>
     </div>
-    <div class="fa-photoband op-mt-48"><img src="/onpharm/a05_pharmacist.jpg" alt="" width="1364" height="1023"></div>
+    <div class="fa-photoband fa-photoband--low op-mt-48"><img src="/onpharm/a05_pharmacist.jpg" alt="" width="1364" height="1023"></div>
   </div>
 </section>
 
