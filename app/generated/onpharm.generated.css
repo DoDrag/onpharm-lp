@@ -100,7 +100,12 @@
    layout
    ========================================================================= */
 .op-page {
-  width: var(--op-page-w);
+  /* 풀블리드: 섹션 배경은 화면 끝까지, 글 컬럼은 .op-inner 가 가운데로 잡는다.
+     예전엔 여기가 1200px 고정이라 넓은 화면에서 양옆에 흰 여백이 남았다.
+     캡처는 뷰포트 1200px 에서 도므로 100% = 1200 -> PNG 는 종전과 동일하다.
+     --op-page-w 는 인쇄/캡처 기준 논리 폭으로만 남는다. */
+  width: 100%;
+  max-width: none;
   margin: 0 auto;
   background: var(--op-bg);
   color: var(--op-ink);
@@ -138,6 +143,12 @@
   position: relative;
 }
 .op-inner--narrow { max-width: 820px; }
+
+/* 1400px 이상에서는 본문 컬럼을 한 단 넓힌다 (풀블리드 배경 대비 균형) */
+@media (min-width: 1400px) {
+  .op-inner { max-width: 1200px; }
+  .op-inner--wide { max-width: 1320px; }
+}
 .op-inner--wide   { max-width: 1140px; }
 
 /* =========================================================================
