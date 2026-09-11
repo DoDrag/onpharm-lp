@@ -29,7 +29,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
       <div>
         <span class="op-eyebrow">들르면, 건강이 켜집니다</span>
         <h1 class="op-h1">영양제, 검색만 하다<br><span class="op-accent">한 달</span>이 지났다면</h1>
-        <p class="op-lead op-mt-24 op-measure">장바구니에만 담아 두고 결국 못 고르셨다면, 고민 한 줄만 남겨 주세요. 동네 조합 약국의 전담 한약사가 직접 읽고 답해드려요.</p>
+        <p class="op-lead op-mt-24 op-measure">장바구니에만 담아 두고 결국 못 고르셨다면, 고민 한 줄만 남겨 주세요. 동네 조합 약국의 전담 상담사가 직접 읽고 답해드려요.</p>
 
         <div class="fa-hero-cta op-mt-40">
           <a class="op-btn op-btn--lg" href="#signup">1분 상담 신청</a>          <a class="op-btn op-btn--ghost op-btn--kakao op-btn--lg"
@@ -53,20 +53,20 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
           <div class="fa-phone__top"><span class="fa-phone__notch"></span></div>
           <div class="fa-phone__head">
             <span class="op-mark op-mark--sm" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 153 50" role="img" aria-label="ONPHARM"><g fill="currentColor"><path d="M128.05 0.98L23.01 0.98C10.17 0.98 -0.28 11.43 -0.28 24.27C-0.28 37.11 10.17 47.56 23.01 47.56L128.05 47.56C140.89 47.56 151.34 37.11 151.34 24.27C151.34 11.43 140.89 0.98 128.05 0.98M128.05 36.98L23.01 36.98C16 36.98 10.3 31.28 10.3 24.27C10.3 17.26 16 11.56 23.01 11.56L128.05 11.56C135.06 11.56 140.77 17.26 140.77 24.27C140.77 31.28 135.06 36.98 128.05 36.98 Z"/><path d="M24.2 16.99C20.19 16.99 16.92 20.26 16.92 24.27C16.92 28.29 20.19 31.55 24.2 31.55C28.22 31.55 31.48 28.29 31.48 24.27C31.48 20.26 28.22 16.99 24.2 16.99 Z"/></g></svg></span>
-            <span class="fa-phone__title">온팜 상담<em class="fa-phone__sub">전담 한약사와 1:1</em></span>
+            <span class="fa-phone__title">온팜 상담<em class="fa-phone__sub">전담 상담사와 1:1</em></span>
           </div>
           <div class="fa-phone__screen op-chat" data-chat-seq>
             <div class="fa-bub op-chat__bubble fa-bub--me" style="--i:0">
               <span class="fa-bub__who">나</span>요즘 오후만 되면 축 처져요. 영양제는 많은데 뭐부터 먹어야 할지 모르겠어요.<span class="fa-bub__time">오후 9:12</span>
             </div>
             <div class="fa-bub op-chat__bubble fa-bub--pro" style="--i:1">
-              <span class="fa-bub__who">전담 한약사</span>안녕하세요, 온팜에서 담당하게 된 한약사입니다. 하루 식사 리듬부터 같이 볼게요. 지금 챙겨 드시는 게 있으면 알려 주세요.<span class="fa-bub__time">오후 9:40</span>
+              <span class="fa-bub__who">전담 상담사</span>안녕하세요, 온팜에서 담당하게 된 상담사입니다. 하루 식사 리듬부터 같이 볼게요. 지금 챙겨 드시는 게 있으면 알려 주세요.<span class="fa-bub__time">오후 9:40</span>
             </div>
             <div class="fa-bub op-chat__bubble fa-bub--pro" style="--i:2">
               <span class="fa-bub__who">온팜</span>픽업 쿠폰이 발급됐어요. 연수구 참여 약국에서 6일 카드를 받아 가세요.<span class="fa-bub__time">오후 9:41</span>
             </div>
             <div class="fa-bub op-chat__bubble fa-bub--pro" style="--i:3">
-              <span class="fa-bub__who">전담 한약사</span>6일치 다 드셨죠? 이번 주는 어땠어요? 이어서 볼지 같이 정해요.<span class="fa-bub__time">6일 뒤</span>
+              <span class="fa-bub__who">전담 상담사</span>6일치 다 드셨죠? 이번 주는 어땠어요? 이어서 볼지 같이 정해요.<span class="fa-bub__time">6일 뒤</span>
             </div>
           </div>
         </div>
@@ -81,11 +81,11 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
     <div class="op-center">
       <span class="op-eyebrow">고민 고르기</span>
       <h2 class="op-h2">요즘 뭐가 제일 신경 쓰이세요?</h2>
-      <p class="op-lead op-mt-16 op-measure--center">하나만 골라 주셔도 괜찮아요. 전담 한약사가 거기서부터 같이 봅니다.</p>
-    </div>
-
-    <div class="op-grid-4 fa-concerns op-mt-48" role="group" aria-label="고민 선택">
-      <button type="button" class="op-card op-card--pad fa-concern"
+      <p class="op-lead op-mt-16 op-measure--center">하나만 골라 주셔도 괜찮아요. 전담 상담사가 거기서부터 같이 봅니다.</p>
+    </div><div class="op-grid-4 fa-concerns op-mt-48" role="group" aria-label="고민 선택"
+         data-scrub="0.09" data-scrub-from="0.95" data-scrub-to="0.55">
+      <button type="button" class="op-card op-card--pad fa-concern op-anim-rise op-anim-rise--sm"
+              style="--op-d:0"
               data-concern="fatigue"
               aria-pressed="true"              aria-controls="a02-panel-fatigue">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
@@ -98,7 +98,8 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
         <span class="op-caption fa-concern__desc">오후만 되면 축 처져요</span>
         <span class="op-chip op-chip--on fa-concern__chip">선택됨</span>
       </button>
-      <button type="button" class="op-card op-card--pad fa-concern"
+      <button type="button" class="op-card op-card--pad fa-concern op-anim-rise op-anim-rise--sm"
+              style="--op-d:1"
               data-concern="gut"
               aria-pressed="false"              aria-controls="a02-panel-gut">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
@@ -111,7 +112,8 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
         <span class="op-caption fa-concern__desc">매일이 들쭉날쭉해요</span>
         <span class="op-chip op-chip--on fa-concern__chip">선택됨</span>
       </button>
-      <button type="button" class="op-card op-card--pad fa-concern"
+      <button type="button" class="op-card op-card--pad fa-concern op-anim-rise op-anim-rise--sm"
+              style="--op-d:2"
               data-concern="sleep"
               aria-pressed="false"              aria-controls="a02-panel-sleep">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
@@ -122,7 +124,8 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
         <span class="op-caption fa-concern__desc">누워도 한참 뒤척여요</span>
         <span class="op-chip op-chip--on fa-concern__chip">선택됨</span>
       </button>
-      <button type="button" class="op-card op-card--pad fa-concern"
+      <button type="button" class="op-card op-card--pad fa-concern op-anim-rise op-anim-rise--sm"
+              style="--op-d:3"
               data-concern="skin"
               aria-pressed="false"              aria-controls="a02-panel-skin">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
@@ -134,7 +137,8 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
         <span class="op-caption fa-concern__desc">푸석한 느낌이 오래가요</span>
         <span class="op-chip op-chip--on fa-concern__chip">선택됨</span>
       </button>
-      <button type="button" class="op-card op-card--pad fa-concern"
+      <button type="button" class="op-card op-card--pad fa-concern op-anim-rise op-anim-rise--sm"
+              style="--op-d:0"
               data-concern="women"
               aria-pressed="false"              aria-controls="a02-panel-women">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
@@ -147,7 +151,8 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
         <span class="op-caption fa-concern__desc">달마다 차이가 커요</span>
         <span class="op-chip op-chip--on fa-concern__chip">선택됨</span>
       </button>
-      <button type="button" class="op-card op-card--pad fa-concern"
+      <button type="button" class="op-card op-card--pad fa-concern op-anim-rise op-anim-rise--sm"
+              style="--op-d:1"
               data-concern="eye"
               aria-pressed="false"              aria-controls="a02-panel-eye">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
@@ -159,7 +164,8 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
         <span class="op-caption fa-concern__desc">화면을 오래 보면 뻑뻑해요</span>
         <span class="op-chip op-chip--on fa-concern__chip">선택됨</span>
       </button>
-      <button type="button" class="op-card op-card--pad fa-concern"
+      <button type="button" class="op-card op-card--pad fa-concern op-anim-rise op-anim-rise--sm"
+              style="--op-d:2"
               data-concern="immune"
               aria-pressed="false"              aria-controls="a02-panel-immune">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
@@ -171,7 +177,8 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
         <span class="op-caption fa-concern__desc">환절기마다 힘이 빠져요</span>
         <span class="op-chip op-chip--on fa-concern__chip">선택됨</span>
       </button>
-      <button type="button" class="op-card op-card--pad fa-concern fa-concern--go"
+      <button type="button" class="op-card op-card--pad fa-concern fa-concern--go op-anim-rise op-anim-rise--sm"
+              style="--op-d:3"
               data-concern="unsure"
               data-scroll-to="#signup">
         <span class="fa-concern__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" fill="none"
@@ -187,7 +194,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
     </div>
 
     <div class="fa-suggest op-mt-40" data-suggest>
-      <p class="fa-suggest__lead op-center">고민을 고르면, 전담 한약사와 상담에서 자주 같이 살펴보는 성분을 이름만 보여드려요.</p>
+      <p class="fa-suggest__lead op-center">고민을 고르면, 전담 상담사와 상담에서 자주 같이 살펴보는 성분을 이름만 보여드려요.</p>
       <div class="fa-suggest__panels">
         <div class="fa-suggest__panel fa-suggest__panel--media is-on"
              id="a02-panel-fatigue" data-for="fatigue"
@@ -329,53 +336,32 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
       <p class="op-note fa-suggest__note op-center">성분 이름만 적어 둔 안내예요. 실제 추천은 상담에서 개인별로 달라집니다.</p>
     </div>
 
-    <p class="op-note op-mt-32 op-center">여러 개를 골라도 괜찮아요. 고른 내용은 전담 한약사에게만 전달됩니다.</p>
+    <p class="op-note op-mt-32 op-center">여러 개를 골라도 괜찮아요. 고른 내용은 전담 상담사에게만 전달됩니다.</p>
   </div>
 </section>
 
 <section class="op-sec op-sec--tint" data-section="a02b_products" data-reveal>
   <div class="op-inner">
     <div class="op-center">
-      <span class="op-eyebrow">제품 소개</span>
-      <h2 class="op-h2">온팜은 이렇게 생겼어요</h2>
-      <p class="op-lead op-mt-16 op-measure--center">상담에서 정한 조합을 6일치 한 장에 담아 둡니다. 이어서 볼 때는 카드를 여러 장 묶은 30일 박스로 고르시면 돼요. 동네 조합 약국에 들러 받아 가시면 됩니다.</p>
+      <span class="op-eyebrow">판매 방식</span>
+      <h2 class="op-h2">온팜은 이렇게 드려요</h2>
+      <p class="op-lead op-mt-16 op-measure--center">상담에서 정한 조합을 소포장 한 장에 담아 둡니다. 동네 조합 약국에 들러 받아 가시면 됩니다.</p>
     </div>
 
     <div class="op-grid-2 op-grid--loose op-grid--mid fa-product op-mt-64">
-      <div class="fa-product__shot">
-        <span class="fa-ptp" aria-hidden="true">
-<svg viewBox="0 0 200 132" xmlns="http://www.w3.org/2000/svg">
-  <rect x="16" y="4" width="180" height="104" rx="18" fill="#F2F2F2" stroke="#EAEAEA" stroke-width="1.5"/>
-  <rect x="11" y="10" width="180" height="104" rx="18" fill="#F9F8F6" stroke="#EAEAEA" stroke-width="1.5"/>
-  <rect x="6" y="16" width="180" height="104" rx="18" fill="#F9F8F6" stroke="#EAEAEA" stroke-width="1.5"/>
-  <rect x="22" y="34" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-  <rect x="76" y="34" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-  <rect x="130" y="34" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-  <rect x="22" y="74" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-  <rect x="76" y="74" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-  <rect x="130" y="74" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-</svg>
-</span>
+      <div class="fa-product__shot fa-product__shot--photo">
+        <div class="op-media op-media--4x3">
+          <img src="/onpharm/a02b_handover.jpg" alt="" width="1364" height="1023">
+        </div>
       </div>
       <div>
         <ul class="op-list op-list--check fa-product__points">
-          <li>하루 한 칸씩 6일, 뜯어서 챙기는 카드형 소포장</li>
-          <li>무엇을 담을지는 전담 한약사와 상담에서 정합니다</li>
-          <li>동네 조합 약국에서 직접 받아 가는 픽업 방식</li>
+          <li>무엇을 담을지는 전담 상담사와 상담에서 정합니다</li>
+          <li>하루 한 칸씩 6일, 뜯어서 챙기는 카드형 소포장으로 준비해 둡니다</li>
+          <li>온라인 판매는 하지 않아요. 동네 조합 약국에서 직접 받아 가는 픽업 방식입니다</li>
+          <li>다 드실 때쯤 전담 상담사가 먼저 여쭤봅니다</li>
         </ul>
-        <p class="op-note fa-product__caption">카드와 패키지 형태를 보여드리는 예시예요. 실제 구성은 상담에서 정합니다.</p>
+        <p class="op-note fa-product__caption">전달 방식을 보여드리는 예시예요. 실제 구성은 상담에서 정합니다.</p>
       </div>
     </div>    <div class="op-grid-2 op-grid--top op-mt-48">
       <div>
@@ -390,7 +376,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
           <img src="/onpharm/a02b_lineup.jpg" alt=""
                width="1536" height="864">
         </div>
-        <p class="op-caption op-mt-12 op-center">박스 패키지 예시</p>
+        <p class="op-caption op-mt-12 op-center">받아 가시는 형태 예시</p>
       </div>
     </div>
   </div>
@@ -402,25 +388,24 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
       <span class="op-eyebrow">이용 순서</span>
       <h2 class="op-h2">이렇게 진행돼요</h2>
       <p class="op-lead op-mt-16 op-measure--center">앱을 새로 깔 필요도, 어려운 검사도 없어요. 한 줄에서 시작합니다.</p>
-    </div>
-
-    <div class="fa-steps op-grid-4 op-grid--top op-mt-64">
-      <div class="op-step">
+    </div><div class="fa-steps op-grid-4 op-grid--top op-mt-64"data-scrub="0.1" data-scrub-from="0.92" data-scrub-to="0.62"
+         data-scrub-seq="4">
+      <div class="op-step op-anim-rise" data-scrub-part>
         <span class="op-step__num">1</span>
         <h3 class="op-step__title">고민 적기</h3>
         <p class="op-step__desc">카카오톡으로 한 줄만 남기면 끝. 1분이면 충분해요.</p>
       </div>
-      <div class="op-step">
+      <div class="op-step op-anim-rise" data-scrub-part>
         <span class="op-step__num">2</span>
-        <h3 class="op-step__title">전담 한약사 답변</h3>
-        <p class="op-step__desc">24시간 안에 담당 한약사가 직접 읽고 답을 드려요.</p>
+        <h3 class="op-step__title">전담 상담사 답변</h3>
+        <p class="op-step__desc">24시간 안에 담당 상담사가 직접 읽고 답을 드려요.</p>
       </div>
-      <div class="op-step">
+      <div class="op-step op-anim-rise" data-scrub-part>
         <span class="op-step__num">3</span>
         <h3 class="op-step__title">픽업 쿠폰 도착</h3>
         <p class="op-step__desc">무엇부터 먹어볼지 정하면 픽업 쿠폰이 발급돼요.</p>
       </div>
-      <div class="op-step">
+      <div class="op-step op-anim-rise" data-scrub-part>
         <span class="op-step__num">4</span>
         <h3 class="op-step__title">동네 약국에서 받기</h3>
         <p class="op-step__desc">가까운 조합 약국에 들러 카드를 받아 가세요.</p>
@@ -431,152 +416,17 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
       <span class="op-badge">6일 뒤</span>
       <div>
         <p class="fa-how-footer__t">다 먹을 때쯤 — 어땠어요? 한 통</p>
-        <p class="op-caption op-mt-8">6일 뒤 전담 한약사가 먼저 여쭤봅니다. 이어서 볼지 같이 정하면 돼요.</p>
+        <p class="op-caption op-mt-8">6일 뒤 전담 상담사가 먼저 여쭤봅니다. 이어서 볼지 같이 정하면 돼요.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="op-sec" data-section="a04_cards" data-reveal>
-  <div class="op-inner">
-    <div class="op-center">
-      <span class="op-eyebrow">소포장 카드</span>
-      <h2 class="op-h2">6일치부터, 부담 없이</h2>
-      <p class="op-lead op-mt-16 op-measure--center">한 통을 다 채우기 전에 6일만 먼저 먹어보는 소포장 카드예요.</p>
-    </div>
-
-    <div class="op-grid-3 fa-price-grid op-mt-64">
-      <div class="op-card op-card--pad-lg fa-price-card">
-        <div class="fa-card-top">
-          <span class="fa-ptp" aria-hidden="true">
-<svg viewBox="0 0 200 132" xmlns="http://www.w3.org/2000/svg">
-  <rect x="6" y="16" width="180" height="104" rx="18" fill="#F9F8F6" stroke="#EAEAEA" stroke-width="1.5"/>
-  <rect x="22" y="34" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-  <rect x="76" y="34" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-  <rect x="130" y="34" width="44" height="28" rx="14"
-        fill="#FFFFFF"
-        stroke="#EAEAEA" stroke-width="1.5"/>
-  <rect x="22" y="74" width="44" height="28" rx="14"
-        fill="#FFFFFF"
-        stroke="#EAEAEA" stroke-width="1.5"/>
-  <rect x="76" y="74" width="44" height="28" rx="14"
-        fill="#FFFFFF"
-        stroke="#EAEAEA" stroke-width="1.5"/>
-  <rect x="130" y="74" width="44" height="28" rx="14"
-        fill="#FFFFFF"
-        stroke="#EAEAEA" stroke-width="1.5"/>
-</svg>
-</span>
-          <p class="fa-card-name">베이식 카드</p>
-          <div class="op-price">
-            <span class="op-price__num">1,500</span>
-            <span class="op-price__unit">원</span>
-            <span class="op-price__meta">6일치</span>
-          </div>
-          <p class="fa-card-desc">처음 시작하는 분을 위한 가장 가벼운 한 장.</p>
-        </div>
-        <ul class="op-list op-list--check fa-card-points">
-          <li>6일 소포장 한 장</li>
-          <li>동네 약국 픽업</li>
-          <li>전담 한약사 배정</li>
-        </ul>
-      </div>
-      <div class="op-card op-card--pad-lg fa-price-card op-card--on">
-        <span class="op-badge op-badge--solid fa-card-badge">가장 많이 찾아요</span>
-        <div class="fa-card-top">
-          <span class="fa-ptp" aria-hidden="true">
-<svg viewBox="0 0 200 132" xmlns="http://www.w3.org/2000/svg">
-  <rect x="6" y="16" width="180" height="104" rx="18" fill="#F9F8F6" stroke="#EAEAEA" stroke-width="1.5"/>
-  <rect x="22" y="34" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-  <rect x="76" y="34" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-  <rect x="130" y="34" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-  <rect x="22" y="74" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-  <rect x="76" y="74" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-  <rect x="130" y="74" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-</svg>
-</span>
-          <p class="fa-card-name">유산균 카드</p>
-          <div class="op-price op-price--accent">
-            <span class="op-price__num">3,900</span>
-            <span class="op-price__unit">원</span>
-            <span class="op-price__meta">6일치</span>
-          </div>
-          <p class="fa-card-desc">장 컨디션이 신경 쓰일 때 가장 많이 고르는 카드예요.</p>
-        </div>
-        <ul class="op-list op-list--check fa-card-points">
-          <li>6일 소포장 한 장</li>
-          <li>전담 한약사 코멘트 동봉</li>
-          <li>6일 뒤 확인 메시지</li>
-        </ul>
-      </div>
-      <div class="op-card op-card--pad-lg fa-price-card">
-        <div class="fa-card-top">
-          <span class="fa-ptp" aria-hidden="true">
-<svg viewBox="0 0 200 132" xmlns="http://www.w3.org/2000/svg">
-  <rect x="16" y="4" width="180" height="104" rx="18" fill="#F2F2F2" stroke="#EAEAEA" stroke-width="1.5"/>
-  <rect x="11" y="10" width="180" height="104" rx="18" fill="#F9F8F6" stroke="#EAEAEA" stroke-width="1.5"/>
-  <rect x="6" y="16" width="180" height="104" rx="18" fill="#F9F8F6" stroke="#EAEAEA" stroke-width="1.5"/>
-  <rect x="22" y="34" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-  <rect x="76" y="34" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-  <rect x="130" y="34" width="44" height="28" rx="14"
-        fill="#FF6900"
-        stroke="#FF6900" stroke-width="1.5"/>
-  <rect x="22" y="74" width="44" height="28" rx="14"
-        fill="#FFFFFF"
-        stroke="#EAEAEA" stroke-width="1.5"/>
-  <rect x="76" y="74" width="44" height="28" rx="14"
-        fill="#FFFFFF"
-        stroke="#EAEAEA" stroke-width="1.5"/>
-  <rect x="130" y="74" width="44" height="28" rx="14"
-        fill="#FFFFFF"
-        stroke="#EAEAEA" stroke-width="1.5"/>
-</svg>
-</span>
-          <p class="fa-card-name">30일 박스</p>
-          <div class="op-price">
-            <span class="op-price__num">9,900</span>
-            <span class="op-price__unit">원</span>
-            <span class="op-price__meta">카드 5장 묶음</span>
-          </div>
-          <p class="fa-card-desc">리듬이 잡히면 한 달치를 한 번에 받아 가세요.</p>
-        </div>
-        <ul class="op-list op-list--check fa-card-points">
-          <li>카드 5장 묶음</li>
-          <li>동네 약국 픽업</li>
-          <li>사전 등록하신 분은 4,900원</li>
-        </ul>
-      </div>
-    </div>
-
-    <p class="op-note op-mt-40 op-center">표시된 가격은 조합 약국에서 직접 받아 가시는 픽업 기준이에요. 온라인 판매는 하지 않습니다.</p>
   </div>
 </section>
 
 <section class="op-sec op-sec--tint" data-section="a05_pharmacist" data-reveal>
   <div class="op-inner">
     <div class="op-center">
-      <span class="op-eyebrow">전담 한약사</span>
-      <h2 class="op-h2">내 이름을 아는 <span class="op-accent">한약사</span>가 생긴다</h2>
+      <span class="op-eyebrow">전담 상담사</span>
+      <h2 class="op-h2">내 이름을 아는 <span class="op-accent">상담사</span>가 생긴다</h2>
       <p class="op-lead op-mt-16 op-measure--center">매번 다른 사람에게 처음부터 다시 설명하지 않아도 돼요.</p>
     </div>
 
@@ -584,17 +434,19 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
       <div>
         <div class="fa-idcard">
           <div class="fa-idcard__head">
-            <span class="fa-idcard__label">전담 한약사 카드</span>
+            <span class="fa-idcard__label">전담 상담사 카드</span>
             <span class="op-badge op-badge--gray">예시</span>
           </div>
           <div class="fa-idcard__top">
-            <span class="fa-idcard__avatar">온</span>
+            <span class="fa-idcard__avatar fa-idcard__avatar--photo">
+              <img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480">
+            </span>
             <span>
-              <span class="fa-idcard__name">김O연 한약사</span>
-              <span class="fa-idcard__role">온팜 전담 한약사</span>
+              <span class="fa-idcard__name">김O연 상담사</span>
+              <span class="fa-idcard__role">온팜 전담 상담사</span>
             </span>
           </div>
-          <div class="op-kv"><span class="op-kv__k">이름</span><span class="op-kv__v">김O연 한약사</span></div>
+          <div class="op-kv"><span class="op-kv__k">이름</span><span class="op-kv__v">김O연 상담사</span></div>
           <div class="op-kv"><span class="op-kv__k">약국</span><span class="op-kv__v">연수구 참여 약국</span></div>
           <div class="op-kv"><span class="op-kv__k">배정일</span><span class="op-kv__v">2026-03-04</span></div>
           <div class="op-kv"><span class="op-kv__k">상담 이력</span><span class="op-kv__v">3회</span></div>
@@ -650,7 +502,8 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
         </div>
       </div>
     </div>
-    <div class="fa-photoband fa-photoband--low op-mt-48"><img src="/onpharm/a05_pharmacist.jpg" alt="" width="1364" height="1023"></div>
+<div class="fa-photoband fa-photoband--face op-mt-48"
+         data-scrub="0.12" data-scrub-from="1" data-scrub-to="0.25"><img class="op-anim-zoom" src="/onpharm/a05_counselor.jpg" alt="" width="1364" height="1023"></div>
   </div>
 </section>
 
@@ -678,7 +531,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
               <div class="fa-ex__a">
                 <div class="fa-ex__who">
                   <span class="fa-ex__avatar">온팜</span>
-                  <span class="fa-ex__name">전담 한약사 답변</span>
+                  <span class="fa-ex__name">전담 상담사 답변</span>
                 </div>
                 <p class="fa-ex__p">먼저 하루 식사 리듬부터 여쭤볼게요. 아침을 거르는 날이 많은지, 커피는 하루 몇 잔인지, 저녁이 늦는 편인지요. 같은 제품이라도 리듬이 흔들리면 몸이 받는 느낌이 많이 달라집니다.</p>
                 <p class="fa-ex__p">말씀만 들어 보면 저녁이 늦고 주말에 리듬이 크게 바뀌는 편으로 보여요. 그럴 때는 새로 무언가를 더하기 전에, 물 마시는 양과 식이섬유가 들어간 한 끼를 먼저 챙겨 보시길 권해요.</p>
@@ -702,7 +555,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
               <div class="fa-ex__a">
                 <div class="fa-ex__who">
                   <span class="fa-ex__avatar">온팜</span>
-                  <span class="fa-ex__name">전담 한약사 답변</span>
+                  <span class="fa-ex__name">전담 상담사 답변</span>
                 </div>
                 <p class="fa-ex__p">야근이 이어지면 잠자리에 드는 시각 자체가 밀리기 쉬워요. 우선 한 주만 잠드는 시각과 마지막 커피 시각을 적어 봐 주세요. 이것만으로 보이는 게 꽤 많습니다.</p>
                 <p class="fa-ex__p">화면을 늦게까지 보신다면, 자기 전 한 시간은 조명을 낮추는 쪽을 먼저 권해 드려요. 무엇을 드시는지보다 이쪽을 먼저 보는 편이 순서상 맞습니다.</p>
@@ -822,7 +675,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
                  name="entry.2142923554" data-field="consent_privacy"
                  value="동의합니다" required>
           <span class="op-check__box" aria-hidden="true"></span>
-          <span class="op-check__text">[필수] 개인정보 수집·이용에 동의합니다. 수집 항목: 연령대, 동네, 연락처 / 목적: 전담 한약사 배정과 안내 / 보유 기간: 동의를 철회하실 때까지.</span>
+          <span class="op-check__text">[필수] 개인정보 수집·이용에 동의합니다. 수집 항목: 연령대, 동네, 연락처 / 목적: 전담 상담사 배정과 안내 / 보유 기간: 동의를 철회하실 때까지.</span>
         </label>
         <label class="op-check" for="a07-consent-1">
           <input class="op-check__input" type="checkbox" id="a07-consent-1"
@@ -907,7 +760,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
         </details>
         <details class="op-faq__item" open>
           <summary class="op-faq__q">누가 답변하나요?</summary>
-          <div class="op-faq__a">면허를 가진 한약사가 직접 읽고 답합니다. 한 번 배정되면 같은 한약사가 계속 이어서 봐요.</div>
+          <div class="op-faq__a">면허를 가진 상담사가 직접 읽고 답합니다. 한 번 배정되면 같은 상담사가 계속 이어서 봐요.</div>
         </details>
         <details class="op-faq__item" open>
           <summary class="op-faq__q">카드는 어디서 받나요?</summary>
@@ -915,22 +768,20 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
         </details>
         <details class="op-faq__item" open>
           <summary class="op-faq__q">지금 먹는 게 있는데 같이 먹어도 되나요?</summary>
-          <div class="op-faq__a">지금 챙겨 드시는 것을 알려 주시면 전담 한약사가 함께 보고 안내드려요. 병원에서 받은 약을 드시고 있다면 그 내용도 꼭 같이 적어 주세요.</div>
+          <div class="op-faq__a">지금 챙겨 드시는 것을 알려 주시면 전담 상담사가 함께 보고 안내드려요. 병원에서 받은 약을 드시고 있다면 그 내용도 꼭 같이 적어 주세요.</div>
         </details>
         <details class="op-faq__item" open>
           <summary class="op-faq__q">개인정보는 어떻게 관리되나요?</summary>
-          <div class="op-faq__a">전담 한약사 배정과 안내에만 씁니다. 건강 관련 내용은 민감정보로 따로 동의를 받고, 동의를 철회하시면 지웁니다.</div>
+          <div class="op-faq__a">전담 상담사 배정과 안내에만 씁니다. 건강 관련 내용은 민감정보로 따로 동의를 받고, 동의를 철회하시면 지웁니다.</div>
         </details>
         <details class="op-faq__item" open>
           <summary class="op-faq__q">약국이 우리 동네에 없으면요?</summary>
           <div class="op-faq__a">사전 등록에 동네를 남겨 주세요. 가까운 곳에 조합 약국이 열리면 가장 먼저 알려드릴게요.</div>
         </details>
       </div>
-    </div>
-
-    <div class="fa-closing">
-      <span class="op-logo"><span class="op-logotype " role="img" aria-label="온팜"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 363 50" role="img" aria-label="ONPHARM"><g fill="currentColor"><path d="M128.05 0.98L23.01 0.98C10.17 0.98 -0.28 11.43 -0.28 24.27C-0.28 37.11 10.17 47.56 23.01 47.56L128.05 47.56C140.89 47.56 151.34 37.11 151.34 24.27C151.34 11.43 140.89 0.98 128.05 0.98M128.05 36.98L23.01 36.98C16 36.98 10.3 31.28 10.3 24.27C10.3 17.26 16 11.56 23.01 11.56L128.05 11.56C135.06 11.56 140.77 17.26 140.77 24.27C140.77 31.28 135.06 36.98 128.05 36.98 Z"/><path d="M24.2 16.99C20.19 16.99 16.92 20.26 16.92 24.27C16.92 28.29 20.19 31.55 24.2 31.55C28.22 31.55 31.48 28.29 31.48 24.27C31.48 20.26 28.22 16.99 24.2 16.99 Z"/><path d="M239.89 17.19L235.32 17.19L235.32 13.64C235.32 10.32 232.63 7.63 229.31 7.63L239.89 7.63L239.89 1.79L206.88 1.79L206.88 7.63L211.61 7.63L211.61 17.19L206.88 17.19L206.88 23.04L239.89 23.04L239.89 17.19M225.82 17.19L221.1 17.19L221.1 13.64C221.1 10.32 218.41 7.63 215.09 7.63L225.82 7.63L225.82 17.19 Z"/><path d="M211.51 44.55C211.51 46.21 212.86 47.56 214.52 47.56L254.03 47.56L254.03 27.05L211.51 27.05L211.51 44.55M221.01 32.89H244.54V41.71H221.01Z Z"/><path d="M254.03 1.79L244.54 1.79L244.54 23.04L254.03 23.04L254.03 14.22L259.43 14.22L259.43 8.37L254.03 8.37L254.03 1.79 Z"/><path d="M168.96 35.91L159.46 35.91L159.46 44.55C159.46 46.21 160.81 47.56 162.47 47.56L201.98 47.56L201.98 41.71L168.96 41.71L168.96 35.91 Z"/><path d="M191.35 23.04C197.22 23.04 201.98 18.28 201.98 12.41C201.98 6.54 197.22 1.79 191.35 1.79L170.09 1.79C164.22 1.79 159.46 6.54 159.46 12.41C159.46 18.28 164.22 23.04 170.09 23.04L175.97 23.04L175.97 27.05L159.46 27.05L159.46 32.89L201.98 32.89L201.98 27.05L185.47 27.05L185.47 23.04L191.35 23.04M173.74 17.19C171.1 17.19 168.96 15.05 168.96 12.41C168.96 9.77 171.1 7.63 173.74 7.63L187.71 7.63C190.35 7.63 192.49 9.77 192.49 12.41C192.49 15.05 190.35 17.19 187.71 17.19L173.74 17.19 Z"/><path d="M360.63 1.79L321.12 1.79L321.12 7.63L354.14 7.63L354.14 17.63L363.63 17.63L363.63 4.79C363.63 3.13 362.29 1.79 360.63 1.79 Z"/><path d="M321.12 21.12L321.12 26.97L337.63 26.97L337.63 32.8L321.12 32.8L321.12 38.65L354.14 38.65L354.14 47.56L363.63 47.56L363.63 35.81C363.63 34.15 362.29 32.8 360.63 32.8L347.12 32.8L347.12 26.97L363.63 26.97L363.63 21.12L321.12 21.12 Z"/><path d="M308.23 30.16L268.72 30.16L268.72 36L301.74 36L301.74 47.56L311.23 47.56L311.23 33.16C311.23 31.5 309.89 30.16 308.23 30.16 Z"/><path d="M284.91 26.15C291.64 26.15 297.09 20.7 297.09 13.97C297.09 7.24 291.64 1.79 284.91 1.79L276.1 1.79C269.37 1.79 263.91 7.24 263.91 13.97C263.91 20.7 269.37 26.15 276.1 26.15L284.91 26.15M273.4 13.97C273.4 10.47 276.24 7.63 279.74 7.63L281.26 7.63C284.76 7.63 287.6 10.47 287.6 13.97C287.6 17.47 284.76 20.31 281.26 20.31L279.74 20.31C276.24 20.31 273.4 17.47 273.4 13.97 Z"/><path d="M311.23 1.79L301.74 1.79L301.74 26.15L311.23 26.15L311.23 21.56L316.63 21.56L316.63 15.71L311.23 15.71L311.23 12.23L316.63 12.23L316.63 6.38L311.23 6.38L311.23 1.79 Z"/></g></svg></span></span>
-      <p class="fa-closing__t op-mt-16">고민 한 줄이면 시작돼요</p>
+    </div><div class="fa-closing">
+      <span class="op-logo"><span class="op-logotype " role="img" aria-label="온팜"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 363 50" role="img" aria-label="ONPHARM"><g fill="currentColor"><path d="M128.05 0.98L23.01 0.98C10.17 0.98 -0.28 11.43 -0.28 24.27C-0.28 37.11 10.17 47.56 23.01 47.56L128.05 47.56C140.89 47.56 151.34 37.11 151.34 24.27C151.34 11.43 140.89 0.98 128.05 0.98M128.05 36.98L23.01 36.98C16 36.98 10.3 31.28 10.3 24.27C10.3 17.26 16 11.56 23.01 11.56L128.05 11.56C135.06 11.56 140.77 17.26 140.77 24.27C140.77 31.28 135.06 36.98 128.05 36.98 Z"/><path d="M24.2 16.99C20.19 16.99 16.92 20.26 16.92 24.27C16.92 28.29 20.19 31.55 24.2 31.55C28.22 31.55 31.48 28.29 31.48 24.27C31.48 20.26 28.22 16.99 24.2 16.99 Z"/><path d="M239.89 17.19L235.32 17.19L235.32 13.64C235.32 10.32 232.63 7.63 229.31 7.63L239.89 7.63L239.89 1.79L206.88 1.79L206.88 7.63L211.61 7.63L211.61 17.19L206.88 17.19L206.88 23.04L239.89 23.04L239.89 17.19M225.82 17.19L221.1 17.19L221.1 13.64C221.1 10.32 218.41 7.63 215.09 7.63L225.82 7.63L225.82 17.19 Z"/><path d="M211.51 44.55C211.51 46.21 212.86 47.56 214.52 47.56L254.03 47.56L254.03 27.05L211.51 27.05L211.51 44.55M221.01 32.89H244.54V41.71H221.01Z Z"/><path d="M254.03 1.79L244.54 1.79L244.54 23.04L254.03 23.04L254.03 14.22L259.43 14.22L259.43 8.37L254.03 8.37L254.03 1.79 Z"/><path d="M168.96 35.91L159.46 35.91L159.46 44.55C159.46 46.21 160.81 47.56 162.47 47.56L201.98 47.56L201.98 41.71L168.96 41.71L168.96 35.91 Z"/><path d="M191.35 23.04C197.22 23.04 201.98 18.28 201.98 12.41C201.98 6.54 197.22 1.79 191.35 1.79L170.09 1.79C164.22 1.79 159.46 6.54 159.46 12.41C159.46 18.28 164.22 23.04 170.09 23.04L175.97 23.04L175.97 27.05L159.46 27.05L159.46 32.89L201.98 32.89L201.98 27.05L185.47 27.05L185.47 23.04L191.35 23.04M173.74 17.19C171.1 17.19 168.96 15.05 168.96 12.41C168.96 9.77 171.1 7.63 173.74 7.63L187.71 7.63C190.35 7.63 192.49 9.77 192.49 12.41C192.49 15.05 190.35 17.19 187.71 17.19L173.74 17.19 Z"/><path d="M360.63 1.79L321.12 1.79L321.12 7.63L354.14 7.63L354.14 17.63L363.63 17.63L363.63 4.79C363.63 3.13 362.29 1.79 360.63 1.79 Z"/><path d="M321.12 21.12L321.12 26.97L337.63 26.97L337.63 32.8L321.12 32.8L321.12 38.65L354.14 38.65L354.14 47.56L363.63 47.56L363.63 35.81C363.63 34.15 362.29 32.8 360.63 32.8L347.12 32.8L347.12 26.97L363.63 26.97L363.63 21.12L321.12 21.12 Z"/><path d="M308.23 30.16L268.72 30.16L268.72 36L301.74 36L301.74 47.56L311.23 47.56L311.23 33.16C311.23 31.5 309.89 30.16 308.23 30.16 Z"/><path d="M284.91 26.15C291.64 26.15 297.09 20.7 297.09 13.97C297.09 7.24 291.64 1.79 284.91 1.79L276.1 1.79C269.37 1.79 263.91 7.24 263.91 13.97C263.91 20.7 269.37 26.15 276.1 26.15L284.91 26.15M273.4 13.97C273.4 10.47 276.24 7.63 279.74 7.63L281.26 7.63C284.76 7.63 287.6 10.47 287.6 13.97C287.6 17.47 284.76 20.31 281.26 20.31L279.74 20.31C276.24 20.31 273.4 17.47 273.4 13.97 Z"/><path d="M311.23 1.79L301.74 1.79L301.74 26.15L311.23 26.15L311.23 21.56L316.63 21.56L316.63 15.71L311.23 15.71L311.23 12.23L316.63 12.23L316.63 6.38L311.23 6.38L311.23 1.79 Z"/></g></svg></span></span><p class="fa-closing__t op-mt-16"
+         data-scrub="0.1" data-scrub-from="0.98" data-scrub-to="0.8"><span class="op-textfill op-textfill--ink">고민 한 줄이면 시작돼요</span></p>
       <p class="op-caption op-mt-8">들르면, 건강이 켜집니다</p>
       <div class="op-row op-row--center op-mt-32">
         <a class="op-btn op-btn--lg" href="#signup">1분 상담 신청</a>
@@ -986,7 +837,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
         <div class="op-card op-card--flat fb-stat">
           <span class="fb-stat__mark"></span>
           <p class="fb-stat__label">리필 알림 자동 안내</p>
-          <p class="fb-stat__desc">소진 시점에 맞춰 다음 안내가 담당 한약사 이름으로 나갑니다.</p>
+          <p class="fb-stat__desc">소진 시점에 맞춰 다음 안내가 담당 상담사 이름으로 나갑니다.</p>
         </div>
       </div>
     </div>
@@ -1002,8 +853,9 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
         </p>
       </div>
 
-      <div class="op-grid-2 op-mt-48">
-        <div class="op-card fb-col fb-col--old">
+<div class="op-grid-2 op-mt-48"
+           data-scrub="0.09" data-scrub-from="0.95" data-scrub-to="0.55">
+        <div class="op-card fb-col fb-col--old op-anim-rise" style="--op-d:0">
           <div class="fb-col__head">
             <span class="op-badge op-badge--gray">BEFORE</span>
           </div>
@@ -1016,7 +868,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
           </ul>
         </div>
 
-        <div class="op-card fb-col fb-col--on">
+        <div class="op-card fb-col fb-col--on op-anim-rise" style="--op-d:1">
           <div class="fb-col__head">
             <span class="op-badge op-badge--solid">ONPHARM</span>
           </div>
@@ -1025,7 +877,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
             <li>검색되지 않는 조합 전용 카드입니다</li>
             <li>상담을 거쳐 배정된 고객이 이름을 보고 찾아옵니다</li>
             <li>소진 시점에 다음 안내가 다시 나갑니다</li>
-            <li>한약사의 전문성이 그대로 매출로 남습니다</li>
+            <li>상담사의 전문성이 그대로 매출로 남습니다</li>
           </ul>
         </div>
       </div>
@@ -1044,10 +896,10 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
         <p class="op-lead op-mt-16">
           다섯 단계 가운데 세 단계는 온팜이 처리합니다.
         </p>
-      </div>
-
-      <div class="fb-flow op-mt-48">
-        <div class="fb-node">
+      </div><div class="fb-flow op-mt-48"
+           data-scrub="0.1" data-scrub-from="0.92" data-scrub-to="0.62"
+           data-scrub-seq="5">
+        <div class="fb-node op-anim-rise op-anim-rise--sm" data-scrub-part>
           <div class="fb-node__top">
             <span class="fb-node__num">1</span>
             <span class="fb-node__owner">온팜</span>
@@ -1056,7 +908,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
           <p class="fb-node__desc">고객이 온팜에 자기 고민을 한 줄로 남깁니다.</p>
         </div>
         <span class="fb-arrow" aria-hidden="true">›</span>
-        <div class="fb-node">
+        <div class="fb-node op-anim-rise op-anim-rise--sm" data-scrub-part>
           <div class="fb-node__top">
             <span class="fb-node__num">2</span>
             <span class="fb-node__owner">온팜</span>
@@ -1065,16 +917,16 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
           <p class="fb-node__desc">가까운 파트너 약국으로 상담이 자동 배정됩니다.</p>
         </div>
         <span class="fb-arrow" aria-hidden="true">›</span>
-        <div class="fb-node fb-node--on">
+        <div class="fb-node op-anim-rise op-anim-rise--sm fb-node--on" data-scrub-part>
           <div class="fb-node__top">
             <span class="fb-node__num">3</span>
             <span class="fb-node__owner">약국</span>
           </div>
-          <h3 class="fb-node__title">전담 한약사 답변</h3>
-          <p class="fb-node__desc">배정된 한약사가 카드 조합을 골라 답을 씁니다.</p>
+          <h3 class="fb-node__title">전담 상담사 답변</h3>
+          <p class="fb-node__desc">배정된 상담사가 카드 조합을 골라 답을 씁니다.</p>
         </div>
         <span class="fb-arrow" aria-hidden="true">›</span>
-        <div class="fb-node">
+        <div class="fb-node op-anim-rise op-anim-rise--sm" data-scrub-part>
           <div class="fb-node__top">
             <span class="fb-node__num">4</span>
             <span class="fb-node__owner">온팜</span>
@@ -1083,7 +935,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
           <p class="fb-node__desc">고객에게 그 약국에서 쓸 픽업 쿠폰이 나갑니다.</p>
         </div>
         <span class="fb-arrow" aria-hidden="true">›</span>
-        <div class="fb-node fb-node--on">
+        <div class="fb-node op-anim-rise op-anim-rise--sm fb-node--on" data-scrub-part>
           <div class="fb-node__top">
             <span class="fb-node__num">5</span>
             <span class="fb-node__owner">약국</span>
@@ -1133,7 +985,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
           <h3 class="op-h3 fb-value__title">재방문</h3>
           <ul class="op-list fb-value__list">
             <li>소진 시점에 맞춰 다음 안내가 자동으로 나갑니다</li>
-            <li>안내에는 담당 한약사 이름이 그대로 들어갑니다</li>
+            <li>안내에는 담당 상담사 이름이 그대로 들어갑니다</li>
             <li>다음 방문이 우연이 아니라 일정이 됩니다</li>
           </ul>
         </div>
@@ -1152,7 +1004,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
       </div><div class="op-faq op-mt-40" data-accordion>
         <details class="op-faq__item" open>
           <summary class="op-faq__q">입점 조건이 어떻게 되나요</summary>
-          <div class="op-faq__a">조합에 가입한 한약사 개설 약국이면 신청할 수 있습니다. 지역별 배정이 겹치지 않도록 순차 오픈하며, 상담 답변을 직접 맡아 주실 수 있는 곳을 먼저 배정합니다.</div>
+          <div class="op-faq__a">조합에 가입한 개설 약국이면 신청할 수 있습니다. 지역별 배정이 겹치지 않도록 순차 오픈하며, 상담 답변을 직접 맡아 주실 수 있는 곳을 먼저 배정합니다.</div>
         </details>
         <details class="op-faq__item" open>
           <summary class="op-faq__q">초기 비용이 있나요</summary>
@@ -1168,7 +1020,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
         </details>
         <details class="op-faq__item" open>
           <summary class="op-faq__q">상담 답변이 부담되지 않을까요</summary>
-          <div class="op-faq__a">고민 한 줄에 서너 문장이면 충분합니다. 자주 오는 질문은 답변 틀과 카드 조합 가이드를 미리 드리고, 최종 판단과 답변만 담당 한약사가 하시면 됩니다.</div>
+          <div class="op-faq__a">고민 한 줄에 서너 문장이면 충분합니다. 자주 오는 질문은 답변 틀과 카드 조합 가이드를 미리 드리고, 최종 판단과 답변만 담당 상담사가 하시면 됩니다.</div>
         </details>
       </div>
     </div>
@@ -1194,54 +1046,74 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
 </a>
       </div>
 <form class="fb-form" action="https://docs.google.com/forms/d/e/1FAIpQLSedRtIMw1mZ46Pi5Pr-cyMNTwczceSBDDLfWY7-N1xZ5Q2ELw/formResponse" method="post"
-            data-form="partner" target="op-form-sink">
-        <div class="op-grid-2">
+            data-form="partner" target="op-form-sink"><div class="op-grid-2">
           <label class="fb-field">
             <span class="fb-label">약국명</span>
             <input class="fb-input" type="text" name="entry.1635817952"
                    data-field="pharmacy"
                    autocomplete="organization"
-                   placeholder="온팜약국">
+                   placeholder="온팜약국" required>
           </label>
           <label class="fb-field">
-            <span class="fb-label">대표자명 (한약사)</span>
+            <span class="fb-label">대표자명</span>
             <input class="fb-input" type="text" name="entry.961979349"
                    data-field="owner"
                    autocomplete="name"
-                   placeholder="홍길동">
+                   placeholder="홍길동" required>
           </label>
         </div>
 
         <div class="op-grid-2 op-mt-24">
-          <label class="fb-field fb-select-wrap">
-            <span class="fb-label">지역</span>
-            <select class="fb-select" name="entry.456105824" data-field="region">
-              <option value="">지역을 선택해 주세요</option>
-              <option>서울</option>
-              <option>경기 · 인천</option>
-              <option>강원</option>
-              <option>충청 · 대전 · 세종</option>
-              <option>전라 · 광주</option>
-              <option>경상 · 부산 · 대구 · 울산</option>
-              <option>제주</option>
-            </select>
-            <span class="fb-select-caret" aria-hidden="true">▼</span>
+          <label class="fb-field">
+            <span class="fb-label">사업자등록번호</span><input class="fb-input" type="text" name="biz_no"
+                   data-field="biz_no"
+                   inputmode="numeric" autocomplete="off" maxlength="14"
+                   pattern="[0-9\\-\\s]{10,14}"
+                   placeholder="0000000000" required>
+            <span class="fb-help">숫자 10자리</span>
           </label>
           <label class="fb-field">
             <span class="fb-label">연락처</span>
             <input class="fb-input" type="tel" name="entry.281860316"
                    data-field="phone"
                    autocomplete="tel"
-                   placeholder="010-0000-0000">
+                   placeholder="010-0000-0000" required>
           </label>
         </div>
 
         <label class="fb-field op-mt-24">
-          <span class="fb-label">문의 내용</span>
+          <span class="fb-label">약국 주소</span>
+          <input class="fb-input" type="text" name="address"
+                 data-field="address"
+                 autocomplete="street-address"
+                 placeholder="예: 인천 연수구 ○○로 12" required>
+          <span class="fb-help">약국명과 주소로 실제 운영 중인 곳인지 확인합니다.</span>
+        </label>
+
+        <label class="fb-field op-mt-24">
+          <span class="fb-label">
+            요양기관기호
+            <span class="fb-opt">선택</span>
+          </span>
+          <input class="fb-input" type="text" name="ykiho"
+                 data-field="ykiho"
+                 inputmode="numeric" autocomplete="off" maxlength="8"
+                 pattern="[0-9]{8}"
+                 placeholder="00000000">
+          <span class="fb-help">8자리 숫자. 모르시면 비워 두셔도 됩니다.</span>
+        </label>
+
+        <label class="fb-field op-mt-24">
+          <span class="fb-label">
+            문의 내용
+            <span class="fb-opt">선택</span>
+          </span>
           <textarea class="fb-textarea" name="entry.79913361"
                     data-field="message"
                     placeholder="약국 위치나 지금 궁금한 점을 자유롭게 적어 주세요."></textarea>
-        </label><label class="op-check fb-check">
+        </label><p class="op-note fb-purpose op-mt-16">
+          적어 주신 정보는 약국 확인과 배정 상담 연락에만 씁니다. 그 밖의 용도로 쓰지 않습니다.
+        </p><label class="op-check fb-check">
           <input class="op-check__input" type="checkbox"
                  name="entry.1935935562" data-field="consent"
                  value="동의합니다" required>

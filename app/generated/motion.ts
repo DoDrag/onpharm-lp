@@ -67,6 +67,9 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
      5) 폼         [data-form]
      6) 고민 고르기 [data-concern-picker] > [data-concern] + [data-suggest]
      7) 부드러운 스크롤 [data-scroll-to]
+     8) 마퀴(안전망) [data-marquee]  ← 흐름 자체는 순수 CSS 애니메이션이다
+     9) 스크럽 엔진 [data-scrub] → --op-p   ← 스크롤 연동 모션의 유일한 경로
+    10) 카운트업   [data-countup]
    ========================================================================== */
 (function () {
   "use strict";
@@ -731,6 +734,134 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
   }
 
   /* ======================================================================
+     8) 마퀴 [data-marquee]  —  안전망 전용
+     --------------------------------------------------------------------
+     흐름(무한 루프)은 theme_onpharm.css 의 @keyframes opMarquee 가 혼자 한다.
+     JS 가 없어도 그대로 돈다. 여기서 하는 일은 세 가지뿐이다.
+
+       (1) 트랙이 1벌뿐이면 복제해 이음매를 메운다
+           (템플릿이 2벌 넣는 것이 정석이다. 이건 빠뜨렸을 때의 보정.)
+       (2) data-speed 가 CSS 표(15~120)에 없는 값이어도 --op-marquee-dur 를 꽂는다
+       (3) 아이템 총 폭이 컨테이너보다 좁으면 .is-short 로 흐름을 끈다
+           (짧으면 한 바퀴에 빈 구간이 생겨 보기 흉하다)
+
+     ★ 정지 모드(op-static)에서는 이 함수가 아예 실행되지 않는다. 캡처 PNG 는
+       "템플릿 마크업 그대로"여야 결정적이므로, 나중에 op-static 이 붙는 경우를
+       대비해 여기서 만든 흔적(복제 트랙 / is-short / 인라인 duration)을
+       onRestore 로 전부 되돌린다.
+     ====================================================================== */
+  var MQ_MIN_DUR = 4;
+  var MQ_MAX_DUR = 600;
+
+  function mqTracks(box) {
+    var out = [];
+    var kids = box.children || [];
+    for (var i = 0; i < kids.length; i++) {
+      if (kids[i].classList && kids[i].classList.contains("op-marquee__track")) {
+        out.push(kids[i]);
+      }
+    }
+    return out;
+  }
+
+  function mqNeutralize(node) {
+    /* 복제본은 보조기기에서 한 번만 읽히고 탭 순서에도 안 걸려야 한다 */
+    node.setAttribute("aria-hidden", "true");
+    node.setAttribute("data-marquee-clone", "");
+    var ids = list("[id]", node);
+    for (var i = 0; i < ids.length; i++) { ids[i].removeAttribute("id"); }
+    var focusable = list("a[href],button,input,select,textarea,[tabindex]", node);
+    for (var j = 0; j < focusable.length; j++) {
+      focusable[j].setAttribute("tabindex", "-1");
+      focusable[j].setAttribute("aria-hidden", "true");
+    }
+  }
+
+  function initMarquee(box) {
+    var tracks = mqTracks(box);
+    if (!tracks.length) { return; }
+
+    /* (1) 복제본 보정 */
+    var made = null;
+    if (tracks.length === 1) {
+      made = tracks[0].cloneNode(true);
+      mqNeutralize(made);
+      box.appendChild(made);
+      tracks.push(made);
+    }
+
+    /* (2) 속도 */
+    var hadDur = box.style.getPropertyValue("--op-marquee-dur");
+    var raw = trimmed(box, "data-speed");
+    var secs = parseFloat(raw);
+    if (raw && !isNaN(secs) && secs >= MQ_MIN_DUR && secs <= MQ_MAX_DUR) {
+      box.style.setProperty("--op-marquee-dur", secs + "s");
+    }
+
+    /* (2-b) data-speed="auto" — 초(duration)가 아니라 **픽셀 속도**로 맞춘다.
+       duration 고정은 트랙 폭이 바뀌면(반응형/아이템 수 변경) 체감 속도가 같이
+       바뀐다. 삼신 실측은 4,113.9px / 50s = 41.1 px/s 인데 상세페이지에서는
+       "멈춰 있는 것 같다"로 읽힌다. 기본 75 px/s (권장 60~90).
+       data-pxs 로 덮을 수 있다. 이건 **선택 기능**이라 기존 숫자 data-speed 는
+       그대로 동작한다. */
+    var autoDur = null;
+    if (raw === "auto") {
+      var pxs = parseFloat(trimmed(box, "data-pxs"));
+      if (!isFinite(pxs) || pxs < 10 || pxs > 400) { pxs = 75; }
+      autoDur = function () {
+        var w = 0;
+        try { w = tracks[0].getBoundingClientRect().width; } catch (e) { return; }
+        if (!w) { return; }                       /* display:none -> 판정 보류 */
+        var d = w / pxs;
+        if (d < MQ_MIN_DUR) { d = MQ_MIN_DUR; }
+        if (d > MQ_MAX_DUR) { d = MQ_MAX_DUR; }
+        box.style.setProperty("--op-marquee-dur", d.toFixed(2) + "s");
+      };
+    }
+
+    /* (3) 짧은 내용 판정 — 한 벌이 컨테이너를 못 채우면 흐르게 두지 않는다 */
+    function measure() {
+      if (isStatic()) { return; }
+      var one = tracks[0];
+      var w = 0;
+      try { w = one.getBoundingClientRect().width; } catch (e) { return; }
+      var boxW = 0;
+      try { boxW = box.getBoundingClientRect().width; } catch (e) { return; }
+      if (!w || !boxW) { return; }          /* display:none 구간 = 판정 보류 */
+      if (w < boxW) { box.classList.add("is-short"); }
+      else { box.classList.remove("is-short"); }
+      if (autoDur) { autoDur(); }
+    }
+    measure();
+
+    var ro = null;
+    if (typeof window.ResizeObserver === "function") {
+      try {
+        ro = new window.ResizeObserver(function () { measure(); });
+        ro.observe(box);
+      } catch (e) { ro = null; }
+    }
+    if (!ro) { on(window, "resize", measure); }
+
+    onRestore(function () {
+      if (ro) { try { ro.disconnect(); } catch (e) {} }
+      box.classList.remove("is-short");
+      if (made && made.parentNode === box) { box.removeChild(made); }
+      if (hadDur) { box.style.setProperty("--op-marquee-dur", hadDur); }
+      else { box.style.removeProperty("--op-marquee-dur"); }
+    });
+  }
+
+  function setupMarquees() {
+    var boxes = list("[data-marquee]");
+    for (var i = 0; i < boxes.length; i++) {
+      (function (box) {
+        guard("마퀴", function () { initMarquee(box); });
+      })(boxes[i]);
+    }
+  }
+
+  /* ======================================================================
      7) 부드러운 스크롤 [data-scroll-to]  (히어로 "쿠폰받기" 칩 등)
      앵커의 기본동작을 대신한다. JS 가 없으면 <a href="#..."> 가 그대로 동작한다.
      피커 버튼은 6) 이 직접 처리하므로 여기서 건너뛴다.
@@ -748,6 +879,408 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
           scrollToEl(target);
         });
       })(links[i]);
+    }
+  }
+
+  /* ======================================================================
+     9) 스크롤 스크럽 엔진  [data-scrub]  ->  --op-p
+     ----------------------------------------------------------------------
+     삼신(samsin.biz) 실측 모션을 바닐라로 옮긴 것. 외부 의존 0.
+
+     설계 결정 (바꾸기 전에 반드시 읽을 것)
+
+       * 문서 스크롤을 하이재킹하지 않는다.
+         Lenis 식 "스크롤 위치 자체를 rAF 로 보간" 은 (a) 캡처 PNG 결정성이
+         무너지고 (b) 키보드/스크린리더/브라우저 찾기/스크롤 복원이 깨지고
+         (c) onpharm.kr 에 임베드된 면이 호스트 스크롤을 뺏는 사고가 된다.
+         **관성은 "스크롤"이 아니라 "진행률"에만 건다.** 체감의 대부분은
+         여기서 나온다. (삼신 실측: 여운의 정체는 scrub 지연이지 Lenis 가 아니었다)
+
+       * JS 는 스타일을 직접 쓰지 않는다. --op-p 하나만 쓴다.
+         transform / opacity / background 는 전부 theme_onpharm.css 가 만든다.
+
+       * rAF 는 문서당 하나. 엔진은 window.__onpharmScrubEngine 싱글턴이다.
+         (Next.js 래퍼가 면을 바꿔 낄 때마다 이 원본을 재실행하므로,
+          모듈 지역변수에 두면 rAF 가 면 개수만큼 늘어난다)
+
+       * 화면 밖 요소는 계산하지 않는다. IntersectionObserver 로 추린다.
+         화면을 지나쳐 버린 요소는 교차 콜백에서 한 번 목표값으로 스냅하므로
+         앵커 점프(#signup)/스크롤 복원으로 건너뛰어도 숨은 채 남지 않는다.
+
+       * display:none 구간(rect 0)은 값을 캐시하지 않고 직전 값을 유지한다.
+         (면 토글 시 캐러셀 트랙이 죽었던 회귀의 같은 함정)
+
+     감쇠식 — 삼신 실측 그대로
+         p += (t - p) * (1 - 2^(-dt/hl))      hl = 반감기(초)
+     GSAP scrub s 의 반감기는 s/10 이다(실측: scrub 1.5 -> 150ms).
+     그래서 data-scrub 값이 1 보다 크면 scrub 값으로 보고 1/10 로 환산한다.
+     상세페이지 권장치는 0.08~0.10 이다(삼신의 0.15 는 "안 따라온다"로 읽힌다).
+     ====================================================================== */
+  var SCRUB_KEY = "__onpharmScrubEngine";
+  var SCRUB_EPS = 0.0008;       /* 이 이하로 붙으면 목표값에 스냅하고 멈춘다 */
+  var SCRUB_HL_DEFAULT = 0.12;  /* 기본 반감기(초) */
+  var SCRUB_HL_MAX = 0.6;
+
+  function coarsePointer() {
+    try {
+      return !!(window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
+    } catch (e) { return false; }
+  }
+
+  function makeScrubEngine() {
+    var items = [];      /* {el, hl, from, to, seq, parts, p, t, live, wrote} */
+    var tweens = [];     /* {t0, dur, step, done} - 카운트업이 여기 얹힌다 */
+    var raf = 0;
+    var last = 0;
+    var dirty = true;
+    var dead = false;
+    var io = null;
+    /* 모바일(coarse)과 감소 모션에서는 보간을 끄고 즉시 반영한다.
+       터치 스크롤은 이미 OS 관성이 붙어 있어 한 겹 더 얹으면 늦게만 느껴진다. */
+    var instant = reduceMotion || coarsePointer();
+    var eng = {};
+
+    function vh() {
+      return window.innerHeight ||
+             (doc.documentElement && doc.documentElement.clientHeight) || 0;
+    }
+
+    /* 진행률 0~1.
+         a = top    - vh*from   (음수가 되면 진입)
+         b = bottom - vh*to     (음수가 되면 종료)
+       구간 = b - a = 요소높이 + vh*(from-to) 라 항상 양수다. */
+    function targetOf(it) {
+      var r;
+      try { r = it.el.getBoundingClientRect(); } catch (e) { return it.t; }
+      if (!r || (!r.width && !r.height)) { return it.t; }   /* display:none -> 보류 */
+      var h = vh();
+      if (!h) { return it.t; }
+      it.measured = true;
+      var a = r.top - h * it.from;
+      var b = r.bottom - h * it.to;
+      var span = b - a;
+      if (span <= 1) { return r.top <= h * it.from ? 1 : 0; }
+      var p = -a / span;
+      return p < 0 ? 0 : (p > 1 ? 1 : p);
+    }
+
+    function put(el, v) {
+      try { el.style.setProperty("--op-p", v.toFixed(4)); } catch (e) {}
+    }
+
+    function write(it) {
+      if (it.wrote !== null && Math.abs(it.wrote - it.p) < 0.0005) { return; }
+      it.wrote = it.p;
+      put(it.el, it.p);
+      if (it.seq > 0 && it.parts.length) {
+        /* 타임라인 stagger: 한 진행률을 자식 n개로 1:1:1 분할 (삼신과 동일) */
+        for (var i = 0; i < it.parts.length; i++) {
+          var q = it.p * it.seq - i;
+          put(it.parts[i], q < 0 ? 0 : (q > 1 ? 1 : q));
+        }
+      }
+    }
+
+    function snap(it) {
+      it.t = targetOf(it);
+      it.p = it.t;
+      write(it);
+    }
+
+    function schedule() {
+      if (raf || dead) { return; }
+      if (typeof window.requestAnimationFrame !== "function") { return; }
+      raf = window.requestAnimationFrame(step);
+    }
+
+    function step(now) {
+      raf = 0;
+      if (dead) { return; }
+      if (isStatic()) { eng.freeze(); return; }
+
+      var dt = last ? (now - last) / 1000 : 0.016;
+      if (!(dt > 0)) { dt = 0.016; }
+      if (dt > 0.05) { dt = 0.05; }     /* 탭 복귀 등으로 튀는 dt 를 자른다 */
+      last = now;
+
+      var wasDirty = dirty;
+      dirty = false;
+      var moving = false;
+      var i;
+
+      for (i = items.length - 1; i >= 0; i--) {
+        var it = items[i];
+        if (it.el.isConnected === false) {          /* 면 교체로 떨어져 나간 노드 */
+          if (io) { try { io.unobserve(it.el); } catch (e) {} }
+          try { it.el.__opScrub = null; } catch (e) {}
+          items.splice(i, 1);
+          continue;
+        }
+        if (!it.live) { continue; }
+        it.t = targetOf(it);
+        if (instant || it.hl <= 0) {
+          it.p = it.t;
+        } else {
+          it.p += (it.t - it.p) * (1 - Math.pow(2, -dt / it.hl));
+          if (Math.abs(it.t - it.p) < SCRUB_EPS) { it.p = it.t; }
+          else { moving = true; }
+        }
+        write(it);
+      }
+
+      for (i = tweens.length - 1; i >= 0; i--) {
+        var tw = tweens[i];
+        var u = (now - tw.t0) / tw.dur;
+        if (u >= 1) { u = 1; }
+        try { tw.step(u); } catch (err) { u = 1; }
+        if (u >= 1) { tweens.splice(i, 1); } else { moving = true; }
+      }
+
+      if (moving || wasDirty) { schedule(); }
+      else { last = 0; }
+    }
+
+    function wake() {
+      if (dead) { return; }
+      dirty = true;
+      schedule();
+    }
+
+    function onLeave(el, live) {
+      var it = el.__opScrub;
+      if (!it) { return; }
+      var was = it.live;
+      it.live = !!live;
+      /* 아직 한 번도 실측되지 못한 요소(면이 hidden 이라 rect 0 이었다)가 이제야
+         보이기 시작했다면, 보간 없이 현재 위치값으로 바로 찍는다.
+         면 토글 직후 이미 지나온 섹션이 --op-p:0 으로 한 프레임 깜빡이는 것을 막는다.
+         (평소의 폴드 아래 진입은 t 도 0 이라 스냅해도 결과가 같다) */
+      if (live && !was && !it.measured) { snap(it); return; }
+      /* 화면 밖으로 나갈 때 한 번 목표값으로 스냅해 둔다.
+         위로 지나쳐 온 요소는 여기서 --op-p:1 이 되므로 "숨은 채 남는" 상태가
+         구조적으로 생기지 않는다(리빌의 스크롤 스윕 안전망과 같은 역할). */
+      if (!live) { snap(it); }
+    }
+
+    function ensureIO() {
+      if (io || typeof window.IntersectionObserver !== "function") { return; }
+      try {
+        io = new window.IntersectionObserver(function (entries) {
+          for (var i = 0; i < entries.length; i++) {
+            onLeave(entries[i].target,
+                    entries[i].isIntersecting || entries[i].intersectionRatio > 0);
+          }
+          wake();
+        }, { rootMargin: "25% 0px 25% 0px", threshold: 0 });
+      } catch (e) { io = null; }
+    }
+
+    function num(el, name, dflt) {
+      var v = parseFloat(trimmed(el, name));
+      return isFinite(v) ? v : dflt;
+    }
+
+    eng.scan = function (ctx) {
+      if (dead || isStatic()) { return; }
+      var els = list("[data-scrub]", ctx && ctx.nodeType === 1 ? ctx : doc);
+      if (!els.length) { return; }
+      ensureIO();
+
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el.__opScrub) { continue; }
+
+        var hl = num(el, "data-scrub", SCRUB_HL_DEFAULT);
+        if (hl > 1) { hl = hl / 10; }            /* GSAP scrub 표기 호환 */
+        if (!(hl >= 0)) { hl = SCRUB_HL_DEFAULT; }
+        if (hl > SCRUB_HL_MAX) { hl = SCRUB_HL_MAX; }
+
+        var from = num(el, "data-scrub-from", 0.85);
+        var to = num(el, "data-scrub-to", 0.35);
+        if (!(from > to) || from > 1.5 || to < -0.5) { from = 0.85; to = 0.35; }
+
+        var seq = Math.floor(num(el, "data-scrub-seq", 0));
+        var parts = seq > 0 ? list("[data-scrub-part]", el) : [];
+        if (seq > 0 && parts.length && parts.length !== seq) { seq = parts.length; }
+
+        var it = { el: el, hl: hl, from: from, to: to, seq: seq, parts: parts,
+                   p: 0, t: 0, live: true, wrote: null, measured: false };
+        try { el.__opScrub = it; } catch (e) {}
+        items.push(it);
+
+        /* 최초 값은 보간 없이 현재 스크롤 위치 그대로 찍는다.
+           스크럽은 "등장 애니메이션"이 아니라 위치 함수라, 새로고침 직후
+           이미 지나온 섹션이 0 에서 다시 차오르면 오히려 어색하다.
+           첫 rAF 를 기다리지 않고 여기서 동기로 써야 첫 페인트가 안 튄다. */
+        snap(it);
+        if (io) { try { io.observe(el); } catch (e) {} }
+      }
+      wake();
+    };
+
+    /* 카운트업 등 시간 기반 모션이 얹히는 자리. rAF 를 새로 열지 않는다. */
+    eng.tween = function (dur, stepFn) {
+      if (dead || typeof stepFn !== "function") { return; }
+      if (!(dur > 0)) { dur = 1; }
+      tweens.push({ t0: (window.performance && performance.now) ? performance.now()
+                                                                : +new Date(),
+                    dur: dur, step: stepFn });
+      wake();
+    };
+
+    /* 정지 모드 진입 = 인라인 --op-p 를 걷어낸다.
+       그러면 .op-js:not(.op-static) 조건이 풀리면서 CSS 기본값 1(최종 프레임)이
+       그대로 남는다. 인라인 값을 1 로 "쓰는" 것보다 지우는 쪽이 결정적이다. */
+    eng.freeze = function () {
+      if (dead) { return; }
+      dead = true;
+      if (raf && typeof window.cancelAnimationFrame === "function") {
+        try { window.cancelAnimationFrame(raf); } catch (e) {}
+      }
+      raf = 0;
+      if (io) { try { io.disconnect(); } catch (e) {} io = null; }
+      for (var i = 0; i < items.length; i++) {
+        var it = items[i];
+        try { it.el.style.removeProperty("--op-p"); } catch (e) {}
+        for (var j = 0; j < it.parts.length; j++) {
+          try { it.parts[j].style.removeProperty("--op-p"); } catch (e) {}
+        }
+      }
+      for (var k = 0; k < tweens.length; k++) {
+        try { tweens[k].step(1); } catch (e) {}
+      }
+      tweens.length = 0;
+      window.removeEventListener("scroll", wake);
+      window.removeEventListener("resize", wake);
+      window.removeEventListener("orientationchange", wake);
+      window.removeEventListener("load", wake);
+    };
+
+    eng.wake = wake;
+    eng.instant = instant;
+
+    on(window, "scroll", wake, { passive: true });
+    on(window, "resize", wake);
+    on(window, "orientationchange", wake);
+    on(window, "load", wake);     /* 늦게 뜬 이미지로 레이아웃이 밀린 경우 */
+
+    return eng;
+  }
+
+  function scrubEngine() {
+    var eng = window[SCRUB_KEY];
+    if (eng) { return eng; }
+    eng = makeScrubEngine();
+    try { window[SCRUB_KEY] = eng; } catch (e) {}
+    return eng;
+  }
+
+  function setupScrub() {
+    if (isStatic()) { return; }
+    if (!list("[data-scrub]").length && !list("[data-countup]").length) { return; }
+    var eng = scrubEngine();
+    eng.scan();
+    onRestore(function () { eng.freeze(); });
+  }
+
+  /* ======================================================================
+     10) 카운트업 [data-countup]
+     ----------------------------------------------------------------------
+     마크업에 최종 숫자가 이미 적혀 있다(무JS = 그 숫자가 그냥 보인다).
+     JS 는 화면에 들어올 때 딱 한 번 0 -> 최종값으로 굴리고 끝난다.
+
+     ★ 금액에는 걸지 않는다. 가격은 면에 노출하지 않는 것이 확정 정책이라,
+       주변 텍스트에 원/₩/$ 가 보이면 런타임이 조용히 건너뛴다(안전한 쪽으로 실패).
+     ★ 숫자 자리만 갈아끼우고 앞뒤 문자열은 그대로 둔다("249개사", "+12%").
+     ====================================================================== */
+  var COUNT_NUM_RE = /^([\\s\\S]*?)([0-9][0-9,]*(?:\\.[0-9]+)?)([\\s\\S]*)$/;
+  var COUNT_MONEY_RE = /[원₩$]|\\bKRW\\b|\\bUSD\\b/;
+
+  function countFormat(v, dec, grouped) {
+    var s = dec > 0 ? v.toFixed(dec) : String(Math.round(v));
+    if (!grouped) { return s; }
+    var parts = s.split(".");
+    parts[0] = parts[0].replace(/\\B(?=(\\d{3})+(?!\\d))/g, ",");
+    return parts.join(".");
+  }
+
+  function initCountup(el) {
+    var raw = (el.textContent || "");
+    var m = COUNT_NUM_RE.exec(raw);
+    if (!m) { return; }
+
+    /* 금액 방어: 요소 본문과 그 부모의 문맥을 함께 본다.
+       오탐(=그냥 안 굴러감)은 무해하고, 누락(=가격이 굴러감)은 금칙 위반이다. */
+    var ctxText = raw;
+    try {
+      if (el.parentNode && el.parentNode.textContent) {
+        ctxText += " " + el.parentNode.textContent;
+      }
+    } catch (e) {}
+    if (COUNT_MONEY_RE.test(ctxText)) {
+      warn("카운트업: 금액으로 보여 건너뜁니다 - " + raw.slice(0, 24));
+      return;
+    }
+
+    var head = m[1], body = m[2], tail = m[3];
+    var grouped = body.indexOf(",") >= 0;
+    var dot = body.indexOf(".");
+    var dec = dot >= 0 ? (body.length - dot - 1) : 0;
+    if (dec > 3) { dec = 3; }
+    var end = parseFloat(body.replace(/,/g, ""));
+    if (!isFinite(end)) { return; }
+
+    var start = parseFloat(trimmed(el, "data-countup-from"));
+    if (!isFinite(start)) { start = 0; }
+
+    var dur = parseFloat(trimmed(el, "data-countup-dur"));
+    if (!isFinite(dur) || dur < 300 || dur > 4000) { dur = 1100; }
+
+    function paint(v) {
+      try { el.textContent = head + countFormat(v, dec, grouped) + tail; } catch (e) {}
+    }
+    function finish() { try { el.textContent = raw; } catch (e) {} }
+
+    if (reduceMotion || isStatic() || typeof window.IntersectionObserver !== "function") {
+      return;   /* 마크업이 이미 최종값이다. 손대지 않는 것이 정답. */
+    }
+
+    var eng = scrubEngine();
+    var fired = false;
+
+    var cio = new window.IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (!entries[i].isIntersecting && entries[i].intersectionRatio <= 0) { continue; }
+        cio.disconnect();
+        if (fired || isStatic()) { finish(); return; }
+        fired = true;
+        paint(start);
+        eng.tween(dur, function (u) {
+          if (isStatic()) { finish(); return; }
+          /* easeOutExpo — 삼신 scrub 과 같은 계열의 감속 */
+          var e = u >= 1 ? 1 : 1 - Math.pow(2, -10 * u);
+          if (u >= 1) { finish(); }
+          else { paint(start + (end - start) * e); }
+        });
+        return;
+      }
+    }, { threshold: [0, 0.35], rootMargin: "0px 0px -10% 0px" });
+
+    cio.observe(el);
+    onRestore(function () {
+      try { cio.disconnect(); } catch (e) {}
+      finish();
+    });
+  }
+
+  function setupCountups() {
+    var els = list("[data-countup]");
+    for (var i = 0; i < els.length; i++) {
+      (function (el) {
+        if (el.__opCount) { return; }
+        try { el.__opCount = 1; } catch (e) {}
+        guard("카운트업", function () { initCountup(el); });
+      })(els[i]);
     }
   }
 
@@ -777,6 +1310,9 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
     guard("폼", setupForms);
     guard("고민 고르기 묶음", setupPickers);
     guard("부드러운 스크롤", setupScrollLinks);
+    guard("마퀴 묶음", setupMarquees);
+    guard("스크럽 엔진", setupScrub);
+    guard("카운트업 묶음", setupCountups);
     guard("정지 모드 감시", watchStatic);
   }
 

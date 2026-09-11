@@ -595,6 +595,212 @@
 .op-sec--charcoal .op-kv__k, .op-sec--navy .op-kv__k { color: rgba(255, 255, 255, 0.62); }
 .op-sec--charcoal .op-kv__v, .op-sec--navy .op-kv__v { color: #FFFFFF; }
 
+/* =========================================================================
+   idcard (전담 상담사 / 담당자 명함 카드)
+   -------------------------------------------------------------------------
+   마크업 (요소는 전부 선택 — 있는 것만 쓰면 된다):
+     <figure class="op-idcard">
+       <span class="op-idcard__flag">예시</span>
+       <div class="op-idcard__head">
+         <span class="op-idcard__avatar">
+           <img src="/onpharm/a05_counselor.jpg" alt="">      <!-- 없으면 생략 -->
+           <span class="op-idcard__initial" aria-hidden="true">온</span>
+         </span>
+         <span class="op-idcard__id">
+           <span class="op-idcard__name">담당 상담사</span>
+           <span class="op-idcard__org">참여 약국</span>
+         </span>
+       </div>
+       <hr class="op-idcard__rule">
+       <div class="op-idcard__body">
+         <div class="op-kv"><span class="op-kv__k">…</span><span class="op-kv__v">…</span></div>
+       </div>
+       <figcaption class="op-idcard__foot">…</figcaption>
+     </figure>
+
+   ★ 색은 전부 지역 토큰(--op-idcard-*)이라 어두운 면/밝은 면 양쪽에서 쓸 수 있다.
+     - .op-sec--charcoal / .op-sec--navy 안에 넣으면 자동으로 어두운 면 값
+     - 밝은 섹션에서 어둡게 쓰고 싶으면 .op-idcard--dark
+     - 어두운 섹션에서 밝게 쓰고 싶으면 .op-idcard--light
+   ★ 오렌지 액센트는 아바타 링 한 군데뿐이다. 여기에 .op-kv--on 이나 오렌지 배지를
+     더 얹지 말 것(BI 단일 액센트 규정).
+   ★ .op-card 와 같이 쓰지 말 것. 배경/보더가 이중으로 걸린다. 단독 컴포넌트다.
+   ========================================================================= */
+.op-idcard {
+  --op-idcard-bg:         var(--op-bg);
+  --op-idcard-line:       var(--op-line);
+  --op-idcard-name:       var(--op-charcoal);
+  --op-idcard-sub:        var(--op-gray);
+  --op-idcard-shadow:     var(--op-shadow-card);
+  --op-idcard-shadow-up:  var(--op-shadow-lift);
+  --op-idcard-avatar-bg:  var(--op-orange-tint);
+  --op-idcard-avatar-fg:  var(--op-orange);
+  --op-idcard-avatar-size: 64px;
+  --op-idcard-flag-bg:    var(--op-bg-gray);
+  --op-idcard-flag-fg:    var(--op-gray);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 28px 24px;
+  border-radius: var(--op-radius-card);
+  background: var(--op-idcard-bg);
+  border: 1px solid var(--op-idcard-line);
+  box-shadow: var(--op-idcard-shadow);
+  text-align: left;
+}
+.op-idcard--flat  { box-shadow: none; }
+.op-idcard--sm    { --op-idcard-avatar-size: 52px; padding: 22px 22px 20px; }
+.op-idcard--lg    { --op-idcard-avatar-size: 76px; padding: 34px 34px 30px; }
+.op-idcard--hover {
+  transition: transform var(--op-dur-mid) var(--op-ease),
+              box-shadow var(--op-dur-mid) var(--op-ease),
+              border-color var(--op-dur-mid) var(--op-ease);
+}
+.op-idcard--hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--op-idcard-shadow-up);
+  border-color: var(--op-orange);
+}
+
+/* 우상단 배지 자리 ("예시" 등). 헤더가 배지 밑으로 파고들지 않게 오른쪽을 비워 둔다. */
+.op-idcard__flag {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--op-radius-pill);
+  background: var(--op-idcard-flag-bg);
+  color: var(--op-idcard-flag-fg);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.op-idcard__head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-right: 62px;   /* __flag 자리 */
+  min-width: 0;
+}
+.op-idcard--noflag .op-idcard__head { padding-right: 0; }
+
+/* 원형 프로필. <img> 가 있으면 이니셜 배지를 덮고, 없거나 src 가 비면 이니셜이 남는다. */
+.op-idcard__avatar {
+  position: relative;
+  flex: none;
+  width: var(--op-idcard-avatar-size);
+  height: var(--op-idcard-avatar-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--op-radius-pill);
+  border: 2px solid var(--op-orange);   /* ← 이 카드의 유일한 오렌지 액센트 */
+  background: var(--op-idcard-avatar-bg);
+  color: var(--op-idcard-avatar-fg);
+  overflow: hidden;
+}
+.op-idcard__avatar > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+/* src 가 없거나 빈 문자열이면 깨진 프레임 대신 이니셜 폴백이 보이게 한다 */
+.op-idcard__avatar > img:not([src]),
+.op-idcard__avatar > img[src=""] { display: none; }
+.op-idcard__initial {
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0;
+}
+.op-idcard--sm .op-idcard__initial { font-size: 18px; }
+.op-idcard--lg .op-idcard__initial { font-size: 25px; }
+
+.op-idcard__id { display: block; min-width: 0; }
+.op-idcard__name {
+  display: block;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: var(--op-ls-head);
+  color: var(--op-idcard-name);
+}
+.op-idcard__org {
+  display: block;
+  margin-top: 4px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--op-idcard-sub);
+}
+.op-idcard--sm .op-idcard__name { font-size: 17px; }
+.op-idcard--sm .op-idcard__org  { font-size: 14px; }
+
+.op-idcard__rule {
+  height: 1px;
+  border: 0;
+  margin: 22px 0 2px;
+  background: var(--op-idcard-line);
+}
+.op-idcard--sm .op-idcard__rule { margin: 18px 0 2px; }
+
+.op-idcard__body { display: block; }
+.op-idcard__foot {
+  margin-top: 18px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--op-idcard-sub);
+}
+
+/* 카드 안의 .op-kv 는 섹션 색이 아니라 카드 토큰을 따른다.
+   (kv 블록보다 뒤에 있으므로 같은 특정도에서 이 규칙이 이긴다) */
+.op-idcard .op-kv       { border-bottom-color: var(--op-idcard-line); padding: 13px 0; }
+.op-idcard .op-kv__k    { color: var(--op-idcard-sub); font-size: 15px; }
+.op-idcard .op-kv__v    { color: var(--op-idcard-name); font-size: 16px; }
+.op-idcard .op-divider  { background: var(--op-idcard-line); }
+
+/* --- 어두운 면 토큰 ---------------------------------------------------- */
+.op-sec--charcoal .op-idcard,
+.op-sec--navy .op-idcard,
+.op-idcard--dark {
+  --op-idcard-bg:        rgba(255, 255, 255, 0.07);
+  --op-idcard-line:      rgba(255, 255, 255, 0.16);
+  --op-idcard-name:      #FFFFFF;
+  --op-idcard-sub:       rgba(255, 255, 255, 0.66);
+  --op-idcard-shadow:    none;
+  --op-idcard-shadow-up: 0 6px 28px rgba(0, 0, 0, 0.35);
+  --op-idcard-avatar-bg: rgba(255, 255, 255, 0.12);
+  --op-idcard-avatar-fg: #FFFFFF;
+  --op-idcard-flag-bg:   rgba(255, 255, 255, 0.14);
+  --op-idcard-flag-fg:   rgba(255, 255, 255, 0.84);
+}
+/* --- 어두운 섹션 안에서도 밝은 카드로 쓰고 싶을 때 --------------------- */
+.op-sec--charcoal .op-idcard--light,
+.op-sec--navy .op-idcard--light,
+.op-idcard--light {
+  --op-idcard-bg:        var(--op-bg);
+  --op-idcard-line:      var(--op-line);
+  --op-idcard-name:      var(--op-charcoal);
+  --op-idcard-sub:       var(--op-gray);
+  --op-idcard-shadow:    var(--op-shadow-card);
+  --op-idcard-shadow-up: var(--op-shadow-lift);
+  --op-idcard-avatar-bg: var(--op-orange-tint);
+  --op-idcard-avatar-fg: var(--op-orange);
+  --op-idcard-flag-bg:   var(--op-bg-gray);
+  --op-idcard-flag-fg:   var(--op-gray);
+}
+
 /* ------------------------------------------------------------------
    BI 로고 — ONPHARM Brand Identity Manual (2026.08) 원본 벡터
    심볼: 캡슐 + 스위치 모티브의 'O'자형. "건강을 켜다".
@@ -1118,6 +1324,161 @@
 }
 
 /* =========================================================================
+   ★ 모션 7 · 마퀴 (카드가 좌우로 끊임없이 흐르는 가로 띠)
+   -------------------------------------------------------------------------
+   마크업 — 트랙을 **정확히 2벌** 넣는다. 2벌째가 이음매를 메우는 복제본이다.
+     <div class="op-marquee" data-marquee data-speed="40">
+       <div class="op-marquee__track">
+         <div class="op-marquee__item">…카드…</div>
+         …
+       </div>
+       <div class="op-marquee__track" data-marquee-clone aria-hidden="true">
+         …1벌째와 완전히 같은 내용…
+       </div>
+     </div>
+
+   ★ 순수 CSS 애니메이션이다. JS 없이도 그대로 흐른다.
+     트랙 2벌이 나란히 놓이고 각자 자기 폭만큼(-100%) 왼쪽으로 흐른 뒤 원점으로
+     되돌아간다. 2벌이 같은 내용이라 되돌아가는 순간이 보이지 않는다.
+   ★ JS(onpharm.js)는 안전망일 뿐이다:
+       - 트랙이 1벌뿐이면 복제해 준다
+       - data-speed 가 표 밖의 값이어도 --op-marquee-dur 를 꽂아 준다
+       - 아이템 총 폭이 컨테이너보다 좁으면 .is-short 로 흐름을 끈다(빈 구간 방지)
+     JS 가 꺼져 있고 트랙도 1벌이면 `:only-child` 규칙이 트랙을 **가로 스크롤 영역**으로
+     바꾼다. 어떤 경우에도 카드가 사라지지 않는다.
+   ★ 콘텐츠 총 폭이 컨테이너보다 좁으면 빈 구간이 생긴다. 카드 6장 이상 권장.
+   ★ 컨테이너의 직계 자식은 .op-marquee__track 뿐이어야 한다(제목 등을 넣지 말 것).
+   ★ 마퀴 안에는 포커스 가능한 요소(a/button/input)를 넣지 마라. 흐르는 중에
+     초점이 잡히면 읽을 수 없다. 복제본은 aria-hidden 이라 스크린리더에서도 한 벌만 읽힌다.
+
+   data-*        기본      뜻
+   ------------  --------  --------------------------------------------------
+   data-marquee  (필수)    JS 훅. 값은 안 본다.
+   data-speed    40        한 바퀴 도는 데 걸리는 **초**. 클수록 느리다.
+                           무JS 에서 먹는 값은 아래 표에 있는 것뿐(20~120).
+                           표 밖의 값은 style="--op-marquee-dur:37s" 로 직접 준다.
+   data-direction  (없음)  "reverse" 를 주면 오른쪽으로 흐른다.
+   data-marquee-clone      2벌째 트랙(복제본)에 붙인다. aria-hidden="true" 와 한 쌍.
+
+   변형 클래스   .op-marquee--sm / --lg (아이템 폭) · --tight / --loose (간격)
+                 .op-marquee--nofade (좌우 페이드 마스크 끄기)
+   지역 토큰     --op-marquee-item / -gap / -fade / -dur / -pad-y
+   ========================================================================= */
+.op-marquee {
+  --op-marquee-dur:   40s;
+  --op-marquee-gap:   20px;
+  --op-marquee-item:  340px;
+  --op-marquee-fade:  72px;
+  --op-marquee-pad-y: 10px;   /* 카드 그림자·hover 리프트가 잘리지 않게 */
+
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+  padding: var(--op-marquee-pad-y) 0;
+  /* 문서 가로 스크롤을 절대 만들지 않는다. 흐름은 이 상자 안에서만 일어난다. */
+  overflow: hidden;
+  /* 좌우 끝 페이드 — 카드가 싹둑 잘리는 느낌을 없앤다 */
+  -webkit-mask-image: linear-gradient(90deg,
+      transparent 0,
+      #000 var(--op-marquee-fade),
+      #000 calc(100% - var(--op-marquee-fade)),
+      transparent 100%);
+          mask-image: linear-gradient(90deg,
+      transparent 0,
+      #000 var(--op-marquee-fade),
+      #000 calc(100% - var(--op-marquee-fade)),
+      transparent 100%);
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+}
+.op-marquee--sm    { --op-marquee-item: 268px; }
+.op-marquee--lg    { --op-marquee-item: 420px; }
+.op-marquee--tight { --op-marquee-gap: 14px; }
+.op-marquee--loose { --op-marquee-gap: 32px; }
+.op-marquee--nofade {
+  -webkit-mask-image: none;
+          mask-image: none;
+}
+
+.op-marquee__track {
+  display: flex;
+  flex: none;
+  align-items: stretch;
+  gap: var(--op-marquee-gap);
+  /* 트랙 끝에도 간격을 둬야 1벌 끝 ↔ 2벌 시작 이음매가 나머지와 같아진다.
+     이 여백까지 포함한 폭이 곧 -100% 이동량이다. */
+  padding-right: var(--op-marquee-gap);
+  width: max-content;
+  animation: opMarquee var(--op-marquee-dur) linear infinite;
+  will-change: transform;
+}
+.op-marquee[data-direction="reverse"] .op-marquee__track {
+  animation-name: opMarqueeReverse;
+}
+
+/* 마우스를 올리거나 내부로 초점이 들어오면 멈춘다 */
+.op-marquee:hover .op-marquee__track,
+.op-marquee:focus-within .op-marquee__track { animation-play-state: paused; }
+
+.op-marquee__item {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 var(--op-marquee-item);
+  width: var(--op-marquee-item);
+  max-width: var(--op-marquee-item);
+  min-width: 0;
+}
+.op-marquee__item > * { flex: 1 1 auto; width: 100%; }
+/* 폭을 내용에 맡기고 싶은 아이템(짧은 고민 칩 등) */
+.op-marquee__item--auto {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: none;
+}
+
+/* --- 안전망 1. 복제본이 없을 때(트랙 1벌) -------------------------------
+   무한 루프가 성립하지 않으므로 흐름을 끄고 **직접 밀어 보는 가로 스크롤**로 바꾼다.
+   JS 가 살아 있으면 여기 오기 전에 복제해 주므로 보통은 쓰이지 않는다. */
+.op-marquee__track:only-child {
+  animation: none;
+  transform: none;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+}
+.op-marquee__track:only-child > .op-marquee__item { scroll-snap-align: start; }
+
+/* --- 안전망 2. 내용이 컨테이너보다 좁을 때(JS 가 판정해 붙인다) ---------- */
+.op-marquee.is-short { justify-content: center; }
+.op-marquee.is-short .op-marquee__track { animation: none; transform: none; }
+.op-marquee.is-short .op-marquee__track[data-marquee-clone] { display: none; }
+
+/* --- data-speed 표 (무JS 에서도 속도가 먹게 하는 유일한 방법) -------------
+   CSS 는 속성값을 숫자로 읽지 못하므로 쓰일 법한 값만 미리 깔아 둔다.
+   표에 없는 값이 필요하면 style="--op-marquee-dur:37s" 로 직접 주면 된다
+   (JS 가 살아 있으면 data-speed 아무 숫자나 그대로 꽂아 준다). */
+.op-marquee[data-speed="15"] { --op-marquee-dur: 15s; }
+.op-marquee[data-speed="20"] { --op-marquee-dur: 20s; }
+.op-marquee[data-speed="25"] { --op-marquee-dur: 25s; }
+.op-marquee[data-speed="30"] { --op-marquee-dur: 30s; }
+.op-marquee[data-speed="35"] { --op-marquee-dur: 35s; }
+.op-marquee[data-speed="40"] { --op-marquee-dur: 40s; }
+.op-marquee[data-speed="45"] { --op-marquee-dur: 45s; }
+.op-marquee[data-speed="50"] { --op-marquee-dur: 50s; }
+.op-marquee[data-speed="55"] { --op-marquee-dur: 55s; }
+.op-marquee[data-speed="60"] { --op-marquee-dur: 60s; }
+.op-marquee[data-speed="70"] { --op-marquee-dur: 70s; }
+.op-marquee[data-speed="80"] { --op-marquee-dur: 80s; }
+.op-marquee[data-speed="90"] { --op-marquee-dur: 90s; }
+.op-marquee[data-speed="100"] { --op-marquee-dur: 100s; }
+.op-marquee[data-speed="120"] { --op-marquee-dur: 120s; }
+/* =========================================================================
    ★ 모션 4 · 폰 목업 카톡 순차 등장
    마크업: <div class="op-chat" data-chat-seq>
              <div class="op-chat__bubble" style="--i:0">…</div>
@@ -1149,6 +1510,203 @@
 .op-js:not(.op-static) [data-reveal].is-in {
   opacity: 1;
   transform: none;
+}
+
+/* =========================================================================
+   ★ 모션 8 · 스크롤 스크럽 엔진        [data-scrub]  ->  --op-p
+   -------------------------------------------------------------------------
+   삼신(samsin.biz) 실측 모션을 바닐라로 옮긴 것. 외부 라이브러리 0, 외부 로드 0.
+   (이 주석에 "C-D-N" 세 글자를 그대로 쓰면 onpharm_build.py 의 폰트 경고가
+    오탐으로 뜬다. 그 검사는 html 안의 그 문자열과 "pretendard" 를 함께 본다.)
+   "스크롤을 내릴 때마다 값이 따라오는" 감각을 만드는 **유일한** 경로다.
+
+   ★ 계약 (깨면 회귀)
+     1) JS 는 스타일을 직접 쓰지 않는다. [data-scrub] 요소의 커스텀 프로퍼티
+        --op-p (0~1, 무단위) 하나만 갱신한다. 나머지는 전부 CSS 가 만든다.
+     2) --op-p 의 기본값은 **1 = 최종 프레임**이다.
+        0 으로 되돌리는 규칙은 `.op-js:not(.op-static)` 하위에만 있다.
+        -> 무JS / 정지(op-static) / 감소모션에서는 전부 "다 칠해지고 제자리".
+     3) 섹션 요소에 transform 을 직접 걸지 않는다(캡처 경계가 틀어진다).
+        [data-scrub] 는 <section> 에 걸고, 실제로 움직이는 것은 그 **안쪽** 요소다.
+     4) 진행률 소비자(.op-anim-*, .op-textfill)는 전부 **p=1 이 항등(identity)** 이다.
+        그래서 정지 프레임이 자동으로 "제자리 + 완성"이 된다.
+
+   ★ 마크업
+     <section class="op-sec" data-section="a06_examples"
+              data-scrub="0.12" data-scrub-from="0.85" data-scrub-to="0.35">
+       <h2 class="op-h2">
+         <span class="op-textfill">들르면, 건강이 켜집니다</span>
+       </h2>
+       <p class="op-anim-rise" style="--op-d:1">…</p>
+       <div class="op-anim-rise" style="--op-d:2">…</div>
+     </section>
+
+   ★ 속성 (전부 선택. 기본값만으로 동작한다)
+     data-scrub        지연 반감기(초). 기본 0.12.
+                       값이 1 보다 크면 GSAP scrub 값으로 보고 1/10 로 환산한다
+                       (삼신 1.5 -> 0.15s). 0 이면 지연 없이 즉시 추종.
+     data-scrub-from   진행 0 지점. 요소 top 이 뷰포트 높이의 이 비율에 닿을 때. 기본 0.85
+     data-scrub-to     진행 1 지점. 요소 bottom 이 뷰포트 높이의 이 비율에 닿을 때. 기본 0.35
+     data-scrub-seq    N. 컨테이너 진행률을 자식 [data-scrub-part] 들에 1:1:1 로 분배.
+                       (삼신의 타임라인 stagger = 1,400px ÷ 3 대응)
+
+   ★ 단계 지연 --op-d
+     같은 섹션 안에서 순서를 주려면 style="--op-d:1" / "2" / "3".
+     한 칸당 진행률 12% 를 뒤로 민다. **0~3 만 쓴다**(4 이상은 끝까지 안 찬다).
+   ========================================================================= */
+
+/* 진행률 기본값 = 1 = 최종 프레임.  0 으로 되돌리는 것은 JS 가 살아 있을 때만. */
+.op-page [data-scrub] { --op-p: 1; }
+.op-js:not(.op-static) .op-page [data-scrub] { --op-p: 0; }
+
+/* [data-scrub-part] 에는 기본값을 주지 않는다.
+   JS 가 seq 를 못 읽은 경우에도 부모의 --op-p 를 그대로 상속해 같이 채워지도록
+   두는 것이 안전하다(자체 기본값 0 을 주면 영영 숨는 사고가 난다). */
+
+/* -- 진행률 소비자 공통 ---------------------------------------------------
+   --op-q 는 "단계 지연을 반영한 내 진행률". 나눗셈을 쓰지 않아
+   구형 엔진에서도 계산이 깨지지 않는다(깨져도 opacity 는 1 로 폴백된다). */
+.op-page .op-anim-fade,
+.op-page .op-anim-rise,
+.op-page .op-anim-zoom,
+.op-page .op-anim-sweep {
+  --op-d: 0;          /* 단계 (0~3) */
+  --op-step: 0.12;    /* 한 단계당 진행률 */
+  --op-gain: 1.8;     /* 마지막 단계도 p=1 전에 다 차게 하는 이득 */
+  --op-q: clamp(0, (var(--op-p, 1) - var(--op-d) * var(--op-step)) * var(--op-gain), 1);
+}
+
+.op-page .op-anim-fade { opacity: var(--op-q, 1); }
+
+.op-page .op-anim-rise {
+  --op-rise: 28px;
+  opacity: var(--op-q, 1);
+  transform: translate3d(0, calc((1 - var(--op-q, 1)) * var(--op-rise)), 0);
+}
+.op-page .op-anim-rise--sm { --op-rise: 14px; }
+.op-page .op-anim-rise--lg { --op-rise: 48px; }
+
+/* 이미지 확대 -> 원배율. 자르는 쪽(overflow:hidden)은 <section> 이 아니라
+   반드시 이미지의 **프레임 요소**에 건다. */
+.op-page .op-anim-zoom {
+  --op-zoom: 0.05;
+  transform: scale(calc(1 + (1 - var(--op-q, 1)) * var(--op-zoom)));
+}
+
+/* 밑줄·구분선이 왼쪽에서 자라난다 */
+.op-page .op-anim-sweep {
+  transform-origin: 0 50%;
+  transform: scaleX(var(--op-q, 1));
+}
+
+/* will-change 는 모션이 실제로 도는 동안만. 상시로 두면 메모리만 먹는다. */
+.op-js:not(.op-static) .op-page .op-anim-rise,
+.op-js:not(.op-static) .op-page .op-anim-zoom,
+.op-js:not(.op-static) .op-page .op-anim-sweep { will-change: transform; }
+.op-js:not(.op-static) .op-page .op-anim-fade { will-change: opacity; }
+
+/* =========================================================================
+   ★ 모션 9 · 텍스트 채우기   .op-textfill      (삼신 시그니처)
+   -------------------------------------------------------------------------
+   회색 글자 위를 브랜드 오렌지가 스크롤에 따라 왼쪽->오른쪽으로 채운다.
+   구현은 `background-clip:text` + 그라디언트 하드스톱 하나. clip-path 도
+   width 도 mask 도 아니다. **겹침 DOM 2벌을 쓰지 않으므로** 스크린리더가
+   같은 문구를 두 번 읽지 않고, 렌더 HTML 린트에도 중복으로 잡히지 않는다.
+
+   ★ 마크업 — 반드시 **구절 단위 span** 에만 건다.
+     <h2 class="op-h2">
+       <span class="op-textfill">들르면, 건강이 켜집니다</span>
+     </h2>
+   background-clip:text 의 배경 상자는 요소 전체라, 여러 줄에 걸치면 줄들이
+   동시에 칠해진다. 한 줄짜리 구절에만 쓰는 것이 이 기법의 사용 조건이다.
+
+   ★ 최종 프레임(--op-p:1) = 문장 100% 오렌지. 무JS 에서도 같은 그림이다.
+   변형   .op-textfill--ink  (오렌지 대신 차콜로 채움)
+   토큰   --op-textfill-base / -ink / -soft(경계 부드럽기)
+   ========================================================================= */
+.op-page .op-textfill {
+  --op-textfill-base: var(--op-gray);
+  --op-textfill-ink:  var(--op-orange);
+  --op-textfill-soft: 0.35em;
+  display: inline;
+  background-image: linear-gradient(90deg,
+      var(--op-textfill-ink)  0,
+      var(--op-textfill-ink)  calc(var(--op-p, 1) * 100%),
+      var(--op-textfill-base) calc(var(--op-p, 1) * 100% + var(--op-textfill-soft)),
+      var(--op-textfill-base) 100%);
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.op-page .op-textfill--ink { --op-textfill-ink: var(--op-charcoal); }
+
+/* 어두운 면에서는 흰색이 회색을 덮는다 */
+.op-page .op-sec--charcoal .op-textfill,
+.op-page .op-sec--navy .op-textfill {
+  --op-textfill-base: rgba(255, 255, 255, 0.42);
+  --op-textfill-ink:  #FFFFFF;
+}
+
+/* background-clip:text 를 모르는 엔진 = 그냥 채워진 글자로 보여 준다 */
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .op-page .op-textfill {
+    background-image: none;
+    color: var(--op-textfill-ink);
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
+/* =========================================================================
+   ★ 모션 10 · 스티키 장면   .op-stage        (삼신 pin 대응)
+   -------------------------------------------------------------------------
+   섹션이 한 화면을 붙잡고, 레일(여분 높이)만큼 스크롤을 먹는 동안 내부가
+   진행한다. **GSAP pin 처럼 DOM 을 재배치하지 않는다** — position:sticky 하나다.
+
+   ★ 레일 높이를 `.op-js:not(.op-static)` 로 가두는 것이 핵심이다.
+     캡처(op-static)에서는 레일이 0 이 되어 섹션 높이가 자연 높이로 돌아오므로
+     data-section 캡처 박스가 틀어지지 않는다.
+
+   ★ 마크업
+     <section class="op-sec" data-section="a02b_products" data-scrub="0.12">
+       <div class="op-stage" style="--op-stage-hold: 90vh">
+         <div class="op-stage__sticky"> …한 화면 분량… </div>
+         <div class="op-stage__rail" aria-hidden="true"></div>
+       </div>
+     </section>
+
+   ★ 조건: 조상에 overflow:hidden / transform 이 있으면 sticky 가 죽는다.
+     .op-sec 계열은 둘 다 금지돼 있으니 그대로면 된다.
+   ★ 모바일(<=767px)은 레일 0 + sticky 해제. 삼신도 모바일은 사실상 pin 을 버렸다.
+   ========================================================================= */
+.op-page .op-stage { position: relative; }
+.op-page .op-stage__sticky { position: static; }
+.op-page .op-stage__rail { height: 0; }
+
+.op-js:not(.op-static) .op-page .op-stage__sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+.op-js:not(.op-static) .op-page .op-stage__rail { height: var(--op-stage-hold, 90vh); }
+
+@media (max-width: 767px) {
+  .op-js:not(.op-static) .op-page .op-stage__sticky { position: static; }
+  .op-js:not(.op-static) .op-page .op-stage__rail { height: 0; }
+}
+
+/* =========================================================================
+   ★ 모션 11 · 카운트업   [data-countup]
+   -------------------------------------------------------------------------
+   ★ 마크업에 **최종 숫자를 그대로 적는다.** JS 는 그 자리를 잠깐 0 부터
+     굴렸다가 원래 값으로 되돌릴 뿐이다. 무JS 에서는 최종 숫자가 그냥 보인다.
+   ★ 금액(원 / ₩ / $)에는 절대 걸지 않는다. 런타임도 금액이 보이면 건너뛴다.
+       <span data-countup>249</span><span class="op-unit">개사</span>
+   ========================================================================= */
+.op-page [data-countup] {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
 }
 
 /* =========================================================================
@@ -1262,6 +1820,18 @@
   to   { opacity: 1; transform: none; }
 }
 
+/* 마퀴 — 트랙 한 벌이 자기 폭(-100%)만큼 흐른 뒤 원점으로 돌아간다.
+   같은 내용의 2벌째가 바로 옆에 붙어 있어 되돌아가는 프레임이 보이지 않는다.
+   translate3d 로 합성 레이어에 올려 레이아웃 재계산 없이 돈다. */
+@keyframes opMarquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-100%, 0, 0); }
+}
+@keyframes opMarqueeReverse {
+  from { transform: translate3d(-100%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
 /* =========================================================================
    정렬 · 폭 · 간격 유틸
    ========================================================================= */
@@ -1323,6 +1893,10 @@
   .op-js:not(.op-static) .op-carousel__dot { height: 12px; }
   .op-js:not(.op-static) .op-carousel__dot.is-on,
   .op-js:not(.op-static) .op-carousel__dot[aria-current="true"] { width: 30px; }
+  /* 마퀴 — 좁아질수록 카드와 페이드 폭을 함께 줄인다 */
+  .op-marquee { --op-marquee-item: 300px; --op-marquee-fade: 56px; }
+  .op-marquee--lg { --op-marquee-item: 348px; }
+  .op-idcard { padding: 24px 24px 22px; }
 }
 
 @media (max-width: 767px) {
@@ -1345,6 +1919,17 @@
   .op-faq__q { font-size: 17px; padding-right: 36px; }
   .op-faq__a { font-size: 16px; }
   .op-carousel__track { gap: 20px; }
+  .op-marquee {
+    --op-marquee-item: 264px;
+    --op-marquee-gap: 14px;
+    --op-marquee-fade: 32px;
+    --op-marquee-pad-y: 8px;
+  }
+  .op-marquee--sm { --op-marquee-item: 232px; }
+  .op-marquee--lg { --op-marquee-item: 296px; }
+  .op-idcard { padding: 22px 20px 20px; --op-idcard-avatar-size: 56px; }
+  .op-idcard__head { padding-right: 58px; gap: 14px; }
+  .op-idcard__name { font-size: 18px; }
 }
 
 @media print {
@@ -1352,6 +1937,20 @@
   .op-heromedia__slide { animation: none !important; opacity: 0 !important; transform: none !important; }
   .op-heromedia__slide:first-child { opacity: 1 !important; }
   .op-carousel__nav { display: none !important; }
+  .op-marquee__track { animation: none !important; transform: none !important; }
+  /* 스크럽 엔진 — 인쇄도 정지 모드와 같은 최종 프레임 */
+  .op-page [data-scrub],
+  .op-page [data-scrub-part] { --op-p: 1 !important; }
+  .op-page .op-anim-fade,
+  .op-page .op-anim-rise,
+  .op-page .op-anim-zoom,
+  .op-page .op-anim-sweep {
+    --op-q: 1 !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .op-page .op-stage__sticky { position: static !important; top: auto !important; }
+  .op-page .op-stage__rail { height: 0 !important; }
 }
 
 /* =========================================================================
@@ -1404,6 +2003,36 @@
 }
 .op-static .op-carousel__nav { display: none !important; }
 
+/* 2b. 마퀴 — 흐름을 원점(첫 화면분)에서 정지시킨다.
+      왼쪽 페이드는 꺼서 첫 카드가 온전히 보이게 하고, 오른쪽 페이드만 남겨
+      "옆으로 더 있다"는 느낌을 유지한다. 트랙 2벌째는 컨테이너 밖이라 안 찍힌다. */
+.op-static .op-marquee__track {
+  animation: none !important;
+  transform: none !important;
+  animation-play-state: paused !important;
+}
+.op-static .op-marquee {
+  -webkit-mask-image: linear-gradient(90deg,
+      #000 0,
+      #000 calc(100% - var(--op-marquee-fade)),
+      transparent 100%);
+          mask-image: linear-gradient(90deg,
+      #000 0,
+      #000 calc(100% - var(--op-marquee-fade)),
+      transparent 100%);
+}
+.op-static .op-marquee--nofade {
+  -webkit-mask-image: none !important;
+          mask-image: none !important;
+}
+/* 스크롤바가 PNG 에 찍히면 캡처 결정성이 깨진다 */
+.op-static .op-marquee__track:only-child {
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+}
+/* 명함 카드는 hover 리프트만 끄면 된다(나머지는 전부 정적 스타일) */
+.op-static .op-idcard--hover { transform: none !important; }
+
 /* 3. FAQ — 캡처 PNG 를 기존과 동일하게 유지하기 위해 +/- 아이콘과 그 여백을 뺀다.
       (details 의 open 강제는 CSS 로 불가능하므로 capture.py 가 open 을 채운다)
       ※ 캡처에도 아이콘을 남기고 싶으면 이 블록 두 줄만 지우면 된다. */
@@ -1428,6 +2057,27 @@
 }
 
 /* 6. 서드파티/기존 리빌 클래스 방어 */
+/* 6. 스크럽 엔진 — 진행률을 최종 프레임(1)으로 못 박는다.
+      런타임은 op-static 이 붙는 순간 인라인 --op-p 를 지우지만, 캡처가 JS 보다
+      먼저 굳는 경우까지 덮으려고 !important 로 한 번 더 고정한다.
+      이것이 "정지 프레임 = 전부 칠해지고 전부 제자리" 를 구조적으로 보장한다. */
+.op-static .op-page [data-scrub],
+.op-static .op-page [data-scrub-part] { --op-p: 1 !important; }
+.op-static .op-page .op-anim-fade,
+.op-static .op-page .op-anim-rise,
+.op-static .op-page .op-anim-zoom,
+.op-static .op-page .op-anim-sweep {
+  --op-q: 1 !important;
+  opacity: 1 !important;
+  transform: none !important;
+  will-change: auto !important;
+}
+
+/* 7. 스티키 장면 — 레일 0 + sticky 해제.
+      섹션 높이가 자연 높이로 돌아와야 data-section 캡처 박스가 안 틀어진다. */
+.op-static .op-page .op-stage__sticky { position: static !important; top: auto !important; }
+.op-static .op-page .op-stage__rail { height: 0 !important; }
+
 .op-static [data-aos],
 .op-static [data-animate],
 .op-static .reveal,
@@ -1469,6 +2119,37 @@
   }
   .op-js .op-carousel__track { transition: none !important; }
   .op-faq__a { opacity: 1 !important; transform: none !important; }
+  /* 마퀴 — 흐름을 끄고 "직접 밀어 보는" 가로 스크롤로 되돌린다.
+     복제본은 같은 내용이 두 번 읽히지 않게 숨긴다. */
+  .op-marquee {
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+  .op-marquee__track {
+    animation: none !important;
+    transform: none !important;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .op-marquee__track[data-marquee-clone] { display: none !important; }
+  .op-idcard--hover:hover { transform: none !important; }
+  /* 스크럽 엔진 — 정지 모드와 동일하게 최종 프레임 고정.
+     런타임도 감소 모션이면 lerp 를 끄지만, 여기서 못을 한 번 더 박는다. */
+  .op-page [data-scrub],
+  .op-page [data-scrub-part] { --op-p: 1 !important; }
+  .op-page .op-anim-fade,
+  .op-page .op-anim-rise,
+  .op-page .op-anim-zoom,
+  .op-page .op-anim-sweep {
+    --op-q: 1 !important;
+    opacity: 1 !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+  .op-page .op-stage__sticky { position: static !important; top: auto !important; }
+  .op-page .op-stage__rail { height: 0 !important; }
 }
 
 /* =========================================================================
@@ -1540,6 +2221,9 @@
    크롭 기준선을 피사체 쪽(아래)으로 내린다. a08(거리 원경)은 중앙이 맞으므로
    전역이 아니라 이 변형 클래스에만 건다. */
 .fa-photoband--low > img { object-position: 50% 76%; }
+/* 인물 컷(a05_counselor)은 반대다. 사람은 프레임 위쪽에 서고 4.3:1 밴드는 세로가
+   얇아서, 중앙·하단 크롭이면 얼굴이 통째로 잘려 나간다. 기준선을 위로 올린다. */
+.fa-photoband--face > img { object-position: 50% 30%; }
 
 /* --- 폰 목업 (순수 CSS/HTML) -------------------------------------------- */
 .fa-phone {
@@ -1779,7 +2463,7 @@
   to   { opacity: 1; transform: none; }
 }
 
-/* --- a02b 제품 소개 ------------------------------------------------------ */
+/* --- a02b 판매 방식 "이렇게 드려요" -------------------------------------- */
 .fa-product__shot {
   display: flex;
   align-items: center;
@@ -1790,7 +2474,14 @@
   background: var(--op-bg);
 }
 .fa-product__shot .fa-ptp { max-width: 380px; margin: 0 auto; }
-.fa-product__photo { display: block; width: 100%; height: auto; border-radius: 16px; }
+/* 실사 컷(a02b_handover 등)이 들어오면 흰 액자를 걷어낸다.
+   SVG 폴백은 액자가 있어야 떠 보이지 않고, 사진은 액자가 있으면 우표처럼 보인다. */
+.fa-product__shot--photo {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
 .fa-product__points { margin-top: 0; }
 .fa-product__caption { margin-top: 22px; }
 
@@ -1820,38 +2511,11 @@
   color: var(--op-charcoal);
 }
 
-/* --- a04 가격 카드 ------------------------------------------------------ */
-.fa-price-card { display: flex; flex-direction: column; }
-.fa-card-badge {
-  position: absolute;
-  top: -16px;
-  left: 50%;
-  margin-left: -74px;
-  width: 148px;
-  justify-content: center;
-  padding: 8px 0;
-}
+/* a04(가격 카드) 삭제와 함께 .fa-price-* / .fa-card-* 규칙도 전부 걷어냈다.
+   .fa-ptp 는 a02b 의 사진 없는 폴백이 계속 쓰므로 남긴다. */
 .fa-ptp { display: block; width: 100%; max-width: 218px; margin: 0 auto 24px; }
-.fa-card-top { text-align: center; }
-.fa-card-top .op-price { justify-content: center; }
-.fa-card-name {
-  font-size: 21px;
-  font-weight: 800;
-  letter-spacing: 0;
-  color: var(--op-charcoal);
-  margin-bottom: 12px;
-}
-.fa-card-desc {
-  font-size: 15px;
-  line-height: 1.7;
-  color: var(--op-gray);
-  margin-top: 14px;
-  min-height: 51px;
-}
-.fa-card-points { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--op-line); }
-.fa-card-points li { font-size: 15.5px; }
 
-/* --- a05 전담 한약사 ID 카드 -------------------------------------------- */
+/* --- a05 전담 상담사 ID 카드 -------------------------------------------- */
 .fa-idcard {
   background: var(--op-charcoal);
   border-radius: var(--op-radius-card);
@@ -1877,6 +2541,22 @@
   font-size: 22px;
   font-weight: 800;
   flex: 0 0 auto;
+  overflow: hidden;
+}
+/* 원형 프로필 자리. assets.a05_counselor_portrait 가 있을 때만 붙는다.
+   없으면 위 규칙 그대로 이니셜 배지("온")로 남는다 - 자리를 비워 두지 않는다. */
+.fa-idcard__avatar--photo {
+  background: rgba(255, 255, 255, 0.10);
+  border: 1.5px solid rgba(255, 105, 0, 0.55);
+  padding: 0;
+}
+.fa-idcard__avatar > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 28%;
+  border-radius: 999px;
 }
 .fa-idcard__name {
   display: block;
@@ -1909,7 +2589,7 @@
   letter-spacing: 0.10em;
   color: rgba(255, 255, 255, 0.62);
 }
-/* space-between + height:100% 는 왼쪽 전담 한약사 카드(키 큰 요소) 높이에 맞춰
+/* space-between + height:100% 는 왼쪽 전담 상담사 카드(키 큰 요소) 높이에 맞춰
    체크 4개를 양 끝으로 밀어 항목 사이가 143px 까지 벌어졌다. 리듬을 고정하고
    묶음 전체를 세로 가운데로 둔다. */
 .fa-checks { display: flex; flex-direction: column; justify-content: center; gap: 34px; height: 100%; padding: 8px 0; }
@@ -2052,6 +2732,11 @@
   letter-spacing: 0;
   color: var(--op-charcoal);
 }
+/* 클로징 한 문장의 텍스트 채우기(.op-textfill) 베이스.
+   기본 베이스인 --op-gray(#75767A)는 채움색 차콜(#333333)과 명도차가 작아
+   "왼쪽부터 칠해진다"가 눈에 안 읽힌다(실측). 새 색을 만들지 않고 같은 차콜의
+   투명도만 낮춰 베이스로 쓴다 -> 색 수는 그대로, 대비만 커진다. */
+.fa-closing__t .op-textfill { --op-textfill-base: rgba(51, 51, 51, 0.24); }
 
 /* =========================================================================
    a07 폼 컨트롤 (진짜 form 으로 바꾸면서 추가된 것만)
@@ -2160,7 +2845,6 @@
       rgba(0, 0, 0, 0.72) 38%,
       rgba(0, 0, 0, 0.62) 100%);
   }
-  .fa-price-grid { grid-template-columns: 1fr; }
   .fa-idcard { padding: 28px; }
   .fa-form { padding: 32px; }
   .fa-map { padding: 32px 24px; }
@@ -2190,7 +2874,6 @@
   /* 세로 스택: 이미지 위, 텍스트 아래 */
   .fa-suggest__panel--media .fa-suggest__body { grid-template-columns: 1fr; gap: 18px; }
   .fa-product__shot { padding: 24px 16px; }
-  .fa-card-desc { min-height: 0; }
   .op-footer { padding: 28px 0; }
 }
 
@@ -2358,6 +3041,24 @@
   border-color: rgba(255, 255, 255, 0.34);
 }
 .fb-textarea { min-height: 132px; resize: none; }
+/* 필드 아래 도움말. 라벨과 같은 밝기(0.66)를 써서 어두운 면에서도 AA 를 넘긴다. */
+.fb-help {
+  display: block; margin-top: 8px;
+  font-size: 13px; line-height: 1.6; letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.66);
+}
+/* "선택" 배지. 필수/선택을 색이 아니라 글자로 구분한다(색만으로 구분하지 않는다). */
+.fb-opt {
+  display: inline-block; margin-left: 8px;
+  padding: 2px 8px; border-radius: 999px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.66);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  vertical-align: middle;
+}
+.fb-purpose { text-align: left; }
+/* (구) 지역 드롭다운용. region 필드는 약국 주소로 대체돼 마크업에서 빠졌다.
+   셀렉트를 다시 쓸 일이 있을 때를 위해 규칙만 남겨 둔다. */
 .fb-select { appearance: none; -webkit-appearance: none; padding-right: 46px; }
 .fb-select-wrap { position: relative; }
 .fb-select-caret {
