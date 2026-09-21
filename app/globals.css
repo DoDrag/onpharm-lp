@@ -293,7 +293,10 @@
   justify-content: center;
   padding: 20px;
   background: rgba(45, 45, 45, 0.55); /* --ink #2D2D2D 기반. 새 색이 아니다 */
-  animation: op-gate-fade 0.16s cubic-bezier(0.4, 0, 0.2, 1) both;
+  /* 진입. 퇴장은 .is-closing 이 덮어쓴다(아래).
+     --op-gate-out 은 PartnerGate.tsx 의 GATE_OUT_MS 와 **같은 값**이어야 한다. */
+  --op-gate-out: 130ms;
+  animation: op-gate-fade 0.16s cubic-bezier(0.16, 0.84, 0.44, 1) both;
 }
 .op-gate__box {
   position: relative;
@@ -305,7 +308,7 @@
   border-radius: 24px; /* BI 카드 radius */
   padding: 28px 26px 22px;
   box-shadow: 0 24px 60px rgba(45, 45, 45, 0.24);
-  animation: op-gate-rise 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: op-gate-rise 0.2s cubic-bezier(0.16, 0.84, 0.44, 1) both;
 }
 .op-gate__head {
   display: flex;
@@ -518,25 +521,6 @@
   color: #75767a;
 }
 
-@keyframes op-gate-fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes op-gate-rise {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
 @media (max-width: 640px) {
   .op-shell-bar__inner {
     padding: 8px 16px;
@@ -556,6 +540,60 @@
 
 /* 정지 모드(캡처)와 감소 모션은 같은 처리 = 애니메이션 없이 최종 프레임.
    게이트는 .op-static 에서 아예 열리지 않지만(page.tsx 가 막는다) 규칙은 맞춰 둔다. */
+
+/* ── 게이트 퇴장 ───────────────────────────────────────────────────────────
+   CSS 는 언마운트를 애니메이션할 수 없다. PartnerGate 가 닫기 요청을 받으면
+   .is-closing 을 붙이고 --op-gate-out 만큼 기다렸다가 언마운트한다.
+   진입(0.16/0.20s, 감속)보다 **짧고 가속**이다 — 도착은 부드럽게, 이탈은 빠르게. */
+.op-gate.is-closing {
+  /* ★ 진입과 **다른 키프레임 이름**이어야 한다.
+     같은 이름에 animation-direction 만 reverse 로 바꾸면 CSS 는 애니메이션을
+     재시작하지 않는다. 이미 끝난 애니메이션이 뒤집히며 곧장 끝점(opacity 0)에
+     앉아 배경이 한 프레임에 사라진다. 실제로 그렇게 깨졌다. */
+  animation: op-gate-unfade var(--op-gate-out) cubic-bezier(0.4, 0, 1, 1) both;
+}
+.op-gate.is-closing .op-gate__box {
+  animation: op-gate-sink var(--op-gate-out) cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+@keyframes op-gate-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes op-gate-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes op-gate-unfade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* 퇴장은 올라온 곳으로 되돌아가지 않고 살짝 더 가라앉는다(닫힘의 방향성). */
+@keyframes op-gate-sink {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(6px) scale(0.99);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .op-shell-link,
   .op-shell-back,
@@ -567,10 +605,19 @@
   .op-gate__ask {
     transition: none;
   }
-  .op-gate,
+  /* 전정기관을 자극하는 것은 **이동·확대**다. 투명도는 아니다.
+     그래서 페이드는 남기고 translate/scale 만 없앤다.
+     타이머(GATE_OUT_MS)는 그대로라 130ms 뒤 언마운트되는 것은 같다 —
+     그 사이 화면은 이미 사라진 상태이므로 체감상 즉시 닫힌다. */
+  .op-gate {
+    --op-gate-out: 1ms;
+  }
   .op-gate__box {
-    animation: none;
-    transform: none;
+    animation-name: op-gate-fade;
+  }
+  .op-gate.is-closing .op-gate__box {
+    /* 위와 같은 이유로 reverse 가 아니라 별도 이름을 쓴다. */
+    animation-name: op-gate-unfade;
   }
 }
 .op-static .op-gate,

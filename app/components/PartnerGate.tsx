@@ -18,6 +18,24 @@
      따라서 무JS 사용자에게 "열리지 않는 빈 상자"가 남지 않는다.
    - 숨김은 CSS 가 아니라 **언마운트**로 한다. 콘텐츠를 감추는 CSS 를 새로 만들지 않는다.
    - .op-static(캡처 정지 모드)에서는 아예 열리지 않는다. 호출부가 막는다.
+
+   모션 — CSS @keyframes + 퇴장 지연 언마운트 (외부 라이브러리 없음)
+   - 진입은 CSS 가 한다(op-gate-fade / op-gate-rise).
+   - CSS 로는 **언마운트를 애니메이션할 수 없다.** 그래서 닫기 요청이 오면 바로
+     내보내지 않고 `closing` 상태로 퇴장 키프레임을 한 번 돌린 뒤 호출부에 알린다.
+     이것이 AnimatePresence 가 해 주던 일의 전부다(여기서는 15줄).
+   - 퇴장은 진입보다 **짧고 가속(ease-in)**, 진입은 **감속(ease-out)**.
+     도착은 부드럽게, 이탈은 미련 없이. (UI/UX Pro Max: Animation/Easing Functions)
+   - prefers-reduced-motion 은 **CSS 가** 처리한다(globals.css 의 media 블록에서
+     duration 을 0 으로 눌러 이동·확대를 없앤다). JS 가 판정하지 않는다.
+   - 퇴장 동안 컴포넌트가 살아 있으므로 **포커스 복귀 시점이 뒤로 밀린다.**
+     호출부는 onDismiss 가 불린 시점에 이미 퇴장이 끝났다고 가정해도 된다
+     (여기서 애니메이션 종료 후에만 부르기 때문이다).
+     ★ 셸의 inert 는 이 컴포넌트가 언마운트될 때 풀린다. 그 전에 focus() 하면
+       조용히 실패한다 — page.tsx 의 restoreFocus 가 rAF 로 한 프레임 미루는 이유다.
+   - 타이머는 CSS 시간과 **한 곳에서** 맞춘다: --op-gate-out (globals.css).
+     값을 바꾸면 아래 GATE_OUT_MS 도 같이 바꿔야 한다. 어긋나면 잘려 보이거나
+     빈 화면이 잠깐 남는다.
    ============================================================================= */
 
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
@@ -56,6 +74,9 @@ type Props = {
   onDismiss: () => void;
 };
 
+/** 퇴장 애니메이션 길이(ms). globals.css 의 --op-gate-out 과 **반드시 같아야** 한다. */
+const GATE_OUT_MS = 130;
+
 /** 모달 안에서 Tab 순환 대상 */
 function focusables(root: HTMLElement): HTMLElement[] {
   const sel =
@@ -76,6 +97,33 @@ export function PartnerGate({ onPass, onExit, onDismiss }: Props) {
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
   const [fails, setFails] = useState(0);
+
+  /* 닫는 중인가. true 가 되면 퇴장 키프레임이 돌고, 끝난 뒤에야 호출부에 알린다. */
+  const [closing, setClosing] = useState(false);
+  const closeTimer = useRef<number | null>(null);
+
+  /* 닫기 요청을 받아 퇴장을 재생하고, 끝나면 실제 동작을 실행한다.
+     - 두 번 눌러도 한 번만 돈다(closeTimer 가 이미 있으면 무시).
+     - 언마운트 시 타이머를 반드시 정리한다. 안 그러면 사라진 컴포넌트가
+       호출부 상태를 건드려 경고가 난다. */
+  const runClose = useCallback((after: () => void) => {
+    if (closeTimer.current !== null) return;
+    setClosing(true);
+    closeTimer.current = window.setTimeout(() => {
+      closeTimer.current = null;
+      after();
+    }, GATE_OUT_MS);
+  }, []);
+
+  useEffect(
+    () => () => {
+      if (closeTimer.current !== null) window.clearTimeout(closeTimer.current);
+    },
+    []
+  );
+
+  const closeDismiss = useCallback(() => runClose(onDismiss), [runClose, onDismiss]);
+  const closeExit = useCallback(() => runClose(onExit), [runClose, onExit]);
 
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -124,7 +172,7 @@ export function PartnerGate({ onPass, onExit, onDismiss }: Props) {
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (event.key === 'Escape') {
         event.stopPropagation();
-        onDismiss();
+        closeDismiss();
         return;
       }
       if (event.key !== 'Tab') return;
@@ -146,7 +194,7 @@ export function PartnerGate({ onPass, onExit, onDismiss }: Props) {
         first.focus();
       }
     },
-    [onDismiss]
+    [closeDismiss]
   );
 
   const onSubmit = useCallback(
@@ -180,10 +228,10 @@ export function PartnerGate({ onPass, onExit, onDismiss }: Props) {
 
   return (
     <div
-      className="op-gate"
+      className={closing ? 'op-gate is-closing' : 'op-gate'}
       /* 배경 클릭 = 닫기. 모달 안쪽 클릭은 여기까지 올라오지 않게 막는다. */
       onMouseDown={(event) => {
-        if (event.target === event.currentTarget) onDismiss();
+        if (event.target === event.currentTarget) closeDismiss();
       }}
       onKeyDown={onKeyDown}
     >
@@ -203,7 +251,7 @@ export function PartnerGate({ onPass, onExit, onDismiss }: Props) {
             type="button"
             className="op-gate__x"
             aria-label={TXT.close}
-            onClick={onDismiss}
+            onClick={closeDismiss}
           >
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none"
                  stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
@@ -269,7 +317,7 @@ export function PartnerGate({ onPass, onExit, onDismiss }: Props) {
           <button
             type="button"
             className={soft ? 'op-gate__exit op-gate__exit--strong' : 'op-gate__exit'}
-            onClick={onExit}
+            onClick={closeExit}
           >
             {TXT.exit}
           </button>

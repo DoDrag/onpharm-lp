@@ -133,11 +133,18 @@ export default function HomePage() {
     setGateOpen(true);
   }, []);
 
+  /* 모달을 연 요소로 포커스를 되돌린다.
+     ★ 한 프레임 미루는 것이 핵심이다. onDismiss 가 불린 시점에는 게이트가 아직
+       DOM 에 있고 셸에는 inert 가 걸려 있다. 그 상태로 focus() 하면 브라우저가
+       조용히 무시한다(예외도 안 난다). setGateOpen(false) 가 커밋되어
+       언마운트 정리(inert 해제)가 끝난 다음 프레임에 옮겨야 실제로 들어간다.
+       통과·이탈 경로는 triggerRef 를 미리 비우므로 여기서 no-op 이 된다.
+     (게이트는 퇴장 애니메이션을 스스로 끝낸 뒤에 onDismiss 를 부른다 —
+      PartnerGate.tsx 의 runClose 참조.) */
   const restoreFocus = useCallback(() => {
     const node = triggerRef.current;
     triggerRef.current = null;
     if (!node) return;
-    // 모달이 언마운트되고 inert 가 풀린 다음 프레임에 되돌린다.
     requestAnimationFrame(() => {
       try {
         node.focus();
