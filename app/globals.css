@@ -179,6 +179,11 @@
   color: #75767a;
   transition: color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
+/* /partner/ 헤더의 되돌림은 <button> 이 아니라 <a href="/"> 다(무JS 에서도 눌리게).
+   .op-shell-back 은 버튼용으로 쓰였던 규칙이라 밑줄 제거가 없다. 앵커에도 맞춘다. */
+a.op-shell-back {
+  text-decoration: none;
+}
 .op-shell-back:hover {
   color: #333333;
 }

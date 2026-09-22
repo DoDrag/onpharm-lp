@@ -26,7 +26,7 @@ declare global {
 }
 
 type Props = {
-  /** 생성기가 만든 섹션 마크업 (app/generated/faces.ts) */
+  /** 생성기가 만든 섹션 마크업 (app/generated/faceA.ts 또는 faceB.ts — 면마다 별도 모듈) */
   html: string;
   /** 지금 화면에 보이는 면인지 */
   active: boolean;
