@@ -6,7 +6,7 @@
 
 // 면 A · 소비자 (9섹션). <div class="op-page"> 안에 넣어야 스타일이 먹습니다.
 // 면 B 는 faceB.ts 에 따로 있다. 여기서 같이 export 하지 마라(청크 공유 누수).
-export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-section="a01_hero">
+export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-photo" data-section="a01_hero">
   <div class="fa-hero-bg">
     <div class="op-heromedia" data-motion="crossfade" data-count="3">
       <video class="op-heromedia__video" autoplay muted loop playsinline preload="auto"
@@ -28,8 +28,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
 
     <div class="fa-hero-grid">
       <div>
-        <span class="op-eyebrow">들르면, 건강이 켜집니다</span>
-        <h1 class="op-h1">영양제, 검색만 하다<br><span class="op-accent">한 달</span>이 지났다면</h1>
+        <h1 class="op-h1 fa-hero-h1">영양제, 검색만 하다<br><span class="op-accent--strong">한 달</span>이 지났다면</h1>
         <p class="op-lead op-mt-24 op-measure">장바구니에만 담아 두고 결국 못 고르셨다면, 고민 한 줄만 남겨 주세요. 동네 조합 약국의 전담 상담사가 직접 읽고 답해드려요.</p>
 
         <div class="fa-hero-cta op-mt-40">
@@ -74,13 +73,30 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
       </div>
     </div>
 
+  </div>  <div class="fa-mq op-marquee" data-marquee data-speed="50" aria-hidden="true">
+    <div class="op-marquee__track">      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>피로</span></div>
+      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>장 컨디션</span></div>
+      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>잠</span></div>
+      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>피부</span></div>
+      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>여성 컨디션</span></div>
+      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>눈</span></div>
+      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>면역</span></div>
+      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>뭐부터일지 모르겠어요</span></div>
+      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>피로</span></div>
+      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>장 컨디션</span></div>
+      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>잠</span></div>
+      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>피부</span></div>
+      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>여성 컨디션</span></div>
+      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>눈</span></div>
+      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>면역</span></div>
+      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>뭐부터일지 모르겠어요</span></div>
+    </div>
   </div>
 </section>
 
 <section class="op-sec" data-section="a02_concerns" data-concern-picker data-reveal>
   <div class="op-inner">
     <div class="op-center">
-      <span class="op-eyebrow">고민 고르기</span>
       <h2 class="op-h2">요즘 뭐가 제일 신경 쓰이세요?</h2>
       <p class="op-lead op-mt-16 op-measure--center">하나만 골라 주셔도 괜찮아요. 전담 상담사가 거기서부터 같이 봅니다.</p>
     </div><div class="op-grid-4 fa-concerns op-mt-48" role="group" aria-label="고민 선택"
@@ -344,7 +360,6 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
 <section class="op-sec op-sec--tint" data-section="a02b_products" data-reveal>
   <div class="op-inner">
     <div class="op-center">
-      <span class="op-eyebrow">판매 방식</span>
       <h2 class="op-h2">온팜은 이렇게 드려요</h2>
       <p class="op-lead op-mt-16 op-measure--center">상담에서 정한 조합을 소포장 한 장에 담아 둡니다. 동네 조합 약국에 들러 받아 가시면 됩니다.</p>
     </div>
@@ -383,36 +398,56 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
   </div>
 </section>
 
-<section class="op-sec op-sec--warm" data-section="a03_how" data-reveal>
-  <div class="op-inner">
-    <div class="op-center">
-      <span class="op-eyebrow">이용 순서</span>
-      <h2 class="op-h2">이렇게 진행돼요</h2>
-      <p class="op-lead op-mt-16 op-measure--center">앱을 새로 깔 필요도, 어려운 검사도 없어요. 한 줄에서 시작합니다.</p>
-    </div><div class="fa-steps op-grid-4 op-grid--top op-mt-64"data-scrub="0.1" data-scrub-from="0.92" data-scrub-to="0.62"
-         data-scrub-seq="4">
-      <div class="op-step op-anim-rise" data-scrub-part>
-        <span class="op-step__num">1</span>
-        <h3 class="op-step__title">고민 적기</h3>
-        <p class="op-step__desc">카카오톡으로 한 줄만 남기면 끝. 1분이면 충분해요.</p>
-      </div>
-      <div class="op-step op-anim-rise" data-scrub-part>
-        <span class="op-step__num">2</span>
-        <h3 class="op-step__title">전담 상담사 답변</h3>
-        <p class="op-step__desc">24시간 안에 담당 상담사가 직접 읽고 답을 드려요.</p>
-      </div>
-      <div class="op-step op-anim-rise" data-scrub-part>
-        <span class="op-step__num">3</span>
-        <h3 class="op-step__title">픽업 쿠폰 도착</h3>
-        <p class="op-step__desc">무엇부터 먹어볼지 정하면 픽업 쿠폰이 발급돼요.</p>
-      </div>
-      <div class="op-step op-anim-rise" data-scrub-part>
-        <span class="op-step__num">4</span>
-        <h3 class="op-step__title">동네 약국에서 받기</h3>
-        <p class="op-step__desc">가까운 조합 약국에 들러 카드를 받아 가세요.</p>
+<section class="op-sec op-sec--warm fa-stage-sec" data-section="a03_how"><div class="op-stage fa-stage" style="--op-stage-hold: 115vh"
+       data-scrub="0.1" data-scrub-from="0" data-scrub-to="1.0" data-scrub-media="(min-width: 768px)">
+    <div class="op-stage__sticky fa-stage__sticky">
+      <div class="op-inner fa-stage__inner">
+        <div class="op-center">
+          <h2 class="op-h2">이렇게 진행돼요</h2>
+          <p class="op-lead op-mt-16 op-measure--center">앱을 새로 깔 필요도, 어려운 검사도 없어요. 한 줄에서 시작합니다.</p>
+        </div>
+
+        <div class="fa-stage__switch"
+             data-scrub="0.1" data-scrub-from="0.9" data-scrub-to="0.45" data-scrub-media="(max-width: 767px)">
+          <div class="fa-toggle" aria-hidden="true">
+            <svg viewBox="0 0 64 36" xmlns="http://www.w3.org/2000/svg" focusable="false">
+              <rect class="fa-toggle__track" x="2" y="2" width="60" height="32" rx="16"/>
+              <rect class="fa-toggle__track fa-toggle__track--on" x="2" y="2" width="60" height="32" rx="16"/>
+              <circle class="fa-toggle__knob" cx="18" cy="18" r="13"/>
+            </svg>
+          </div>
+          <p class="fa-stage__slogan op-center"><span class="op-textfill">들르면, 건강이 켜집니다</span></p>
+        </div>
+
+        <div class="fa-steps op-grid-4 op-grid--top op-mt-48"
+             data-scrub="0.1" data-scrub-from="0.9" data-scrub-to="0.5" data-scrub-media="(max-width: 767px)">
+          <div class="op-step op-anim-rise fa-stage__step" style="--op-d:0">
+            <span class="op-step__num">1</span>
+            <h3 class="op-step__title">고민 적기</h3>
+            <p class="op-step__desc">카카오톡으로 한 줄만 남기면 끝. 1분이면 충분해요.</p>
+          </div>
+          <div class="op-step op-anim-rise fa-stage__step" style="--op-d:1">
+            <span class="op-step__num">2</span>
+            <h3 class="op-step__title">전담 상담사 답변</h3>
+            <p class="op-step__desc">24시간 안에 담당 상담사가 직접 읽고 답을 드려요.</p>
+          </div>
+          <div class="op-step op-anim-rise fa-stage__step" style="--op-d:2">
+            <span class="op-step__num">3</span>
+            <h3 class="op-step__title">픽업 쿠폰 도착</h3>
+            <p class="op-step__desc">무엇부터 먹어볼지 정하면 픽업 쿠폰이 발급돼요.</p>
+          </div>
+          <div class="op-step op-anim-rise fa-stage__step" style="--op-d:3">
+            <span class="op-step__num">4</span>
+            <h3 class="op-step__title">동네 약국에서 받기</h3>
+            <p class="op-step__desc">가까운 조합 약국에 들러 카드를 받아 가세요.</p>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="op-stage__rail" aria-hidden="true"></div>
+  </div>
 
+  <div class="op-inner">
     <div class="op-card op-card--line fa-how-footer op-mt-64">
       <span class="op-badge">6일 뒤</span>
       <div>
@@ -423,40 +458,17 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
   </div>
 </section>
 
-<section class="op-sec op-sec--tint" data-section="a05_pharmacist" data-reveal>
-  <div class="op-inner">
-    <div class="op-center">
-      <span class="op-eyebrow">전담 상담사</span>
-      <h2 class="op-h2">내 이름을 아는 <span class="op-accent">상담사</span>가 생긴다</h2>
-      <p class="op-lead op-mt-16 op-measure--center">매번 다른 사람에게 처음부터 다시 설명하지 않아도 돼요.</p>
+<section class="op-sec fa-band" data-section="a05_pharmacist"><div class="fa-band__hero">
+    <div class="fa-band__bg">
+      <img src="/onpharm/a05_counselor.jpg" alt="" width="1536" height="864"
+           data-scrub="0.12" data-scrub-from="1" data-scrub-to="0.35" class="op-anim-zoom">
+      <span class="op-veil op-veil--strong"></span>
     </div>
+    <div class="op-inner op-veil-content op-center">
+      <h2 class="op-h2 fa-band-h2">내 이름을 아는 <span class="op-accent--strong">상담사</span>가 생긴다</h2>
+      <p class="op-lead op-mt-16 op-measure--center">매번 다른 사람에게 처음부터 다시 설명하지 않아도 돼요.</p>
 
-    <div class="op-grid-2 op-grid--loose op-mt-64">
-      <div>
-        <div class="fa-idcard">
-          <div class="fa-idcard__head">
-            <span class="fa-idcard__label">전담 상담사 카드</span>
-            <span class="op-badge op-badge--gray">예시</span>
-          </div>
-          <div class="fa-idcard__top">
-            <span class="fa-idcard__avatar fa-idcard__avatar--photo">
-              <img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480">
-            </span>
-            <span>
-              <span class="fa-idcard__name">김O연 상담사</span>
-              <span class="fa-idcard__role">온팜 전담 상담사</span>
-            </span>
-          </div>
-          <div class="op-kv"><span class="op-kv__k">이름</span><span class="op-kv__v">김O연 상담사</span></div>
-          <div class="op-kv"><span class="op-kv__k">약국</span><span class="op-kv__v">연수구 참여 약국</span></div>
-          <div class="op-kv"><span class="op-kv__k">배정일</span><span class="op-kv__v">2026-03-04</span></div>
-          <div class="op-kv"><span class="op-kv__k">상담 이력</span><span class="op-kv__v">3회</span></div>
-          <div class="op-kv"><span class="op-kv__k">다음 알림</span><span class="op-kv__v">D-4</span></div>
-          <p class="fa-idcard__note">가상의 예시 카드입니다. 실제 배정은 사전 등록 순서대로 안내드려요.</p>
-        </div>
-      </div>
-
-      <div class="fa-checks">
+      <div class="fa-band__checks">
         <div class="fa-check">
           <span class="fa-check__ico"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true">
   <circle cx="12" cy="12" r="11" fill="#FEF3E9"/>
@@ -503,22 +515,43 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
         </div>
       </div>
     </div>
-<div class="fa-photoband fa-photoband--face op-mt-48"
-         data-scrub="0.12" data-scrub-from="1" data-scrub-to="0.25"><img class="op-anim-zoom" src="/onpharm/a05_counselor.jpg" alt="" width="1364" height="1023"></div>
+  </div>
+
+  <div class="op-inner">
+    <div class="fa-idcard fa-band__card">
+      <div class="fa-idcard__head">
+        <span class="fa-idcard__label">전담 상담사 카드</span>
+        <span class="op-badge op-badge--gray">예시</span>
+      </div>
+      <div class="fa-idcard__top">
+        <span class="fa-idcard__avatar fa-idcard__avatar--photo">
+          <img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480">
+        </span>
+        <span>
+          <span class="fa-idcard__name">김O연 상담사</span>
+          <span class="fa-idcard__role">온팜 전담 상담사</span>
+        </span>
+      </div>
+      <div class="op-kv"><span class="op-kv__k">이름</span><span class="op-kv__v">김O연 상담사</span></div>
+      <div class="op-kv"><span class="op-kv__k">약국</span><span class="op-kv__v">연수구 참여 약국</span></div>
+      <div class="op-kv"><span class="op-kv__k">배정일</span><span class="op-kv__v">2026-03-04</span></div>
+      <div class="op-kv"><span class="op-kv__k">상담 이력</span><span class="op-kv__v">3회</span></div>
+      <div class="op-kv"><span class="op-kv__k">다음 알림</span><span class="op-kv__v">D-4</span></div>
+      <p class="fa-idcard__note">가상의 예시 카드입니다. 실제 배정은 사전 등록 순서대로 안내드려요.</p>
+    </div>
   </div>
 </section>
 
 <section class="op-sec" data-section="a06_examples" data-reveal>
   <div class="op-inner">
     <div class="op-center">
-      <span class="op-eyebrow">상담 예시</span>
       <h2 class="op-h2">이런 식으로 답해드려요</h2>
       <p class="op-lead op-mt-16 op-measure--center">아래는 실제 고객 사례가 아니라, 이해를 돕기 위해 만든 가상의 상담 예시입니다.</p>
     </div><div class="op-carousel op-mt-64" data-carousel data-interval="7000">
       <div class="op-carousel__viewport" aria-live="off">
         <div class="op-carousel__track">
           <div class="op-carousel__slide" role="group" aria-roledescription="슬라이드" aria-label="상담 예시 1">
-            <div class="op-card op-card--pad-lg">
+            <div class="fa-ex">
               <div class="fa-ex__head">
                 <span class="op-badge op-badge--line">예시</span>
                 <span class="op-note">상담 예시 1</span>
@@ -542,7 +575,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
             </div>
           </div>
           <div class="op-carousel__slide" role="group" aria-roledescription="슬라이드" aria-label="상담 예시 2">
-            <div class="op-card op-card--pad-lg">
+            <div class="fa-ex">
               <div class="fa-ex__head">
                 <span class="op-badge op-badge--line">예시</span>
                 <span class="op-note">상담 예시 2</span>
@@ -580,7 +613,6 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
 <section class="op-sec op-sec--charcoal" data-section="a07_signup" id="signup" data-reveal>
   <div class="op-inner">
     <div class="op-center">
-      <span class="op-eyebrow">사전 등록</span>
       <h2 class="op-h2">사전 등록하고 먼저 받아보기</h2>
       <p class="op-lead op-mt-16 op-measure--center">동네에 조합 약국이 열리면 가장 먼저 알려드려요. 사전 등록하신 분은 첫 카드를 먼저 받아보실 수 있어요.</p>      <div class="fa-kakao-cta op-mt-32">
         <a class="op-btn op-btn--ghost op-btn--kakao"
@@ -700,60 +732,57 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
 <section class="op-sec op-sec--warm" data-section="a08_pharmacies" data-reveal>
   <div class="op-inner">
     <div class="op-center">
-      <span class="op-eyebrow">참여 약국</span>
       <h2 class="op-h2">함께하는 약국</h2>
       <p class="op-lead op-mt-16 op-measure--center">네 곳에서 먼저 시작합니다. 가까운 동네부터 차례로 문을 열어요.</p>
-    </div>
-
-    <div class="fa-map op-mt-48">
-      <div class="op-grid-4">
-        <div class="fa-pin">
-          <span class="fa-pin__ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">
+    </div><div class="fa-pins op-grid-4 op-mt-64">
+      <div class="fa-pin">
+        <span class="fa-pin__ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">
   <path d="M12 22.2s7.2-6.4 7.2-11.4a7.2 7.2 0 1 0-14.4 0c0 5 7.2 11.4 7.2 11.4z" fill="#FF6900"/>
   <circle cx="12" cy="10.6" r="2.9" fill="#FFFFFF"/>
 </svg></span>
-          <p class="fa-pin__area">인천 연수구</p>
-          <p class="fa-pin__status">1호 준비 중</p>
-        </div>
-        <div class="fa-pin">
-          <span class="fa-pin__ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">
+        <p class="fa-pin__area">인천 연수구</p>
+        <p class="fa-pin__status">1호 준비 중</p>
+      </div>
+      <div class="fa-pin">
+        <span class="fa-pin__ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">
   <path d="M12 22.2s7.2-6.4 7.2-11.4a7.2 7.2 0 1 0-14.4 0c0 5 7.2 11.4 7.2 11.4z" fill="#FF6900"/>
   <circle cx="12" cy="10.6" r="2.9" fill="#FFFFFF"/>
 </svg></span>
-          <p class="fa-pin__area">인천 남동구</p>
-          <p class="fa-pin__status">오픈 준비</p>
-        </div>
-        <div class="fa-pin">
-          <span class="fa-pin__ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">
+        <p class="fa-pin__area">인천 남동구</p>
+        <p class="fa-pin__status">오픈 준비</p>
+      </div>
+      <div class="fa-pin">
+        <span class="fa-pin__ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">
   <path d="M12 22.2s7.2-6.4 7.2-11.4a7.2 7.2 0 1 0-14.4 0c0 5 7.2 11.4 7.2 11.4z" fill="#FF6900"/>
   <circle cx="12" cy="10.6" r="2.9" fill="#FFFFFF"/>
 </svg></span>
-          <p class="fa-pin__area">서울 마포구</p>
-          <p class="fa-pin__status">오픈 예정</p>
-        </div>
-        <div class="fa-pin">
-          <span class="fa-pin__ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">
+        <p class="fa-pin__area">서울 마포구</p>
+        <p class="fa-pin__status">오픈 예정</p>
+      </div>
+      <div class="fa-pin">
+        <span class="fa-pin__ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">
   <path d="M12 22.2s7.2-6.4 7.2-11.4a7.2 7.2 0 1 0-14.4 0c0 5 7.2 11.4 7.2 11.4z" fill="#FF6900"/>
   <circle cx="12" cy="10.6" r="2.9" fill="#FFFFFF"/>
 </svg></span>
-          <p class="fa-pin__area">서울 영등포구</p>
-          <p class="fa-pin__status">오픈 예정</p>
-        </div>
+        <p class="fa-pin__area">서울 영등포구</p>
+        <p class="fa-pin__status">오픈 예정</p>
       </div>
     </div>
+  </div>  <div class="fa-pharm__frame">
+    <div class="fa-pharm__bg"><img src="/onpharm/a08_pharmacies.jpg" alt="" width="1536" height="864"
+         data-scrub="0.12" data-scrub-from="1" data-scrub-to="0.35" class="op-anim-zoom"></div>
+  </div>
 
-    <div class="fa-photoband op-mt-32"><img src="/onpharm/a08_pharmacies.jpg" alt="" width="1536" height="864"></div>
-
-    <p class="op-note op-mt-32 op-center op-measure--center">참여 약국은 순차적으로 문을 열 예정이며, 지역과 일정은 달라질 수 있어요. 사전 등록에 동네를 남겨 주시면 가장 먼저 알려드립니다.</p>
+  <div class="op-inner">
+    <p class="op-note op-mt-40 op-center op-measure--center">참여 약국은 순차적으로 문을 열 예정이며, 지역과 일정은 달라질 수 있어요. 사전 등록에 동네를 남겨 주시면 가장 먼저 알려드립니다.</p>
   </div>
 </section>
 
 <section class="op-sec" data-section="a09_faq">
   <div class="op-inner op-inner--narrow">
     <div class="op-center">
-      <span class="op-eyebrow">FAQ</span>
       <h2 class="op-h2">자주 묻는 질문</h2>
-    </div><div class="op-card op-card--pad-lg op-mt-48">
+    </div><div class="fa-faq op-mt-48">
       <div class="op-faq" data-accordion>
         <details class="op-faq__item" open>
           <summary class="op-faq__q">상담은 정말 무료인가요?</summary>
@@ -782,9 +811,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-photo" data-s
       </div>
     </div><div class="fa-closing">
       <span class="op-logo"><span class="op-logotype " role="img" aria-label="온팜"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 363 50" role="img" aria-label="ONPHARM"><g fill="currentColor"><path d="M128.05 0.98L23.01 0.98C10.17 0.98 -0.28 11.43 -0.28 24.27C-0.28 37.11 10.17 47.56 23.01 47.56L128.05 47.56C140.89 47.56 151.34 37.11 151.34 24.27C151.34 11.43 140.89 0.98 128.05 0.98M128.05 36.98L23.01 36.98C16 36.98 10.3 31.28 10.3 24.27C10.3 17.26 16 11.56 23.01 11.56L128.05 11.56C135.06 11.56 140.77 17.26 140.77 24.27C140.77 31.28 135.06 36.98 128.05 36.98 Z"/><path d="M24.2 16.99C20.19 16.99 16.92 20.26 16.92 24.27C16.92 28.29 20.19 31.55 24.2 31.55C28.22 31.55 31.48 28.29 31.48 24.27C31.48 20.26 28.22 16.99 24.2 16.99 Z"/><path d="M239.89 17.19L235.32 17.19L235.32 13.64C235.32 10.32 232.63 7.63 229.31 7.63L239.89 7.63L239.89 1.79L206.88 1.79L206.88 7.63L211.61 7.63L211.61 17.19L206.88 17.19L206.88 23.04L239.89 23.04L239.89 17.19M225.82 17.19L221.1 17.19L221.1 13.64C221.1 10.32 218.41 7.63 215.09 7.63L225.82 7.63L225.82 17.19 Z"/><path d="M211.51 44.55C211.51 46.21 212.86 47.56 214.52 47.56L254.03 47.56L254.03 27.05L211.51 27.05L211.51 44.55M221.01 32.89H244.54V41.71H221.01Z Z"/><path d="M254.03 1.79L244.54 1.79L244.54 23.04L254.03 23.04L254.03 14.22L259.43 14.22L259.43 8.37L254.03 8.37L254.03 1.79 Z"/><path d="M168.96 35.91L159.46 35.91L159.46 44.55C159.46 46.21 160.81 47.56 162.47 47.56L201.98 47.56L201.98 41.71L168.96 41.71L168.96 35.91 Z"/><path d="M191.35 23.04C197.22 23.04 201.98 18.28 201.98 12.41C201.98 6.54 197.22 1.79 191.35 1.79L170.09 1.79C164.22 1.79 159.46 6.54 159.46 12.41C159.46 18.28 164.22 23.04 170.09 23.04L175.97 23.04L175.97 27.05L159.46 27.05L159.46 32.89L201.98 32.89L201.98 27.05L185.47 27.05L185.47 23.04L191.35 23.04M173.74 17.19C171.1 17.19 168.96 15.05 168.96 12.41C168.96 9.77 171.1 7.63 173.74 7.63L187.71 7.63C190.35 7.63 192.49 9.77 192.49 12.41C192.49 15.05 190.35 17.19 187.71 17.19L173.74 17.19 Z"/><path d="M360.63 1.79L321.12 1.79L321.12 7.63L354.14 7.63L354.14 17.63L363.63 17.63L363.63 4.79C363.63 3.13 362.29 1.79 360.63 1.79 Z"/><path d="M321.12 21.12L321.12 26.97L337.63 26.97L337.63 32.8L321.12 32.8L321.12 38.65L354.14 38.65L354.14 47.56L363.63 47.56L363.63 35.81C363.63 34.15 362.29 32.8 360.63 32.8L347.12 32.8L347.12 26.97L363.63 26.97L363.63 21.12L321.12 21.12 Z"/><path d="M308.23 30.16L268.72 30.16L268.72 36L301.74 36L301.74 47.56L311.23 47.56L311.23 33.16C311.23 31.5 309.89 30.16 308.23 30.16 Z"/><path d="M284.91 26.15C291.64 26.15 297.09 20.7 297.09 13.97C297.09 7.24 291.64 1.79 284.91 1.79L276.1 1.79C269.37 1.79 263.91 7.24 263.91 13.97C263.91 20.7 269.37 26.15 276.1 26.15L284.91 26.15M273.4 13.97C273.4 10.47 276.24 7.63 279.74 7.63L281.26 7.63C284.76 7.63 287.6 10.47 287.6 13.97C287.6 17.47 284.76 20.31 281.26 20.31L279.74 20.31C276.24 20.31 273.4 17.47 273.4 13.97 Z"/><path d="M311.23 1.79L301.74 1.79L301.74 26.15L311.23 26.15L311.23 21.56L316.63 21.56L316.63 15.71L311.23 15.71L311.23 12.23L316.63 12.23L316.63 6.38L311.23 6.38L311.23 1.79 Z"/></g></svg></span></span><p class="fa-closing__t op-mt-16"
-         data-scrub="0.1" data-scrub-from="0.98" data-scrub-to="0.8"><span class="op-textfill op-textfill--ink">고민 한 줄이면 시작돼요</span></p>
-      <p class="op-caption op-mt-8">들르면, 건강이 켜집니다</p>
-      <div class="op-row op-row--center op-mt-32">
+         data-scrub="0.1" data-scrub-from="0.98" data-scrub-to="0.8"><span class="op-textfill op-textfill--ink">고민 한 줄이면 시작돼요</span></p>      <div class="op-row op-row--center op-mt-32">
         <a class="op-btn op-btn--lg" href="#signup">1분 상담 신청</a>
       </div>
     </div>

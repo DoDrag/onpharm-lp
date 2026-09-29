@@ -910,6 +910,12 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
        * display:none 구간(rect 0)은 값을 캐시하지 않고 직전 값을 유지한다.
          (면 토글 시 캐러셀 트랙이 죽었던 회귀의 같은 함정)
 
+       * data-scrub-media="(max-width: 767px)" — 이 미디어에서만 사는 스크럽.
+         같은 장면을 데스크톱(스티키 .op-stage 가 p 를 끎)과 모바일(정적 스택이라
+         토글·단계가 각자 자기 위치로 p 를 끎)에서 다른 요소가 끌어야 할 때 쓴다.
+         안 맞으면 등록하지 않고 인라인 --op-p 도 쓰지 않으므로 소비자는 조상 값
+         (또는 CSS 기본 1)을 그대로 상속한다. 경계를 넘으면(회전) change 로 등록/해제.
+
      감쇠식 — 삼신 실측 그대로
          p += (t - p) * (1 - 2^(-dt/hl))      hl = 반감기(초)
      GSAP scrub s 의 반감기는 s/10 이다(실측: scrub 1.5 -> 150ms).
@@ -1080,6 +1086,38 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
       return isFinite(v) ? v : dflt;
     }
 
+    /* data-scrub-media — 미디어가 안 맞는 동안은 등록하지 않는다(위 설계 결정 참조). */
+    function mediaOf(el) {
+      var q = trimmed(el, "data-scrub-media");
+      if (!q || typeof window.matchMedia !== "function") { return null; }
+      try { return window.matchMedia(q); } catch (e) { return null; }
+    }
+
+    /* 등록 해제: 인라인 --op-p 를 걷어내 소비자가 조상/기본값으로 돌아가게 한다. */
+    function drop(el) {
+      var it = el.__opScrub;
+      if (!it) { return; }
+      if (io) { try { io.unobserve(el); } catch (e) {} }
+      try { el.style.removeProperty("--op-p"); } catch (e) {}
+      for (var j = 0; j < it.parts.length; j++) {
+        try { it.parts[j].style.removeProperty("--op-p"); } catch (e) {}
+      }
+      try { el.__opScrub = null; } catch (e) {}
+      var k = items.indexOf(it);
+      if (k >= 0) { items.splice(k, 1); }
+    }
+
+    function watchMedia(el, mq) {
+      if (el.__opScrubMQ) { return; }
+      try { el.__opScrubMQ = true; } catch (e) { return; }
+      var handler = function () {
+        if (dead) { return; }
+        if (mq.matches) { eng.scan(); } else { drop(el); }
+      };
+      if (typeof mq.addEventListener === "function") { mq.addEventListener("change", handler); }
+      else if (typeof mq.addListener === "function") { mq.addListener(handler); }
+    }
+
     eng.scan = function (ctx) {
       if (dead || isStatic()) { return; }
       var els = list("[data-scrub]", ctx && ctx.nodeType === 1 ? ctx : doc);
@@ -1090,6 +1128,9 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
         var el = els[i];
         if (el.__opScrub) { continue; }
 
+        var mq = mediaOf(el);
+        if (mq) { watchMedia(el, mq); if (!mq.matches) { continue; } }
+
         var hl = num(el, "data-scrub", SCRUB_HL_DEFAULT);
         if (hl > 1) { hl = hl / 10; }            /* GSAP scrub 표기 호환 */
         if (!(hl >= 0)) { hl = SCRUB_HL_DEFAULT; }
@@ -1097,7 +1138,14 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
 
         var from = num(el, "data-scrub-from", 0.85);
         var to = num(el, "data-scrub-to", 0.35);
-        if (!(from > to) || from > 1.5 || to < -0.5) { from = 0.85; to = 0.35; }
+        /* 범위 밖 값만 거절한다. 예전에는 from > to 도 강제했는데, 그건 "요소가 뷰포트를
+           지나가는" 보통 요소의 가정이다. 스티키 무대(.op-stage, 높이 = 100vh + 레일)는
+           핀 시작(top=0)에 p=0, 레일 소진(bottom=vh)에 p=1 이어야 하므로 from=0 < to=1.0
+           이 정답이고, span = 높이 + vh*(from-to) 는 키 큰 요소에선 여전히 양수다.
+           (순서를 강제하면 기본값 0.85/0.35 로 떨어져 p 가 0.32~0.76 만 훑는다 - 실측.)
+           퇴화 케이스(span <= 1)는 targetOf 가 런타임에 따로 거른다. */
+        if (!isFinite(from) || !isFinite(to) ||
+            from > 1.5 || from < -0.5 || to > 1.5 || to < -0.5) { from = 0.85; to = 0.35; }
 
         var seq = Math.floor(num(el, "data-scrub-seq", 0));
         var parts = seq > 0 ? list("[data-scrub-part]", el) : [];
