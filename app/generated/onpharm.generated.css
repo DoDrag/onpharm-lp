@@ -2618,6 +2618,9 @@
 /* 슬라이드는 카드가 아니다(검수: 바깥 카드 래퍼 제거). 질문 블록(.fa-ex__q)만 면을 갖고,
    답변은 헤어라인 인용선. 읽기 폭은 760px 로 좁혀 가운데에 둔다. */
 .fa-ex { max-width: 760px; margin: 0 auto; padding-top: 4px; }
+/* 한 슬라이드에 예시 2건 (2026-10-01). 모바일은 1열로 접힌다. */
+.fa-ex-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; align-items: start; }
+.fa-ex-pair .fa-ex { max-width: none; margin: 0; }
 .fa-ex__head { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
 .fa-ex__q {
   background: var(--op-bg-warm);
@@ -3006,6 +3009,7 @@
   .fa-closing { padding: 28px 20px; margin-top: 40px; }
   .fa-checks { gap: 20px; }
   .fa-ex__q { padding: 18px; }
+  .fa-ex-pair { grid-template-columns: 1fr; gap: 44px; }
   .fa-ex__a { margin-top: 20px; padding-left: 16px; }
   .fa-concern__label { font-size: 18px; }
   .fa-concern { padding: 22px 18px; }
