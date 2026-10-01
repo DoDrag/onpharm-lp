@@ -1534,7 +1534,7 @@
         그래서 정지 프레임이 자동으로 "제자리 + 완성"이 된다.
 
    ★ 마크업
-     <section class="op-sec" data-section="a06_examples"
+     <section class="op-sec" data-section="a00_example"
               data-scrub="0.12" data-scrub-from="0.85" data-scrub-to="0.35">
        <h2 class="op-h2">
          <span class="op-textfill">들르면, 건강이 켜집니다</span>
@@ -2614,53 +2614,66 @@
 }
 .fa-check__d { display: block; font-size: 16px; line-height: 1.65; color: var(--op-gray); margin-top: 4px; }
 
-/* --- a06 상담 예시 ------------------------------------------------------ */
-/* 슬라이드는 카드가 아니다(검수: 바깥 카드 래퍼 제거). 질문 블록(.fa-ex__q)만 면을 갖고,
-   답변은 헤어라인 인용선. 읽기 폭은 760px 로 좁혀 가운데에 둔다. */
-.fa-ex { max-width: 760px; margin: 0 auto; padding-top: 4px; }
-/* 한 슬라이드에 예시 2건 (2026-10-01). 모바일은 1열로 접힌다. */
-.fa-ex-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; align-items: start; }
-.fa-ex-pair .fa-ex { max-width: none; margin: 0; }
-.fa-ex__head { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
-.fa-ex__q {
-  background: var(--op-bg-warm);
-  border: 1px solid var(--op-line);
-  border-radius: 20px;
-  padding: 22px 26px;
+/* --- a05 상담 예시 카드 (a06 에서 편입, 2026-10-01) -------------------- */
+/* 밴드 아래 행: [전담 상담사 카드 | 상담 예시]. 두 카드가 함께 밴드 위로 -88px 올라온다.
+   무JS/정지에서는 예시 6건이 세로로 다 보여 오른쪽이 길어지므로 start 정렬이 기본이고,
+   JS 가 살아 있을 때만(캐러셀이 한 장씩 보일 때) 두 카드 높이를 맞춘다. */
+.fa-band__row {
+  display: grid;
+  grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+  margin-top: -88px;
+  position: relative;
+  z-index: 6;
 }
-.fa-ex__label {
-  display: block;
-  font-size: 12.5px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--op-gray);
-  margin-bottom: 8px;
-}
-.fa-ex__qt {
-  font-size: 19px;
-  font-weight: 700;
-  line-height: 1.55;
-  letter-spacing: 0;
-  color: var(--op-charcoal);
-}
-.fa-ex__a { margin-top: 26px; padding-left: 24px; border-left: 1px solid var(--op-line); }
-.fa-ex__who { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-.fa-ex__avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  background: var(--op-orange-tint);
-  color: var(--op-orange);
+.op-js:not(.op-static) .fa-band__row { align-items: stretch; }
+.fa-band__row .fa-band__card { max-width: none; margin: 0; }
+.fa-talk {
+  background: #FFFFFF;
+  border-radius: var(--op-radius-card);
+  box-shadow: var(--op-shadow-lift);
+  padding: 32px 34px 26px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  font-weight: 800;
-  flex: 0 0 auto;
+  flex-direction: column;
+  min-width: 0;
 }
-.fa-ex__name { font-size: 16px; font-weight: 700; color: var(--op-charcoal); }
-.fa-ex__p { font-size: 17px; line-height: 1.85; color: var(--op-ink); margin-bottom: 14px; }
-.fa-ex__p:last-child { margin-bottom: 0; }
+.fa-talk__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+.fa-talk__title { font-size: 20px; font-weight: 800; letter-spacing: 0; color: var(--op-charcoal); }
+.fa-talk__carousel { flex: 1 1 auto; }
+/* JS 일 때 카드가 왼쪽 상담사 카드 높이까지 늘어난다 -> 한 장짜리 슬라이드를 세로 가운데로 모아
+   점과 하단 문구 사이가 비지 않게 한다. 뷰포트를 column flex 로 둬야 트랙 폭(100%)이 그대로 유지된다. */
+.op-js:not(.op-static) .fa-talk__carousel { display: flex; flex-direction: column; }
+.op-js:not(.op-static) .fa-talk__carousel > .op-carousel__viewport { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
+.fa-talk__q { background: var(--op-bg-warm); border-radius: 20px 20px 20px 6px; padding: 22px 26px; }
+.fa-talk__qk { display: block; font-size: 13px; font-weight: 700; color: var(--op-gray); }
+.fa-talk__qt { margin-top: 8px; font-size: 21px; font-weight: 700; line-height: 1.5; letter-spacing: 0; color: var(--op-charcoal); }
+.fa-talk__a { display: flex; align-items: flex-start; gap: 16px; margin-top: 26px; padding: 0 4px; }
+.fa-talk__avatar {
+  width: 52px; height: 52px; border-radius: 999px; flex: 0 0 auto; overflow: hidden;
+  background: var(--op-orange-tint); color: var(--op-orange);
+  display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800;
+}
+.fa-talk__avatar > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; }
+.fa-talk__body { min-width: 0; }
+.fa-talk__who { display: block; font-size: 14px; font-weight: 700; color: var(--op-charcoal); }
+.fa-talk__p { margin-top: 8px; font-size: 18px; line-height: 1.75; color: var(--op-ink); }
+.fa-talk__p + .fa-talk__p { margin-top: 2px; }
+.fa-talk__foot { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--op-line); font-size: 14px; line-height: 1.6; color: var(--op-gray); }
+
+/* --- a06 한 줄 고민 롤링 (메디코치 카드 롤링 문법) ---------------------- */
+.fa-voices { --op-marquee-item: 300px; --op-marquee-gap: 20px; --op-marquee-pad-y: 14px; --op-marquee-fade: 80px; }
+.fa-voice {
+  display: flex; flex-direction: column;
+  background: #FFFFFF; border-radius: 22px; padding: 14px 14px 22px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+.fa-voice__ph { aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; background: var(--op-bg-gray); }
+.fa-voice__ph > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.fa-voice__meta { display: flex; align-items: center; gap: 10px; margin-top: 16px; padding: 0 6px; }
+.fa-voice__name { font-size: 15px; font-weight: 700; color: var(--op-gray); }
+.fa-voice__stars { display: inline-flex; gap: 2px; color: var(--op-orange); }
+.fa-voice__t { margin-top: 10px; padding: 0 6px; font-size: 16px; line-height: 1.7; letter-spacing: 0; color: var(--op-ink); text-align: left; }
 
 /* --- a07 사전 등록 폼 ---------------------------------------------------- */
 .fa-form {
@@ -2928,6 +2941,9 @@
   .fa-hero-h1 { font-size: 58px; }
   .fa-band-h2 { font-size: 46px; }
   .fa-band__checks { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+  .fa-band__row { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .fa-band__row .fa-band__card { max-width: 520px; width: 100%; margin: 0 auto; }
+  .fa-talk { max-width: 640px; width: 100%; margin: 0 auto; }
   .fa-mq__w { font-size: 24px; }
   .fa-toggle svg { width: 260px; }
   .fa-hero-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -2990,6 +3006,11 @@
   }
   .fa-band__checks { grid-template-columns: 1fr; gap: 18px; margin-top: 40px; }
   .fa-band__card { margin-top: -40px; }
+  .fa-band__row { margin-top: -40px; }
+  .fa-talk { padding: 24px 20px 20px; }
+  .fa-talk__qt { font-size: 17px; }
+  .fa-talk__p { font-size: 16px; }
+  .fa-voices { --op-marquee-item: 268px; --op-marquee-fade: 32px; }
   .fa-mq { margin-top: 40px; }
   .fa-mq__w { font-size: 20px; gap: 16px; padding: 0 16px; }
   .fa-toggle svg { width: 200px; }
@@ -3008,9 +3029,6 @@
   .op-js:not(.op-static) .fa-stage__sticky { min-height: 0; }
   .fa-closing { padding: 28px 20px; margin-top: 40px; }
   .fa-checks { gap: 20px; }
-  .fa-ex__q { padding: 18px; }
-  .fa-ex-pair { grid-template-columns: 1fr; gap: 44px; }
-  .fa-ex__a { margin-top: 20px; padding-left: 16px; }
   .fa-concern__label { font-size: 18px; }
   .fa-concern { padding: 22px 18px; }
   .fa-suggest { padding: 24px 18px; }

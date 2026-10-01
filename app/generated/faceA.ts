@@ -518,191 +518,360 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
   </div>
 
   <div class="op-inner">
-    <div class="fa-idcard fa-band__card">
-      <div class="fa-idcard__head">
-        <span class="fa-idcard__label">전담 상담사 카드</span>
-        <span class="op-badge op-badge--gray">예시</span>
+    <div class="fa-band__row">
+      <div class="fa-idcard fa-band__card">
+        <div class="fa-idcard__head">
+          <span class="fa-idcard__label">전담 상담사 카드</span>
+          <span class="op-badge op-badge--gray">예시</span>
+        </div>
+        <div class="fa-idcard__top">
+          <span class="fa-idcard__avatar fa-idcard__avatar--photo">
+            <img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480">
+          </span>
+          <span>
+            <span class="fa-idcard__name">김O연 상담사</span>
+            <span class="fa-idcard__role">온팜 전담 상담사</span>
+          </span>
+        </div>
+        <div class="op-kv"><span class="op-kv__k">이름</span><span class="op-kv__v">김O연 상담사</span></div>
+        <div class="op-kv"><span class="op-kv__k">약국</span><span class="op-kv__v">연수구 참여 약국</span></div>
+        <div class="op-kv"><span class="op-kv__k">배정일</span><span class="op-kv__v">2026-03-04</span></div>
+        <div class="op-kv"><span class="op-kv__k">상담 이력</span><span class="op-kv__v">3회</span></div>
+        <div class="op-kv"><span class="op-kv__k">다음 알림</span><span class="op-kv__v">D-4</span></div>
+        <p class="fa-idcard__note">가상의 예시 카드입니다. 실제 배정은 사전 등록 순서대로 안내드려요.</p>
+      </div>      <div class="fa-talk">
+        <div class="fa-talk__head">
+          <span class="fa-talk__title">이런 식으로 답해드려요</span>
+          <span class="op-badge op-badge--line">예시</span>
+        </div>
+        <div class="op-carousel fa-talk__carousel" data-carousel data-interval="6000">
+          <div class="op-carousel__viewport" aria-live="off">
+            <div class="op-carousel__track">
+              <div class="op-carousel__slide" role="group" aria-roledescription="슬라이드" aria-label="상담 예시 1">
+                <div class="fa-talk__q">
+                  <span class="fa-talk__qk">남기신 고민</span>
+                  <p class="fa-talk__qt">장 컨디션이 들쭉날쭉해요. 뭘 먹어야 할지 모르겠어요.</p>
+                </div>
+                <div class="fa-talk__a">
+                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480"></span>
+                  <div class="fa-talk__body">
+                    <span class="fa-talk__who">전담 상담사</span>
+                    <p class="fa-talk__p">물 마시는 양과 식이섬유 한 끼부터 같이 챙겨 봐요.</p>
+                    <p class="fa-talk__p">그다음 프로바이오틱스 카테고리를 6일 카드로 가볍게 시작해요.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="op-carousel__slide" role="group" aria-roledescription="슬라이드" aria-label="상담 예시 2">
+                <div class="fa-talk__q">
+                  <span class="fa-talk__qk">남기신 고민</span>
+                  <p class="fa-talk__qt">야근이 많아 밤에 누워도 한참 뒤척여요.</p>
+                </div>
+                <div class="fa-talk__a">
+                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480"></span>
+                  <div class="fa-talk__body">
+                    <span class="fa-talk__who">전담 상담사</span>
+                    <p class="fa-talk__p">한 주만 잠드는 시각과 마지막 커피 시각을 적어 봐 주세요.</p>
+                    <p class="fa-talk__p">그다음 마그네슘 카테고리를 6일 카드로 함께 볼게요.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="op-carousel__slide" role="group" aria-roledescription="슬라이드" aria-label="상담 예시 3">
+                <div class="fa-talk__q">
+                  <span class="fa-talk__qk">남기신 고민</span>
+                  <p class="fa-talk__qt">오후만 되면 축 처져요. 뭐부터 먹어야 할까요?</p>
+                </div>
+                <div class="fa-talk__a">
+                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480"></span>
+                  <div class="fa-talk__body">
+                    <span class="fa-talk__who">전담 상담사</span>
+                    <p class="fa-talk__p">점심에 단백질 한 가지를 챙기는 것부터 해 봐요.</p>
+                    <p class="fa-talk__p">그다음 비타민B군 카테고리를 6일 카드로 함께 볼게요.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="op-carousel__slide" role="group" aria-roledescription="슬라이드" aria-label="상담 예시 4">
+                <div class="fa-talk__q">
+                  <span class="fa-talk__qk">남기신 고민</span>
+                  <p class="fa-talk__qt">화면을 오래 봐서 저녁이면 눈이 뻑뻑해요.</p>
+                </div>
+                <div class="fa-talk__a">
+                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480"></span>
+                  <div class="fa-talk__body">
+                    <span class="fa-talk__who">전담 상담사</span>
+                    <p class="fa-talk__p">50분에 한 번 먼 곳을 보는 습관부터 들여 봐요.</p>
+                    <p class="fa-talk__p">그다음 루테인 카테고리를 6일 카드로 함께 볼게요.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="op-carousel__slide" role="group" aria-roledescription="슬라이드" aria-label="상담 예시 5">
+                <div class="fa-talk__q">
+                  <span class="fa-talk__qk">남기신 고민</span>
+                  <p class="fa-talk__qt">피부가 푸석한 느낌이 오래가요.</p>
+                </div>
+                <div class="fa-talk__a">
+                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480"></span>
+                  <div class="fa-talk__body">
+                    <span class="fa-talk__who">전담 상담사</span>
+                    <p class="fa-talk__p">자기 전 물 한 잔과 잠드는 시각부터 맞춰 봐요.</p>
+                    <p class="fa-talk__p">그다음 콜라겐 카테고리를 6일 카드로 함께 볼게요.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="op-carousel__slide" role="group" aria-roledescription="슬라이드" aria-label="상담 예시 6">
+                <div class="fa-talk__q">
+                  <span class="fa-talk__qk">남기신 고민</span>
+                  <p class="fa-talk__qt">부모님 드릴 걸 고르는데 뭐가 맞을지 모르겠어요.</p>
+                </div>
+                <div class="fa-talk__a">
+                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480"></span>
+                  <div class="fa-talk__body">
+                    <span class="fa-talk__who">전담 상담사</span>
+                    <p class="fa-talk__p">지금 드시는 것부터 알려 주시면 겹치는 성분이 없는지 먼저 볼게요.</p>
+                    <p class="fa-talk__p">한 가지 카테고리만 6일 카드로 시작하길 권해요.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="op-carousel__nav">
+            <button type="button" class="op-carousel__dot is-on" aria-label="상담 예시 1"></button>
+            <button type="button" class="op-carousel__dot" aria-label="상담 예시 2"></button>
+            <button type="button" class="op-carousel__dot" aria-label="상담 예시 3"></button>
+            <button type="button" class="op-carousel__dot" aria-label="상담 예시 4"></button>
+            <button type="button" class="op-carousel__dot" aria-label="상담 예시 5"></button>
+            <button type="button" class="op-carousel__dot" aria-label="상담 예시 6"></button>
+          </div>
+        </div>
+        <p class="fa-talk__foot">지금 드시는 것과 겹치는 성분은 먼저 확인해 드려요. 6일 뒤에는 상담사가 먼저 여쭤봐요.</p>
       </div>
-      <div class="fa-idcard__top">
-        <span class="fa-idcard__avatar fa-idcard__avatar--photo">
-          <img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480">
-        </span>
-        <span>
-          <span class="fa-idcard__name">김O연 상담사</span>
-          <span class="fa-idcard__role">온팜 전담 상담사</span>
-        </span>
-      </div>
-      <div class="op-kv"><span class="op-kv__k">이름</span><span class="op-kv__v">김O연 상담사</span></div>
-      <div class="op-kv"><span class="op-kv__k">약국</span><span class="op-kv__v">연수구 참여 약국</span></div>
-      <div class="op-kv"><span class="op-kv__k">배정일</span><span class="op-kv__v">2026-03-04</span></div>
-      <div class="op-kv"><span class="op-kv__k">상담 이력</span><span class="op-kv__v">3회</span></div>
-      <div class="op-kv"><span class="op-kv__k">다음 알림</span><span class="op-kv__v">D-4</span></div>
-      <p class="fa-idcard__note">가상의 예시 카드입니다. 실제 배정은 사전 등록 순서대로 안내드려요.</p>
     </div>
+    <p class="op-note op-mt-24 op-center op-measure--center">상담 예시는 이해를 돕기 위해 만든 가상의 대화입니다. 실제 상담 내용은 개인별로 다르며, 의학적 진단이나 치료를 대신하지 않습니다. 건강기능식품은 의약품이 아닙니다.</p>
   </div>
 </section>
 
-<section class="op-sec" data-section="a06_examples" data-reveal>
-  <div class="op-inner">
-    <div class="op-center">
-      <h2 class="op-h2">이런 식으로 답해드려요</h2>
-      <p class="op-lead op-mt-16 op-measure--center">아래는 실제 고객 사례가 아니라, 이해를 돕기 위해 만든 가상의 상담 예시입니다.</p>
-    </div><div class="op-carousel op-mt-64" data-carousel data-interval="7000">
-      <div class="op-carousel__viewport" aria-live="off">
-        <div class="op-carousel__track">          <div class="op-carousel__slide" role="group" aria-roledescription="슬라이드" aria-label="상담 예시 1-2">
-            <div class="fa-ex-pair">
-              <div class="fa-ex">
-                <div class="fa-ex__head">
-                  <span class="op-badge op-badge--line">예시</span>
-                  <span class="op-note">상담 예시 1</span>
-                </div>
-
-                <div class="fa-ex__q">
-                  <span class="fa-ex__label">남기신 고민</span>
-                  <p class="fa-ex__qt">장 컨디션이 들쭉날쭉해요. 아침마다 몸 상태가 달라서 뭘 먹어야 할지 모르겠어요.</p>
-                </div>
-
-                <div class="fa-ex__a">
-                  <div class="fa-ex__who">
-                    <span class="fa-ex__avatar">온팜</span>
-                    <span class="fa-ex__name">전담 상담사 답변</span>
-                  </div>
-                  <p class="fa-ex__p">먼저 하루 식사 리듬부터 여쭤볼게요. 아침을 거르는 날이 많은지, 커피는 하루 몇 잔인지, 저녁이 늦는 편인지요. 같은 제품이라도 리듬이 흔들리면 몸이 받는 느낌이 많이 달라집니다.</p>
-                  <p class="fa-ex__p">말씀만 들어 보면 저녁이 늦고 주말에 리듬이 크게 바뀌는 편으로 보여요. 그럴 때는 새로 무언가를 더하기 전에, 물 마시는 양과 식이섬유가 들어간 한 끼를 먼저 챙겨 보시길 권해요.</p>
-                  <p class="fa-ex__p">그다음에 프로바이오틱스 카테고리를 함께 보시면 좋아요. 6일 카드로 딱 6일만 드셔 보고, 그 주에 몸이 어땠는지 저에게 알려 주세요.</p>
-                  <p class="fa-ex__p">6일 뒤에는 제가 먼저 여쭤볼게요. 이어서 볼지, 다른 카테고리를 볼지 그때 같이 정하면 됩니다.</p>
-                </div>
-              </div>
-              <div class="fa-ex">
-                <div class="fa-ex__head">
-                  <span class="op-badge op-badge--line">예시</span>
-                  <span class="op-note">상담 예시 2</span>
-                </div>
-
-                <div class="fa-ex__q">
-                  <span class="fa-ex__label">남기신 고민</span>
-                  <p class="fa-ex__qt">밤에 누워도 한참 뒤척여요. 요즘 야근이 많은데 뭘 챙기면 좋을까요?</p>
-                </div>
-
-                <div class="fa-ex__a">
-                  <div class="fa-ex__who">
-                    <span class="fa-ex__avatar">온팜</span>
-                    <span class="fa-ex__name">전담 상담사 답변</span>
-                  </div>
-                  <p class="fa-ex__p">야근이 이어지면 잠자리에 드는 시각 자체가 밀리기 쉬워요. 우선 한 주만 잠드는 시각과 마지막 커피 시각을 적어 봐 주세요. 이것만으로 보이는 게 꽤 많습니다.</p>
-                  <p class="fa-ex__p">화면을 늦게까지 보신다면, 자기 전 한 시간은 조명을 낮추는 쪽을 먼저 권해 드려요. 무엇을 드시는지보다 이쪽을 먼저 보는 편이 순서상 맞습니다.</p>
-                  <p class="fa-ex__p">그다음 마그네슘이 들어간 카테고리를 함께 보시면 좋아요. 지금 챙겨 드시는 것이 있으면 알려 주세요. 겹치는 성분이 없는지 같이 확인하고 안내드릴게요.</p>
-                  <p class="fa-ex__p">우선 6일 카드로 가볍게 시작하고, 그 주가 어땠는지 편하게 이야기 나눠요.</p>
-                </div>
-              </div>
-            </div>
+<section class="op-sec op-sec--warm" data-section="a06_voices" data-reveal>
+  <div class="op-inner op-center">
+    <h2 class="op-h2">이런 한 줄이면 충분해요</h2>
+    <p class="op-lead op-mt-16 op-measure--center">길게 쓰지 않아도 돼요. 한 줄만 남기면 전담 상담사가 읽고 답해드려요.</p>
+  </div>
+  <ul class="op-sr">
+    <li>하** 예시: 요즘 오후만 되면 축 처져요. 영양제는 많은데 뭐부터 먹어야 할지 모르겠어요.</li>
+    <li>권** 예시: 장바구니에 담아 둔 영양제가 다섯 개인데, 결국 하나도 못 골랐어요.</li>
+    <li>김** 예시: 지금 챙겨 먹는 게 있는데, 새로 더해도 겹치지 않는지 봐 주실 수 있나요?</li>
+    <li>정** 예시: 야근이 많아서 밤에 누워도 한참 뒤척여요. 뭘 챙기면 좋을까요?</li>
+    <li>손** 예시: 부모님 드릴 걸 고르고 있어요. 뭐가 맞는지 몰라서 한 줄 남겨요.</li>
+    <li>이** 예시: 화면을 오래 보는 일을 해요. 저녁이면 눈이 뻑뻑한데 뭐부터 볼까요?</li>
+    <li>박** 예시: 피부가 푸석한 느낌이 오래가요. 먹는 것부터 바꿔 보고 싶어요.</li>
+    <li>윤** 예시: 동네 약국에서 받아 가려면 뭐부터 하면 되나요?</li>
+    <li>장** 예시: 환절기마다 컨디션이 흔들려요. 미리 챙길 수 있는 게 있을까요?</li>
+    <li>고** 예시: 아침을 자주 걸러요. 이런 리듬에도 맞는 게 있을까요?</li>
+  </ul>
+  <div class="op-marquee fa-voices op-mt-48" data-marquee data-speed="70" aria-hidden="true">
+    <div class="op-marquee__track">
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02_c_fatigue.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">하**</span>
+            <span class="op-badge op-badge--line">예시</span>
           </div>
-          <div class="op-carousel__slide" role="group" aria-roledescription="슬라이드" aria-label="상담 예시 3-4">
-            <div class="fa-ex-pair">
-              <div class="fa-ex">
-                <div class="fa-ex__head">
-                  <span class="op-badge op-badge--line">예시</span>
-                  <span class="op-note">상담 예시 3</span>
-                </div>
-
-                <div class="fa-ex__q">
-                  <span class="fa-ex__label">남기신 고민</span>
-                  <p class="fa-ex__qt">요즘 오후만 되면 축 처져요. 영양제는 많은데 뭐부터 먹어야 할지 모르겠어요.</p>
-                </div>
-
-                <div class="fa-ex__a">
-                  <div class="fa-ex__who">
-                    <span class="fa-ex__avatar">온팜</span>
-                    <span class="fa-ex__name">전담 상담사 답변</span>
-                  </div>
-                  <p class="fa-ex__p">오후에 유독 처진다고 하셨죠. 먼저 점심을 어떻게 드시는지, 커피는 몇 시에 마지막으로 드시는지 여쭤볼게요. 오후 컨디션은 이 두 가지에 생각보다 많이 좌우돼요.</p>
-                  <p class="fa-ex__p">말씀을 들어 보니 점심이 가볍고 저녁이 늦는 날이 많아 보여요. 새 제품을 더하기 전에 점심에 단백질 한 가지를 챙기는 것부터 같이 해 봤으면 해요.</p>
-                  <p class="fa-ex__p">그다음 비타민B군이 들어간 카테고리를 함께 보시면 좋아요. 지금 챙겨 드시는 게 있으면 알려 주세요. 겹치는 성분이 없는지 먼저 확인할게요.</p>
-                  <p class="fa-ex__p">6일 카드로 딱 6일만 드셔 보고, 오후가 어땠는지 알려 주세요. 6일 뒤에는 제가 먼저 여쭤볼게요.</p>
-                </div>
-              </div>
-              <div class="fa-ex">
-                <div class="fa-ex__head">
-                  <span class="op-badge op-badge--line">예시</span>
-                  <span class="op-note">상담 예시 4</span>
-                </div>
-
-                <div class="fa-ex__q">
-                  <span class="fa-ex__label">남기신 고민</span>
-                  <p class="fa-ex__qt">화면을 오래 보는 일을 해요. 저녁이면 눈이 뻑뻑한데 뭐부터 보면 좋을까요?</p>
-                </div>
-
-                <div class="fa-ex__a">
-                  <div class="fa-ex__who">
-                    <span class="fa-ex__avatar">온팜</span>
-                    <span class="fa-ex__name">전담 상담사 답변</span>
-                  </div>
-                  <p class="fa-ex__p">하루에 화면을 몇 시간쯤 보시는지, 중간에 눈을 쉬는 시간이 있는지부터 여쭤볼게요. 뻑뻑한 느낌은 보는 시간과 쉬는 간격이 거의 그대로 반영돼요.</p>
-                  <p class="fa-ex__p">우선 50분에 한 번씩 먼 곳을 보는 습관과, 화면 밝기를 주변보다 조금 낮추는 쪽을 먼저 권해 드려요. 무엇을 드시는지보다 이쪽이 순서상 먼저예요.</p>
-                  <p class="fa-ex__p">그다음 루테인이 들어간 카테고리를 함께 보시면 좋아요. 지금 드시는 것이 있으면 알려 주세요. 겹치는 성분이 없는지 같이 확인하고 안내드릴게요.</p>
-                  <p class="fa-ex__p">우선 6일 카드로 가볍게 시작하고, 그 주가 어땠는지 편하게 이야기 나눠요. 6일 뒤에는 제가 먼저 여쭤볼게요.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="op-carousel__slide" role="group" aria-roledescription="슬라이드" aria-label="상담 예시 5-6">
-            <div class="fa-ex-pair">
-              <div class="fa-ex">
-                <div class="fa-ex__head">
-                  <span class="op-badge op-badge--line">예시</span>
-                  <span class="op-note">상담 예시 5</span>
-                </div>
-
-                <div class="fa-ex__q">
-                  <span class="fa-ex__label">남기신 고민</span>
-                  <p class="fa-ex__qt">피부가 요즘 푸석한 느낌이 오래가요. 먹는 것부터 바꿔 보고 싶은데 뭐가 맞을까요?</p>
-                </div>
-
-                <div class="fa-ex__a">
-                  <div class="fa-ex__who">
-                    <span class="fa-ex__avatar">온팜</span>
-                    <span class="fa-ex__name">전담 상담사 답변</span>
-                  </div>
-                  <p class="fa-ex__p">푸석한 느낌이 오래간다고 하셨어요. 먼저 하루에 물을 얼마나 드시는지, 잠드는 시각이 들쭉날쭉하지 않은지 여쭤볼게요. 피부 컨디션은 이 둘을 먼저 봐야 다음 이야기가 맞아요.</p>
-                  <p class="fa-ex__p">말씀만 들어 보면 물이 적고 잠드는 시각이 늦은 편으로 보여요. 새 제품을 더하기 전에 자기 전 물 한 잔과 잠드는 시각을 한 주만 맞춰 보시길 권해요.</p>
-                  <p class="fa-ex__p">그다음 콜라겐이 들어간 카테고리를 함께 보시면 좋아요. 지금 챙겨 드시는 것이 있으면 알려 주세요. 겹치는 성분이 없는지 같이 확인할게요.</p>
-                  <p class="fa-ex__p">6일 카드로 딱 6일만 드셔 보고, 그 주 피부 컨디션이 어땠는지 알려 주세요. 6일 뒤에는 제가 먼저 여쭤볼게요.</p>
-                </div>
-              </div>
-              <div class="fa-ex">
-                <div class="fa-ex__head">
-                  <span class="op-badge op-badge--line">예시</span>
-                  <span class="op-note">상담 예시 6</span>
-                </div>
-
-                <div class="fa-ex__q">
-                  <span class="fa-ex__label">남기신 고민</span>
-                  <p class="fa-ex__qt">부모님 드릴 걸 고르고 있어요. 뭐가 맞는지 몰라서 한 줄 남겨요.</p>
-                </div>
-
-                <div class="fa-ex__a">
-                  <div class="fa-ex__who">
-                    <span class="fa-ex__avatar">온팜</span>
-                    <span class="fa-ex__name">전담 상담사 답변</span>
-                  </div>
-                  <p class="fa-ex__p">부모님 생각으로 남겨 주셨네요. 먼저 두 분이 지금 챙겨 드시는 게 있는지, 끼니는 규칙적인지 여쭤볼게요. 이미 드시는 게 있으면 그걸 기준으로 보는 편이 맞아요.</p>
-                  <p class="fa-ex__p">새로 여러 가지를 한꺼번에 시작하기보다 한 가지 카테고리부터 함께 보시길 권해 드려요. 그래야 6일 뒤에 무엇이 달라졌는지 알 수 있어요.</p>
-                  <p class="fa-ex__p">지금 드시는 것과 겹치는 성분이 없는지 먼저 확인해 드릴게요. 가까운 조합 약국에서 6일 카드를 픽업 쿠폰으로 받아 가시면 돼요.</p>
-                  <p class="fa-ex__p">6일 뒤에 제가 먼저 여쭤볼게요. 이어서 볼지, 다른 카테고리를 볼지 그때 같이 정하면 됩니다.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <p class="fa-voice__t">요즘 오후만 되면 축 처져요. 영양제는 많은데 뭐부터 먹어야 할지 모르겠어요.</p>
         </div>
       </div>
-      <div class="op-carousel__nav">
-        <button type="button" class="op-carousel__dot is-on" aria-label="상담 예시 1-2"></button>
-        <button type="button" class="op-carousel__dot" aria-label="상담 예시 3-4"></button>
-        <button type="button" class="op-carousel__dot" aria-label="상담 예시 5-6"></button>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02b_card.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">권**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">장바구니에 담아 둔 영양제가 다섯 개인데, 결국 하나도 못 골랐어요.</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02_c_gut.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">김**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">지금 챙겨 먹는 게 있는데, 새로 더해도 겹치지 않는지 봐 주실 수 있나요?</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02_c_sleep.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">정**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">야근이 많아서 밤에 누워도 한참 뒤척여요. 뭘 챙기면 좋을까요?</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02b_lineup.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">손**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">부모님 드릴 걸 고르고 있어요. 뭐가 맞는지 몰라서 한 줄 남겨요.</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02_c_eye.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">이**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">화면을 오래 보는 일을 해요. 저녁이면 눈이 뻑뻑한데 뭐부터 볼까요?</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02_c_skin.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">박**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">피부가 푸석한 느낌이 오래가요. 먹는 것부터 바꿔 보고 싶어요.</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02b_handover.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">윤**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">동네 약국에서 받아 가려면 뭐부터 하면 되나요?</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02_c_immune.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">장**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">환절기마다 컨디션이 흔들려요. 미리 챙길 수 있는 게 있을까요?</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02_c_women.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">고**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">아침을 자주 걸러요. 이런 리듬에도 맞는 게 있을까요?</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02_c_fatigue.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">하**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">요즘 오후만 되면 축 처져요. 영양제는 많은데 뭐부터 먹어야 할지 모르겠어요.</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02b_card.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">권**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">장바구니에 담아 둔 영양제가 다섯 개인데, 결국 하나도 못 골랐어요.</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02_c_gut.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">김**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">지금 챙겨 먹는 게 있는데, 새로 더해도 겹치지 않는지 봐 주실 수 있나요?</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02_c_sleep.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">정**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">야근이 많아서 밤에 누워도 한참 뒤척여요. 뭘 챙기면 좋을까요?</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02b_lineup.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">손**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">부모님 드릴 걸 고르고 있어요. 뭐가 맞는지 몰라서 한 줄 남겨요.</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02_c_eye.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">이**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">화면을 오래 보는 일을 해요. 저녁이면 눈이 뻑뻑한데 뭐부터 볼까요?</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02_c_skin.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">박**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">피부가 푸석한 느낌이 오래가요. 먹는 것부터 바꿔 보고 싶어요.</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02b_handover.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">윤**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">동네 약국에서 받아 가려면 뭐부터 하면 되나요?</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02_c_immune.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">장**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">환절기마다 컨디션이 흔들려요. 미리 챙길 수 있는 게 있을까요?</p>
+        </div>
+      </div>
+      <div class="op-marquee__item">
+        <div class="fa-voice">
+          <div class="fa-voice__ph"><img src="/onpharm/a02_c_women.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__meta">
+            <span class="fa-voice__name">고**</span>
+            <span class="op-badge op-badge--line">예시</span>
+          </div>
+          <p class="fa-voice__t">아침을 자주 걸러요. 이런 리듬에도 맞는 게 있을까요?</p>
+        </div>
       </div>
     </div>
-
-    <p class="op-note op-mt-32 op-center op-measure--center">상담 예시는 이해를 돕기 위해 만든 가상의 대화입니다. 실제 상담 내용은 개인별로 다르며, 의학적 진단이나 치료를 대신하지 않습니다. 건강기능식품은 의약품이 아닙니다.</p>
+  </div>
+  <div class="op-inner op-center op-mt-32">
+    <p class="op-note op-measure--center">카드의 문장과 사진은 이해를 돕기 위해 만든 예시입니다. 실제 이용자의 글이 아닙니다.</p>
   </div>
 </section>
 
