@@ -445,18 +445,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
     </div>
     <div class="op-stage__rail" aria-hidden="true"></div>
-  </div>
-
-  <div class="op-inner">
-    <div class="op-card op-card--line fa-how-footer op-mt-64">
-      <span class="op-badge">6일 뒤</span>
-      <div>
-        <p class="fa-how-footer__t">다 먹을 때쯤 — 어땠어요? 한 통</p>
-        <p class="op-caption op-mt-8">6일 뒤 전담 상담사가 먼저 여쭤봅니다. 이어서 볼지 같이 정하면 돼요.</p>
-      </div>
-    </div>
-  </div>
-</section>
+  </div></section>
 
 <section class="op-sec fa-band" data-section="a05_pharmacist"><div class="fa-band__hero">
     <div class="fa-band__bg">
@@ -634,15 +623,17 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
             </div>
           </div>
           <div class="op-carousel__nav">
+            <button type="button" class="op-carousel__arrow op-carousel__prev" aria-label="이전 예시"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
             <button type="button" class="op-carousel__dot is-on" aria-label="상담 예시 1"></button>
             <button type="button" class="op-carousel__dot" aria-label="상담 예시 2"></button>
             <button type="button" class="op-carousel__dot" aria-label="상담 예시 3"></button>
             <button type="button" class="op-carousel__dot" aria-label="상담 예시 4"></button>
             <button type="button" class="op-carousel__dot" aria-label="상담 예시 5"></button>
             <button type="button" class="op-carousel__dot" aria-label="상담 예시 6"></button>
+            <button type="button" class="op-carousel__arrow op-carousel__next" aria-label="다음 예시"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
           </div>
         </div>
-        <p class="fa-talk__foot">지금 드시는 것과 겹치는 성분은 먼저 확인해 드려요. 6일 뒤에는 상담사가 먼저 여쭤봐요.</p>
+        <p class="fa-talk__foot"><span class="op-badge fa-talk__badge">6일 뒤</span><span>다 먹을 때쯤 상담사가 먼저 “어땠어요?” 여쭤봐요. 이어서 볼지 같이 정하면 돼요.</span></p>
       </div>
     </div>
     <p class="op-note op-mt-24 op-center op-measure--center">상담 예시는 이해를 돕기 위해 만든 가상의 대화입니다. 실제 상담 내용은 개인별로 다르며, 의학적 진단이나 치료를 대신하지 않습니다. 건강기능식품은 의약품이 아닙니다.</p>

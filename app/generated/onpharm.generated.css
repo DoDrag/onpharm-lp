@@ -1300,6 +1300,27 @@
   gap: 10px;
   margin-top: 28px;
 }
+.op-js:not(.op-static) .op-carousel__viewport { touch-action: pan-y; }   /* 가로 스와이프는 JS 가 받는다 */
+/* 좌우 이동 버튼 — nav 안 [‹] ● ○ ○ [›] (2026-10-02). 무JS/정지에서는 nav 째로 숨는다. */
+.op-carousel__arrow {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  border: 1px solid var(--op-line);
+  background: #FFFFFF;
+  color: var(--op-charcoal);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  transition: border-color var(--op-dur-fast) var(--op-ease), color var(--op-dur-fast) var(--op-ease);
+}
+.op-carousel__arrow:hover { border-color: var(--op-orange); color: var(--op-orange); }
+.op-carousel__arrow:focus-visible { outline: 2px solid var(--op-orange); outline-offset: 2px; }
+.op-carousel__prev { margin-right: 8px; }
+.op-carousel__next { margin-left: 8px; }
 .op-carousel__dot {
   width: 10px;
   height: 10px;
@@ -2507,18 +2528,6 @@
   background: var(--op-line);
 }
 .fa-steps .op-step__num { position: relative; }
-.fa-how-footer {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-  padding: 28px 34px;
-}
-.fa-how-footer__t {
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: 0;
-  color: var(--op-charcoal);
-}
 
 /* a04(가격 카드) 삭제와 함께 .fa-price-* / .fa-card-* 규칙도 전부 걷어냈다.
    .fa-ptp 는 a02b 의 사진 없는 폴백이 계속 쓰므로 남긴다. */
@@ -2659,7 +2668,8 @@
 .fa-talk__who { display: block; font-size: 14px; font-weight: 700; color: var(--op-charcoal); }
 .fa-talk__p { margin-top: 8px; font-size: 18px; line-height: 1.75; color: var(--op-ink); }
 .fa-talk__p + .fa-talk__p { margin-top: 2px; }
-.fa-talk__foot { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--op-line); font-size: 14px; line-height: 1.6; color: var(--op-gray); }
+.fa-talk__foot { display: flex; align-items: center; gap: 12px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--op-line); font-size: 15px; line-height: 1.6; color: var(--op-ink); }
+.fa-talk__badge { flex: 0 0 auto; }
 
 /* --- a06 한 줄 고민 롤링 (메디코치 카드 롤링 문법) ---------------------- */
 .fa-voices { --op-marquee-item: 300px; --op-marquee-gap: 20px; --op-marquee-pad-y: 14px; --op-marquee-fade: 80px; }
@@ -2882,6 +2892,9 @@
 
 /* a03 토글 무대 — sticky 는 테마(.op-stage)가, 여기서는 한 화면 세로 중앙정렬만. */
 .fa-stage__sticky { display: flex; align-items: center; }
+/* (2026-10-02) 무대 아래 '6일 뒤' 카드를 지운 뒤 하단이 비어 보였다. JS 화면에서는 스티키(100vh, 세로 가운데)가
+   이미 위아래 여백을 만들므로 섹션 바닥 패딩을 줄인다. 정지 캡처(자연 높이)는 기본 패딩 그대로. */
+.op-js:not(.op-static) .fa-stage-sec { padding-bottom: 24px; }
 .op-js:not(.op-static) .fa-stage__sticky { min-height: 100vh; }
 .fa-stage__inner { width: 100%; }
 .fa-toggle { display: flex; justify-content: center; margin-top: 44px; }
@@ -3019,7 +3032,6 @@
   .fa-hero-phone { justify-content: center; }
   .fa-hero-bg { height: 300px; }
   .fa-steps::before { display: none; }
-  .fa-how-footer { flex-direction: column; align-items: flex-start; gap: 14px; padding: 24px; }
   .fa-form { padding: 22px; }
   /* 핀은 모바일에서도 2열(1열 4칸 스택은 너무 길다). 테마 1열 규칙(0-1-0)보다 특이도 높음. */
   .fa-pins.op-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }

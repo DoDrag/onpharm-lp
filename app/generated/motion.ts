@@ -218,6 +218,39 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
       }, interval);
     }
 
+    /* 좌우 이동 버튼 (2026-10-02, 사장님 "좌우로 이동하기가 불편하다").
+       .op-carousel__prev / .op-carousel__next 를 nav 안에 두면 붙는다. nav 는 무JS/정지에서 숨으므로
+       버튼도 같이 숨는다(그때는 슬라이드가 세로로 다 보인다). 끝에서 넘기면 처음/끝으로 돈다. */
+    var prevBtn = box.querySelector(".op-carousel__prev");
+    var nextBtn = box.querySelector(".op-carousel__next");
+    function step(delta) {
+      return function (ev) {
+        if (ev && ev.preventDefault) { ev.preventDefault(); }
+        go(index + delta);
+        tick();
+      };
+    }
+    if (prevBtn) { on(prevBtn, "click", step(-1)); }
+    if (nextBtn) { on(nextBtn, "click", step(1)); }
+
+    /* 터치 스와이프: 가로로 40px 넘게, 세로보다 확실히 크게 움직였을 때만 넘긴다(세로 스크롤 방해 금지).
+       CSS 에서 viewport 에 touch-action: pan-y 를 줘야 브라우저가 가로 제스처를 넘겨준다. */
+    var sx = null, sy = null;
+    on(viewport, "pointerdown", function (ev) {
+      if (ev.pointerType === "mouse") { sx = null; return; }
+      sx = ev.clientX; sy = ev.clientY;
+    });
+    on(viewport, "pointerup", function (ev) {
+      if (sx === null) { return; }
+      var dx = ev.clientX - sx, dy = ev.clientY - sy;
+      sx = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.3 && measure()) {
+        go(index + (dx < 0 ? 1 : -1));
+        tick();
+      }
+    });
+    on(viewport, "pointercancel", function () { sx = null; });
+
     for (var i = 0; i < dots.length; i++) {
       (function (target, node) {
         if (node.tagName === "BUTTON" && !node.getAttribute("type")) {
