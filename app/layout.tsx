@@ -51,6 +51,31 @@ export const metadata: Metadata = {
   }
 };
 
+/* schema.org 구조화 데이터 (2026-10-23, 공개 전 점검). logo.png 는 BI 심볼(오렌지)을 흰 정사각 안에 그대로 넣은 512px 이미지. */
+const JSON_LD = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://onpharm.kr/#org',
+      name: '온팜',
+      alternateName: 'ONPHARM',
+      url: 'https://onpharm.kr/',
+      logo: 'https://onpharm.kr/logo.png',
+      slogan: '들르면, 건강이 켜집니다',
+      description: DESCRIPTION
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://onpharm.kr/#website',
+      url: 'https://onpharm.kr/',
+      name: '온팜',
+      inLanguage: 'ko-KR',
+      publisher: { '@id': 'https://onpharm.kr/#org' }
+    }
+  ]
+};
+
 export default function RootLayout({
   children
 }: {
@@ -59,15 +84,12 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
-        {/* Pretendard — 생성기 CSS 의 --op-font-sans 가 이 폰트를 전제로 한다 */}
-        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="" />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
-          crossOrigin=""
-        />
+        {/* Pretendard 는 맨 위 import(자체 호스팅 동적 서브셋)가 담당한다. 예전 jsDelivr 정적 CSS 링크는
+            2026-10-23 에 뺐다 - 같은 글꼴을 두 번 정의하고 외부 연결이 하나 더 생기기 때문. */}
         <link rel="icon" href={FAVICON} />
         <meta name="theme-color" content="#FFFFFF" />
+        {/* 검색엔진용 구조화 데이터(회사·사이트). 화면에는 안 보인다. 문구는 이 파일의 DESCRIPTION 을 그대로 쓴다. */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
       </head>
       <body>{children}</body>
     </html>

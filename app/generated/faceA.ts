@@ -415,10 +415,8 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
     <div class="op-stage__rail" aria-hidden="true"></div>
   </div></section>
 
-<section class="op-sec fa-band" data-section="a05_pharmacist"><div class="fa-band__hero">
-    <div class="fa-band__bg">
-      <img src="/onpharm/a05_counselor.jpg" alt="" width="1536" height="864"
-           data-scrub="0.12" data-scrub-from="1" data-scrub-to="0.35" class="op-anim-zoom">
+<section class="op-sec fa-band" data-section="a05_pharmacist"><div class="fa-band__hero"><div class="fa-band__bg" data-scrub="0.12" data-scrub-from="1" data-scrub-to="1.15">
+      <img src="/onpharm/a05_counselor.jpg" alt="" width="1536" height="864" class="op-anim-zoom">
       <span class="op-veil op-veil--strong"></span>
     </div>
     <div class="op-inner op-veil-content op-center">

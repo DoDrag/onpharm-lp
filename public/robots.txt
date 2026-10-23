@@ -1,0 +1,5 @@
+# onpharm.kr - 검색 로봇 안내 (2026-10-23)
+User-agent: *
+Allow: /
+
+Sitemap: https://onpharm.kr/sitemap.xml
