@@ -156,6 +156,7 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
     var index = 0;
     var timer = null;
     var hovering = false;
+    var paused = false;     /* 사용자가 멈춤을 눌렀거나 직접 넘긴 뒤 = 자동 넘김 정지(UX 점검 F01) */
     var horizontal = null;
 
     var interval = parseInt(box.getAttribute("data-interval"), 10);
@@ -211,7 +212,7 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
 
     function tick() {
       stop();
-      if (reduceMotion || isStatic() || hovering) { return; }
+      if (reduceMotion || isStatic() || hovering || paused) { return; }
       if (doc.visibilityState === "hidden") { return; }
       timer = window.setTimeout(function () {
         go(index + 1);
@@ -224,11 +225,27 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
        버튼도 같이 숨는다(그때는 슬라이드가 세로로 다 보인다). 끝에서 넘기면 처음/끝으로 돈다. */
     var prevBtn = box.querySelector(".op-carousel__prev");
     var nextBtn = box.querySelector(".op-carousel__next");
+    var pauseBtn = box.querySelector(".op-carousel__pause");
+    /* 멈춤 상태. 멈춘 동안에는 넘김을 낭독기가 알려 준다(aria-live polite) - 자동으로 돌 때 알리면 시끄럽다 */
+    function setPaused(v) {
+      paused = !!v;
+      if (pauseBtn) { pauseBtn.setAttribute("aria-pressed", paused ? "true" : "false"); }
+      if (viewport) { viewport.setAttribute("aria-live", paused ? "polite" : "off"); }
+      if (paused) { stop(); } else { tick(); }
+    }
+    /* 사용자가 직접 넘기면 자동 넘김을 다시 켜지 않는다(7초 뒤 다시 넘어가던 문제) */
+    function userMoved() { if (!paused) { setPaused(true); } }
+    if (pauseBtn) {
+      on(pauseBtn, "click", function (ev) {
+        if (ev && ev.preventDefault) { ev.preventDefault(); }
+        setPaused(!paused);
+      });
+    }
     function step(delta) {
       return function (ev) {
         if (ev && ev.preventDefault) { ev.preventDefault(); }
         go(index + delta);
-        tick();
+        userMoved();
       };
     }
     if (prevBtn) { on(prevBtn, "click", step(-1)); }
@@ -247,7 +264,7 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
       sx = null;
       if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.3 && measure()) {
         go(index + (dx < 0 ? 1 : -1));
-        tick();
+        userMoved();
       }
     });
     on(viewport, "pointercancel", function () { sx = null; });
@@ -260,7 +277,7 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
         on(node, "click", function (ev) {
           if (ev && ev.preventDefault) { ev.preventDefault(); }
           go(target);
-          tick();
+          userMoved();
         });
       })(i, dots[i]);
     }
@@ -286,6 +303,9 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
 
     onRestore(function () {
       stop();
+      paused = false;
+      if (pauseBtn) { pauseBtn.setAttribute("aria-pressed", "false"); }
+      if (viewport) { viewport.setAttribute("aria-live", "off"); }
       track.style.transform = "";
       index = 0;
       paintDots();
@@ -652,6 +672,9 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
       /* 옵션 객체를 모르는 구형 브라우저 */
       try { target.scrollIntoView(true); } catch (e2) {}
     }
+    /* 화면만 옮기고 초점을 두면 다음 Tab 이 원래 자리로 되돌아간다(UX 점검 F17). 프로그램 초점이라 외곽선은 안 그린다 */
+    if (!target.hasAttribute("tabindex")) { target.setAttribute("tabindex", "-1"); }
+    try { target.focus({ preventScroll: true }); } catch (e3) {}
   }
 
   /* "#signup" / "signup" 둘 다 받는다. querySelector 대신 getElementById 라
@@ -731,6 +754,13 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
           if (!live) { return; }
           if (ev && ev.preventDefault) { ev.preventDefault(); }
           select(keyOf(btn));
+          /* (UX 점검 F07) 1열 모바일에서는 바뀐 패널이 화면 밖이다 -> 보이는 만큼만 끌어온다 */
+          var shown = wrap && wrap.querySelector(".fa-suggest__panel.is-on");
+          var narrow = false;
+          try { narrow = window.matchMedia("(max-width: 767px)").matches; } catch (e) {}
+          if (shown && narrow && shown.scrollIntoView) {
+            try { shown.scrollIntoView({ block: "nearest", behavior: reduceMotion ? "auto" : "smooth" }); } catch (e2) {}
+          }
         });
 
         /* 좌우 화살표로 카드 사이 이동 (roving tabindex 는 쓰지 않는다 -
@@ -1379,10 +1409,40 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
         if (btn.__opToggle) { return; }
         try { btn.__opToggle = 1; } catch (e) {}
         var scope = (btn.closest && btn.closest("[data-action-scope]")) || btn;
+        var knob = btn.querySelector(".fa-toggle__knob");
         var timer = 0;
+        /* 지금 화면에 그려진 값(스크롤이 몰던 --op-pe, 0~1) */
+        function shownValue() {
+          var v = NaN;
+          try { v = parseFloat(window.getComputedStyle(knob || btn).getPropertyValue("--op-pe")); } catch (e) {}
+          return isFinite(v) ? Math.max(0, Math.min(1, v)) : 1;
+        }
+        /* 누르기 전에는 스크롤이 몬다 -> 낭독기 상태도 화면(0.5 기준)에 맞춘다(UX 점검 F09: 켜진 그림인데 '꺼짐'으로 읽혔다) */
+        var syncRaf = 0;
+        function syncAria() {
+          syncRaf = 0;
+          if (scope.classList.contains("is-user") || isStatic()) { return; }
+          btn.setAttribute("aria-checked", shownValue() >= 0.5 ? "true" : "false");
+        }
+        function queueSync() { if (!syncRaf) { syncRaf = window.requestAnimationFrame(syncAria); } }
+        on(window, "scroll", queueSync, { passive: true });
+        on(btn, "focus", syncAria);
+        syncAria();
         on(btn, "click", function () {
-          var turnOn = !scope.classList.contains("is-on");
-          scope.classList.add("is-user");
+          var first = !scope.classList.contains("is-user");
+          var cur = shownValue();
+          var turnOn = first ? cur < 0.5 : !scope.classList.contains("is-on");
+          if (first) {
+            /* 지금 값을 심고 시작한다 - 14px 에서 0 으로 튄 뒤 28px 로 가던 첫 클릭(UX 점검 F09) */
+            scope.style.transition = "none";
+            scope.style.setProperty("--op-u", String(cur));
+            scope.style.setProperty("--op-u2", String(cur));
+            scope.classList.add("is-user");
+            void scope.offsetWidth;
+            scope.style.transition = "";
+          }
+          scope.style.setProperty("--op-u", turnOn ? "1" : "0");
+          scope.style.setProperty("--op-u2", turnOn ? "1" : "0");
           if (turnOn) { scope.classList.add("is-on"); } else { scope.classList.remove("is-on"); }
           btn.setAttribute("aria-checked", turnOn ? "true" : "false");
           if (turnOn && !reduceMotion) {
@@ -1397,8 +1457,48 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
         onRestore(function () {
           scope.classList.remove("is-user");
           scope.classList.remove("is-on");
+          scope.style.removeProperty("--op-u");
+          scope.style.removeProperty("--op-u2");
           btn.classList.remove("is-pulse");
-          btn.setAttribute("aria-checked", "false");
+          btn.setAttribute("aria-checked", "true");   /* 정지 = 최종 프레임(켜짐) */
+        });
+      })(btns[i]);
+    }
+  }
+
+  /* ======================================================================
+     12) 자동 재생 멈춤 [data-pause-toggle]  (2026-10-23 UX 점검 F01)
+     aria-controls 대상에 is-paused 를 붙였다 뗀다. 움직임은 CSS(animation-play-state)가 세운다.
+     대상 안에 영상이 있으면 영상도 멈춘다. 캐러셀 멈춤은 1) 이 직접 다룬다.
+     ====================================================================== */
+  function setupPauseToggles() {
+    var btns = list("[data-pause-toggle]");
+    for (var i = 0; i < btns.length; i++) {
+      (function (btn) {
+        if (btn.__opPause) { return; }
+        try { btn.__opPause = 1; } catch (e) {}
+        var target = elementFor(btn.getAttribute("aria-controls") || "");
+        if (!target) { return; }
+        on(btn, "click", function (ev) {
+          if (ev && ev.preventDefault) { ev.preventDefault(); }
+          if (isStatic()) { return; }
+          var v = btn.getAttribute("aria-pressed") !== "true";
+          btn.setAttribute("aria-pressed", v ? "true" : "false");
+          if (target.classList) { target.classList.toggle("is-paused", v); }
+          var vids = list("video", target);
+          for (var k = 0; k < vids.length; k++) {
+            try {
+              if (v) { vids[k].pause(); }
+              else if (vids[k].getAttribute("src")) {
+                var pr = vids[k].play();
+                if (pr && pr["catch"]) { pr["catch"](function () {}); }
+              }
+            } catch (e2) {}
+          }
+        });
+        onRestore(function () {
+          btn.setAttribute("aria-pressed", "false");
+          if (target.classList) { target.classList.remove("is-paused"); }
         });
       })(btns[i]);
     }
@@ -1434,6 +1534,7 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
     guard("스크럽 엔진", setupScrub);
     guard("카운트업 묶음", setupCountups);
     guard("액션 토글 묶음", setupActionToggles);
+    guard("자동 재생 멈춤", setupPauseToggles);
     guard("정지 모드 감시", watchStatic);
   }
 

@@ -32,12 +32,12 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
           <span class="op-chip">동네 약국 픽업</span>
         </div>
       </div>
-      <div class="fa-hero-media" style="--op-hero-cycle:36s" aria-hidden="true">
-        <div class="op-heromedia op-heromedia--box fa-hero-frame" data-motion="crossfade" data-count="6">
+      <div class="fa-hero-media" id="fa-hero-media" style="--op-hero-cycle:36s">
+        <div class="op-heromedia op-heromedia--box fa-hero-frame" data-motion="crossfade" data-count="6" aria-hidden="true">
           <video class="op-heromedia__video" autoplay muted loop playsinline preload="auto"
                  aria-hidden="true" tabindex="-1"></video>
           <div class="op-heromedia__slides">
-            <img class="op-heromedia__slide" src="/onpharm/a01_story_1.jpg" alt="" width="1536" height="864" decoding="async" style="--i:0">
+            <img class="op-heromedia__slide" src="/onpharm/a01_story_1.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="high" style="--i:0">
             <img class="op-heromedia__slide" src="/onpharm/a01_story_2.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:1">
             <img class="op-heromedia__slide" src="/onpharm/a01_story_3.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:2">
             <img class="op-heromedia__slide" src="/onpharm/a01_story_4.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:3">
@@ -46,14 +46,17 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
           </div>
         </div>
         <div class="fa-story" data-count="6" style="--op-hero-n:6">
-          <div class="fa-story__bar"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-          <div class="fa-story__steps">
-            <p class="fa-story__step" style="--i:0"><span class="fa-story__n">01</span><span class="fa-story__t">다 먹어 갈 때쯤, 알림이 먼저 와요</span></p>
-            <p class="fa-story__step" style="--i:1"><span class="fa-story__n">02</span><span class="fa-story__t">쿠폰 들고 동네 약국으로</span></p>
-            <p class="fa-story__step" style="--i:2"><span class="fa-story__n">03</span><span class="fa-story__t">전담 상담사와 차분히 이야기하고</span></p>
-            <p class="fa-story__step" style="--i:3"><span class="fa-story__n">04</span><span class="fa-story__t">내게 맞춘 6일 카드를 받아요</span></p>
-            <p class="fa-story__step" style="--i:4"><span class="fa-story__n">05</span><span class="fa-story__t">하루 한 칸, 아침에 챙기고</span></p>
-            <p class="fa-story__step" style="--i:5"><span class="fa-story__n">06</span><span class="fa-story__t">그리고 오늘도, 내 하루</span></p>
+          <div class="fa-story__bar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="fa-story__row">
+            <div class="fa-story__steps" aria-hidden="true">
+              <p class="fa-story__step" style="--i:0"><span class="fa-story__n">01</span><span class="fa-story__t">다 먹어 갈 때쯤, 알림이 먼저 와요</span></p>
+              <p class="fa-story__step" style="--i:1"><span class="fa-story__n">02</span><span class="fa-story__t">쿠폰 들고 동네 약국으로</span></p>
+              <p class="fa-story__step" style="--i:2"><span class="fa-story__n">03</span><span class="fa-story__t">전담 상담사와 차분히 이야기하고</span></p>
+              <p class="fa-story__step" style="--i:3"><span class="fa-story__n">04</span><span class="fa-story__t">내게 맞춘 6일 카드를 받아요</span></p>
+              <p class="fa-story__step" style="--i:4"><span class="fa-story__n">05</span><span class="fa-story__t">하루 한 칸, 아침에 챙기고</span></p>
+              <p class="fa-story__step" style="--i:5"><span class="fa-story__n">06</span><span class="fa-story__t">그리고 오늘도, 내 하루</span></p>
+            </div>
+            <button type="button" class="op-pause op-pause--dark" data-pause-toggle aria-controls="fa-hero-media" aria-pressed="false" aria-label="장면 자동 넘김 멈춤"><svg class="op-pause__i op-pause__i--pause" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><rect x="3.5" y="2.5" width="3" height="11" rx="1" fill="currentColor"/><rect x="9.5" y="2.5" width="3" height="11" rx="1" fill="currentColor"/></svg><svg class="op-pause__i op-pause__i--play" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4.5 2.8v10.4a.6.6 0 0 0 .9.5l8.2-5.2a.6.6 0 0 0 0-1L5.4 2.3a.6.6 0 0 0-.9.5z" fill="currentColor"/></svg></button>
           </div>
         </div>
       </div>
@@ -65,9 +68,9 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
   <div class="op-inner">
     <div class="op-center">
       <h2 class="op-h2">요즘 뭐가 제일 신경 쓰이세요?</h2>
-      <p class="op-lead op-mt-16 op-measure--center">하나만 골라 주셔도 괜찮아요. 전담 상담사가 거기서부터 같이 봅니다.</p>
+      <p class="op-lead op-mt-16 op-measure--center">고민 하나에서 시작해도 충분해요. 전담 상담사가 거기서부터 같이 봐요.</p>
     </div><div class="op-grid-4 fa-concerns op-mt-48" role="group" aria-label="고민 선택"
-         data-scrub="0.09" data-scrub-from="0.95" data-scrub-to="0.55">
+         data-scrub="0.09" data-scrub-from="0.95" data-scrub-to="1.0" data-scrub-media="(min-width: 1024px)">
       <button type="button" class="op-card op-card--pad fa-concern op-anim-rise op-anim-rise--sm"
               style="--op-d:0"
               data-concern="fatigue"
@@ -145,7 +148,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
   <circle cx="12" cy="12" r="2.6"/>
 </svg></span>
         <span class="op-h3 fa-concern__label">눈</span>
-        <span class="op-caption fa-concern__desc">화면을 오래 보면 뻑뻑해요</span>
+        <span class="op-caption fa-concern__desc">화면 보는 시간이 길어요</span>
         <span class="op-chip op-chip--on fa-concern__chip">선택됨</span>
       </button>
       <button type="button" class="op-card op-card--pad fa-concern op-anim-rise op-anim-rise--sm"
@@ -171,15 +174,15 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
   <path d="M9.6 9.5a2.5 2.5 0 1 1 3.3 2.9c-.7.3-1.1.9-1.1 1.6v.4"/>
   <path d="M11.9 17.2h.1"/>
 </svg></span>
-        <span class="op-h3 fa-concern__label">뭐부터일지 모르겠어요</span>
+        <span class="op-h3 fa-concern__label">뭐부터 볼지 모르겠어요</span>
         <span class="op-caption fa-concern__desc">고르는 것부터 어려워요</span>
         <span class="fa-concern__go">사전 등록으로 이동</span>
       </button>
     </div>
 
     <div class="fa-suggest op-mt-40" data-suggest>
-      <p class="fa-suggest__lead op-center">고민을 고르면, 전담 상담사와 상담에서 자주 같이 살펴보는 성분을 이름만 보여드려요.</p>
-      <div class="fa-suggest__panels">
+      <p class="fa-suggest__lead op-center">고민을 고르면 상담에서 자주 같이 살펴보는 성분 이름을 보여드려요.</p>
+      <div class="fa-suggest__panels" aria-live="polite">
         <div class="fa-suggest__panel fa-suggest__panel--media is-on"
              id="a02-panel-fatigue" data-for="fatigue"
              role="group" aria-label="피로">
@@ -278,7 +281,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
             </div>
             <div class="fa-suggest__text">
               <p class="fa-suggest__title"><span class="fa-suggest__for">눈</span><span class="fa-suggest__sep" aria-hidden="true">·</span>이런 걸 함께 봐요</p>
-              <p class="fa-suggest__desc">화면을 오래 보면 뻑뻑해요</p>
+              <p class="fa-suggest__desc">화면 보는 시간이 길어요</p>
               <div class="fa-suggest__chips">
                 <span class="op-chip fa-ing">루테인</span>
                 <span class="op-chip fa-ing">지아잔틴</span>
@@ -305,11 +308,11 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
         </div>
         <div class="fa-suggest__panel"
              id="a02-panel-unsure" data-for="unsure"
-             role="group" aria-label="뭐부터일지 모르겠어요">
+             role="group" aria-label="뭐부터 볼지 모르겠어요">
           <div class="fa-suggest__body">
             <div class="fa-suggest__text">
-              <p class="fa-suggest__title"><span class="fa-suggest__for">뭐부터일지 모르겠어요</span></p>
-              <p class="fa-suggest__hint">괜찮아요. 무엇부터 볼지 고르는 것부터 같이 하면 됩니다.</p>
+              <p class="fa-suggest__title"><span class="fa-suggest__for">뭐부터 볼지 모르겠어요</span></p>
+              <p class="fa-suggest__hint">괜찮아요. 무엇부터 볼지는 상담에서 같이 정해요.</p>
               <p class="op-mt-16"><a class="op-btn op-btn--ghost"
                  href="#signup"
                  data-scroll-to="#signup">사전 등록하고 상담부터 시작하기</a></p>
@@ -317,10 +320,10 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
           </div>
         </div>
       </div>
-      <p class="op-note fa-suggest__note op-center">성분 이름만 적어 둔 안내예요. 실제 추천은 상담에서 개인별로 달라집니다.</p>
+      <p class="op-note fa-suggest__note op-center">성분 이름만 적어 둔 안내예요. 무엇을 담을지는 상담에서 사람마다 다르게 정해요.</p>
     </div>
 
-    <p class="op-note op-mt-32 op-center">여러 개를 골라도 괜찮아요. 고른 내용은 전담 상담사에게만 전달됩니다.</p>
+    <p class="op-note op-mt-32 op-center">여기서는 하나씩 살펴보실 수 있어요. 여러 고민은 아래 사전 등록에서 함께 골라 주세요.</p>
   </div>
 </section>
 
@@ -328,21 +331,21 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
   <div class="op-inner">
     <div class="op-center">
       <h2 class="op-h2">온팜은 이렇게 드려요</h2>
-      <p class="op-lead op-mt-16 op-measure--center">상담에서 정한 조합을 소포장 한 장에 담아 둡니다. 동네 조합 약국에 들러 받아 가시면 됩니다.</p>
+      <p class="op-lead op-mt-16 op-measure--center">상담에서 정한 구성을 6일 카드 한 장에 담아 둬요. 동네 조합 약국에 들러 받아 가시면 돼요.</p>
     </div>
 
     <div class="op-grid-2 op-grid--loose op-grid--mid fa-product op-mt-64">
       <div class="fa-product__shot fa-product__shot--photo">
         <div class="op-media op-media--4x3">
-          <img src="/onpharm/a02b_handover.jpg" alt="" width="1364" height="1023">
+          <img src="/onpharm/a02b_handover.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async">
         </div>
       </div>
       <div>
         <ul class="op-list op-list--check fa-product__points">
-          <li>무엇을 담을지는 전담 상담사와 상담에서 정합니다</li>
-          <li>하루 한 칸씩 6일, 뜯어서 챙기는 카드형 소포장으로 준비해 둡니다</li>
-          <li>온라인 판매는 하지 않아요. 동네 조합 약국에서 직접 받아 가는 픽업 방식입니다</li>
-          <li>다 드실 때쯤 전담 상담사가 먼저 여쭤봅니다</li>
+          <li>무엇을 담을지는 전담 상담사와 이야기해서 정해요</li>
+          <li>6일 카드는 하루 한 칸씩 뜯어서 챙기는 카드형 소포장이에요</li>
+          <li>온라인 판매는 하지 않아요. 동네 조합 약국에서 직접 받아 가는 방식이에요</li>
+          <li>다 드실 때쯤 전담 상담사가 먼저 여쭤봐요</li>
         </ul>
         <p class="op-note fa-product__caption">전달 방식을 보여드리는 예시예요. 실제 구성은 상담에서 정합니다.</p>
       </div>
@@ -350,14 +353,14 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
       <div>
         <div class="op-media op-media--16x9">
           <img src="/onpharm/a02b_card.jpg" alt=""
-               width="1364" height="1023">
+               width="1364" height="1023" loading="lazy" decoding="async">
         </div>
-        <p class="op-caption op-mt-12 op-center">6일 소포장 카드</p>
+        <p class="op-caption op-mt-12 op-center">6일 카드</p>
       </div>
       <div>
         <div class="op-media op-media--16x9">
           <img src="/onpharm/a02b_lineup.jpg" alt=""
-               width="1536" height="864">
+               width="1536" height="864" loading="lazy" decoding="async">
         </div>
         <p class="op-caption op-mt-12 op-center">받아 가시는 형태 예시</p>
       </div>
@@ -371,11 +374,11 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
       <div class="op-inner fa-stage__inner">
         <div class="op-center">
           <h2 class="op-h2">이렇게 진행돼요</h2>
-          <p class="op-lead op-mt-16 op-measure--center">앱을 새로 깔 필요도, 어려운 검사도 없어요. 한 줄에서 시작합니다.</p>
+          <p class="op-lead op-mt-16 op-measure--center">고민 한 줄과 가까운 참여 약국만 있으면 돼요.</p>
         </div>
 
         <div class="fa-stage__switch"
-             data-scrub="0.1" data-scrub-from="0.9" data-scrub-to="0.45" data-scrub-media="(max-width: 767px)"><button type="button" class="fa-toggle" role="switch" aria-checked="false" data-action-toggle
+             data-scrub="0.1" data-scrub-from="0.9" data-scrub-to="0.45" data-scrub-media="(max-width: 767px)"><button type="button" class="fa-toggle" role="switch" aria-checked="true" data-action-toggle
                   aria-label="건강 켜기 스위치">
             <svg viewBox="0 0 64 36" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
               <rect class="fa-toggle__track" x="2" y="2" width="60" height="32" rx="16"/>
@@ -388,16 +391,16 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
         </div>
 
         <div class="fa-steps op-grid-4 op-grid--top op-mt-48"
-             data-scrub="0.1" data-scrub-from="0.9" data-scrub-to="0.5" data-scrub-media="(max-width: 767px)">
+             data-scrub="0.1" data-scrub-from="0.9" data-scrub-to="0.75" data-scrub-media="(max-width: 767px)">
           <div class="op-step op-anim-rise fa-stage__step" style="--op-d:0">
             <span class="op-step__num">1</span>
             <h3 class="op-step__title">고민 적기</h3>
-            <p class="op-step__desc">카카오톡으로 한 줄만 남기면 끝. 1분이면 충분해요.</p>
+            <p class="op-step__desc">카카오톡이나 사전 등록 칸에 고민을 한 줄 남겨요.</p>
           </div>
           <div class="op-step op-anim-rise fa-stage__step" style="--op-d:1">
             <span class="op-step__num">2</span>
             <h3 class="op-step__title">전담 상담사 답변</h3>
-            <p class="op-step__desc">24시간 안에 담당 상담사가 직접 읽고 답을 드려요.</p>
+            <p class="op-step__desc">배정된 전담 상담사가 직접 읽고 답을 드려요.</p>
           </div>
           <div class="op-step op-anim-rise fa-stage__step" style="--op-d:2">
             <span class="op-step__num">3</span>
@@ -407,7 +410,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
           <div class="op-step op-anim-rise fa-stage__step" style="--op-d:3">
             <span class="op-step__num">4</span>
             <h3 class="op-step__title">동네 약국에서 받기</h3>
-            <p class="op-step__desc">가까운 조합 약국에 들러 카드를 받아 가세요.</p>
+            <p class="op-step__desc">가까운 조합 약국에 들러 6일 카드를 받아 가세요.</p>
           </div>
         </div>
       </div>
@@ -416,7 +419,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
   </div></section>
 
 <section class="op-sec fa-band" data-section="a05_pharmacist"><div class="fa-band__hero"><div class="fa-band__bg" data-scrub="0.12" data-scrub-from="1" data-scrub-to="1.15">
-      <img src="/onpharm/a05_counselor.jpg" alt="" width="1536" height="864" class="op-anim-zoom">
+      <img src="/onpharm/a05_counselor.jpg" alt="" width="1536" height="864" loading="lazy" decoding="async" class="op-anim-zoom">
       <span class="op-veil op-veil--strong"></span>
     </div>
     <div class="op-inner op-veil-content op-center">
@@ -431,7 +434,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
         stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
 </svg></span>
           <span>
-            <span class="fa-check__t">매번 같은 사람이 답합니다</span>
+            <span class="fa-check__t">매번 같은 상담사가 답해요</span>
             <span class="fa-check__d">한 번 배정되면 담당이 바뀌지 않아요.</span>
           </span>
         </div>
@@ -442,8 +445,8 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
         stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
 </svg></span>
           <span>
-            <span class="fa-check__t">지난 상담을 기억합니다</span>
-            <span class="fa-check__d">저번에 뭘 드셨는지 다시 말하지 않아도 됩니다.</span>
+            <span class="fa-check__t">지난 상담을 기억해요</span>
+            <span class="fa-check__d">지난 상담 내용을 적어 두고 이어서 봐요.</span>
           </span>
         </div>
         <div class="fa-check">
@@ -453,8 +456,8 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
         stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
 </svg></span>
           <span>
-            <span class="fa-check__t">소진 시점에 먼저 알려드려요</span>
-            <span class="fa-check__d">다 드실 때쯤 먼저 여쭤봅니다.</span>
+            <span class="fa-check__t">다 드실 때쯤 먼저 연락드려요</span>
+            <span class="fa-check__d">6일 카드가 끝나 갈 즈음 여쭤봐요.</span>
           </span>
         </div>
         <div class="fa-check">
@@ -464,7 +467,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
         stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
 </svg></span>
           <span>
-            <span class="fa-check__t">동네라 그냥 들르면 됩니다</span>
+            <span class="fa-check__t">동네라 그냥 들르면 돼요</span>
             <span class="fa-check__d">지나는 길에 약국에 들러 받아 가세요.</span>
           </span>
         </div>
@@ -481,7 +484,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
         </div>
         <div class="fa-idcard__top">
           <span class="fa-idcard__avatar fa-idcard__avatar--photo">
-            <img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480">
+            <img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480" loading="lazy" decoding="async">
           </span>
           <span>
             <span class="fa-idcard__name">김O연 상담사</span>
@@ -508,7 +511,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
                   <p class="fa-talk__qt">장 컨디션이 들쭉날쭉해요. 뭘 먹어야 할지 모르겠어요.</p>
                 </div>
                 <div class="fa-talk__a">
-                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480"></span>
+                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480" loading="lazy" decoding="async"></span>
                   <div class="fa-talk__body">
                     <span class="fa-talk__who">전담 상담사</span>
                     <p class="fa-talk__p">물 마시는 양과 식이섬유 한 끼부터 같이 챙겨 봐요.</p>
@@ -522,7 +525,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
                   <p class="fa-talk__qt">야근이 많아 밤에 누워도 한참 뒤척여요.</p>
                 </div>
                 <div class="fa-talk__a">
-                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480"></span>
+                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480" loading="lazy" decoding="async"></span>
                   <div class="fa-talk__body">
                     <span class="fa-talk__who">전담 상담사</span>
                     <p class="fa-talk__p">한 주만 잠드는 시각과 마지막 커피 시각을 적어 봐 주세요.</p>
@@ -536,21 +539,21 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
                   <p class="fa-talk__qt">오후만 되면 축 처져요. 뭐부터 먹어야 할까요?</p>
                 </div>
                 <div class="fa-talk__a">
-                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480"></span>
+                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480" loading="lazy" decoding="async"></span>
                   <div class="fa-talk__body">
                     <span class="fa-talk__who">전담 상담사</span>
                     <p class="fa-talk__p">점심에 단백질 한 가지를 챙기는 것부터 해 봐요.</p>
-                    <p class="fa-talk__p">그다음 비타민B군 카테고리를 6일 카드로 함께 볼게요.</p>
+                    <p class="fa-talk__p">그다음 비타민 B군 카테고리를 6일 카드로 함께 볼게요.</p>
                   </div>
                 </div>
               </div>
               <div class="op-carousel__slide" role="group" aria-roledescription="슬라이드" aria-label="상담 예시 4">
                 <div class="fa-talk__q">
                   <span class="fa-talk__qk">남기신 고민</span>
-                  <p class="fa-talk__qt">화면을 오래 봐서 저녁이면 눈이 뻑뻑해요.</p>
+                  <p class="fa-talk__qt">화면을 오래 보는 일을 해요. 눈 건강은 뭐부터 챙길까요?</p>
                 </div>
                 <div class="fa-talk__a">
-                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480"></span>
+                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480" loading="lazy" decoding="async"></span>
                   <div class="fa-talk__body">
                     <span class="fa-talk__who">전담 상담사</span>
                     <p class="fa-talk__p">50분에 한 번 먼 곳을 보는 습관부터 들여 봐요.</p>
@@ -564,7 +567,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
                   <p class="fa-talk__qt">피부가 푸석한 느낌이 오래가요.</p>
                 </div>
                 <div class="fa-talk__a">
-                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480"></span>
+                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480" loading="lazy" decoding="async"></span>
                   <div class="fa-talk__body">
                     <span class="fa-talk__who">전담 상담사</span>
                     <p class="fa-talk__p">자기 전 물 한 잔과 잠드는 시각부터 맞춰 봐요.</p>
@@ -578,11 +581,11 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
                   <p class="fa-talk__qt">부모님 드릴 걸 고르는데 뭐가 맞을지 모르겠어요.</p>
                 </div>
                 <div class="fa-talk__a">
-                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480"></span>
+                  <span class="fa-talk__avatar fa-talk__avatar--photo"><img src="/onpharm/a05_counselor_portrait.jpg" alt="" width="480" height="480" loading="lazy" decoding="async"></span>
                   <div class="fa-talk__body">
                     <span class="fa-talk__who">전담 상담사</span>
                     <p class="fa-talk__p">지금 드시는 것부터 알려 주시면 겹치는 성분이 없는지 먼저 볼게요.</p>
-                    <p class="fa-talk__p">한 가지 카테고리만 6일 카드로 시작하길 권해요.</p>
+                    <p class="fa-talk__p">그다음 한 가지만 골라 6일 카드로 함께 볼게요.</p>
                   </div>
                 </div>
               </div>
@@ -597,6 +600,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
             <button type="button" class="op-carousel__dot" aria-label="상담 예시 5"></button>
             <button type="button" class="op-carousel__dot" aria-label="상담 예시 6"></button>
             <button type="button" class="op-carousel__arrow op-carousel__next" aria-label="다음 예시"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+            <button type="button" class="op-pause op-carousel__pause" aria-pressed="false" aria-label="예시 자동 넘김 멈춤"><svg class="op-pause__i op-pause__i--pause" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><rect x="3.5" y="2.5" width="3" height="11" rx="1" fill="currentColor"/><rect x="9.5" y="2.5" width="3" height="11" rx="1" fill="currentColor"/></svg><svg class="op-pause__i op-pause__i--play" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4.5 2.8v10.4a.6.6 0 0 0 .9.5l8.2-5.2a.6.6 0 0 0 0-1L5.4 2.3a.6.6 0 0 0-.9.5z" fill="currentColor"/></svg></button>
           </div>
         </div>
         <p class="fa-talk__foot"><span class="op-badge fa-talk__badge">6일 뒤</span><span>다 먹을 때쯤 상담사가 먼저 “어땠어요?” 여쭤봐요. 이어서 볼지 같이 정하면 돼요.</span></p>
@@ -609,7 +613,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
 <section class="op-sec op-sec--warm" data-section="a06_voices" data-reveal>
   <div class="op-inner op-center">
     <h2 class="op-h2">이런 한 줄이면 충분해요</h2>
-    <p class="op-lead op-mt-16 op-measure--center">길게 쓰지 않아도 돼요. 한 줄만 남기면 전담 상담사가 읽고 답해드려요.</p>
+    <p class="op-lead op-mt-16 op-measure--center">아래 사전 등록의 한 줄 고민 칸에 이렇게 적어 주시면 돼요.</p>
   </div>
   <ul class="op-sr">
     <li>하** 예시: 요즘 오후만 되면 축 처져요. 영양제는 많은데 뭐부터 먹어야 할지 모르겠어요.</li>
@@ -623,11 +627,11 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
     <li>장** 예시: 환절기마다 컨디션이 흔들려요. 미리 챙길 수 있는 게 있을까요?</li>
     <li>고** 예시: 아침을 자주 걸러요. 이런 리듬에도 맞는 게 있을까요?</li>
   </ul>
-  <div class="op-marquee fa-voices op-mt-48" data-marquee data-speed="70" aria-hidden="true">
-    <div class="op-marquee__track">
+  <div class="op-marquee fa-voices op-mt-48" id="fa-voices" data-marquee data-speed="70" aria-hidden="true">
+    <div class="op-marquee__track" tabindex="-1">
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_01.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_01.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">하**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -637,7 +641,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_02.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_02.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">권**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -647,7 +651,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_03.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_03.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">김**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -657,7 +661,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_04.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_04.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">정**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -667,7 +671,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_05.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_05.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">손**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -677,7 +681,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_06.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_06.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">이**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -687,7 +691,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_07.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_07.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">박**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -697,7 +701,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_08.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_08.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">윤**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -707,7 +711,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_09.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_09.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">장**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -717,7 +721,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_10.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_10.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">고**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -725,9 +729,9 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
           <p class="fa-voice__t">아침을 자주 걸러요. 이런 리듬에도 맞는 게 있을까요?</p>
         </div>
       </div>
-      <div class="op-marquee__item">
+      <div class="op-marquee__item" data-marquee-dup>
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_01.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_01.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">하**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -735,9 +739,9 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
           <p class="fa-voice__t">요즘 오후만 되면 축 처져요. 영양제는 많은데 뭐부터 먹어야 할지 모르겠어요.</p>
         </div>
       </div>
-      <div class="op-marquee__item">
+      <div class="op-marquee__item" data-marquee-dup>
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_02.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_02.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">권**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -745,9 +749,9 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
           <p class="fa-voice__t">장바구니에 담아 둔 영양제가 다섯 개인데, 결국 하나도 못 골랐어요.</p>
         </div>
       </div>
-      <div class="op-marquee__item">
+      <div class="op-marquee__item" data-marquee-dup>
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_03.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_03.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">김**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -755,9 +759,9 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
           <p class="fa-voice__t">지금 챙겨 먹는 게 있는데, 새로 더해도 겹치지 않는지 봐 주실 수 있나요?</p>
         </div>
       </div>
-      <div class="op-marquee__item">
+      <div class="op-marquee__item" data-marquee-dup>
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_04.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_04.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">정**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -765,9 +769,9 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
           <p class="fa-voice__t">야근이 많아서 밤에 누워도 한참 뒤척여요. 뭘 챙기면 좋을까요?</p>
         </div>
       </div>
-      <div class="op-marquee__item">
+      <div class="op-marquee__item" data-marquee-dup>
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_05.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_05.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">손**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -775,9 +779,9 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
           <p class="fa-voice__t">부모님 드릴 걸 고르고 있어요. 뭐가 맞는지 몰라서 한 줄 남겨요.</p>
         </div>
       </div>
-      <div class="op-marquee__item">
+      <div class="op-marquee__item" data-marquee-dup>
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_06.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_06.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">이**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -785,9 +789,9 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
           <p class="fa-voice__t">화면을 오래 보는 일을 해요. 저녁이면 눈이 뻑뻑한데 뭐부터 볼까요?</p>
         </div>
       </div>
-      <div class="op-marquee__item">
+      <div class="op-marquee__item" data-marquee-dup>
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_07.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_07.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">박**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -795,9 +799,9 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
           <p class="fa-voice__t">피부가 푸석한 느낌이 오래가요. 먹는 것부터 바꿔 보고 싶어요.</p>
         </div>
       </div>
-      <div class="op-marquee__item">
+      <div class="op-marquee__item" data-marquee-dup>
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_08.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_08.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">윤**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -805,9 +809,9 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
           <p class="fa-voice__t">동네 약국에서 받아 가려면 뭐부터 하면 되나요?</p>
         </div>
       </div>
-      <div class="op-marquee__item">
+      <div class="op-marquee__item" data-marquee-dup>
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_09.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_09.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">장**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -815,9 +819,9 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
           <p class="fa-voice__t">환절기마다 컨디션이 흔들려요. 미리 챙길 수 있는 게 있을까요?</p>
         </div>
       </div>
-      <div class="op-marquee__item">
+      <div class="op-marquee__item" data-marquee-dup>
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a06_v_10.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_10.jpg" alt="" width="1364" height="1023" loading="lazy" decoding="async"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">고**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -827,6 +831,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
       </div>
     </div>
   </div>
+  <div class="op-inner fa-voices__ctl"><button type="button" class="op-pause " data-pause-toggle aria-controls="fa-voices" aria-pressed="false" aria-label="카드 흐름 멈춤"><svg class="op-pause__i op-pause__i--pause" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><rect x="3.5" y="2.5" width="3" height="11" rx="1" fill="currentColor"/><rect x="9.5" y="2.5" width="3" height="11" rx="1" fill="currentColor"/></svg><svg class="op-pause__i op-pause__i--play" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4.5 2.8v10.4a.6.6 0 0 0 .9.5l8.2-5.2a.6.6 0 0 0 0-1L5.4 2.3a.6.6 0 0 0-.9.5z" fill="currentColor"/></svg></button></div>
   <div class="op-inner op-center op-mt-32">
     <p class="op-note op-measure--center">카드의 문장과 사진은 이해를 돕기 위해 만든 예시입니다. 실제 이용자의 글이 아닙니다.</p>
   </div>
@@ -835,7 +840,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
 <section class="op-sec op-sec--charcoal" data-section="a07_signup" id="signup" data-reveal>
   <div class="op-inner">
     <div class="op-center">
-      <h2 class="op-h2">사전 등록하고 먼저 받아보기</h2>
+      <h2 class="op-h2">사전 등록하고 6일 카드 먼저 받아보기</h2>
       <p class="op-lead op-mt-16 op-measure--center">동네에 조합 약국이 열리면 가장 먼저 알려드려요. 사전 등록하신 분은 첫 카드를 먼저 받아보실 수 있어요.</p>      <div class="fa-kakao-cta op-mt-32">
         <a class="op-btn op-btn--ghost op-btn--kakao"
    href="https://pf.kakao.com/_wxdxhrX/chat" target="_blank" rel="noopener noreferrer">
@@ -854,7 +859,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
         <div class="op-row op-row--wrap">
           <input class="fa-chip-input" type="checkbox" name="entry.1077289738"
                  data-field="concern" value="피로"
-                 id="a07-concern-0" checked>
+                 id="a07-concern-0">
           <label class="op-chip fa-chip" for="a07-concern-0">피로</label>
           <input class="fa-chip-input" type="checkbox" name="entry.1077289738"
                  data-field="concern" value="장 컨디션"
@@ -893,6 +898,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
           <div class="fa-select-wrap">
             <select class="fa-select" id="a07-age" name="entry.965681754"
                     data-field="age_range">
+              <option value="" selected disabled>선택해 주세요</option>
               <option value="20대 초반">20대 초반</option>
               <option value="20대 후반">20대 후반</option>
               <option value="30대 초반">30대 초반</option>
@@ -913,8 +919,8 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
       <div class="op-mt-24">
         <label class="fa-label" for="a07-contact">카카오톡 연락처</label>
         <input class="fa-input" type="text" id="a07-contact" name="entry.786409114"
-               data-field="contact"
-               inputmode="tel" autocomplete="off" placeholder="카카오톡 아이디 또는 연락 가능한 번호">
+               data-field="contact" required maxlength="40"
+               autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="카카오톡 아이디 또는 연락 가능한 번호">
       </div>
 
       <div class="op-mt-24">
@@ -930,14 +936,14 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
                  name="entry.2142923554" data-field="consent_privacy"
                  value="동의합니다" required>
           <span class="op-check__box" aria-hidden="true"></span>
-          <span class="op-check__text">[필수] 개인정보 수집·이용에 동의합니다. 수집 항목: 연령대, 동네, 연락처 / 목적: 전담 상담사 배정과 안내 / 보유 기간: 동의를 철회하실 때까지.</span>
+          <span class="op-check__text">[필수] 개인정보 수집·이용에 동의합니다. 수집 항목: 연령대, 동네, 연락처 / 목적: 전담 상담사 배정과 안내 / 보유 기간: 동의를 철회하실 때까지. 동의하지 않으실 수 있으며, 이 경우 사전 등록이 어렵습니다.</span>
         </label>
         <label class="op-check" for="a07-consent-1">
           <input class="op-check__input" type="checkbox" id="a07-consent-1"
                  name="entry.783919577" data-field="consent_sensitive"
                  value="동의합니다" required>
           <span class="op-check__box" aria-hidden="true"></span>
-          <span class="op-check__text">[필수] 건강 관련 정보는 민감정보에 해당합니다. 상담을 위해 이 정보를 수집·이용하는 데 별도로 동의합니다.</span>
+          <span class="op-check__text">[필수] 건강 관련 정보는 민감정보에 해당합니다. 수집 항목: 신경 쓰이는 것, 한 줄 고민 / 목적: 상담 / 보유 기간: 동의를 철회하실 때까지. 이 정보를 수집·이용하는 데 별도로 동의합니다. 동의하지 않으실 수 있으며, 이 경우 사전 등록이 어렵습니다.</span>
         </label>
       </div>
 
@@ -991,7 +997,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
       </div>
     </div>
   </div>  <div class="fa-pharm__frame">
-    <div class="fa-pharm__bg"><img src="/onpharm/a08_pharmacies.jpg" alt="" width="1536" height="864"
+    <div class="fa-pharm__bg"><img src="/onpharm/a08_pharmacies.jpg" alt="" width="1536" height="864" loading="lazy" decoding="async"
          data-scrub="0.12" data-scrub-from="1" data-scrub-to="0.35" class="op-anim-zoom"></div>
   </div>
 
@@ -1015,7 +1021,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
           <div class="op-faq__a">면허를 가진 상담사가 직접 읽고 답합니다. 한 번 배정되면 같은 상담사가 계속 이어서 봐요.</div>
         </details>
         <details class="op-faq__item" open>
-          <summary class="op-faq__q">카드는 어디서 받나요?</summary>
+          <summary class="op-faq__q">6일 카드는 어디서 받나요?</summary>
           <div class="op-faq__a">동네 조합 약국에서 직접 받아 가세요. 픽업 쿠폰을 보여주시면 준비해 둔 카드를 드립니다.</div>
         </details>
         <details class="op-faq__item" open>

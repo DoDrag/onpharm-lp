@@ -209,8 +209,14 @@
   line-height: 1.6;
   color: var(--op-gray);
 }
+/* 색 면 안의 회색 보조 글자. #75767A 는 웜 4.27 / 틴트 4.15 / 그레이 4.05 : 1 로 AA(4.5) 미달이었다(2026-10-23 UX 점검 F10).
+   같은 차콜의 투명도로만 덮는다(새 색 0): 웜 4.8 / 틴트 4.7 / 그레이 4.7 : 1. 흰 면은 #75767A(4.6:1) 그대로.
+   텍스트 채움의 '안 칠한 바탕'은 기존 회색을 지킨다(채워지는 대비가 줄면 안 된다). */
+.op-page :is(.op-sec--warm, .op-sec--tint, .op-sec--gray, .fa-suggest, .fa-talk__q, .fb-col--old, .fb-node, .op-badge--gray) { --op-gray: rgba(51, 51, 51, 0.72); }
+.op-page :is(.op-sec--warm, .op-sec--tint, .op-sec--gray) .op-textfill { --op-textfill-base: #75767A; }
 .op-accent { color: var(--op-orange); }
 .op-accent--strong { color: var(--op-orange); font-weight: 800; }
+.op-page [tabindex="-1"]:focus { outline: none; }
 .op-accent--mark {
   color: var(--op-charcoal);
   background: var(--op-orange-tint);
@@ -284,10 +290,12 @@
               background-color var(--op-dur-fast) var(--op-ease),
               color var(--op-dur-fast) var(--op-ease);
 }
-.op-btn:hover {
-  filter: brightness(1.08);
-  transform: translateY(-1px);
-  box-shadow: var(--op-shadow-lift);
+@media (hover: hover) and (pointer: fine) {
+  .op-btn:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+    box-shadow: var(--op-shadow-lift);
+  }
 }
 .op-btn:active {
   transform: translateY(0);
@@ -395,10 +403,13 @@
               border-color var(--op-dur-fast) var(--op-ease),
               color var(--op-dur-fast) var(--op-ease);
 }
-.op-chip:hover {
-  background: var(--op-orange-tint);
-  border-color: var(--op-orange);
-  color: var(--op-charcoal);
+/* 폼 칩은 체크 상태와 hover 모양이 같아 터치 뒤 '눌린 채'로 보였다 -> 마우스 기기에서만 (UX 점검 F20) */
+@media (hover: hover) and (pointer: fine) {
+  .op-chip:hover {
+    background: var(--op-orange-tint);
+    border-color: var(--op-orange);
+    color: var(--op-charcoal);
+  }
 }
 .op-chip:focus-visible {
   outline: 2px solid var(--op-orange);
@@ -415,10 +426,12 @@
   background: rgba(255, 255, 255, 0.10);
   color: rgba(255, 255, 255, 0.90);
 }
-.op-sec--charcoal .op-chip:hover, .op-sec--navy .op-chip:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: var(--op-orange);
-  color: #FFFFFF;
+@media (hover: hover) and (pointer: fine) {
+  .op-sec--charcoal .op-chip:hover, .op-sec--navy .op-chip:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: var(--op-orange);
+    color: #FFFFFF;
+  }
 }
 .op-sec--charcoal .op-chip--on, .op-sec--navy .op-chip--on {
   background: rgba(255, 105, 0, 0.18);
@@ -433,7 +446,9 @@
   padding: 6px 14px;
   border-radius: var(--op-radius-pill);
   background: var(--op-orange-tint);
-  color: var(--op-orange);
+  /* 글자는 차콜: 오렌지 글자는 틴트 위 2.64:1, 흰 바탕 2.89:1 이었다('예시' 배지 = 금칙 4 의 법적 표시, 2026-10-23 UX 점검 F11).
+     오렌지는 틴트 면·테두리에 남는다 */
+  color: var(--op-charcoal);
   font-size: 14px;
   font-weight: 700;
   line-height: 1.4;
@@ -441,7 +456,8 @@
 }
 .op-badge--solid { background: var(--op-orange); color: #FFFFFF; }
 .op-badge--gray  { background: var(--op-bg-gray); color: var(--op-gray); }
-.op-badge--line  { background: transparent; border: 1.5px solid var(--op-orange); color: var(--op-orange); }
+.op-badge--line  { background: transparent; border: 1.5px solid var(--op-orange); color: var(--op-charcoal); }
+.op-sec--charcoal .op-badge--line, .op-sec--navy .op-badge--line, .op-veil-content .op-badge--line { color: #FFFFFF; }
 .op-sec--charcoal .op-badge--gray, .op-sec--navy .op-badge--gray {
   background: rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.82);
@@ -470,10 +486,12 @@
               box-shadow var(--op-dur-mid) var(--op-ease),
               border-color var(--op-dur-mid) var(--op-ease);
 }
-.op-card--hover:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--op-shadow-lift);
-  border-color: var(--op-orange);
+@media (hover: hover) and (pointer: fine) {
+  .op-card--hover:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--op-shadow-lift);
+    border-color: var(--op-orange);
+  }
 }
 /* 어두운 면 위 카드 */
 .op-sec--charcoal .op-card, .op-sec--navy .op-card {
@@ -1051,8 +1069,10 @@
      JS 가 있으면 로드 시 첫 항목만 남기고 open 을 제거한다.
    ========================================================================= */
 .op-faq { display: block; }
+/* (UX 점검 F26) 위아래 28px 를 항목이 아니라 질문(summary) 안에 둔다 - 보이는 간격은 같고 누르는 높이만 25px -> 81px.
+   닫힘: 28 + 질문 + 28 / 열림: 28 + 질문 + 12 + 답 + 28 (종전과 같은 값) */
 .op-faq__item {
-  padding: 28px 0;
+  padding: 0;
   border-bottom: 1px solid var(--op-line);
 }
 .op-faq__item:last-child { border-bottom: 0; }
@@ -1061,7 +1081,7 @@
   position: relative;
   display: flex;
   gap: 12px;
-  padding-right: 44px;
+  padding: 28px 44px 28px 0;
   font-size: 19px;
   font-weight: 700;
   line-height: 1.5;
@@ -1092,7 +1112,7 @@
   content: "";
   position: absolute;
   right: 2px;
-  top: 6px;
+  top: 34px;
   width: 18px;
   height: 18px;
   background-image:
@@ -1107,8 +1127,10 @@
 .op-faq__item[open] > .op-faq__q::after {
   background-size: 18px 2px, 2px 0;
 }
+.op-faq__item[open] > .op-faq__q { padding-bottom: 12px; }
 .op-faq__a {
-  margin-top: 12px;
+  margin-top: 0;
+  padding-bottom: 28px;
   padding-left: 27px;
   font-size: 17px;
   line-height: 1.75;
@@ -1286,7 +1308,7 @@
   display: flex;
   gap: 0;
   transform: translateX(0);
-  transition: transform var(--op-dur-slow) var(--op-ease);
+  transition: transform 0.32s cubic-bezier(0.23, 1, 0.32, 1);
   will-change: transform;
 }
 .op-js:not(.op-static) .op-carousel__slide {
@@ -1297,14 +1319,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 0;
   margin-top: 28px;
 }
 .op-js:not(.op-static) .op-carousel__viewport { touch-action: pan-y; }   /* 가로 스와이프는 JS 가 받는다 */
 /* 좌우 이동 버튼 — nav 안 [‹] ● ○ ○ [›] (2026-10-02). 무JS/정지에서는 nav 째로 숨는다. */
 .op-carousel__arrow {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   flex: 0 0 auto;
   border-radius: 999px;
   border: 1px solid var(--op-line);
@@ -1321,30 +1343,80 @@
 .op-carousel__arrow:focus-visible { outline: 2px solid var(--op-orange); outline-offset: 2px; }
 .op-carousel__prev { margin-right: 8px; }
 .op-carousel__next { margin-left: 8px; }
+/* 누르는 칸은 24px(WCAG 2.5.8), 보이는 점은 ::before 10px (UX 점검 F15). 점 사이 간격은 칸이 만든다 */
 .op-carousel__dot {
-  width: 10px;
-  height: 10px;
+  position: relative;
+  width: 24px;
+  height: 24px;
   padding: 0;
   border: 0;
   border-radius: var(--op-radius-pill);
-  background: var(--op-line);
+  background: none;
   cursor: pointer;
+  transition: width var(--op-dur-mid) var(--op-ease);
+}
+.op-carousel__dot::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--op-radius-pill);
+  background: var(--op-line);
+  transform: translate(-50%, -50%);
   transition: width var(--op-dur-mid) var(--op-ease),
               background-color var(--op-dur-mid) var(--op-ease);
 }
-.op-carousel__dot:hover { background: var(--op-gray); }
+@media (hover: hover) and (pointer: fine) { .op-carousel__dot:hover::before { background: var(--op-gray); } }
 .op-carousel__dot:focus-visible {
   outline: 2px solid var(--op-orange);
-  outline-offset: 3px;
+  outline-offset: 0;
 }
 .op-carousel__dot.is-on,
-.op-carousel__dot[aria-current="true"] {
+.op-carousel__dot[aria-current="true"] { width: 36px; }
+.op-carousel__dot.is-on::before,
+.op-carousel__dot[aria-current="true"]::before {
   width: 28px;
   background: var(--op-orange);
 }
-.op-sec--charcoal .op-carousel__dot, .op-sec--navy .op-carousel__dot {
+.op-sec--charcoal .op-carousel__dot::before, .op-sec--navy .op-carousel__dot::before {
   background: rgba(255, 255, 255, 0.28);
 }
+
+/* --- 자동 재생 멈춤 버튼 .op-pause (2026-10-23 UX 점검 F01) ----------------
+   히어로 스토리 · 한 줄 고민 띠 · 상담 예시 캐러셀. 5초 넘게 스스로 움직이는 것은 멈출 수 있어야 한다(WCAG 2.2.2).
+   라벨은 고정, 상태는 aria-pressed(true = 멈춤). 아이콘은 멈춤 중에 재생 삼각형으로 바뀐다.
+   JS 가 살아 있고 정지 모드가 아닐 때만 보인다 - 무JS 면 누를 수 없고, 정지·감소 모션이면 멈출 움직임이 없다. */
+.op-pause {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--op-line);
+  border-radius: var(--op-radius-pill);
+  background: #FFFFFF;
+  color: var(--op-charcoal);
+  cursor: pointer;
+  transition: border-color var(--op-dur-fast) var(--op-ease);
+}
+.op-js:not(.op-static) .op-pause { display: inline-flex; }
+.op-pause--dark,
+.op-sec--charcoal .op-pause, .op-sec--navy .op-pause {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.32);
+  color: #FFFFFF;
+}
+@media (hover: hover) and (pointer: fine) { .op-pause:hover { border-color: var(--op-orange); } }
+.op-pause:focus-visible { outline: 2px solid var(--op-orange); outline-offset: 2px; }
+/* 아이콘 전환은 .op-page svg { display:block }(0-1-1) 를 이겨야 한다 -> 버튼 클래스를 앞에 붙여 0-2-0 이상 */
+.op-pause .op-pause__i--play { display: none; }
+.op-pause[aria-pressed="true"] .op-pause__i--pause { display: none; }
+.op-pause[aria-pressed="true"] .op-pause__i--play { display: block; }
+.op-carousel__pause { margin-left: 12px; }
 
 /* =========================================================================
    ★ 모션 7 · 마퀴 (카드가 좌우로 끊임없이 흐르는 가로 띠)
@@ -1938,9 +2010,9 @@
   .op-table-wrap { overflow-x: auto; }
   .op-table tbody th { width: 170px; }
   /* 캐러셀 점은 터치 목표를 키운다 */
-  .op-js:not(.op-static) .op-carousel__dot { height: 12px; }
-  .op-js:not(.op-static) .op-carousel__dot.is-on,
-  .op-js:not(.op-static) .op-carousel__dot[aria-current="true"] { width: 30px; }
+  .op-js:not(.op-static) .op-carousel__dot::before { height: 12px; }
+  .op-js:not(.op-static) .op-carousel__dot.is-on::before,
+  .op-js:not(.op-static) .op-carousel__dot[aria-current="true"]::before { width: 30px; }
   /* 마퀴 — 좁아질수록 카드와 페이드 폭을 함께 줄인다 */
   .op-marquee { --op-marquee-item: 300px; --op-marquee-fade: 56px; }
   .op-marquee--lg { --op-marquee-item: 348px; }
@@ -2182,6 +2254,8 @@
     overflow-y: hidden;
   }
   .op-marquee__track[data-marquee-clone] { display: none !important; }
+  .op-marquee__item[data-marquee-dup] { display: none !important; }
+  .op-js .op-pause { display: none !important; }
   .op-idcard--hover:hover { transform: none !important; }
   /* 스크럽 엔진 — 정지 모드와 동일하게 최종 프레임 고정.
      런타임도 감소 모션이면 lerp 를 끄지만, 여기서 못을 한 번 더 박는다. */
@@ -2254,7 +2328,13 @@
   transform: scaleX(0);
 }
 .fa-story__bar > i:first-child::after { transform: scaleX(1); }
-.fa-story__steps { position: relative; height: 28px; margin-top: 12px; overflow: hidden; }
+.fa-story__row { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.fa-story__steps { position: relative; flex: 1 1 auto; min-width: 0; height: 28px; overflow: hidden; }
+.fa-hero-ctl { display: flex; justify-content: flex-end; margin-top: 12px; }
+/* 멈춤: 같은 시계의 사진·문장·막대를 한꺼번에 세운다 */
+.fa-hero-media.is-paused .op-heromedia__slide,
+.fa-hero-media.is-paused .fa-story__step,
+.fa-hero-media.is-paused .fa-story__bar > i::after { animation-play-state: paused; }
 .fa-story__step {
   position: absolute; left: 0; right: 0; top: 0;
   display: flex; align-items: baseline; gap: 10px;
@@ -2262,7 +2342,10 @@
   animation-duration: var(--op-hero-cycle);
   animation-timing-function: ease-out;
   animation-iteration-count: infinite;
-  animation-delay: calc(var(--i, 0) * var(--op-hero-cycle) / var(--op-hero-n, 6));
+  /* +0.9s = 사진 크로스페이드(칸의 5% = 1.8초) 한가운데서 문장이 바뀐다. 0 이었을 때 문장이 사진보다 약 1초 먼저 바뀌어
+     새 문장이 이전 장면 위에 붙었다(2026-10-23 UX 점검 F21 실측). backwards = 지연 동안 0% 프레임(투명)을 지킨다. */
+  animation-delay: calc(var(--i, 0) * var(--op-hero-cycle) / var(--op-hero-n, 6) + 0.9s);
+  animation-fill-mode: backwards;
 }
 .fa-story__step:first-child { opacity: 1; }
 /* 번호는 흰색 66% (오렌지 13px 글자는 차콜 위 4.4:1 이라 작은 글자 기준 4.5:1 에 못 미친다 - 오렌지는 막대에만) */
@@ -2454,7 +2537,10 @@
   transition: border-color var(--op-dur-fast) var(--op-ease),
               box-shadow var(--op-dur-fast) var(--op-ease);
 }
-.fa-concern:hover { border-color: var(--op-orange); box-shadow: var(--op-shadow-lift); }
+/* hover 는 마우스 기기에서만 - 터치 뒤 hover 가 남아 '선택됨'과 같은 모양이 됐다(UX 점검 F20) */
+@media (hover: hover) and (pointer: fine) {
+  .fa-concern:hover { border-color: var(--op-orange); box-shadow: var(--op-shadow-lift); }
+}
 .fa-concern:focus-visible { outline: 2px solid var(--op-orange); outline-offset: 3px; }
 .fa-concern__ico {
   display: flex;
@@ -2671,7 +2757,7 @@
   color: #FFFFFF;
   line-height: 1.3;
 }
-.fa-idcard__role { display: block; font-size: 14px; font-weight: 700; color: var(--op-orange); margin-top: 4px; }
+.fa-idcard__role { display: block; font-size: 14px; font-weight: 700; color: rgba(255, 255, 255, 0.86); margin-top: 4px; }
 .fa-idcard .op-kv { border-bottom-color: rgba(255, 255, 255, 0.14); }
 .fa-idcard .op-kv__k { color: rgba(255, 255, 255, 0.60); }
 .fa-idcard .op-kv__v { color: #FFFFFF; }
@@ -2691,7 +2777,7 @@
 .fa-idcard__label {
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.10em;
+  letter-spacing: 0;
   color: rgba(255, 255, 255, 0.62);
 }
 /* space-between + height:100% 는 왼쪽 전담 상담사 카드(키 큰 요소) 높이에 맞춰
@@ -2762,7 +2848,7 @@
 .fa-voices { --op-marquee-item: 300px; --op-marquee-gap: 20px; --op-marquee-pad-y: 14px; --op-marquee-fade: 80px; }
 .fa-voice {
   display: flex; flex-direction: column;
-  background: #FFFFFF; border-radius: 22px; padding: 14px 14px 22px;
+  background: #FFFFFF; border-radius: var(--op-radius-card); padding: 14px 14px 22px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 .fa-voice__ph { aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; background: var(--op-bg-gray); }
@@ -2771,6 +2857,9 @@
 .fa-voice__name { font-size: 15px; font-weight: 700; color: var(--op-gray); }
 .fa-voice__stars { display: inline-flex; gap: 2px; color: var(--op-orange); }
 .fa-voice__t { margin-top: 10px; padding: 0 6px; font-size: 16px; line-height: 1.7; letter-spacing: 0; color: var(--op-ink); text-align: left; }
+
+.fa-voices__ctl { display: flex; justify-content: flex-end; margin-top: 12px; }
+.fa-voices.is-paused .op-marquee__track { animation-play-state: paused; }
 
 /* --- a07 사전 등록 폼 ---------------------------------------------------- */
 .fa-form {
@@ -2801,7 +2890,8 @@
   padding: 16px 18px;
 }
 .fa-textarea { min-height: 104px; resize: none; }
-.fa-select { appearance: none; -webkit-appearance: none; padding-right: 44px; }
+.fa-select { appearance: none; -webkit-appearance: none; padding-right: 44px; color-scheme: dark; }
+.fa-select option { color: var(--op-ink); background-color: #FFFFFF; }
 .fa-select-wrap { position: relative; }
 .fa-select-caret {
   position: absolute;
@@ -2852,6 +2942,8 @@
   background: var(--op-orange-tint);
   text-align: center;
 }
+/* 틴트 면 위 오렌지 로고는 BI '로고와 유사한 색상 배경 금지'(UX 점검 F16 실측) -> 차콜 */
+.fa-closing .op-logotype { color: var(--op-charcoal); }   /* 색은 .op-logotype 이 직접 쥔다(테마 .op-sec--tint 규칙과 같은 방식) */
 .fa-closing__t {
   font-size: 28px;
   font-weight: 800;
@@ -2976,7 +3068,7 @@
   -webkit-tap-highlight-color: transparent;
 }
 .fa-toggle svg { width: 320px; height: auto; overflow: visible; transition: transform var(--op-dur-fast) var(--op-ease); }
-.fa-toggle:hover svg { transform: scale(1.02); }
+@media (hover: hover) and (pointer: fine) { .fa-toggle:hover svg { transform: scale(1.02); } }
 .fa-toggle:active svg { transform: scale(0.98); }
 .fa-toggle:focus-visible { outline: 3px solid var(--op-orange); outline-offset: 4px; }
 /* 켜는 순간 트랙 둘레로 오렌지 빛 고리가 한 번 퍼진다(감소 모션이면 JS 가 안 붙인다) */
@@ -3000,18 +3092,23 @@
 /* 실효 진행률 --op-pe: 평소엔 스크롤(--op-p), 스위치를 한 번이라도 만진 뒤로는 사용자 값(--op-u).
    --op-u 는 @property 로 등록해 숫자로 전환된다(미지원 브라우저는 즉시 바뀐다 - 기능은 같다).
    등록 초깃값 0 은 무JS 를 해치지 않는다: is-user 가 없으면 아예 --op-p(무JS 폴백 1)를 쓴다. */
+/* (UX 점검 F09) 노브·트랙은 --op-u(0.28초 감쇠, 누르는 동작엔 오버슈트를 주지 않는다), 슬로건·4단계는 --op-u2(0.9초).
+   처음 누를 때 JS 가 두 값을 지금 화면 값(--op-pe)으로 심고 시작한다 -> 14px 에서 0 으로 튀던 첫 클릭이 없어졌다.
+   값은 JS 가 인라인으로 준다(is-on 클래스는 상태 표시용). */
 @property --op-u { syntax: "<number>"; inherits: true; initial-value: 0; }
-.fa-stage { --op-u: 0; }
-.fa-stage.is-on { --op-u: 1; }
-.op-js:not(.op-static) .fa-stage.is-user { transition: --op-u 0.9s cubic-bezier(0.34, 1.2, 0.64, 1); }
+@property --op-u2 { syntax: "<number>"; inherits: true; initial-value: 0; }
+.fa-stage { --op-u: 0; --op-u2: 0; }
+.op-js:not(.op-static) .fa-stage.is-user {
+  transition: --op-u 0.28s cubic-bezier(0.23, 1, 0.32, 1), --op-u2 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+}
 .fa-stage .fa-toggle__knob,
 .fa-stage .fa-toggle__track--on,
 .fa-stage .fa-stage__slogan .op-textfill,
 .fa-stage .fa-stage__step { --op-pe: var(--op-p, 1); }
 .op-js:not(.op-static) .fa-stage.is-user .fa-toggle__knob,
-.op-js:not(.op-static) .fa-stage.is-user .fa-toggle__track--on,
+.op-js:not(.op-static) .fa-stage.is-user .fa-toggle__track--on { --op-pe: var(--op-u, 0); }
 .op-js:not(.op-static) .fa-stage.is-user .fa-stage__slogan .op-textfill,
-.op-js:not(.op-static) .fa-stage.is-user .fa-stage__step { --op-pe: var(--op-u, 0); }
+.op-js:not(.op-static) .fa-stage.is-user .fa-stage__step { --op-pe: var(--op-u2, 0); }
 .fa-toggle__track { fill: var(--op-line); }
 .fa-toggle__track--on { fill: var(--op-orange); opacity: var(--op-pe, 1); }
 .fa-toggle__knob {
@@ -3060,8 +3157,12 @@
   clip-path: inset(calc((1 - var(--op-p, 1)) * 6%) calc((1 - var(--op-p, 1)) * 5%)
                    calc((1 - var(--op-p, 1)) * 6%) round calc((1 - var(--op-p, 1)) * 24px));
 }
-.fa-band__bg > img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
-.fa-band-h2 { font-size: 64px; line-height: 1.15; font-weight: 300; }
+/* 세로 크롭은 폭이 1600 을 넘을 때만 생긴다(높이 900 x 16:9 소재). 그 구간에서 위(머리)를 살리려고 y 0%.
+   (2026-10-23 점검: 50% 30% 는 1920 에서 정수리, 2560 에서 이마까지 잘랐다. 1600 이하에선 가로만 잘려 이 값이 안 보인다) */
+.fa-band__bg > img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; }
+.fa-band-h2 { font-size: 64px; line-height: 1.15; font-weight: 300; text-wrap: balance; }
+/* 1024~1199 는 4.3vw 가 44px 까지 내려가 섹션 제목(40px)과 거의 같아졌다(UX 점검 F24). 칼럼 약 423px 에 '영양제, 검색만 하다'(7.68em) 가 55px 까지 한 줄 */
+@media (min-width: 1024px) and (max-width: 1199px) { .fa-hero-h1 { font-size: clamp(50px, 4.3vw, 64px); } }
 .fa-band-h2 .op-accent--strong { font-weight: 800; }
 .fa-band__checks {
   display: grid;
@@ -3124,9 +3225,9 @@
   .fa-voices { --op-marquee-item: 268px; --op-marquee-fade: 32px; }
   .fa-toggle svg { width: 200px; }
   .fa-stage__slogan { font-size: 20px; }
-  .fa-hero-grid { gap: 28px; }
+  .fa-hero-grid { gap: 20px; }
   .fa-hero-frame { border-radius: 16px; }
-  .fa-story { margin-top: 14px; }
+  .fa-story { margin-top: 10px; }
   .fa-story__t { font-size: 16px; }
   .fa-hero-cta .op-btn--lg { width: 100%; }
   .fa-steps::before { display: none; }
@@ -3141,11 +3242,27 @@
   .fa-checks { gap: 20px; }
   .fa-concern__label { font-size: 18px; }
   .fa-concern { padding: 22px 18px; }
+  /* (UX 점검 F07) 1열 8장이 1,908px 였다. 행 높이를 내용에 맡기고 고르지 않은 카드의 '선택됨' 칩 자리를 접는다 */
+  .fa-concerns { grid-auto-rows: auto; }
+  .fa-concern:not([aria-pressed="true"]) .fa-concern__chip { display: none; }
+  /* (UX 점검 F29) 390x664 실측 버튼 top 659px -> 위·사이 여백 약 68px 를 줄여 첫 화면에 들인다(사진 먼저 순서는 그대로) */
+  .fa-hero-sec { padding-top: 32px; }
+  .fa-hero-copy .op-lead.op-mt-24 { margin-top: 16px; }
+  .fa-hero-cta.op-mt-40 { margin-top: 24px; }
   .fa-suggest { padding: 24px 18px; }
   /* 세로 스택: 이미지 위, 텍스트 아래 */
   .fa-suggest__panel--media .fa-suggest__body { grid-template-columns: 1fr; gap: 18px; }
   .fa-product__shot { padding: 24px 16px; }
   .op-footer { padding: 28px 0; }
+}
+@media (max-width: 374px) { .fa-hero-h1 { font-size: 38px; } }
+/* 노트북 실제 창 높이(1366x657 · 1280x600)에서 무대 내용(약 640px)이 셸 바 아래 한 화면보다 커서
+   단계 하단이 41px 잘렸다(2026-10-23 UX 점검 F05). 높이 760 이하에서만 토글·간격을 줄인다(캡처는 1200 높이라 무관) */
+@media (min-width: 768px) and (max-height: 760px) {
+  .fa-toggle { margin-top: 20px; }
+  .fa-toggle svg { width: 200px; }
+  .fa-stage__slogan { margin-top: 12px; font-size: 22px; }
+  .fa-steps.op-mt-48 { margin-top: 24px; }
 }
 
 /* ---- 면 B (약국 파트너) 고유 규칙 ---------------------------- */
@@ -3247,7 +3364,7 @@
   flex: 1 1 168px;
   padding: 26px 20px 24px;
   border: 1px solid var(--op-line);
-  border-radius: 20px;
+  border-radius: var(--op-radius-card);
   background: var(--op-bg-gray);
 }
 .fb-node--on { background: var(--op-orange); border-color: var(--op-orange); }
@@ -3260,7 +3377,7 @@
 }
 .fb-node--on .fb-node__num { background: #FFFFFF; color: var(--op-orange); }
 .fb-node__owner {
-  font-size: 12px; font-weight: 800; letter-spacing: 0.06em; color: var(--op-gray);
+  font-size: 12px; font-weight: 800; letter-spacing: 0; color: var(--op-gray);
 }
 .fb-node--on .fb-node__owner { color: #FFFFFF; }
 .fb-node__title {
@@ -3292,7 +3409,7 @@
 .fb-field { display: block; }
 .fb-label {
   display: block; margin-bottom: 10px;
-  font-size: 14px; font-weight: 700; letter-spacing: 0.02em;
+  font-size: 14px; font-weight: 700; letter-spacing: 0;
   color: rgba(255, 255, 255, 0.66);
 }
 .fb-input, .fb-select, .fb-textarea {
@@ -3322,7 +3439,7 @@
 .fb-opt {
   display: inline-block; margin-left: 8px;
   padding: 2px 8px; border-radius: 999px;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+  font-size: 11px; font-weight: 700; letter-spacing: 0;
   color: rgba(255, 255, 255, 0.66);
   border: 1px solid rgba(255, 255, 255, 0.24);
   vertical-align: middle;

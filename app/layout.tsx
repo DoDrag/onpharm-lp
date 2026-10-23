@@ -16,7 +16,7 @@ import './globals.css';
 const DESCRIPTION =
   '영양제 고민 한 줄만 남겨 주세요. 동네 조합 약국의 전담 상담사가 직접 읽고 답해드립니다. 약국 파트너는 지역별 순차 오픈으로 모집합니다.';
 
-const TITLE = 'OnPharm | 들르면, 건강이 켜집니다';
+const TITLE = '온팜 | 들르면, 건강이 켜집니다';
 
 /* 파비콘 — assets/brand/onpharm_symbol.svg 의 패스를 그대로 쓴 캡슐 심볼.
    153x50 심볼을 153x153 정사각 안에 세로 중앙(translate y 51.5)으로 앉혔다.

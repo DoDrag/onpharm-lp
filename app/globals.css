@@ -10,6 +10,13 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* 스티키 바(약 65px) 밑으로 앵커·Tab 초점이 들어가지 않게(2026-10-23 UX 점검 F04: Shift+Tab 때 FAQ 질문이 바 밑에 완전히 가려졌다).
+       예전 .op-page [id] { scroll-margin-top } 은 앵커만 막았다 - 이 한 줄이 둘 다 막는다 */
+    scroll-padding-top: 72px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    /* 감소 모션이면 #signup 이동(약 8,000px)도 흐르지 않고 바로 간다(UX 점검 F19) */
+    html { scroll-behavior: auto; }
   }
   body {
     @apply font-sans bg-white text-ink antialiased;
@@ -22,12 +29,14 @@
   /* 생성기 마크업(.op-page) 안에서는 적용하지 않는다.
      생성기 CSS 가 제목 타이포를 전부 정의하고 자간은 0 이다(BI 정본).
      여기서 -0.02em 이 새면 금칙(자간 0)을 어기게 된다. */
+  /* (2026-10-23 UX 점검 F23) 셸 제목(404·약국 확인 창)에 -0.02em 과 네이비가 새고 있었다.
+     :not(.op-page *) 의 특이도(0,1,1)가 .op-404__title(0,1,0) 을 이긴다. BI = 자간 0, 네이비는 면 B 히어로 배경 전용 */
   h1:not(.op-page *),
   h2:not(.op-page *),
   h3:not(.op-page *),
   h4:not(.op-page *) {
-    @apply text-navy;
-    letter-spacing: -0.02em;
+    color: #333333;
+    letter-spacing: 0;
   }
 
   /* Tailwind preflight 의 기본 placeholder 색 `#9ca3af` 는 푸른 기가 도는 슬레이트라
@@ -136,6 +145,7 @@
 .op-shell-logo {
   display: inline-flex;
   align-items: center;
+  min-height: 44px; /* 누르는 칸(로고 그림은 22px 그대로) */
   color: #ff6900;
   line-height: 0;
   border-radius: 6px;
@@ -222,14 +232,40 @@ a.op-shell-back {
   display: none;
 }
 
-/* 앵커(#signup, #b06_apply)가 스티키 바 밑으로 들어가지 않게 */
-.op-page [id] {
-  scroll-margin-top: 72px;
-}
-.op-page [id]:focus {
-  /* 게이트 출구에서 #signup 에 tabindex=-1 을 걸고 포커스를 옮긴다.
-     프로그램 포커스에 외곽선을 그리지 않는다(:focus-visible 은 그대로 동작). */
+/* 앵커 오프셋은 html { scroll-padding-top } 하나가 맡는다(겹치면 72px 가 두 번 붙는다).
+   게이트 출구·스크롤 이동 뒤 프로그램 초점(tabindex=-1)에만 외곽선을 지운다.
+   예전 .op-page [id]:focus 는 범위가 넓어 입력칸 4개의 초점 링까지 꺼졌다(UX 점검 F18). */
+.op-page [tabindex='-1']:focus {
   outline: none;
+}
+
+/* a03 토글 무대: 스티키 구간이 셸 바(65px) 밑에서 시작하게 - 1366x657·1280x600 노트북 창에서
+   제목이 고정 구간 내내 바 밑에 가려졌다(UX 점검 F05). 단독 미리보기(생성기)는 바가 없어 그대로 top 0 */
+.op-js:not(.op-static) .op-page .op-stage__sticky {
+  top: 65px;
+}
+.op-js:not(.op-static) .op-page .fa-stage__sticky {
+  min-height: calc(100vh - 65px);
+}
+
+/* 본문 바로가기 (UX 점검 F28). 평소엔 화면 밖, Tab 으로 닿으면 왼쪽 위에 나타난다 */
+.op-skip {
+  position: absolute;
+  left: -9999px;
+  top: 8px;
+  z-index: 60;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #333333;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.op-skip:focus {
+  left: 16px;
+  outline: 2px solid #ff6900;
+  outline-offset: 2px;
 }
 
 /* ---- 페이지 최하단 진입점 ----------------------------------------------

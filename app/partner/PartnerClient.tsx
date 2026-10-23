@@ -40,9 +40,9 @@ import { APPLY_HASH, SIGNUP_HASH, isStaticCapture, readGatePass, writeGatePass }
 /* 셸 문구 — 화면에 나가는 전량.
    금칙 준수: 면허 명칭 미사용(금칙 2 / 린터 R2·R9), 협회·회사 실명 없음, 금액 없음. */
 const TXT = {
-  headerBack: '상담받기',
+  headerBack: '온팜 첫 화면',
   headerLabelB: '약국 파트너',
-  footBack: '← 상담받기로 돌아가기',
+  footBack: '온팜 첫 화면으로 돌아가기',
   lead: '아래는 약국을 운영하시는 분을 위한 안내입니다.'
 } as const;
 

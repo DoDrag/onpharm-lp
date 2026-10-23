@@ -38,9 +38,10 @@ const LEGACY_PARTNER_HASH = '#partner';
 /* 셸 문구 — 화면에 나가는 전량.
    금칙 준수: 면허 명칭 미사용(금칙 2 / 린터 R2·R9), 협회·회사 실명 없음, 금액 없음. */
 const TXT = {
+  skip: '본문 바로가기',
   headerLink: '약국 파트너 안내',
   footQuestion: '약국 운영자이신가요?',
-  footLink: '입점 문의 →'
+  footLink: '파트너 안내 보기'
 } as const;
 
 export default function HomePage() {
@@ -61,6 +62,9 @@ export default function HomePage() {
 
   return (
     <>
+      <a className="op-skip" href="#op-face-a">
+        {TXT.skip}
+      </a>
       <header className="op-shell-bar">
         <div className="op-shell-bar__inner">
           {/* 로고는 여기(흰 단색 면) 하나. 히어로 사진 위에는 두지 않는다 — BI p10 사용금지. */}

@@ -60,7 +60,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
     <div class="op-inner">
       <div class="op-center op-measure--center">
         <span class="op-eyebrow">무엇이 다른가</span>
-        <h2 class="op-h2">지금까지의 매대 vs 온팜 파트너 약국</h2>
+        <h2 class="op-h2">지금까지의 매대와 온팜 파트너 약국</h2>
         <p class="op-lead op-mt-16">
           같은 진열장이라도, 손님이 들어오는 이유가 다릅니다.
         </p>
@@ -70,7 +70,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
            data-scrub="0.09" data-scrub-from="0.95" data-scrub-to="0.55">
         <div class="op-card fb-col fb-col--old op-anim-rise" style="--op-d:0">
           <div class="fb-col__head">
-            <span class="op-badge op-badge--gray">BEFORE</span>
+            <span class="op-badge op-badge--gray">기존</span>
           </div>
           <h3 class="op-h3">지금까지의 매대</h3>
           <ul class="op-list op-list--x fb-col__body">
@@ -83,12 +83,12 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
 
         <div class="op-card fb-col fb-col--on op-anim-rise" style="--op-d:1">
           <div class="fb-col__head">
-            <span class="op-badge op-badge--solid">ONPHARM</span>
+            <span class="op-badge op-badge--solid">온팜</span>
           </div>
           <h3 class="op-h3">온팜 파트너 약국</h3>
           <ul class="op-list op-list--check fb-col__body">
             <li>검색되지 않는 조합 전용 카드입니다</li>
-            <li>상담을 거쳐 배정된 고객이 이름을 보고 찾아옵니다</li>
+            <li>상담을 거쳐 배정된 고객이 약국 이름을 보고 찾아옵니다</li>
             <li>소진 시점에 다음 안내가 다시 나갑니다</li>
             <li>상담사의 전문성이 그대로 매출로 남습니다</li>
           </ul>
@@ -110,7 +110,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
           다섯 단계 가운데 세 단계는 온팜이 처리합니다.
         </p>
       </div><div class="fb-flow op-mt-48"
-           data-scrub="0.1" data-scrub-from="0.92" data-scrub-to="0.62"
+           data-scrub="0.1" data-scrub-from="0.92" data-scrub-to="0.85"
            data-scrub-seq="5">
         <div class="fb-node op-anim-rise op-anim-rise--sm" data-scrub-part>
           <div class="fb-node__top">
@@ -136,7 +136,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
             <span class="fb-node__owner">약국</span>
           </div>
           <h3 class="fb-node__title">전담 상담사 답변</h3>
-          <p class="fb-node__desc">배정된 상담사가 카드 조합을 골라 답을 씁니다.</p>
+          <p class="fb-node__desc">배정된 상담사가 카드 구성을 골라 답을 씁니다.</p>
         </div>
         <span class="fb-arrow" aria-hidden="true">›</span>
         <div class="fb-node op-anim-rise op-anim-rise--sm" data-scrub-part>
@@ -159,7 +159,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
       </div>
 
       <p class="op-note op-center op-mt-32">
-        1 · 2 · 4 단계는 온팜이 맡습니다. 약국은 3번과 5번, 답변과 전달만 하면 됩니다.
+        약국이 맡는 답변에는 온팜이 답변 틀과 카드 구성 가이드를 미리 드립니다.
       </p>
     </div>
   </section>
@@ -170,13 +170,13 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
         <span class="op-eyebrow">파트너 혜택</span>
         <h2 class="op-h2">파트너 약국이 얻는 것</h2>
         <p class="op-lead op-mt-16">
-          물건이 아니라 손님과 이유가 함께 들어옵니다.
+          손님이 왜 오는지 미리 알고 맞이합니다.
         </p>
       </div>
 
       <div class="op-grid-3 op-grid--top op-mt-48">
         <div class="op-card fb-value">
-          <span class="op-eyebrow">TRAFFIC</span>
+          <span class="op-eyebrow">첫째</span>
           <h3 class="op-h3 fb-value__title">집객</h3>
           <ul class="op-list fb-value__list">
             <li>온라인에서 고민을 남긴 사람이 약국 이름을 보고 찾아옵니다</li>
@@ -185,7 +185,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
           </ul>
         </div>
         <div class="op-card fb-value">
-          <span class="op-eyebrow">PRODUCT</span>
+          <span class="op-eyebrow">둘째</span>
           <h3 class="op-h3 fb-value__title">전용 상품</h3>
           <ul class="op-list fb-value__list">
             <li>조합 전용 카드라 온라인 검색에 노출되지 않습니다</li>
@@ -194,12 +194,12 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
           </ul>
         </div>
         <div class="op-card fb-value">
-          <span class="op-eyebrow">RETENTION</span>
+          <span class="op-eyebrow">셋째</span>
           <h3 class="op-h3 fb-value__title">재방문</h3>
           <ul class="op-list fb-value__list">
             <li>소진 시점에 맞춰 다음 안내가 자동으로 나갑니다</li>
             <li>안내에는 담당 상담사 이름이 그대로 들어갑니다</li>
-            <li>다음 방문이 우연이 아니라 일정이 됩니다</li>
+            <li>다음 방문 시점을 미리 알 수 있습니다</li>
           </ul>
         </div>
       </div>
@@ -209,31 +209,31 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
 <section class="op-sec op-sec--gray" data-section="b05_faq" data-reveal>
     <div class="op-inner op-inner--narrow">
       <div class="op-center">
-        <span class="op-eyebrow">FAQ</span>
+        <span class="op-eyebrow">자주 묻는 질문</span>
         <h2 class="op-h2">파트너 문의</h2>
         <p class="op-lead op-mt-16">
-          가장 많이 받는 질문을 먼저 정리했습니다.
+          신청 전에 많이 궁금해하실 내용을 먼저 정리했습니다.
         </p>
       </div><div class="op-faq op-mt-40" data-accordion>
         <details class="op-faq__item" open>
-          <summary class="op-faq__q">입점 조건이 어떻게 되나요</summary>
+          <summary class="op-faq__q">참여 조건이 어떻게 되나요?</summary>
           <div class="op-faq__a">조합에 가입한 개설 약국이면 신청할 수 있습니다. 지역별 배정이 겹치지 않도록 순차 오픈하며, 상담 답변을 직접 맡아 주실 수 있는 곳을 먼저 배정합니다.</div>
         </details>
         <details class="op-faq__item" open>
-          <summary class="op-faq__q">초기 비용이 있나요</summary>
+          <summary class="op-faq__q">초기 비용이 있나요?</summary>
           <div class="op-faq__a">가맹비나 보증금 형태로 미리 받는 돈은 없습니다. 진열 집기와 안내물은 온팜이 준비해 드리고, 나머지 조건은 신청 이후 협의해서 계약서에 담습니다.</div>
         </details>
         <details class="op-faq__item" open>
-          <summary class="op-faq__q">재고 부담은 어떻게 되나요</summary>
+          <summary class="op-faq__q">재고 부담은 어떻게 되나요?</summary>
           <div class="op-faq__a">카드 단위 소포장이라 한 번에 많이 쌓아 둘 필요가 없습니다. 첫 물량과 회전 주기는 약국 상황에 맞춰 정하고, 남은 물량을 어떻게 처리할지는 계약 시 별도 안내합니다.</div>
         </details>
         <details class="op-faq__item" open>
-          <summary class="op-faq__q">고객 데이터는 누구 것인가요</summary>
+          <summary class="op-faq__q">고객 데이터는 누구 것인가요?</summary>
           <div class="op-faq__a">개인정보 수집·이용 동의를 받는 주체는 온팜입니다. 파트너 약국은 배정된 고객에 한해 상담 내역을 열람하고 리필 안내를 보낼 수 있으며, 그 범위를 벗어난 활용은 하지 않습니다.</div>
         </details>
         <details class="op-faq__item" open>
-          <summary class="op-faq__q">상담 답변이 부담되지 않을까요</summary>
-          <div class="op-faq__a">고민 한 줄에 서너 문장이면 충분합니다. 자주 오는 질문은 답변 틀과 카드 조합 가이드를 미리 드리고, 최종 판단과 답변만 담당 상담사가 하시면 됩니다.</div>
+          <summary class="op-faq__q">상담 답변이 부담되지 않을까요?</summary>
+          <div class="op-faq__a">고민 한 줄에 서너 문장이면 충분합니다. 자주 오는 질문은 답변 틀과 카드 구성 가이드를 미리 드리고, 최종 판단과 답변만 담당 상담사가 하시면 됩니다.</div>
         </details>
       </div>
     </div>
@@ -332,7 +332,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
                  value="동의합니다" required>
           <span class="op-check__box" aria-hidden="true"></span>
           <span class="op-check__text">
-            파트너 상담을 위해 입력한 정보를 온팜이 수집·이용하는 데 동의합니다.
+            파트너 상담을 위해 입력한 정보(약국명, 대표자명, 사업자등록번호, 주소, 연락처 등)를 온팜이 수집·이용하는 데 동의합니다. 보유 기간은 동의를 철회하실 때까지이며, 동의하지 않으실 수 있으나 이 경우 신청이 어렵습니다.
           </span>
         </label>
 
