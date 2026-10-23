@@ -2204,28 +2204,30 @@
    face A 전용 컴포넌트 (theme_onpharm.css.j2 위에 얹는다)
    ========================================================================= */
 
-/* --- a01 히어로 --------------------------------------------------------- */
-.fa-hero-photo { background: var(--op-bg-warm); }
-.fa-hero-bg { position: absolute; inset: 0; overflow: hidden; }
-.fa-hero-bg > img { width: 100%; height: 100%; object-fit: cover; }
-
-/* 히어로 미디어 슬롯(.op-heromedia)의 배치·크로스페이드·영상 처리는 전부 테마에 있다.
-   베일(.op-veil z-index:1)과 콘텐츠(.op-veil-content z-index:6)의 순서도 테마가 잡는다.
-   여기서 .op-veil 의 z-index 를 3~5 로 덮어쓰면 히어로 헤드라인이 베일 아래로 깔린다. */
-
+/* --- a01 히어로 (2026-10-23 v2 · 분할형) -------------------------------
+   사장님 "사진이 전반적으로 잘린다, 더 작게" (1729px 화면 캡처: 머리·카드가 잘림). 원인은 풀블리드 배경 =
+   화면 비율대로 cover 라 넓은 화면일수록 위아래가 잘리는 구조였다. 그래서 사진을 오른쪽 16:9 프레임 안에 넣는다.
+   프레임 비율 = 원본 비율(16:9)이라 어떤 화면에서도 잘리는 곳이 없다. 글은 차콜 면(.op-sec--charcoal) 위라
+   베일도 필요 없다. 로고는 사진 위에 두지 않는다(BI 사용금지) -> 사이트는 흰 셸 바, 단독 미리보기는 .fa-brandbar.
+   ≤1023 은 한 칼럼(사진 먼저, 글 아래). */
 .op-veil-content .op-logo { color: #FFFFFF; }
 .op-veil-content .op-caption,
 .op-veil-content .op-note { color: rgba(255, 255, 255, 0.78); }
 
-/* (2026-10-23) 히어로 = 메디코치식 스토리. 우측 폰 목업을 빼고 사진(스토리 6컷)이 오른쪽 절반을 쓴다.
-   글 칼럼 656px 은 84px 헤드라인이 2줄로 잠기는 폭(아래 .fa-hero-h1 주석) - 폰이 빠져도 그대로 둔다.
-   로고는 사진 위에 두지 않는다(BI 사용금지: 복잡한 그래픽 위 적용 금지) -> 사이트는 흰 셸 바, 단독 미리보기는
-   .fa-brandbar(섹션 밖이라 embed 에 안 실린다). */
 .fa-hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 656px);
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 56px;
+  align-items: center;
 }
-.fa-hero-cta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.fa-hero-copy { min-width: 0; }
+.fa-hero-media { min-width: 0; }
+.fa-hero-frame {
+  aspect-ratio: 16 / 9;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+}
+.fa-hero-cta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.fa-hero-cta .op-btn--lg { padding: 19px 34px; font-size: 19px; }
 .fa-hero-note { margin-top: 14px; }
 
 /* 단독 미리보기 전용 브랜드 바 (흰 면 + 오렌지 국문 기본형, 매뉴얼 p9 '흰 배경 = 풀컬러') */
@@ -2233,28 +2235,17 @@
 .fa-brandbar .op-inner { display: flex; align-items: center; min-height: 64px; }
 .fa-brandbar .op-logo { color: var(--op-orange); }
 
-/* --- 히어로 스토리 패널 -------------------------------------------------
-   슬라이드(테마 .op-heromedia 크로스페이드)와 같은 시계로 돈다: 같은 --op-hero-cycle · --op-hero-n,
-   캡션은 슬라이드와 같은 opCrossfade{N} 키프레임 + 같은 지연, 진행 막대는 0초 지연 + 칸별 키프레임.
-   전부 CSS 라 JS 가 없어도 맞는다. 정지/감소모션은 첫 장 캡션 + 첫 칸만 찬 상태(아래 정지 규칙).
+/* --- 히어로 스토리 패널 (2026-10-23 v2: 프레임 아래 · 캡션 겹침 없음) ------
+   슬라이드(테마 .op-heromedia 크로스페이드)와 같은 시계(--op-hero-cycle · --op-hero-n)로 돈다. 전부 CSS 라 JS 가 없어도 맞는다.
+   v1 은 사진 위에 얹었고 캡션을 슬라이드와 같은 크로스페이드로 넘겨, 넘어가는 순간 두 문장이 반투명으로 겹쳐 보였다
+   (사장님 캡처). 그래서 캡션 전용 키프레임 faStoryCap{N}: 칸이 끝나기 직전에 다 사라지고 다음 칸 시작에서 나타난다 -
+   두 문장이 같은 순간에 보이는 프레임이 없다. 진행 막대는 0초 지연 + 칸별 키프레임 faStoryFill{N}_{i}.
    영상(hero_a.mp4)이 들어오면 시계가 영상과 따로 놀므로 템플릿이 패널을 아예 렌더하지 않는다. */
-.fa-story {
-  position: absolute;
-  right: max(24px, calc((100% - var(--op-inner-max)) / 2));
-  bottom: 112px;               /* 고민 마퀴 띠(.fa-mq ≈80px) 위 */
-  z-index: 3;                  /* 베일(1) 위, 콘텐츠(.op-veil-content 6) 아래 - 좌우로 겹치지 않는다 */
-  width: 340px;
-  padding: 16px 18px 18px;
-  border-radius: 16px;
-  background: rgba(24, 24, 24, 0.46);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  color: #FFFFFF;
-}
+.fa-story { margin-top: 18px; }
 .fa-story__bar { display: grid; grid-template-columns: repeat(var(--op-hero-n, 6), 1fr); gap: 6px; }
 .fa-story__bar > i {
   position: relative; display: block; height: 3px; border-radius: 999px; overflow: hidden;
-  background: rgba(255, 255, 255, 0.30);
+  background: rgba(255, 255, 255, 0.22);
 }
 .fa-story__bar > i::after {
   content: ""; position: absolute; inset: 0; border-radius: inherit;
@@ -2263,22 +2254,27 @@
   transform: scaleX(0);
 }
 .fa-story__bar > i:first-child::after { transform: scaleX(1); }
-.fa-story__steps { position: relative; height: 54px; margin-top: 12px; }
+.fa-story__steps { position: relative; height: 28px; margin-top: 12px; overflow: hidden; }
 .fa-story__step {
   position: absolute; left: 0; right: 0; top: 0;
   display: flex; align-items: baseline; gap: 10px;
   opacity: 0;
-}
-.fa-story__step:first-child { opacity: 1; }
-.fa-story__n { flex: 0 0 auto; font-size: 13px; font-weight: 700; color: var(--op-orange); line-height: 1.5; }
-.fa-story__t { font-size: 18px; font-weight: 600; line-height: 1.45; letter-spacing: 0; }
-.fa-story__step {
-  animation-name: opCrossfade6;
   animation-duration: var(--op-hero-cycle);
-  animation-timing-function: linear;
+  animation-timing-function: ease-out;
   animation-iteration-count: infinite;
   animation-delay: calc(var(--i, 0) * var(--op-hero-cycle) / var(--op-hero-n, 6));
-}.fa-story[data-count="2"] .fa-story__step { animation-name: opCrossfade2; }.fa-story[data-count="2"] .fa-story__bar > i:nth-child(1)::after { animation: faStoryFill2_0 var(--op-hero-cycle) linear infinite; }
+}
+.fa-story__step:first-child { opacity: 1; }
+/* 번호는 흰색 66% (오렌지 13px 글자는 차콜 위 4.4:1 이라 작은 글자 기준 4.5:1 에 못 미친다 - 오렌지는 막대에만) */
+.fa-story__n { flex: 0 0 auto; font-size: 13px; font-weight: 700; color: rgba(255, 255, 255, 0.66); line-height: 1.5; }
+.fa-story__t { font-size: 17px; font-weight: 600; line-height: 1.5; letter-spacing: 0; color: #FFFFFF;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }.fa-story[data-count="2"] .fa-story__step { animation-name: faStoryCap2; }
+@keyframes faStoryCap2 {
+  0% { opacity: 0; transform: translateY(8px); }
+  1.6000% { opacity: 1; transform: none; }
+  48.4000% { opacity: 1; transform: none; }
+  50.0000%, 100% { opacity: 0; transform: translateY(-8px); }
+}.fa-story[data-count="2"] .fa-story__bar > i:nth-child(1)::after { animation: faStoryFill2_0 var(--op-hero-cycle) linear infinite; }
 @keyframes faStoryFill2_0 {
   0% { transform: scaleX(0); }
   50.0000%, 100% { transform: scaleX(1); }
@@ -2286,7 +2282,13 @@
 @keyframes faStoryFill2_1 {
   0%, 50.0000% { transform: scaleX(0); }
   100.0000%, 100% { transform: scaleX(1); }
-}.fa-story[data-count="3"] .fa-story__step { animation-name: opCrossfade3; }.fa-story[data-count="3"] .fa-story__bar > i:nth-child(1)::after { animation: faStoryFill3_0 var(--op-hero-cycle) linear infinite; }
+}.fa-story[data-count="3"] .fa-story__step { animation-name: faStoryCap3; }
+@keyframes faStoryCap3 {
+  0% { opacity: 0; transform: translateY(8px); }
+  1.6000% { opacity: 1; transform: none; }
+  31.7333% { opacity: 1; transform: none; }
+  33.3333%, 100% { opacity: 0; transform: translateY(-8px); }
+}.fa-story[data-count="3"] .fa-story__bar > i:nth-child(1)::after { animation: faStoryFill3_0 var(--op-hero-cycle) linear infinite; }
 @keyframes faStoryFill3_0 {
   0% { transform: scaleX(0); }
   33.3333%, 100% { transform: scaleX(1); }
@@ -2298,7 +2300,13 @@
 @keyframes faStoryFill3_2 {
   0%, 66.6667% { transform: scaleX(0); }
   100.0000%, 100% { transform: scaleX(1); }
-}.fa-story[data-count="4"] .fa-story__step { animation-name: opCrossfade4; }.fa-story[data-count="4"] .fa-story__bar > i:nth-child(1)::after { animation: faStoryFill4_0 var(--op-hero-cycle) linear infinite; }
+}.fa-story[data-count="4"] .fa-story__step { animation-name: faStoryCap4; }
+@keyframes faStoryCap4 {
+  0% { opacity: 0; transform: translateY(8px); }
+  1.6000% { opacity: 1; transform: none; }
+  23.4000% { opacity: 1; transform: none; }
+  25.0000%, 100% { opacity: 0; transform: translateY(-8px); }
+}.fa-story[data-count="4"] .fa-story__bar > i:nth-child(1)::after { animation: faStoryFill4_0 var(--op-hero-cycle) linear infinite; }
 @keyframes faStoryFill4_0 {
   0% { transform: scaleX(0); }
   25.0000%, 100% { transform: scaleX(1); }
@@ -2314,7 +2322,13 @@
 @keyframes faStoryFill4_3 {
   0%, 75.0000% { transform: scaleX(0); }
   100.0000%, 100% { transform: scaleX(1); }
-}.fa-story[data-count="5"] .fa-story__step { animation-name: opCrossfade5; }.fa-story[data-count="5"] .fa-story__bar > i:nth-child(1)::after { animation: faStoryFill5_0 var(--op-hero-cycle) linear infinite; }
+}.fa-story[data-count="5"] .fa-story__step { animation-name: faStoryCap5; }
+@keyframes faStoryCap5 {
+  0% { opacity: 0; transform: translateY(8px); }
+  1.2000% { opacity: 1; transform: none; }
+  18.8000% { opacity: 1; transform: none; }
+  20.0000%, 100% { opacity: 0; transform: translateY(-8px); }
+}.fa-story[data-count="5"] .fa-story__bar > i:nth-child(1)::after { animation: faStoryFill5_0 var(--op-hero-cycle) linear infinite; }
 @keyframes faStoryFill5_0 {
   0% { transform: scaleX(0); }
   20.0000%, 100% { transform: scaleX(1); }
@@ -2334,7 +2348,13 @@
 @keyframes faStoryFill5_4 {
   0%, 80.0000% { transform: scaleX(0); }
   100.0000%, 100% { transform: scaleX(1); }
-}.fa-story[data-count="6"] .fa-story__step { animation-name: opCrossfade6; }.fa-story[data-count="6"] .fa-story__bar > i:nth-child(1)::after { animation: faStoryFill6_0 var(--op-hero-cycle) linear infinite; }
+}.fa-story[data-count="6"] .fa-story__step { animation-name: faStoryCap6; }
+@keyframes faStoryCap6 {
+  0% { opacity: 0; transform: translateY(8px); }
+  1.2000% { opacity: 1; transform: none; }
+  15.4667% { opacity: 1; transform: none; }
+  16.6667%, 100% { opacity: 0; transform: translateY(-8px); }
+}.fa-story[data-count="6"] .fa-story__bar > i:nth-child(1)::after { animation: faStoryFill6_0 var(--op-hero-cycle) linear infinite; }
 @keyframes faStoryFill6_0 {
   0% { transform: scaleX(0); }
   16.6667%, 100% { transform: scaleX(1); }
@@ -2358,14 +2378,7 @@
 @keyframes faStoryFill6_5 {
   0%, 83.3333% { transform: scaleX(0); }
   100.0000%, 100% { transform: scaleX(1); }
-}/* 스토리 모드 베일: 테마 .op-veil--side(오른쪽 끝도 30% 검정)는 인물 컷을 칙칙하게 만든다(10-23 실측).
-   글 칼럼(가로 8~54%)만 어둡게 두고 인물 자리(60% 이후)는 거의 연다. z-index 는 건드리지 않는다(테마 레이어 계약). */
-.fa-hero--story .fa-hero-bg .op-veil--side {
-  background: linear-gradient(90deg,
-    rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.70) 36%, rgba(0, 0, 0, 0.40) 56%,
-    rgba(0, 0, 0, 0.10) 74%, rgba(0, 0, 0, 0) 100%);
-}
-/* 정지 모드 · 감소 모션: 첫 장면만 (테마 정지 블록과 같은 원칙 - 첫 프레임 고정) */
+}/* 정지 모드 · 감소 모션: 첫 장면만 (테마 정지 블록과 같은 원칙 - 첫 프레임 고정) */
 .op-static .fa-story__step,
 .op-static .fa-story__bar > i::after { animation: none !important; }
 .op-static .fa-story__step { opacity: 0 !important; }
@@ -2404,6 +2417,12 @@
 .fa-chip-cta:hover,
 .op-page a.fa-chip-cta:hover { color: #FFFFFF; }
 .fa-chip-cta:focus-visible { outline: 2px solid var(--op-orange); outline-offset: 3px; }
+/* (2026-10-23) 히어로가 차콜 면(.op-sec--charcoal)이 되면서 테마의 어두운 면 칩 규칙(0-2-0, 반투명 흰 바탕)이
+   위 틴트 바탕을 이겨, 차콜 글자가 어두운 바탕에 묻혔다(실측 캡처). 어두운 면에서도 틴트 바탕 + 차콜 글자를 지킨다. */
+.op-sec--charcoal .fa-chip-cta { background: var(--op-orange-tint); border-color: var(--op-orange); }
+.op-page .op-sec--charcoal a.fa-chip-cta { color: var(--op-charcoal); }
+.op-sec--charcoal .fa-chip-cta:hover { background: var(--op-orange); border-color: var(--op-orange); }
+.op-page .op-sec--charcoal a.fa-chip-cta:hover { color: #FFFFFF; }
 
 /* (구) .fa-photoband 라운드 사진 밴드는 폐기 — a05 는 .fa-band__hero, a08 은 .fa-pharm__frame
    (둘 다 풀블리드 프레임). 되살리지 말 것: 라운드 밴드는 "카드 실루엣" 으로 지적됐다. */
@@ -2924,39 +2943,14 @@
 
 /* 히어로 헤드라인 — 한 가족 안의 극단 대비: Light 300 거대 + 한 단어만 800 오렌지.
    BI 가 Pretendard Light/Medium 을 명시하므로 새 서체 없이 무게로 위계를 만든다. */
-/* 84px 인 이유: "영양제, 검색만 하다" 가 88px 에선 660px 로 텍스트 칼럼(1080-372-52=656)을
-   4px 넘쳐 "하다" 가 고아행이 됐다(실측). balance 는 둘째 문장까지 접혀 4줄이 되니 못 구한다.
-   84px = 645px 로 2줄 lockup. 다른 머신의 폰트 힌팅 편차를 위해 10px 여유를 둔다. */
-.fa-hero-h1 { font-size: 84px; line-height: 1.12; font-weight: 300; text-wrap: balance; }
+/* (2026-10-23 v2) 분할형이라 글 칼럼이 약 0.46 x 너비. "영양제, 검색만 하다" 는 7.68em(84px=645px 실측)이라
+   4.3vw 면 1440 에서 476px(칼럼 526), 1280 에서 422px(칼럼 471) - 2줄 lockup 유지. 64px 상한. */
+.fa-hero-h1 { font-size: clamp(44px, 4.3vw, 64px); line-height: 1.16; font-weight: 300; text-wrap: balance; }
+.fa-hero-copy .op-lead { font-size: 19px; }
 .fa-hero-h1 .op-accent--strong { font-weight: 800; }
 
-/* 히어로 하단 = 마퀴 하단. 섹션 바닥 패딩을 0 으로 접어야 띠 아래로 사진이 새지 않는다.
-   테마 .op-sec 의 반응형 패딩(80/64px)도 같은 특이도(0-1-0)라 뒤에 오는 이 규칙이 이긴다. */
-.fa-hero-sec { padding-bottom: 0; }
-
-/* 고민 마퀴 — 히어로 하단 경첩. 사진 위라 불투명 차콜 띠 + z-index 로 베일 위. */
-.fa-mq {
-  position: relative;
-  z-index: 6;
-  margin-top: 72px;
-  background: var(--op-charcoal);
-  color: #FFFFFF;
-  --op-marquee-pad-y: 22px;
-  --op-marquee-gap: 0px;
-  --op-marquee-fade: 120px;
-}
-.fa-mq__w {
-  display: inline-flex;
-  align-items: center;
-  gap: 26px;
-  padding: 0 26px;
-  font-size: 30px;
-  font-weight: 300;
-  letter-spacing: 0;
-  line-height: 1.2;
-  white-space: nowrap;
-}
-.fa-mq__dot { width: 9px; height: 9px; border-radius: 999px; background: var(--op-orange); flex: 0 0 auto; }
+/* (2026-10-23) 히어로 하단 고민 단어 마퀴(.fa-mq)는 삭제 - 사장님 "아래 글씨 배너 지나가는 거 너무 밤티".
+   고민 단어는 바로 아래 a02 고민 카드에 그대로 있다. 바닥 패딩 0 규칙(.fa-hero-sec)도 같이 없앴다. */
 
 /* a03 토글 무대 — sticky 는 테마(.op-stage)가, 여기서는 한 화면 세로 중앙정렬만. */
 .fa-stage__sticky { display: flex; align-items: center; }
@@ -3025,46 +3019,11 @@
   .fa-band__row { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .fa-band__row .fa-band__card { max-width: 520px; width: 100%; margin: 0 auto; }
   .fa-talk { max-width: 640px; width: 100%; margin: 0 auto; }
-  .fa-mq__w { font-size: 24px; }
   .fa-toggle svg { width: 260px; }
-  .fa-hero-grid { grid-template-columns: minmax(0, 1fr); }
-  /* 스토리 패널은 상단 사진 밴드(380px) 안 왼쪽 아래로. 밴드 아래 34% 는 잉크 그라디언트(z-index 2)라 그 위(3)에 얹힌다. */
-  .fa-story { left: 24px; right: auto; bottom: 18px; width: min(340px, calc(100% - 48px)); }
-  /* 스토리 모드: 글을 밴드 아래로 내린다. 글이 밴드 위에 얹히면 캡션 패널과 리드 문단이 겹친다(10-23 실측 390px).
-     밴드에는 사진 + 캡션만 -> 세로 베일도 가볍게(로고가 밴드 위에 없으니 위쪽을 어둡게 할 이유가 없다). */
-  .fa-hero--story { padding-top: 420px; }
-  .fa-hero--story .fa-hero-bg .op-veil--side {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.08) 55%, rgba(0, 0, 0, 0.28) 100%);
-  }
-
-  /* 히어로 사진 -> 상단 밴드.
-     2열이 1열로 접히면 히어로 박스가 768x1400 / 390x1504 처럼 세로로 길어진다.
-     16:9 소재를 그 박스에 cover 로 깔면 원본 가로의 15~40%만 남기고 1.6~1.7배
-     확대돼서 (a) 인물이 프레임 밖으로 통째로 잘려 나가고 (b) 확대분만큼 뭉갠다.
-     실측: 390px 에서 보이는 원본 구간이 x 656~880 (전체 1536 중 14.6%) 뿐이었다.
-     밴드로 바꾸면 축소 배율로 들어가므로 원본의 65~100%가 선명하게 남는다.
-     밴드 아래는 잉크 바탕으로 떨어뜨려 흰 글자(.op-veil-content) 대비를 지킨다. */
-  .fa-hero-photo { background: var(--op-ink); }
-  .fa-hero-bg { height: 380px; bottom: auto; }
-  .fa-hero-bg::after {
-    content: "";
-    position: absolute; left: 0; right: 0; bottom: 0;
-    height: 34%;
-    background: linear-gradient(180deg, rgba(45, 45, 45, 0) 0%, #2D2D2D 100%);
-    z-index: 2;
-    pointer-events: none;
-  }
-  /* 베일도 세로로 바꾼다. 가로 그라디언트(--side)는 좁은 밴드에서 왼쪽만 어둡게
-     하고 오른쪽 글자를 밝은 사진 위에 남긴다.
-     위쪽을 가장 진하게 두는 이유: 로고와 아이브로우가 거기 얹힌다. BI 사용금지
-     규정상 로고는 사진 위에 직접 놓지 않고 단색 면 안에 있어야 하고, 오렌지
-     아이브로우도 밝은 크림 사진 위에서는 읽히지 않는다. */
-  .fa-hero-bg .op-veil--side {
-    background: linear-gradient(180deg,
-      rgba(0, 0, 0, 0.82) 0%,
-      rgba(0, 0, 0, 0.72) 38%,
-      rgba(0, 0, 0, 0.62) 100%);
-  }
+  /* 분할형 -> 한 칼럼: 사진(스토리) 먼저, 글 아래. 프레임은 16:9 그대로라 잘리지 않는다. */
+  .fa-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .fa-hero-media { order: -1; }
+  .fa-hero-copy .op-lead { font-size: 18px; }
   .fa-idcard { padding: 28px; }
   .fa-form { padding: 32px; }
   /* 핀 2열(테마 .op-grid-4 가 2열로 접힘): 짝수 칸에만 세로 헤어라인 */
@@ -3098,15 +3057,13 @@
   .fa-talk__qt { font-size: 17px; }
   .fa-talk__p { font-size: 16px; }
   .fa-voices { --op-marquee-item: 268px; --op-marquee-fade: 32px; }
-  .fa-mq { margin-top: 40px; }
-  .fa-mq__w { font-size: 20px; gap: 16px; padding: 0 16px; }
   .fa-toggle svg { width: 200px; }
   .fa-stage__slogan { font-size: 20px; }
-  .fa-story { left: 20px; bottom: 14px; width: calc(100% - 40px); padding: 12px 14px 14px; }
-  .fa-hero--story { padding-top: 332px; }
-  .fa-story__steps { height: 28px; margin-top: 10px; }
+  .fa-hero-grid { gap: 28px; }
+  .fa-hero-frame { border-radius: 16px; }
+  .fa-story { margin-top: 14px; }
   .fa-story__t { font-size: 16px; }
-  .fa-hero-bg { height: 300px; }
+  .fa-hero-cta .op-btn--lg { width: 100%; }
   .fa-steps::before { display: none; }
   .fa-form { padding: 22px; }
   /* 핀은 모바일에서도 2열(1열 4칸 스택은 너무 길다). 테마 1열 규칙(0-1-0)보다 특이도 높음. */

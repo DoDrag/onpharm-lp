@@ -6,38 +6,11 @@
 
 // 면 A · 소비자 (9섹션). <div class="op-page"> 안에 넣어야 스타일이 먹습니다.
 // 면 B 는 faceB.ts 에 따로 있다. 여기서 같이 export 하지 마라(청크 공유 누수).
-export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-photo fa-hero--story" data-section="a01_hero">
-  <div class="fa-hero-bg" style="--op-hero-cycle:36s">
-    <div class="op-heromedia" data-motion="crossfade" data-count="6">
-      <video class="op-heromedia__video" autoplay muted loop playsinline preload="auto"
-             aria-hidden="true" tabindex="-1"></video>
-      <div class="op-heromedia__slides">
-        <img class="op-heromedia__slide" src="/onpharm/a01_story_1.jpg" alt="" width="1536" height="864" decoding="async" style="--i:0">
-        <img class="op-heromedia__slide" src="/onpharm/a01_story_2.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:1; object-position:80% 0%; transform-origin:80% 0%">
-        <img class="op-heromedia__slide" src="/onpharm/a01_story_3.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:2">
-        <img class="op-heromedia__slide" src="/onpharm/a01_story_4.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:3; object-position:60% 50%; transform-origin:60% 50%">
-        <img class="op-heromedia__slide" src="/onpharm/a01_story_5.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:4">
-        <img class="op-heromedia__slide" src="/onpharm/a01_story_6.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:5; object-position:70% 50%; transform-origin:70% 50%">
-      </div>
-    </div>
-    <span class="op-veil op-veil--side"></span>
-    <div class="fa-story" data-count="6" style="--op-hero-n:6" aria-hidden="true">
-      <div class="fa-story__bar"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      <div class="fa-story__steps">
-        <p class="fa-story__step" style="--i:0"><span class="fa-story__n">01</span><span class="fa-story__t">다 먹어 갈 때쯤, 알림이 먼저 와요</span></p>
-        <p class="fa-story__step" style="--i:1"><span class="fa-story__n">02</span><span class="fa-story__t">쿠폰 들고 동네 약국으로</span></p>
-        <p class="fa-story__step" style="--i:2"><span class="fa-story__n">03</span><span class="fa-story__t">전담 상담사와 차분히 이야기하고</span></p>
-        <p class="fa-story__step" style="--i:3"><span class="fa-story__n">04</span><span class="fa-story__t">내게 맞춘 6일 카드를 받아요</span></p>
-        <p class="fa-story__step" style="--i:4"><span class="fa-story__n">05</span><span class="fa-story__t">하루 한 칸, 아침에 챙기고</span></p>
-        <p class="fa-story__step" style="--i:5"><span class="fa-story__n">06</span><span class="fa-story__t">그리고 오늘도, 내 하루</span></p>
-      </div>
-    </div>
-  </div>
-  <div class="op-inner op-veil-content">
+export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--charcoal" data-section="a01_hero">
+  <div class="op-inner">
     <p class="op-sr">온팜은 이렇게 이어져요. 다 먹어 갈 때쯤 알림이 오고, 쿠폰을 들고 동네 약국에 들러 전담 상담사와 이야기한 뒤, 내게 맞춘 6일 카드를 받아 하루 한 칸씩 챙겨요.</p>
-
     <div class="fa-hero-grid">
-      <div>
+      <div class="fa-hero-copy">
         <h1 class="op-h1 fa-hero-h1">영양제, 검색만 하다<br><span class="op-accent--strong">한 달</span>이 지났다면</h1>
         <p class="op-lead op-mt-24 op-measure">장바구니에만 담아 두고 결국 못 고르셨다면, 고민 한 줄만 남겨 주세요. 동네 조합 약국의 전담 상담사가 직접 읽고 답해드려요.</p>
 
@@ -51,32 +24,39 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
   </svg>
   <span>카카오톡으로 상담하기</span>
 </a>
-        </div>        <p class="op-caption fa-hero-note">지금은 사전 등록만 받고 있어요</p>
+        </div>
+        <p class="op-caption fa-hero-note">지금은 사전 등록만 받고 있어요</p>
 <div class="op-row op-row--wrap op-mt-24">
           <span class="op-chip">상담 무료</span>
           <a class="op-chip fa-chip-cta" href="#signup" data-scroll-to="#signup">쿠폰받기</a>
           <span class="op-chip">동네 약국 픽업</span>
         </div>
       </div>
-    </div>
-
-  </div>  <div class="fa-mq op-marquee" data-marquee data-speed="50" aria-hidden="true">
-    <div class="op-marquee__track">      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>피로</span></div>
-      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>장 컨디션</span></div>
-      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>잠</span></div>
-      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>피부</span></div>
-      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>여성 컨디션</span></div>
-      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>눈</span></div>
-      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>면역</span></div>
-      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>뭐부터일지 모르겠어요</span></div>
-      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>피로</span></div>
-      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>장 컨디션</span></div>
-      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>잠</span></div>
-      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>피부</span></div>
-      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>여성 컨디션</span></div>
-      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>눈</span></div>
-      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>면역</span></div>
-      <div class="op-marquee__item op-marquee__item--auto"><span class="fa-mq__w"><span class="fa-mq__dot"></span>뭐부터일지 모르겠어요</span></div>
+      <div class="fa-hero-media" style="--op-hero-cycle:36s" aria-hidden="true">
+        <div class="op-heromedia op-heromedia--box fa-hero-frame" data-motion="crossfade" data-count="6">
+          <video class="op-heromedia__video" autoplay muted loop playsinline preload="auto"
+                 aria-hidden="true" tabindex="-1"></video>
+          <div class="op-heromedia__slides">
+            <img class="op-heromedia__slide" src="/onpharm/a01_story_1.jpg" alt="" width="1536" height="864" decoding="async" style="--i:0">
+            <img class="op-heromedia__slide" src="/onpharm/a01_story_2.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:1">
+            <img class="op-heromedia__slide" src="/onpharm/a01_story_3.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:2">
+            <img class="op-heromedia__slide" src="/onpharm/a01_story_4.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:3">
+            <img class="op-heromedia__slide" src="/onpharm/a01_story_5.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:4">
+            <img class="op-heromedia__slide" src="/onpharm/a01_story_6.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:5">
+          </div>
+        </div>
+        <div class="fa-story" data-count="6" style="--op-hero-n:6">
+          <div class="fa-story__bar"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="fa-story__steps">
+            <p class="fa-story__step" style="--i:0"><span class="fa-story__n">01</span><span class="fa-story__t">다 먹어 갈 때쯤, 알림이 먼저 와요</span></p>
+            <p class="fa-story__step" style="--i:1"><span class="fa-story__n">02</span><span class="fa-story__t">쿠폰 들고 동네 약국으로</span></p>
+            <p class="fa-story__step" style="--i:2"><span class="fa-story__n">03</span><span class="fa-story__t">전담 상담사와 차분히 이야기하고</span></p>
+            <p class="fa-story__step" style="--i:3"><span class="fa-story__n">04</span><span class="fa-story__t">내게 맞춘 6일 카드를 받아요</span></p>
+            <p class="fa-story__step" style="--i:4"><span class="fa-story__n">05</span><span class="fa-story__t">하루 한 칸, 아침에 챙기고</span></p>
+            <p class="fa-story__step" style="--i:5"><span class="fa-story__n">06</span><span class="fa-story__t">그리고 오늘도, 내 하루</span></p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

@@ -1,4 +1,9 @@
 import type { Metadata } from 'next';
+/* Pretendard Variable 웹폰트 — 사이트가 직접 제공한다(npm pretendard@1.3.9, OFL, 외부 CDN 없음).
+   동적 서브셋이라 화면에 나온 글자 범위의 woff2 조각만 받는다. 2026-10-23 사장님 "글씨체 Pretendard 로" —
+   그전에는 방문자 PC 에 Pretendard 가 없으면 맑은 고딕·애플 고딕으로 떨어졌다(생성기 CSS 는 로컬 스택만 적는다).
+   family 이름 'Pretendard Variable' 이 생성기 --op-font-sans 와 tailwind sans 의 첫 항목과 같다. */
+import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
 import './globals.css';
 
 /* 소개 문구. 면 A/B 의 실제 카피에서 뽑아 이어 붙인 것이다.
