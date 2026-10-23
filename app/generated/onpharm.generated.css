@@ -2217,15 +2217,168 @@
 .op-veil-content .op-caption,
 .op-veil-content .op-note { color: rgba(255, 255, 255, 0.78); }
 
-.fa-topbar { padding-bottom: 44px; }
+/* (2026-10-23) 히어로 = 메디코치식 스토리. 우측 폰 목업을 빼고 사진(스토리 6컷)이 오른쪽 절반을 쓴다.
+   글 칼럼 656px 은 84px 헤드라인이 2줄로 잠기는 폭(아래 .fa-hero-h1 주석) - 폰이 빠져도 그대로 둔다.
+   로고는 사진 위에 두지 않는다(BI 사용금지: 복잡한 그래픽 위 적용 금지) -> 사이트는 흰 셸 바, 단독 미리보기는
+   .fa-brandbar(섹션 밖이라 embed 에 안 실린다). */
 .fa-hero-grid {
   display: grid;
-  grid-template-columns: 1fr 372px;
-  gap: 52px;
-  align-items: center;
+  grid-template-columns: minmax(0, 656px);
 }
-.fa-hero-phone { display: flex; justify-content: flex-end; }
 .fa-hero-cta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.fa-hero-note { margin-top: 14px; }
+
+/* 단독 미리보기 전용 브랜드 바 (흰 면 + 오렌지 국문 기본형, 매뉴얼 p9 '흰 배경 = 풀컬러') */
+.fa-brandbar { background: #FFFFFF; border-bottom: 1px solid var(--op-line); }
+.fa-brandbar .op-inner { display: flex; align-items: center; min-height: 64px; }
+.fa-brandbar .op-logo { color: var(--op-orange); }
+
+/* --- 히어로 스토리 패널 -------------------------------------------------
+   슬라이드(테마 .op-heromedia 크로스페이드)와 같은 시계로 돈다: 같은 --op-hero-cycle · --op-hero-n,
+   캡션은 슬라이드와 같은 opCrossfade{N} 키프레임 + 같은 지연, 진행 막대는 0초 지연 + 칸별 키프레임.
+   전부 CSS 라 JS 가 없어도 맞는다. 정지/감소모션은 첫 장 캡션 + 첫 칸만 찬 상태(아래 정지 규칙).
+   영상(hero_a.mp4)이 들어오면 시계가 영상과 따로 놀므로 템플릿이 패널을 아예 렌더하지 않는다. */
+.fa-story {
+  position: absolute;
+  right: max(24px, calc((100% - var(--op-inner-max)) / 2));
+  bottom: 112px;               /* 고민 마퀴 띠(.fa-mq ≈80px) 위 */
+  z-index: 3;                  /* 베일(1) 위, 콘텐츠(.op-veil-content 6) 아래 - 좌우로 겹치지 않는다 */
+  width: 340px;
+  padding: 16px 18px 18px;
+  border-radius: 16px;
+  background: rgba(24, 24, 24, 0.46);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: #FFFFFF;
+}
+.fa-story__bar { display: grid; grid-template-columns: repeat(var(--op-hero-n, 6), 1fr); gap: 6px; }
+.fa-story__bar > i {
+  position: relative; display: block; height: 3px; border-radius: 999px; overflow: hidden;
+  background: rgba(255, 255, 255, 0.30);
+}
+.fa-story__bar > i::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: var(--op-orange);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+.fa-story__bar > i:first-child::after { transform: scaleX(1); }
+.fa-story__steps { position: relative; height: 54px; margin-top: 12px; }
+.fa-story__step {
+  position: absolute; left: 0; right: 0; top: 0;
+  display: flex; align-items: baseline; gap: 10px;
+  opacity: 0;
+}
+.fa-story__step:first-child { opacity: 1; }
+.fa-story__n { flex: 0 0 auto; font-size: 13px; font-weight: 700; color: var(--op-orange); line-height: 1.5; }
+.fa-story__t { font-size: 18px; font-weight: 600; line-height: 1.45; letter-spacing: 0; }
+.fa-story__step {
+  animation-name: opCrossfade6;
+  animation-duration: var(--op-hero-cycle);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-delay: calc(var(--i, 0) * var(--op-hero-cycle) / var(--op-hero-n, 6));
+}.fa-story[data-count="2"] .fa-story__step { animation-name: opCrossfade2; }.fa-story[data-count="2"] .fa-story__bar > i:nth-child(1)::after { animation: faStoryFill2_0 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill2_0 {
+  0% { transform: scaleX(0); }
+  50.0000%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="2"] .fa-story__bar > i:nth-child(2)::after { animation: faStoryFill2_1 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill2_1 {
+  0%, 50.0000% { transform: scaleX(0); }
+  100.0000%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="3"] .fa-story__step { animation-name: opCrossfade3; }.fa-story[data-count="3"] .fa-story__bar > i:nth-child(1)::after { animation: faStoryFill3_0 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill3_0 {
+  0% { transform: scaleX(0); }
+  33.3333%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="3"] .fa-story__bar > i:nth-child(2)::after { animation: faStoryFill3_1 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill3_1 {
+  0%, 33.3333% { transform: scaleX(0); }
+  66.6667%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="3"] .fa-story__bar > i:nth-child(3)::after { animation: faStoryFill3_2 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill3_2 {
+  0%, 66.6667% { transform: scaleX(0); }
+  100.0000%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="4"] .fa-story__step { animation-name: opCrossfade4; }.fa-story[data-count="4"] .fa-story__bar > i:nth-child(1)::after { animation: faStoryFill4_0 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill4_0 {
+  0% { transform: scaleX(0); }
+  25.0000%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="4"] .fa-story__bar > i:nth-child(2)::after { animation: faStoryFill4_1 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill4_1 {
+  0%, 25.0000% { transform: scaleX(0); }
+  50.0000%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="4"] .fa-story__bar > i:nth-child(3)::after { animation: faStoryFill4_2 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill4_2 {
+  0%, 50.0000% { transform: scaleX(0); }
+  75.0000%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="4"] .fa-story__bar > i:nth-child(4)::after { animation: faStoryFill4_3 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill4_3 {
+  0%, 75.0000% { transform: scaleX(0); }
+  100.0000%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="5"] .fa-story__step { animation-name: opCrossfade5; }.fa-story[data-count="5"] .fa-story__bar > i:nth-child(1)::after { animation: faStoryFill5_0 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill5_0 {
+  0% { transform: scaleX(0); }
+  20.0000%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="5"] .fa-story__bar > i:nth-child(2)::after { animation: faStoryFill5_1 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill5_1 {
+  0%, 20.0000% { transform: scaleX(0); }
+  40.0000%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="5"] .fa-story__bar > i:nth-child(3)::after { animation: faStoryFill5_2 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill5_2 {
+  0%, 40.0000% { transform: scaleX(0); }
+  60.0000%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="5"] .fa-story__bar > i:nth-child(4)::after { animation: faStoryFill5_3 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill5_3 {
+  0%, 60.0000% { transform: scaleX(0); }
+  80.0000%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="5"] .fa-story__bar > i:nth-child(5)::after { animation: faStoryFill5_4 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill5_4 {
+  0%, 80.0000% { transform: scaleX(0); }
+  100.0000%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="6"] .fa-story__step { animation-name: opCrossfade6; }.fa-story[data-count="6"] .fa-story__bar > i:nth-child(1)::after { animation: faStoryFill6_0 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill6_0 {
+  0% { transform: scaleX(0); }
+  16.6667%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="6"] .fa-story__bar > i:nth-child(2)::after { animation: faStoryFill6_1 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill6_1 {
+  0%, 16.6667% { transform: scaleX(0); }
+  33.3333%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="6"] .fa-story__bar > i:nth-child(3)::after { animation: faStoryFill6_2 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill6_2 {
+  0%, 33.3333% { transform: scaleX(0); }
+  50.0000%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="6"] .fa-story__bar > i:nth-child(4)::after { animation: faStoryFill6_3 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill6_3 {
+  0%, 50.0000% { transform: scaleX(0); }
+  66.6667%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="6"] .fa-story__bar > i:nth-child(5)::after { animation: faStoryFill6_4 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill6_4 {
+  0%, 66.6667% { transform: scaleX(0); }
+  83.3333%, 100% { transform: scaleX(1); }
+}.fa-story[data-count="6"] .fa-story__bar > i:nth-child(6)::after { animation: faStoryFill6_5 var(--op-hero-cycle) linear infinite; }
+@keyframes faStoryFill6_5 {
+  0%, 83.3333% { transform: scaleX(0); }
+  100.0000%, 100% { transform: scaleX(1); }
+}/* 스토리 모드 베일: 테마 .op-veil--side(오른쪽 끝도 30% 검정)는 인물 컷을 칙칙하게 만든다(10-23 실측).
+   글 칼럼(가로 8~54%)만 어둡게 두고 인물 자리(60% 이후)는 거의 연다. z-index 는 건드리지 않는다(테마 레이어 계약). */
+.fa-hero--story .fa-hero-bg .op-veil--side {
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.70) 36%, rgba(0, 0, 0, 0.40) 56%,
+    rgba(0, 0, 0, 0.10) 74%, rgba(0, 0, 0, 0) 100%);
+}
+/* 정지 모드 · 감소 모션: 첫 장면만 (테마 정지 블록과 같은 원칙 - 첫 프레임 고정) */
+.op-static .fa-story__step,
+.op-static .fa-story__bar > i::after { animation: none !important; }
+.op-static .fa-story__step { opacity: 0 !important; }
+.op-static .fa-story__step:first-child { opacity: 1 !important; }
+.op-static .fa-story__bar > i::after { transform: scaleX(0) !important; }
+.op-static .fa-story__bar > i:first-child::after { transform: scaleX(1) !important; }
+@media (prefers-reduced-motion: reduce) {
+  .fa-story__step, .fa-story__bar > i::after { animation: none !important; }
+  .fa-story__step { opacity: 0 !important; }
+  .fa-story__step:first-child { opacity: 1 !important; }
+  .fa-story__bar > i::after { transform: scaleX(0) !important; }
+  .fa-story__bar > i:first-child::after { transform: scaleX(1) !important; }
+}
 
 /* 히어로 칩 중 유일하게 누를 수 있는 칩(사전등록 폼으로 이동).
    정적 칩(.op-chip 회색면)과 구분되게 오렌지 테두리 + 틴트면을 준다.
@@ -2255,93 +2408,8 @@
 /* (구) .fa-photoband 라운드 사진 밴드는 폐기 — a05 는 .fa-band__hero, a08 은 .fa-pharm__frame
    (둘 다 풀블리드 프레임). 되살리지 말 것: 라운드 밴드는 "카드 실루엣" 으로 지적됐다. */
 
-/* --- 폰 목업 (순수 CSS/HTML) -------------------------------------------- */
-.fa-phone {
-  width: 348px;
-  border: 10px solid var(--op-ink);
-  border-radius: 46px;
-  background: var(--op-bg-warm);
-  overflow: hidden;
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.16);
-}
-.fa-phone__top {
-  height: 30px;
-  background: var(--op-ink);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.fa-phone__notch {
-  display: block;
-  width: 96px;
-  height: 12px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.20);
-}
-.fa-phone__head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 18px;
-  background: var(--op-bg);
-  border-bottom: 1px solid var(--op-line);
-}
-.fa-phone__title {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--op-charcoal);
-  letter-spacing: 0;
-  line-height: 1.3;
-}
-.fa-phone__sub {
-  display: block;
-  font-size: 12px;
-  font-weight: 500;
-  font-style: normal;
-  color: var(--op-gray);
-  margin-top: 2px;
-}
-.fa-phone__screen {
-  display: grid;
-  gap: 14px;
-  padding: 20px 16px 26px;
-  background: var(--op-bg-warm);
-}
-.fa-bub {
-  max-width: 84%;
-  padding: 12px 15px;
-  border-radius: 18px;
-  font-size: 14.5px;
-  line-height: 1.62;
-}
-.fa-bub--me {
-  justify-self: end;
-  background: var(--op-orange);
-  color: #FFFFFF;
-  border-bottom-right-radius: 6px;
-}
-.fa-bub--pro {
-  justify-self: start;
-  background: #FFFFFF;
-  color: var(--op-ink);
-  border: 1px solid var(--op-line);
-  border-bottom-left-radius: 6px;
-}
-.fa-bub__who {
-  display: block;
-  font-size: 11.5px;
-  font-weight: 700;
-  margin-bottom: 5px;
-  color: var(--op-gray);
-}
-.fa-bub--me .fa-bub__who { color: rgba(255, 255, 255, 0.82); }
-.fa-bub__time {
-  display: block;
-  margin-top: 7px;
-  font-size: 11px;
-  color: var(--op-gray);
-}
-.fa-bub--me .fa-bub__time { color: rgba(255, 255, 255, 0.72); }
+/* (2026-10-23) 히어로 폰 목업(.fa-phone / .fa-bub) CSS 는 히어로가 스토리 6컷으로 바뀌며 삭제했다.
+   문구는 copy a01_hero.messages 에 보관. 대화 데모가 다시 필요하면 테마 .op-chat 계약으로 새로 짠다. */
 
 /* --- a02 고민 카드 (선택형) --------------------------------------------- */
 /* 8칸 중 "선택됨" 칩이 붙은 카드 하나만 키가 커서, 그 카드가 낀 1행 전체가
@@ -2959,9 +3027,15 @@
   .fa-talk { max-width: 640px; width: 100%; margin: 0 auto; }
   .fa-mq__w { font-size: 24px; }
   .fa-toggle svg { width: 260px; }
-  .fa-hero-grid { grid-template-columns: 1fr; gap: 40px; }
-  .fa-hero-phone { justify-content: flex-start; }
-  .fa-topbar { padding-bottom: 32px; }
+  .fa-hero-grid { grid-template-columns: minmax(0, 1fr); }
+  /* 스토리 패널은 상단 사진 밴드(380px) 안 왼쪽 아래로. 밴드 아래 34% 는 잉크 그라디언트(z-index 2)라 그 위(3)에 얹힌다. */
+  .fa-story { left: 24px; right: auto; bottom: 18px; width: min(340px, calc(100% - 48px)); }
+  /* 스토리 모드: 글을 밴드 아래로 내린다. 글이 밴드 위에 얹히면 캡션 패널과 리드 문단이 겹친다(10-23 실측 390px).
+     밴드에는 사진 + 캡션만 -> 세로 베일도 가볍게(로고가 밴드 위에 없으니 위쪽을 어둡게 할 이유가 없다). */
+  .fa-hero--story { padding-top: 420px; }
+  .fa-hero--story .fa-hero-bg .op-veil--side {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.08) 55%, rgba(0, 0, 0, 0.28) 100%);
+  }
 
   /* 히어로 사진 -> 상단 밴드.
      2열이 1열로 접히면 히어로 박스가 768x1400 / 390x1504 처럼 세로로 길어진다.
@@ -3028,8 +3102,10 @@
   .fa-mq__w { font-size: 20px; gap: 16px; padding: 0 16px; }
   .fa-toggle svg { width: 200px; }
   .fa-stage__slogan { font-size: 20px; }
-  .fa-phone { width: 100%; max-width: 348px; }
-  .fa-hero-phone { justify-content: center; }
+  .fa-story { left: 20px; bottom: 14px; width: calc(100% - 40px); padding: 12px 14px 14px; }
+  .fa-hero--story { padding-top: 332px; }
+  .fa-story__steps { height: 28px; margin-top: 10px; }
+  .fa-story__t { font-size: 16px; }
   .fa-hero-bg { height: 300px; }
   .fa-steps::before { display: none; }
   .fa-form { padding: 22px; }
@@ -3072,7 +3148,7 @@
 
   --op-page-w:        1200px;
   --op-inner-max:     1080px;
-  --op-sec-pad-y:     104px;
+  --op-sec-pad-y:     144px;
 
   --op-radius-card:   24px;
   --op-radius-btn:    12px;
@@ -3096,24 +3172,6 @@
 .op-sec--navy {
   background: linear-gradient(135deg, var(--op-navy) 0%, var(--op-charcoal) 100%);
   color: #FFFFFF;
-}
-.op-list--check li::before {
-  content: "✓";
-  left: 0;
-  top: 0;
-  width: auto;
-  height: auto;
-  border-radius: 0;
-  background: none;
-  color: var(--op-orange);
-  font-size: 17px;
-  font-weight: 800;
-  line-height: 1.7;
-}
-.op-check__box::after {
-  content: "✓";
-  opacity: 0;
-  transition: opacity var(--op-dur-fast) var(--op-ease);
 }
 
 /* =========================================================================

@@ -25,6 +25,7 @@
 
 import { useEffect } from 'react';
 import { OnPharmFace } from './components/OnPharmFace';
+import { BrandLogo } from './components/BrandLogo';
 /* 면 A 만 import 한다. 면 B 는 별도 모듈(faceB.ts)이라 이 페이지 청크에 실리지 않는다.
    두 면을 한 모듈(faces.ts)에서 꺼내면 webpack 이 모듈 통째를 공유 청크로 빼서
    고객 페이지 번들에 면 B 가 따라온다 — 그게 분리 이전의 실제 누수였다. */
@@ -62,7 +63,10 @@ export default function HomePage() {
     <>
       <header className="op-shell-bar">
         <div className="op-shell-bar__inner">
-          <span className="op-shell-bar__gap" />
+          {/* 로고는 여기(흰 단색 면) 하나. 히어로 사진 위에는 두지 않는다 — BI p10 사용금지. */}
+          <a className="op-shell-logo" href="/" aria-label="온팜약국 홈">
+            <BrandLogo />
+          </a>
           {/* 오렌지를 쓰지 않는다 — 오렌지는 소비자 CTA 전용이다. */}
           <a className="op-shell-link" href={PARTNER_PATH}>
             {TXT.headerLink} <span aria-hidden="true">→</span>

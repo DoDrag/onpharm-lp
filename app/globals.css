@@ -131,6 +131,24 @@
 .op-shell-bar__gap {
   display: block;
 }
+/* 국문 기본형 로고 (2026-10-23). 높이 22px = 바 높이 44px 의 절반 -> 위아래 11px = BI 최소여백 0.5X.
+   흰 바 위 풀컬러 오렌지(매뉴얼 p9). 링크라 포커스 링은 셸 공통과 같은 오렌지 2px. */
+.op-shell-logo {
+  display: inline-flex;
+  align-items: center;
+  color: #ff6900;
+  line-height: 0;
+  border-radius: 6px;
+}
+.op-shell-logo__svg {
+  display: block;
+  width: auto;
+  height: 22px;
+}
+.op-shell-logo:focus-visible {
+  outline: 2px solid #ff6900;
+  outline-offset: 4px;
+}
 
 /* 면 A 우측 보조 링크.
    오렌지를 쓰지 않는다 — 오렌지는 소비자 CTA 전용이다. 그레이 -> 차콜 hover 만. */

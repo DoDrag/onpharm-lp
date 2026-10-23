@@ -6,25 +6,35 @@
 
 // 면 A · 소비자 (9섹션). <div class="op-page"> 안에 넣어야 스타일이 먹습니다.
 // 면 B 는 faceB.ts 에 따로 있다. 여기서 같이 export 하지 마라(청크 공유 누수).
-export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-photo" data-section="a01_hero">
-  <div class="fa-hero-bg">
-    <div class="op-heromedia" data-motion="crossfade" data-count="3">
+export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-photo fa-hero--story" data-section="a01_hero">
+  <div class="fa-hero-bg" style="--op-hero-cycle:36s">
+    <div class="op-heromedia" data-motion="crossfade" data-count="6">
       <video class="op-heromedia__video" autoplay muted loop playsinline preload="auto"
              aria-hidden="true" tabindex="-1"></video>
       <div class="op-heromedia__slides">
-        <img class="op-heromedia__slide" src="/onpharm/a01_hero.jpg" alt="" width="1536" height="864" style="--i:0">
-        <img class="op-heromedia__slide" src="/onpharm/a01_hero_2.jpg" alt="" width="1536" height="864" style="--i:1">
-        <img class="op-heromedia__slide" src="/onpharm/a01_hero_3.jpg" alt="" width="1536" height="864" style="--i:2">
+        <img class="op-heromedia__slide" src="/onpharm/a01_story_1.jpg" alt="" width="1536" height="864" decoding="async" style="--i:0">
+        <img class="op-heromedia__slide" src="/onpharm/a01_story_2.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:1; object-position:80% 0%; transform-origin:80% 0%">
+        <img class="op-heromedia__slide" src="/onpharm/a01_story_3.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:2">
+        <img class="op-heromedia__slide" src="/onpharm/a01_story_4.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:3; object-position:60% 50%; transform-origin:60% 50%">
+        <img class="op-heromedia__slide" src="/onpharm/a01_story_5.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:4">
+        <img class="op-heromedia__slide" src="/onpharm/a01_story_6.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:5; object-position:70% 50%; transform-origin:70% 50%">
       </div>
     </div>
     <span class="op-veil op-veil--side"></span>
+    <div class="fa-story" data-count="6" style="--op-hero-n:6" aria-hidden="true">
+      <div class="fa-story__bar"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="fa-story__steps">
+        <p class="fa-story__step" style="--i:0"><span class="fa-story__n">01</span><span class="fa-story__t">다 먹어 갈 때쯤, 알림이 먼저 와요</span></p>
+        <p class="fa-story__step" style="--i:1"><span class="fa-story__n">02</span><span class="fa-story__t">쿠폰 들고 동네 약국으로</span></p>
+        <p class="fa-story__step" style="--i:2"><span class="fa-story__n">03</span><span class="fa-story__t">전담 상담사와 차분히 이야기하고</span></p>
+        <p class="fa-story__step" style="--i:3"><span class="fa-story__n">04</span><span class="fa-story__t">내게 맞춘 6일 카드를 받아요</span></p>
+        <p class="fa-story__step" style="--i:4"><span class="fa-story__n">05</span><span class="fa-story__t">하루 한 칸, 아침에 챙기고</span></p>
+        <p class="fa-story__step" style="--i:5"><span class="fa-story__n">06</span><span class="fa-story__t">그리고 오늘도, 내 하루</span></p>
+      </div>
+    </div>
   </div>
   <div class="op-inner op-veil-content">
-
-    <div class="op-row op-row--between fa-topbar">
-      <span class="op-logo"><span class="op-logotype op-logotype--sm" role="img" aria-label="온팜"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 363 50" role="img" aria-label="ONPHARM"><g fill="currentColor"><path d="M128.05 0.98L23.01 0.98C10.17 0.98 -0.28 11.43 -0.28 24.27C-0.28 37.11 10.17 47.56 23.01 47.56L128.05 47.56C140.89 47.56 151.34 37.11 151.34 24.27C151.34 11.43 140.89 0.98 128.05 0.98M128.05 36.98L23.01 36.98C16 36.98 10.3 31.28 10.3 24.27C10.3 17.26 16 11.56 23.01 11.56L128.05 11.56C135.06 11.56 140.77 17.26 140.77 24.27C140.77 31.28 135.06 36.98 128.05 36.98 Z"/><path d="M24.2 16.99C20.19 16.99 16.92 20.26 16.92 24.27C16.92 28.29 20.19 31.55 24.2 31.55C28.22 31.55 31.48 28.29 31.48 24.27C31.48 20.26 28.22 16.99 24.2 16.99 Z"/><path d="M239.89 17.19L235.32 17.19L235.32 13.64C235.32 10.32 232.63 7.63 229.31 7.63L239.89 7.63L239.89 1.79L206.88 1.79L206.88 7.63L211.61 7.63L211.61 17.19L206.88 17.19L206.88 23.04L239.89 23.04L239.89 17.19M225.82 17.19L221.1 17.19L221.1 13.64C221.1 10.32 218.41 7.63 215.09 7.63L225.82 7.63L225.82 17.19 Z"/><path d="M211.51 44.55C211.51 46.21 212.86 47.56 214.52 47.56L254.03 47.56L254.03 27.05L211.51 27.05L211.51 44.55M221.01 32.89H244.54V41.71H221.01Z Z"/><path d="M254.03 1.79L244.54 1.79L244.54 23.04L254.03 23.04L254.03 14.22L259.43 14.22L259.43 8.37L254.03 8.37L254.03 1.79 Z"/><path d="M168.96 35.91L159.46 35.91L159.46 44.55C159.46 46.21 160.81 47.56 162.47 47.56L201.98 47.56L201.98 41.71L168.96 41.71L168.96 35.91 Z"/><path d="M191.35 23.04C197.22 23.04 201.98 18.28 201.98 12.41C201.98 6.54 197.22 1.79 191.35 1.79L170.09 1.79C164.22 1.79 159.46 6.54 159.46 12.41C159.46 18.28 164.22 23.04 170.09 23.04L175.97 23.04L175.97 27.05L159.46 27.05L159.46 32.89L201.98 32.89L201.98 27.05L185.47 27.05L185.47 23.04L191.35 23.04M173.74 17.19C171.1 17.19 168.96 15.05 168.96 12.41C168.96 9.77 171.1 7.63 173.74 7.63L187.71 7.63C190.35 7.63 192.49 9.77 192.49 12.41C192.49 15.05 190.35 17.19 187.71 17.19L173.74 17.19 Z"/><path d="M360.63 1.79L321.12 1.79L321.12 7.63L354.14 7.63L354.14 17.63L363.63 17.63L363.63 4.79C363.63 3.13 362.29 1.79 360.63 1.79 Z"/><path d="M321.12 21.12L321.12 26.97L337.63 26.97L337.63 32.8L321.12 32.8L321.12 38.65L354.14 38.65L354.14 47.56L363.63 47.56L363.63 35.81C363.63 34.15 362.29 32.8 360.63 32.8L347.12 32.8L347.12 26.97L363.63 26.97L363.63 21.12L321.12 21.12 Z"/><path d="M308.23 30.16L268.72 30.16L268.72 36L301.74 36L301.74 47.56L311.23 47.56L311.23 33.16C311.23 31.5 309.89 30.16 308.23 30.16 Z"/><path d="M284.91 26.15C291.64 26.15 297.09 20.7 297.09 13.97C297.09 7.24 291.64 1.79 284.91 1.79L276.1 1.79C269.37 1.79 263.91 7.24 263.91 13.97C263.91 20.7 269.37 26.15 276.1 26.15L284.91 26.15M273.4 13.97C273.4 10.47 276.24 7.63 279.74 7.63L281.26 7.63C284.76 7.63 287.6 10.47 287.6 13.97C287.6 17.47 284.76 20.31 281.26 20.31L279.74 20.31C276.24 20.31 273.4 17.47 273.4 13.97 Z"/><path d="M311.23 1.79L301.74 1.79L301.74 26.15L311.23 26.15L311.23 21.56L316.63 21.56L316.63 15.71L311.23 15.71L311.23 12.23L316.63 12.23L316.63 6.38L311.23 6.38L311.23 1.79 Z"/></g></svg></span></span>
-      <span class="op-caption">지금은 사전 등록만 받고 있어요</span>
-    </div>
+    <p class="op-sr">온팜은 이렇게 이어져요. 다 먹어 갈 때쯤 알림이 오고, 쿠폰을 들고 동네 약국에 들러 전담 상담사와 이야기한 뒤, 내게 맞춘 6일 카드를 받아 하루 한 칸씩 챙겨요.</p>
 
     <div class="fa-hero-grid">
       <div>
@@ -41,34 +51,11 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
   </svg>
   <span>카카오톡으로 상담하기</span>
 </a>
-        </div><div class="op-row op-row--wrap op-mt-24">
+        </div>        <p class="op-caption fa-hero-note">지금은 사전 등록만 받고 있어요</p>
+<div class="op-row op-row--wrap op-mt-24">
           <span class="op-chip">상담 무료</span>
           <a class="op-chip fa-chip-cta" href="#signup" data-scroll-to="#signup">쿠폰받기</a>
           <span class="op-chip">동네 약국 픽업</span>
-        </div>
-      </div>
-
-      <div class="fa-hero-phone">
-        <div class="fa-phone">
-          <div class="fa-phone__top"><span class="fa-phone__notch"></span></div>
-          <div class="fa-phone__head">
-            <span class="op-mark op-mark--sm" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 153 50" role="img" aria-label="ONPHARM"><g fill="currentColor"><path d="M128.05 0.98L23.01 0.98C10.17 0.98 -0.28 11.43 -0.28 24.27C-0.28 37.11 10.17 47.56 23.01 47.56L128.05 47.56C140.89 47.56 151.34 37.11 151.34 24.27C151.34 11.43 140.89 0.98 128.05 0.98M128.05 36.98L23.01 36.98C16 36.98 10.3 31.28 10.3 24.27C10.3 17.26 16 11.56 23.01 11.56L128.05 11.56C135.06 11.56 140.77 17.26 140.77 24.27C140.77 31.28 135.06 36.98 128.05 36.98 Z"/><path d="M24.2 16.99C20.19 16.99 16.92 20.26 16.92 24.27C16.92 28.29 20.19 31.55 24.2 31.55C28.22 31.55 31.48 28.29 31.48 24.27C31.48 20.26 28.22 16.99 24.2 16.99 Z"/></g></svg></span>
-            <span class="fa-phone__title">온팜 상담<em class="fa-phone__sub">전담 상담사와 1:1</em></span>
-          </div>
-          <div class="fa-phone__screen op-chat" data-chat-seq>
-            <div class="fa-bub op-chat__bubble fa-bub--me" style="--i:0">
-              <span class="fa-bub__who">나</span>요즘 오후만 되면 축 처져요. 영양제는 많은데 뭐부터 먹어야 할지 모르겠어요.<span class="fa-bub__time">오후 9:12</span>
-            </div>
-            <div class="fa-bub op-chat__bubble fa-bub--pro" style="--i:1">
-              <span class="fa-bub__who">전담 상담사</span>안녕하세요, 온팜에서 담당하게 된 상담사입니다. 하루 식사 리듬부터 같이 볼게요. 지금 챙겨 드시는 게 있으면 알려 주세요.<span class="fa-bub__time">오후 9:40</span>
-            </div>
-            <div class="fa-bub op-chat__bubble fa-bub--pro" style="--i:2">
-              <span class="fa-bub__who">온팜</span>픽업 쿠폰이 발급됐어요. 연수구 참여 약국에서 6일 카드를 받아 가세요.<span class="fa-bub__time">오후 9:41</span>
-            </div>
-            <div class="fa-bub op-chat__bubble fa-bub--pro" style="--i:3">
-              <span class="fa-bub__who">전담 상담사</span>6일치 다 드셨죠? 이번 주는 어땠어요? 이어서 볼지 같이 정해요.<span class="fa-bub__time">6일 뒤</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -661,7 +648,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
     <div class="op-marquee__track">
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02_c_fatigue.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_01.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">하**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -671,7 +658,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02b_card.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_02.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">권**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -681,7 +668,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02_c_gut.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_03.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">김**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -691,7 +678,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02_c_sleep.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_04.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">정**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -701,7 +688,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02b_lineup.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_05.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">손**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -711,7 +698,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02_c_eye.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_06.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">이**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -721,7 +708,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02_c_skin.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_07.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">박**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -731,7 +718,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02b_handover.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_08.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">윤**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -741,7 +728,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02_c_immune.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_09.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">장**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -751,7 +738,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02_c_women.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_10.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">고**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -761,7 +748,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02_c_fatigue.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_01.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">하**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -771,7 +758,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02b_card.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_02.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">권**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -781,7 +768,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02_c_gut.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_03.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">김**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -791,7 +778,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02_c_sleep.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_04.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">정**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -801,7 +788,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02b_lineup.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_05.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">손**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -811,7 +798,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02_c_eye.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_06.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">이**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -821,7 +808,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02_c_skin.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_07.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">박**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -831,7 +818,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02b_handover.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_08.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">윤**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -841,7 +828,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02_c_immune.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_09.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">장**</span>
             <span class="op-badge op-badge--line">예시</span>
@@ -851,7 +838,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec fa-hero-p
       </div>
       <div class="op-marquee__item">
         <div class="fa-voice">
-          <div class="fa-voice__ph"><img src="/onpharm/a02_c_women.jpg" alt="" width="1364" height="1023"></div>
+          <div class="fa-voice__ph"><img src="/onpharm/a06_v_10.jpg" alt="" width="1364" height="1023"></div>
           <div class="fa-voice__meta">
             <span class="fa-voice__name">고**</span>
             <span class="op-badge op-badge--line">예시</span>
