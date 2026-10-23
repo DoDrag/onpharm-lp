@@ -365,7 +365,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
   </div>
 </section>
 
-<section class="op-sec op-sec--warm fa-stage-sec" data-section="a03_how"><div class="op-stage fa-stage" style="--op-stage-hold: 115vh"
+<section class="op-sec op-sec--warm fa-stage-sec" data-section="a03_how"><div class="op-stage fa-stage" style="--op-stage-hold: 115vh" data-action-scope
        data-scrub="0.1" data-scrub-from="0" data-scrub-to="1.0" data-scrub-media="(min-width: 768px)">
     <div class="op-stage__sticky fa-stage__sticky">
       <div class="op-inner fa-stage__inner">
@@ -375,14 +375,15 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
         </div>
 
         <div class="fa-stage__switch"
-             data-scrub="0.1" data-scrub-from="0.9" data-scrub-to="0.45" data-scrub-media="(max-width: 767px)">
-          <div class="fa-toggle" aria-hidden="true">
-            <svg viewBox="0 0 64 36" xmlns="http://www.w3.org/2000/svg" focusable="false">
+             data-scrub="0.1" data-scrub-from="0.9" data-scrub-to="0.45" data-scrub-media="(max-width: 767px)"><button type="button" class="fa-toggle" role="switch" aria-checked="false" data-action-toggle
+                  aria-label="건강 켜기 스위치">
+            <svg viewBox="0 0 64 36" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
               <rect class="fa-toggle__track" x="2" y="2" width="60" height="32" rx="16"/>
               <rect class="fa-toggle__track fa-toggle__track--on" x="2" y="2" width="60" height="32" rx="16"/>
               <circle class="fa-toggle__knob" cx="18" cy="18" r="13"/>
             </svg>
-          </div>
+          </button>
+          <p class="fa-toggle__hint op-center">스위치를 눌러 직접 켜 보세요</p>
           <p class="fa-stage__slogan op-center"><span class="op-textfill">들르면, 건강이 켜집니다</span></p>
         </div>
 

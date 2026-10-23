@@ -2959,14 +2959,73 @@
 .op-js:not(.op-static) .fa-stage-sec { padding-bottom: 24px; }
 .op-js:not(.op-static) .fa-stage__sticky { min-height: 100vh; }
 .fa-stage__inner { width: 100%; }
-.fa-toggle { display: flex; justify-content: center; margin-top: 44px; }
-.fa-toggle svg { width: 320px; height: auto; overflow: visible; }
+/* 액션형 토글 (2026-10-23). 버튼 껍데기는 브라우저 기본값을 지우고 스위치 그림만 남긴다. */
+.fa-toggle {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: max-content;
+  margin: 44px auto 0;
+  padding: 8px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.fa-toggle svg { width: 320px; height: auto; overflow: visible; transition: transform var(--op-dur-fast) var(--op-ease); }
+.fa-toggle:hover svg { transform: scale(1.02); }
+.fa-toggle:active svg { transform: scale(0.98); }
+.fa-toggle:focus-visible { outline: 3px solid var(--op-orange); outline-offset: 4px; }
+/* 켜는 순간 트랙 둘레로 오렌지 빛 고리가 한 번 퍼진다(감소 모션이면 JS 가 안 붙인다) */
+.fa-toggle::after {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: 0;
+}
+.op-js:not(.op-static) .fa-toggle.is-pulse::after { animation: faTogglePulse 0.8s ease-out; }
+@keyframes faTogglePulse {
+  0%   { opacity: 1; box-shadow: 0 0 0 0 rgba(255, 105, 0, 0.45); }
+  100% { opacity: 0; box-shadow: 0 0 0 26px rgba(255, 105, 0, 0); }
+}
+.fa-toggle__hint { display: none; margin-top: 6px; font-size: 14px; font-weight: 500; color: var(--op-charcoal); }
+.op-js:not(.op-static) .fa-toggle__hint { display: block; transition: opacity var(--op-dur-mid) var(--op-ease); }
+.op-js:not(.op-static) .fa-stage.is-user .fa-toggle__hint { opacity: 0; }
+
+/* 실효 진행률 --op-pe: 평소엔 스크롤(--op-p), 스위치를 한 번이라도 만진 뒤로는 사용자 값(--op-u).
+   --op-u 는 @property 로 등록해 숫자로 전환된다(미지원 브라우저는 즉시 바뀐다 - 기능은 같다).
+   등록 초깃값 0 은 무JS 를 해치지 않는다: is-user 가 없으면 아예 --op-p(무JS 폴백 1)를 쓴다. */
+@property --op-u { syntax: "<number>"; inherits: true; initial-value: 0; }
+.fa-stage { --op-u: 0; }
+.fa-stage.is-on { --op-u: 1; }
+.op-js:not(.op-static) .fa-stage.is-user { transition: --op-u 0.9s cubic-bezier(0.34, 1.2, 0.64, 1); }
+.fa-stage .fa-toggle__knob,
+.fa-stage .fa-toggle__track--on,
+.fa-stage .fa-stage__slogan .op-textfill,
+.fa-stage .fa-stage__step { --op-pe: var(--op-p, 1); }
+.op-js:not(.op-static) .fa-stage.is-user .fa-toggle__knob,
+.op-js:not(.op-static) .fa-stage.is-user .fa-toggle__track--on,
+.op-js:not(.op-static) .fa-stage.is-user .fa-stage__slogan .op-textfill,
+.op-js:not(.op-static) .fa-stage.is-user .fa-stage__step { --op-pe: var(--op-u, 0); }
 .fa-toggle__track { fill: var(--op-line); }
-.fa-toggle__track--on { fill: var(--op-orange); opacity: var(--op-p, 1); }
+.fa-toggle__track--on { fill: var(--op-orange); opacity: var(--op-pe, 1); }
 .fa-toggle__knob {
   fill: #FFFFFF;
-  transform: translate(calc(var(--op-p, 1) * 28px), 0);
+  transform: translate(calc(var(--op-pe, 1) * 28px), 0);
   filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.18));
+}
+/* 슬로건 채우기도 같은 실효 진행률로 (테마 .op-textfill 식에서 --op-p 자리만 바꿈) */
+.op-page .fa-stage .fa-stage__slogan .op-textfill {
+  background-image: linear-gradient(90deg,
+      var(--op-textfill-ink)  0,
+      var(--op-textfill-ink)  calc(var(--op-pe, 1) * 100%),
+      var(--op-textfill-base) calc(var(--op-pe, 1) * 100% + var(--op-textfill-soft)),
+      var(--op-textfill-base) 100%);
 }
 .fa-stage__slogan {
   margin-top: 22px;
@@ -2977,6 +3036,7 @@
 }
 /* 4단계: 노브가 사분점을 지날 때 순서대로. p=0 에서도 자리는 읽히게 바닥 0.18. */
 .fa-stage__step { --op-step: 0.25; --op-gain: 4; }
+.op-page .fa-stage .fa-stage__step { --op-q: clamp(0, (var(--op-pe, 1) - var(--op-d) * var(--op-step)) * var(--op-gain), 1); }
 .op-page .fa-stage__step { opacity: calc(0.18 + 0.82 * var(--op-q, 1)); }
 
 /* a05 풀블리드 상담사 밴드 — 히어로와 같은 레이어 계약. 섹션에 overflow 금지 → bg 에. */

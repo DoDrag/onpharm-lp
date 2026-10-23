@@ -70,6 +70,7 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
      8) 마퀴(안전망) [data-marquee]  ← 흐름 자체는 순수 CSS 애니메이션이다
      9) 스크럽 엔진 [data-scrub] → --op-p   ← 스크롤 연동 모션의 유일한 경로
     10) 카운트업   [data-countup]
+    11) 액션 토글  [data-action-toggle] (범위 [data-action-scope]) — 방문자가 직접 켜고 끄는 스위치
    ========================================================================== */
 (function () {
   "use strict";
@@ -1366,6 +1367,44 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
   }
 
   /* ======================================================================
+     11) 액션 토글 [data-action-toggle]  (2026-10-23)
+     스크롤로만 켜지던 ON 스위치를 방문자가 직접 눌러 켜고 끈다. JS 는 클래스와 aria 만
+     바꾼다(움직임은 CSS): 범위 요소에 is-user(한 번이라도 만짐) + is-on(지금 켜짐).
+     켜는 순간 is-pulse(빛 고리 1회) + 휴대폰이면 12ms 진동 - 감소 모션이면 둘 다 생략.
+     ====================================================================== */
+  function setupActionToggles() {
+    var btns = list("[data-action-toggle]");
+    for (var i = 0; i < btns.length; i++) {
+      (function (btn) {
+        if (btn.__opToggle) { return; }
+        try { btn.__opToggle = 1; } catch (e) {}
+        var scope = (btn.closest && btn.closest("[data-action-scope]")) || btn;
+        var timer = 0;
+        on(btn, "click", function () {
+          var turnOn = !scope.classList.contains("is-on");
+          scope.classList.add("is-user");
+          if (turnOn) { scope.classList.add("is-on"); } else { scope.classList.remove("is-on"); }
+          btn.setAttribute("aria-checked", turnOn ? "true" : "false");
+          if (turnOn && !reduceMotion) {
+            btn.classList.remove("is-pulse");
+            void btn.offsetWidth;
+            btn.classList.add("is-pulse");
+            window.clearTimeout(timer);
+            timer = window.setTimeout(function () { btn.classList.remove("is-pulse"); }, 900);
+            try { if (window.navigator && window.navigator.vibrate) { window.navigator.vibrate(12); } } catch (e) {}
+          }
+        });
+        onRestore(function () {
+          scope.classList.remove("is-user");
+          scope.classList.remove("is-on");
+          btn.classList.remove("is-pulse");
+          btn.setAttribute("aria-checked", "false");
+        });
+      })(btns[i]);
+    }
+  }
+
+  /* ======================================================================
      정지 모드 감시 - 캡처 스크립트가 나중에 op-static 을 붙여도 최종 프레임 고정
      ====================================================================== */
   function watchStatic() {
@@ -1394,6 +1433,7 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
     guard("마퀴 묶음", setupMarquees);
     guard("스크럽 엔진", setupScrub);
     guard("카운트업 묶음", setupCountups);
+    guard("액션 토글 묶음", setupActionToggles);
     guard("정지 모드 감시", watchStatic);
   }
 
