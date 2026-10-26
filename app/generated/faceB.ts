@@ -28,7 +28,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
         <span class="op-accent">손님을</span> 보내드립니다
       </h1>
       <p class="op-lead op-measure op-mt-24">
-        매대만 내어 드리는 유통이 아닙니다. 온라인 상담에서 만난 고객을 위치에 맞는 파트너 약국으로 배정하고, 픽업 쿠폰까지 붙여서 보내드립니다.
+        온라인 상담에서 만난 고객을 위치에 맞는 파트너 약국으로 배정하고, 쿠폰과 픽업 안내까지 붙여서 보내드립니다.
       </p>
 
       <div class="op-row op-row--wrap op-mt-40">
@@ -44,7 +44,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
         </div>
         <div class="op-card op-card--flat fb-stat">
           <span class="fb-stat__mark"></span>
-          <p class="fb-stat__label">정찰가 · 온라인 미유통</p>
+          <p class="fb-stat__label">온라인 미유통</p>
           <p class="fb-stat__desc">온팜 카드는 온라인에 풀리지 않습니다. 가격 비교의 대상이 아닙니다.</p>
         </div>
         <div class="op-card op-card--flat fb-stat">
@@ -144,8 +144,8 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
             <span class="fb-node__num">4</span>
             <span class="fb-node__owner">온팜</span>
           </div>
-          <h3 class="fb-node__title">픽업 쿠폰 발급</h3>
-          <p class="fb-node__desc">고객에게 그 약국에서 쓸 픽업 쿠폰이 나갑니다.</p>
+          <h3 class="fb-node__title">쿠폰 발급과 픽업 안내</h3>
+          <p class="fb-node__desc">고객에게 그 약국에서 쓸 쿠폰과 픽업 안내가 나갑니다.</p>
         </div>
         <span class="fb-arrow" aria-hidden="true">›</span>
         <div class="fb-node op-anim-rise op-anim-rise--sm fb-node--on" data-scrub-part>
@@ -189,7 +189,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
           <h3 class="op-h3 fb-value__title">전용 상품</h3>
           <ul class="op-list fb-value__list">
             <li>조합 전용 카드라 온라인 검색에 노출되지 않습니다</li>
-            <li>정찰가로만 움직여 최저가 경쟁에서 빠집니다</li>
+            <li>온라인 판매가 없어 가격 비교에 휘말리지 않습니다</li>
             <li>6일치 소포장이라 처음 권하기가 가볍습니다</li>
           </ul>
         </div>
@@ -229,7 +229,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
         </details>
         <details class="op-faq__item" open>
           <summary class="op-faq__q">고객 데이터는 누구 것인가요?</summary>
-          <div class="op-faq__a">개인정보 수집·이용 동의를 받는 주체는 온팜입니다. 파트너 약국은 배정된 고객에 한해 상담 내역을 열람하고 리필 안내를 보낼 수 있으며, 그 범위를 벗어난 활용은 하지 않습니다.</div>
+          <div class="op-faq__a">개인정보 수집·이용 동의를 받는 주체는 온팜입니다. 파트너 약국은 배정된 고객에 한해 상담 내역을 열람하고, 고객이 수신에 동의한 경우 리필 안내를 보낼 수 있습니다. 그 범위를 벗어난 활용은 하지 않습니다.</div>
         </details>
         <details class="op-faq__item" open>
           <summary class="op-faq__q">상담 답변이 부담되지 않을까요?</summary>

@@ -2478,7 +2478,10 @@
 
 /* 히어로 칩 중 유일하게 누를 수 있는 칩(사전등록 폼으로 이동).
    정적 칩(.op-chip 회색면)과 구분되게 오렌지 테두리 + 틴트면을 준다.
-   기능은 "폼으로 스크롤"이 전부다 - 쿠폰 발급을 약속하는 문구를 붙이지 말 것. */
+   (2026-10-26 대표 결정) '쿠폰받기' 는 카카오 채널 친구 추가(새 창)로 간다 - 쿠폰은 채널에서 받는다.
+   채널 관리자센터에 친구 추가 쿠폰(약국 수령 소량 증정, 할인 금액 없음)이 걸려 있어야 약속이 성립한다. */
+.fa-chip-cta--kakao { gap: 7px; }
+.fa-chip-cta__ico { flex: 0 0 auto; display: block; }
 /* ⚠ color 는 반드시 `.op-page a.fa-chip-cta` 로 써야 한다. 지우지 말 것.
    테마의 `.op-page a:not([class*="op-btn"]){color:inherit}` 이 특이도 0-2-1 이라
    `.fa-chip-cta`(0-1-0) 를 이긴다. 이 칩은 히어로(.op-veil-content, color:#FFFFFF)
