@@ -2309,6 +2309,96 @@
 .fa-brandbar .op-inner { display: flex; align-items: center; min-height: 64px; }
 .fa-brandbar .op-logo { color: var(--op-orange); }
 
+/* --- 섹션 라벨 · 알약 버튼 (2026-10-26, 메디코치식 리듬) -------------------
+   메디코치는 제목 위에 작은 라벨을 단다. 영어 대문자 라벨은 쓰지 않는다(대표 규칙: 영어 라벨 금지) - 국문만.
+   오렌지 글자는 밝은 면에서 2.9:1 이라 안 읽힌다 -> 글자는 차콜, 앞에 BI 심볼을 닮은 작은 오렌지 캡슐. 자간 0.
+   (2026-09-29 '면 A 아이브로우 제거' 결정은 이 날 대표의 메디코치 톤 지시로 국문 라벨에 한해 되살렸다.) */
+.fa-eyebrow { display: block; margin: 0 0 14px; font-size: 15px; font-weight: 700; line-height: 1.4; letter-spacing: 0; color: var(--op-charcoal); }
+.fa-eyebrow::before {
+  content: ""; display: inline-block; width: 18px; height: 8px; margin-right: 8px;
+  border-radius: var(--op-radius-pill); background: var(--op-orange); vertical-align: 2px;
+}
+.op-sec--charcoal .fa-eyebrow,
+.fa-eyebrow--light { color: rgba(255, 255, 255, 0.9); }
+/* 면 A 버튼은 전부 알약 모양(BI 캡슐 심볼과 같은 모양). 면 B 는 그대로 - data-section 이 a 로 시작하는 면만 */
+[data-section^="a"] .op-btn { border-radius: var(--op-radius-pill); }
+
+/* --- a01 필름 히어로 (2026-10-26, 메디코치식 풀스크린 영상) -------------------
+   화면을 채운 배경 영상 위에 문구를 왼쪽에 얹는다. 바탕 장면(a01_film_plate)은 오른쪽 절반에 약국·인물, 왼쪽 절반이 비어 있다 -
+   메디코치처럼 가운데 정렬이면 글이 인물·밝은 유리창에 얹혀 안 읽힌다(시네마 A안으로 실측). 로고는 사진 위에 두지 않는다(BI) -
+   위 흰 셸 바에 있다. 섹션에는 overflow·transform 을 걸지 않는다(캡처 경계) - 자르기는 __media 가 한다.
+   높이 상한 56.25vw = 16:9 영상이 가로로 잘리지 않는 높이(그보다 높으면 cover 가 좌우를 잘라 인물이 글 칼럼으로 밀려 온다). */
+.fa-film {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: clamp(560px, min(calc(100svh - 64px), 56.25vw), 920px);
+  padding: 72px 0;
+  background: var(--op-charcoal);
+  color: #FFFFFF;
+}
+.fa-film__media { position: absolute; inset: 0; overflow: hidden; z-index: 0; background: var(--op-charcoal); }
+.fa-film__media picture { display: contents; }
+.fa-film__poster,
+.fa-film__video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: 72% 0%;
+}
+.fa-film__video { z-index: 1; background: transparent; }
+/* 영상이 없거나 오기 전에는 포스터가 아주 천천히 다가간다(영상과 같은 결) */
+.op-js:not(.op-static) .fa-film__poster { animation: faFilmPush 18s ease-in-out infinite alternate; transform-origin: 72% 40%; }
+@keyframes faFilmPush { from { transform: scale(1); } to { transform: scale(1.05); } }
+.fa-film__media.is-paused .fa-film__poster { animation-play-state: paused; }
+/* 글 칼럼 쪽만 어둡게(오른쪽 약국·인물은 그대로), 바닥은 살짝. 색은 잉크(#2D2D2D)의 투명도만 - 새 색 0 */
+.fa-film__veil {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(45, 45, 45, 0.72) 0%, rgba(45, 45, 45, 0.6) 34%, rgba(45, 45, 45, 0.3) 50%, rgba(45, 45, 45, 0) 68%),
+    linear-gradient(0deg, rgba(45, 45, 45, 0.3) 0%, rgba(45, 45, 45, 0) 32%);
+}
+.fa-film__inner { position: relative; z-index: 3; width: 100%; }
+/* 제목 두 줄(메디코치처럼): 둘째 줄 '동네 약국이 찾아 드릴게요'(약 11.6em)가 칼럼 안에 들어오게 글자 크기를 칼럼 폭에 묶는다 */
+.fa-film__copy { max-width: min(560px, 40vw); }
+.fa-film__h1 {
+  color: #FFFFFF; font-size: clamp(32px, 3.15vw, 47px); font-weight: 700; line-height: 1.24; letter-spacing: 0;
+  text-wrap: balance; text-shadow: 0 2px 24px rgba(45, 45, 45, 0.35);
+}
+.fa-film__lead {
+  margin-top: 22px; font-size: 19px; line-height: 1.65; color: rgba(255, 255, 255, 0.92); text-wrap: pretty;
+  text-shadow: 0 1px 12px rgba(45, 45, 45, 0.45);
+}
+.fa-film__cta { margin-top: 34px; }
+.fa-film__chips { margin-top: 22px; }
+/* 메디코치식 알약 버튼 - BI 심볼(캡슐)과 같은 모양이라 브랜드와도 맞는다 */
+.fa-film .op-btn { border-radius: var(--op-radius-pill); }
+.fa-film .op-chip { background: rgba(255, 255, 255, 0.14); border-color: rgba(255, 255, 255, 0.28); color: #FFFFFF; }
+.fa-film .fa-chip-cta { background: #FFFFFF; border-color: #FFFFFF; }
+.op-page .fa-film a.fa-chip-cta { color: var(--op-charcoal); }
+.fa-film__pause { position: absolute; right: 28px; bottom: 28px; z-index: 4; }
+.op-static .fa-film__video { display: none !important; }
+@media (max-width: 1023px) {
+  /* 좁은 화면: 영상 상자(16:9)를 위에, 글은 아래 차콜 면 - 영상 아랫부분이 차콜로 녹아 글이 그 위에서 시작한다 */
+  .fa-film { display: block; min-height: 0; padding: 0 0 56px; }
+  .fa-film__media { position: relative; inset: auto; width: 100%; aspect-ratio: 16 / 9; }
+  .fa-film__veil { background: linear-gradient(180deg, rgba(45, 45, 45, 0) 52%, rgba(51, 51, 51, 0.7) 80%, var(--op-charcoal) 100%); }
+  .fa-film__inner { margin-top: -9vw; }
+  .fa-film__copy { max-width: 640px; }
+  .fa-film__pause { top: 14px; right: 14px; bottom: auto; }
+}
+@media (max-width: 767px) {
+  /* 모바일: 세로 4:5 영상(인물·간판이 함께 들어오게 따로 자른 hero_a_m) */
+  .fa-film { padding-bottom: 44px; }
+  .fa-film__media { aspect-ratio: 4 / 5; }
+  .fa-film__poster, .fa-film__video { object-position: 50% 0%; }
+  .fa-film__inner { margin-top: -30vw; }
+  .fa-film__h1 { font-size: 34px; }
+  .fa-film__lead { font-size: 16px; margin-top: 14px; }
+  .fa-film__cta { margin-top: 24px; }
+  .fa-film__cta .op-btn--lg { width: 100%; }
+  .fa-film__chips { margin-top: 18px; }
+}
+@media (max-width: 374px) { .fa-film__h1 { font-size: 30px; } }
+
 /* --- 히어로 스토리 패널 (2026-10-23 v2: 프레임 아래 · 캡션 겹침 없음) ------
    슬라이드(테마 .op-heromedia 크로스페이드)와 같은 시계(--op-hero-cycle · --op-hero-n)로 돈다. 전부 CSS 라 JS 가 없어도 맞는다.
    v1 은 사진 위에 얹었고 캡션을 슬라이드와 같은 크로스페이드로 넘겨, 넘어가는 순간 두 문장이 반투명으로 겹쳐 보였다

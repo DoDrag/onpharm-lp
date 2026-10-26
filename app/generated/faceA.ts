@@ -6,59 +6,39 @@
 
 // 면 A · 소비자 (9섹션). <div class="op-page"> 안에 넣어야 스타일이 먹습니다.
 // 면 B 는 faceB.ts 에 따로 있다. 여기서 같이 export 하지 마라(청크 공유 누수).
-export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--charcoal" data-section="a01_hero">
-  <div class="op-inner">
-    <p class="op-sr">온팜은 이렇게 이어져요. 다 먹어 갈 때쯤 알림이 오고, 쿠폰을 들고 동네 약국에 들러 전담 상담사와 이야기한 뒤, 내게 맞춘 6일 카드를 받아 하루 한 칸씩 챙겨요.</p>
-    <div class="fa-hero-grid">
-      <div class="fa-hero-copy">
-        <h1 class="op-h1 fa-hero-h1">영양제, 검색만 하다<br><span class="op-accent--strong">한 달</span>이 지났다면</h1>
-        <p class="op-lead op-mt-24 op-measure">장바구니에만 담아 두고 결국 못 고르셨다면, 고민 한 줄만 남겨 주세요. 동네 참여 약국의 전담 상담사가 직접 읽고 답해드려요.</p>
+export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section="a01_hero">
+  <div class="fa-film__media" id="fa-hero-media" aria-hidden="true">
+    <picture>
+      <source media="(max-width: 767px)" srcset="/onpharm/hero_a_m_poster.jpg">
+      <img class="fa-film__poster" src="/onpharm/hero_a_poster.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
+    </picture>
+    <video class="op-heromedia__video fa-film__video" autoplay muted loop playsinline preload="auto" tabindex="-1"
+           poster="/onpharm/hero_a_poster.jpg" data-src="/onpharm/hero_a.mp4" data-src-mobile="/onpharm/hero_a_m.mp4" data-poster-mobile="/onpharm/hero_a_m_poster.jpg"></video>
+    <span class="fa-film__veil"></span>
+  </div>
+  <div class="op-inner fa-film__inner">
+    <div class="fa-film__copy">
+      <h1 class="op-h1 fa-film__h1">내 몸에 맞는 영양제,<br><span class="op-accent--strong">동네 약국</span>이 찾아 드릴게요</h1>
+      <p class="fa-film__lead">고민 한 줄만 남겨 주세요. 전담 상담사가 직접 읽고 답해 드려요.</p>
+      <div class="fa-hero-cta fa-film__cta">
+          <a class="op-btn op-btn--lg op-btn--kakao" href="https://pf.kakao.com/_wxdxhrX/chat" target="_blank" rel="noopener noreferrer"><svg class="op-btn__ico" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.3c-4.4 0-8 2.8-8 6.2 0 2.2 1.5 4.1 3.7 5.2l-.9 3.2c-.1.4.3.7.6.5l3.6-2.2c.3 0 .7.1 1 .1 4.4 0 8-2.8 8-6.2s-3.6-6.2-8-6.2z"/></svg><span>실시간 상담</span><span class="op-sr"> (카카오톡 채널 1:1 채팅, 새 창)</span></a>
 
-        <div class="fa-hero-cta op-mt-40">          <a class="op-btn op-btn--lg op-btn--kakao" href="https://pf.kakao.com/_wxdxhrX/chat" target="_blank" rel="noopener noreferrer"><svg class="op-btn__ico" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.3c-4.4 0-8 2.8-8 6.2 0 2.2 1.5 4.1 3.7 5.2l-.9 3.2c-.1.4.3.7.6.5l3.6-2.2c.3 0 .7.1 1 .1 4.4 0 8-2.8 8-6.2s-3.6-6.2-8-6.2z"/></svg><span>실시간 상담</span><span class="op-sr"> (카카오톡 채널 1:1 채팅, 새 창)</span></a>
-        </div>
-        <p class="op-caption fa-hero-note">카카오톡 채널 1:1 채팅으로 연결돼요</p>
-<div class="op-row op-row--wrap op-mt-24">
+      </div>
+      <div class="op-row op-row--wrap fa-film__chips">
           <span class="op-chip">상담 무료</span>
           <a class="op-chip fa-chip-cta fa-chip-cta--kakao" href="https://pf.kakao.com/_wxdxhrX/friend" target="_blank" rel="noopener noreferrer"><svg class="fa-chip-cta__ico" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.3c-4.4 0-8 2.8-8 6.2 0 2.2 1.5 4.1 3.7 5.2l-.9 3.2c-.1.4.3.7.6.5l3.6-2.2c.3 0 .7.1 1 .1 4.4 0 8-2.8 8-6.2s-3.6-6.2-8-6.2z"/></svg>쿠폰받기<span class="op-sr"> (카카오톡 채널 친구 추가, 새 창)</span></a>
           <span class="op-chip">동네 약국 픽업</span>
-        </div>
-      </div>
-      <div class="fa-hero-media" id="fa-hero-media" style="--op-hero-cycle:36s">
-        <div class="op-heromedia op-heromedia--box fa-hero-frame" data-motion="crossfade" data-count="6" aria-hidden="true">
-          <video class="op-heromedia__video" autoplay muted loop playsinline preload="auto"
-                 aria-hidden="true" tabindex="-1"></video>
-          <div class="op-heromedia__slides">
-            <img class="op-heromedia__slide" src="/onpharm/a01_story_1.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="high" style="--i:0">
-            <img class="op-heromedia__slide" src="/onpharm/a01_story_2.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:1">
-            <img class="op-heromedia__slide" src="/onpharm/a01_story_3.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:2">
-            <img class="op-heromedia__slide" src="/onpharm/a01_story_4.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:3">
-            <img class="op-heromedia__slide" src="/onpharm/a01_story_5.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:4">
-            <img class="op-heromedia__slide" src="/onpharm/a01_story_6.jpg" alt="" width="1536" height="864" decoding="async" fetchpriority="low" style="--i:5">
-          </div>
-        </div>
-        <div class="fa-story" data-count="6" style="--op-hero-n:6">
-          <div class="fa-story__bar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-          <div class="fa-story__row">
-            <div class="fa-story__steps" aria-hidden="true">
-              <p class="fa-story__step" style="--i:0"><span class="fa-story__n">01</span><span class="fa-story__t">다 먹어 갈 때쯤, 알림이 먼저 와요</span></p>
-              <p class="fa-story__step" style="--i:1"><span class="fa-story__n">02</span><span class="fa-story__t">쿠폰 들고 동네 약국으로</span></p>
-              <p class="fa-story__step" style="--i:2"><span class="fa-story__n">03</span><span class="fa-story__t">전담 상담사와 차분히 이야기하고</span></p>
-              <p class="fa-story__step" style="--i:3"><span class="fa-story__n">04</span><span class="fa-story__t">내게 맞춘 6일 카드를 받아요</span></p>
-              <p class="fa-story__step" style="--i:4"><span class="fa-story__n">05</span><span class="fa-story__t">하루 한 칸, 아침에 챙기고</span></p>
-              <p class="fa-story__step" style="--i:5"><span class="fa-story__n">06</span><span class="fa-story__t">그리고 오늘도, 내 하루</span></p>
-            </div>
-            <button type="button" class="op-pause op-pause--dark" data-pause-toggle aria-controls="fa-hero-media" aria-pressed="false" aria-label="장면 자동 넘김 멈춤"><svg class="op-pause__i op-pause__i--pause" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><rect x="3.5" y="2.5" width="3" height="11" rx="1" fill="currentColor"/><rect x="9.5" y="2.5" width="3" height="11" rx="1" fill="currentColor"/></svg><svg class="op-pause__i op-pause__i--play" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4.5 2.8v10.4a.6.6 0 0 0 .9.5l8.2-5.2a.6.6 0 0 0 0-1L5.4 2.3a.6.6 0 0 0-.9.5z" fill="currentColor"/></svg></button>
-          </div>
-        </div>
+
       </div>
     </div>
   </div>
+  <button type="button" class="op-pause op-pause--dark fa-film__pause" data-pause-toggle aria-controls="fa-hero-media" aria-pressed="false" aria-label="배경 영상 멈춤"><svg class="op-pause__i op-pause__i--pause" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><rect x="3.5" y="2.5" width="3" height="11" rx="1" fill="currentColor"/><rect x="9.5" y="2.5" width="3" height="11" rx="1" fill="currentColor"/></svg><svg class="op-pause__i op-pause__i--play" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4.5 2.8v10.4a.6.6 0 0 0 .9.5l8.2-5.2a.6.6 0 0 0 0-1L5.4 2.3a.6.6 0 0 0-.9.5z" fill="currentColor"/></svg></button>
 </section>
 
 <section class="op-sec" data-section="a02_concerns" data-concern-picker data-reveal>
   <div class="op-inner">
     <div class="op-center">
-      <h2 class="op-h2">요즘 뭐가 제일 신경 쓰이세요?</h2>
+<p class="fa-eyebrow">고민 고르기</p>      <h2 class="op-h2">요즘 뭐가 제일 신경 쓰이세요?</h2>
       <p class="op-lead op-mt-16 op-measure--center">고민 하나에서 시작해도 충분해요. 전담 상담사가 거기서부터 같이 봐요.</p>
     </div><div class="op-grid-4 fa-concerns op-mt-48" role="group" aria-label="고민 선택"
          data-scrub="0.09" data-scrub-from="0.95" data-scrub-to="1.0" data-scrub-media="(min-width: 1024px)">
@@ -321,7 +301,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
 <section class="op-sec op-sec--tint" data-section="a02b_products" data-reveal>
   <div class="op-inner">
     <div class="op-center">
-      <h2 class="op-h2">온팜은 이렇게 드려요</h2>
+<p class="fa-eyebrow">6일 카드</p>      <h2 class="op-h2">하루 한 칸씩 챙기는<br>나만의 6일 카드</h2>
       <p class="op-lead op-mt-16 op-measure--center">상담에서 정한 구성을 6일 카드 한 장에 담아 둬요. 가까운 참여 약국에 들러 받아 가시면 돼요.</p>
     </div>
 
@@ -364,7 +344,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
     <div class="op-stage__sticky fa-stage__sticky">
       <div class="op-inner fa-stage__inner">
         <div class="op-center">
-          <h2 class="op-h2">이렇게 진행돼요</h2>
+<p class="fa-eyebrow">이용 순서</p>          <h2 class="op-h2">고민 한 줄에서<br>동네 약국 픽업까지</h2>
           <p class="op-lead op-mt-16 op-measure--center">고민 한 줄과 가까운 참여 약국만 있으면 돼요.</p>
         </div>
 
@@ -414,7 +394,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
       <span class="op-veil op-veil--strong"></span>
     </div>
     <div class="op-inner op-veil-content op-center">
-      <h2 class="op-h2 fa-band-h2">내 이름을 아는 <span class="op-accent--strong">상담사</span>가 생긴다</h2>
+<p class="fa-eyebrow fa-eyebrow--light">전담 상담사</p>      <h2 class="op-h2 fa-band-h2">내 이름을 아는 <span class="op-accent--strong">전담 상담사</span>가 생겨요</h2>
       <p class="op-lead op-mt-16 op-measure--center">매번 다른 사람에게 처음부터 다시 설명하지 않아도 돼요.</p>
 
       <div class="fa-band__checks">
@@ -490,7 +470,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
         <p class="fa-idcard__note">가상의 예시 카드입니다. 실제 배정은 사전 등록 순서대로 안내드려요.</p>
       </div>      <div class="fa-talk">
         <div class="fa-talk__head">
-          <span class="fa-talk__title">이런 식으로 답해드려요</span>
+          <span class="fa-talk__title">이렇게 답해 드려요</span>
           <span class="op-badge op-badge--line">예시</span>
         </div>
         <div class="op-carousel fa-talk__carousel" data-carousel data-interval="6000">
@@ -603,7 +583,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
 
 <section class="op-sec op-sec--warm" data-section="a06_voices" data-reveal>
   <div class="op-inner op-center">
-    <h2 class="op-h2">이런 한 줄이면 충분해요</h2>
+<p class="fa-eyebrow">한 줄 고민</p>    <h2 class="op-h2">이런 한 줄이면 충분해요</h2>
     <p class="op-lead op-mt-16 op-measure--center">아래 사전 등록의 한 줄 고민 칸에 이렇게 적어 주시면 돼요.</p>
   </div>
   <ul class="op-sr">
@@ -831,7 +811,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
 <section class="op-sec op-sec--charcoal" data-section="a07_signup" id="signup" data-reveal>
   <div class="op-inner">
     <div class="op-center">
-      <h2 class="op-h2">사전 등록하고 6일 카드 먼저 받아보기</h2>
+<p class="fa-eyebrow">사전 등록</p>      <h2 class="op-h2">가장 먼저<br>6일 카드를 받아 보세요</h2>
       <p class="op-lead op-mt-16 op-measure--center">동네에 참여 약국이 열리면 가장 먼저 알려드려요. 사전 등록하신 분은 첫 카드를 먼저 받아보실 수 있어요.</p>      <div class="fa-kakao-cta op-mt-32">
         <a class="op-btn op-btn--ghost op-btn--kakao"
    href="https://pf.kakao.com/_wxdxhrX/chat" target="_blank" rel="noopener noreferrer">
@@ -957,7 +937,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
 <section class="op-sec op-sec--warm" data-section="a08_pharmacies" data-reveal>
   <div class="op-inner">
     <div class="op-center">
-      <h2 class="op-h2">함께하는 약국</h2>
+<p class="fa-eyebrow">참여 약국</p>      <h2 class="op-h2">함께하는 약국</h2>
       <p class="op-lead op-mt-16 op-measure--center">네 곳에서 먼저 시작합니다. 가까운 동네부터 차례로 문을 열어요.</p>
     </div><div class="fa-pins op-grid-4 op-mt-64">
       <div class="fa-pin">
@@ -1006,7 +986,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
 <section class="op-sec" data-section="a09_faq">
   <div class="op-inner op-inner--narrow">
     <div class="op-center">
-      <h2 class="op-h2">자주 묻는 질문</h2>
+<p class="fa-eyebrow">궁금한 점</p>      <h2 class="op-h2">자주 묻는 질문</h2>
     </div><div class="fa-faq op-mt-48">
       <div class="op-faq" data-accordion>
         <details class="op-faq__item" open>

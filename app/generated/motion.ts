@@ -477,6 +477,23 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
             var source = video.querySelector("source[src]");
             src = source ? (source.getAttribute("src") || "").replace(/^\\s+|\\s+$/g, "") : "";
           }
+          /* (2026-10-26 필름 히어로) data-src 만 있으면 화면 폭을 보고 고른다: 767 이하는 세로 4:5(data-src-mobile).
+             src 를 처음부터 박지 않는 이유 - autoplay 가 모바일에서도 PC 영상을 먼저 받아 버린다. 감소 모션이면 포스터 정지. */
+          var dsrc = trimmed(video, "data-src");
+          if (!src && dsrc) {
+            if (reduceMotion) { drop(); return; }
+            var narrow = false;
+            try { narrow = !!(window.matchMedia && window.matchMedia("(max-width: 767px)").matches); } catch (e) {}
+            var msrc = trimmed(video, "data-src-mobile");
+            if (narrow && msrc) {
+              var mposter = trimmed(video, "data-poster-mobile");
+              if (mposter) { video.setAttribute("poster", mposter); }
+              src = msrc;
+            } else {
+              src = dsrc;
+            }
+            video.setAttribute("src", src);
+          }
           if (!src) { drop(); return; }
 
           video.hidden = false;
