@@ -14,18 +14,9 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-hero-sec op-sec--c
         <h1 class="op-h1 fa-hero-h1">영양제, 검색만 하다<br><span class="op-accent--strong">한 달</span>이 지났다면</h1>
         <p class="op-lead op-mt-24 op-measure">장바구니에만 담아 두고 결국 못 고르셨다면, 고민 한 줄만 남겨 주세요. 동네 참여 약국의 전담 상담사가 직접 읽고 답해드려요.</p>
 
-        <div class="fa-hero-cta op-mt-40">
-          <a class="op-btn op-btn--lg" href="#signup">1분 상담 신청</a>          <a class="op-btn op-btn--ghost op-btn--kakao op-btn--lg"
-   href="https://pf.kakao.com/_wxdxhrX/chat" target="_blank" rel="noopener noreferrer">
-  <svg class="op-btn__ico" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true"
-       fill="none" stroke="currentColor" stroke-width="1.7"
-       stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 4.3c-4.4 0-8 2.8-8 6.2 0 2.2 1.5 4.1 3.7 5.2l-.9 3.2c-.1.4.3.7.6.5l3.6-2.2c.3 0 .7.1 1 .1 4.4 0 8-2.8 8-6.2s-3.6-6.2-8-6.2z"/>
-  </svg>
-  <span>카카오톡으로 상담하기</span>
-</a>
+        <div class="fa-hero-cta op-mt-40">          <a class="op-btn op-btn--lg op-btn--kakao" href="https://pf.kakao.com/_wxdxhrX/chat" target="_blank" rel="noopener noreferrer"><svg class="op-btn__ico" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.3c-4.4 0-8 2.8-8 6.2 0 2.2 1.5 4.1 3.7 5.2l-.9 3.2c-.1.4.3.7.6.5l3.6-2.2c.3 0 .7.1 1 .1 4.4 0 8-2.8 8-6.2s-3.6-6.2-8-6.2z"/></svg><span>실시간 상담</span><span class="op-sr"> (카카오톡 채널 1:1 채팅, 새 창)</span></a>
         </div>
-        <p class="op-caption fa-hero-note">지금은 사전 등록만 받고 있어요</p>
+        <p class="op-caption fa-hero-note">카카오톡 채널 1:1 채팅으로 연결돼요</p>
 <div class="op-row op-row--wrap op-mt-24">
           <span class="op-chip">상담 무료</span>
           <a class="op-chip fa-chip-cta fa-chip-cta--kakao" href="https://pf.kakao.com/_wxdxhrX/friend" target="_blank" rel="noopener noreferrer"><svg class="fa-chip-cta__ico" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.3c-4.4 0-8 2.8-8 6.2 0 2.2 1.5 4.1 3.7 5.2l-.9 3.2c-.1.4.3.7.6.5l3.6-2.2c.3 0 .7.1 1 .1 4.4 0 8-2.8 8-6.2s-3.6-6.2-8-6.2z"/></svg>쿠폰받기<span class="op-sr"> (카카오톡 채널 친구 추가, 새 창)</span></a>
