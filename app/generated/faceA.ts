@@ -322,11 +322,69 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
       </div>
     </div>    <div class="op-grid-2 op-grid--top op-mt-48">
       <div>
-        <div class="op-media op-media--16x9">
-          <img src="/onpharm/a02b_card.jpg" alt=""
-               width="1364" height="1023" loading="lazy" decoding="async">
-        </div>
-        <p class="op-caption op-mt-12 op-center">6일 카드</p>
+        <div class="fa-daycard" data-daycard role="group" aria-label="직접 눌러 보는 6일 카드"
+     data-take="{d} 칸 뜯기" data-back="{d} 칸 되돌리기"
+     data-hint="오늘 칸을 눌러 한 칸 뜯어 보세요." data-taken="{n}칸 챙겼어요. 남은 칸은 {left}칸이에요." data-done="6일을 다 챙기셨어요. 이때쯤 전담 상담사가 먼저 여쭤봐요.">
+  <div class="fa-daycard__card">
+    <div class="fa-daycard__band">
+      <span class="fa-daycard__name">6일 카드</span>
+      <span class="fa-daycard__for">For 김**님 · 하루 한 칸</span>
+    </div>
+    <ol class="fa-daycard__cells">
+      <li class="fa-daycard__slot">
+        <button type="button" class="fa-daycard__cell" data-day="1일" aria-pressed="false"
+                aria-label="1일 칸 뜯기">
+          <span class="fa-daycard__pouch" aria-hidden="true"></span>
+          <span class="fa-daycard__tick" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4.5 10.5l3.6 3.4 7.4-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="fa-daycard__day">1일</span>
+        </button>
+      </li>
+      <li class="fa-daycard__slot">
+        <button type="button" class="fa-daycard__cell" data-day="2일" aria-pressed="false"
+                aria-label="2일 칸 뜯기">
+          <span class="fa-daycard__pouch" aria-hidden="true"></span>
+          <span class="fa-daycard__tick" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4.5 10.5l3.6 3.4 7.4-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="fa-daycard__day">2일</span>
+        </button>
+      </li>
+      <li class="fa-daycard__slot">
+        <button type="button" class="fa-daycard__cell" data-day="3일" aria-pressed="false"
+                aria-label="3일 칸 뜯기">
+          <span class="fa-daycard__pouch" aria-hidden="true"></span>
+          <span class="fa-daycard__tick" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4.5 10.5l3.6 3.4 7.4-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="fa-daycard__day">3일</span>
+        </button>
+      </li>
+      <li class="fa-daycard__slot">
+        <button type="button" class="fa-daycard__cell" data-day="4일" aria-pressed="false"
+                aria-label="4일 칸 뜯기">
+          <span class="fa-daycard__pouch" aria-hidden="true"></span>
+          <span class="fa-daycard__tick" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4.5 10.5l3.6 3.4 7.4-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="fa-daycard__day">4일</span>
+        </button>
+      </li>
+      <li class="fa-daycard__slot">
+        <button type="button" class="fa-daycard__cell" data-day="5일" aria-pressed="false"
+                aria-label="5일 칸 뜯기">
+          <span class="fa-daycard__pouch" aria-hidden="true"></span>
+          <span class="fa-daycard__tick" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4.5 10.5l3.6 3.4 7.4-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="fa-daycard__day">5일</span>
+        </button>
+      </li>
+      <li class="fa-daycard__slot">
+        <button type="button" class="fa-daycard__cell" data-day="6일" aria-pressed="false"
+                aria-label="6일 칸 뜯기">
+          <span class="fa-daycard__pouch" aria-hidden="true"></span>
+          <span class="fa-daycard__tick" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M4.5 10.5l3.6 3.4 7.4-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="fa-daycard__day">6일</span>
+        </button>
+      </li>
+    </ol>
+  </div>
+  <p class="fa-daycard__status" role="status" aria-live="polite">하루에 한 칸씩 뜯어서 챙기는 카드예요.</p>
+  <button type="button" class="fa-daycard__reset" hidden>처음부터 다시</button>
+</div>
+        <p class="op-caption op-mt-12 op-center">직접 눌러 보는 6일 카드</p>
       </div>
       <div>
         <div class="op-media op-media--16x9">
@@ -939,8 +997,25 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
     <div class="op-center">
 <p class="fa-eyebrow">참여 약국</p>      <h2 class="op-h2">함께하는 약국</h2>
       <p class="op-lead op-mt-16 op-measure--center">네 곳에서 먼저 시작합니다. 가까운 동네부터 차례로 문을 열어요.</p>
-    </div><div class="fa-pins op-grid-4 op-mt-64">
-      <div class="fa-pin">
+    </div>    <div class="fa-finder op-mt-40" data-areafinder
+         data-found="{area} · {status}. 상세 위치는 문을 여는 날 사전 등록하신 분께 먼저 알려 드려요." data-none="아직 준비 중인 동네예요. 사전 등록에 동네를 남겨 주시면 가까운 곳부터 차례로 알려 드려요." data-empty="구 이름을 먼저 적어 주세요.">
+      <div class="fa-finder__chips" role="group" aria-label="우리 동네 찾기">
+        <button type="button" class="fa-finder__chip" data-region="" aria-pressed="true">전체</button>
+        <button type="button" class="fa-finder__chip" data-region="인천" aria-pressed="false">인천</button>
+        <button type="button" class="fa-finder__chip" data-region="서울" aria-pressed="false">서울</button>
+      </div>
+      <form class="fa-finder__form" role="search" data-finder-form>
+        <label class="op-sr" for="fa-finder-q">동네 이름</label>
+        <input class="fa-input fa-finder__input" id="fa-finder-q" type="search" autocomplete="off" placeholder="구 이름을 적어 보세요 (예: 마포구)">
+        <button type="submit" class="op-btn fa-finder__go">찾기</button>
+      </form>
+      <div class="fa-finder__result" role="status" aria-live="polite">
+        <p class="fa-finder__msg"></p>
+        <a class="op-btn op-btn--ghost op-btn--sm fa-finder__cta" href="#signup" hidden>이 동네로 사전 등록</a>
+      </div>
+    </div>
+<div class="fa-pins op-grid-4 op-mt-64">
+      <div class="fa-pin fa-pin--lead" data-area="인천 연수구" data-region="인천" data-status="1호 준비 중" style="--i:0">
         <span class="fa-pin__ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">
   <path d="M12 22.2s7.2-6.4 7.2-11.4a7.2 7.2 0 1 0-14.4 0c0 5 7.2 11.4 7.2 11.4z" fill="#FF6900"/>
   <circle cx="12" cy="10.6" r="2.9" fill="#FFFFFF"/>
@@ -948,7 +1023,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
         <p class="fa-pin__area">인천 연수구</p>
         <p class="fa-pin__status">1호 준비 중</p>
       </div>
-      <div class="fa-pin">
+      <div class="fa-pin" data-area="인천 남동구" data-region="인천" data-status="오픈 준비" style="--i:1">
         <span class="fa-pin__ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">
   <path d="M12 22.2s7.2-6.4 7.2-11.4a7.2 7.2 0 1 0-14.4 0c0 5 7.2 11.4 7.2 11.4z" fill="#FF6900"/>
   <circle cx="12" cy="10.6" r="2.9" fill="#FFFFFF"/>
@@ -956,7 +1031,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
         <p class="fa-pin__area">인천 남동구</p>
         <p class="fa-pin__status">오픈 준비</p>
       </div>
-      <div class="fa-pin">
+      <div class="fa-pin" data-area="서울 마포구" data-region="서울" data-status="오픈 예정" style="--i:2">
         <span class="fa-pin__ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">
   <path d="M12 22.2s7.2-6.4 7.2-11.4a7.2 7.2 0 1 0-14.4 0c0 5 7.2 11.4 7.2 11.4z" fill="#FF6900"/>
   <circle cx="12" cy="10.6" r="2.9" fill="#FFFFFF"/>
@@ -964,7 +1039,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
         <p class="fa-pin__area">서울 마포구</p>
         <p class="fa-pin__status">오픈 예정</p>
       </div>
-      <div class="fa-pin">
+      <div class="fa-pin" data-area="서울 영등포구" data-region="서울" data-status="오픈 예정" style="--i:3">
         <span class="fa-pin__ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">
   <path d="M12 22.2s7.2-6.4 7.2-11.4a7.2 7.2 0 1 0-14.4 0c0 5 7.2 11.4 7.2 11.4z" fill="#FF6900"/>
   <circle cx="12" cy="10.6" r="2.9" fill="#FFFFFF"/>
@@ -990,6 +1065,10 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
     </div><div class="fa-faq op-mt-48">
       <div class="op-faq" data-accordion>
         <details class="op-faq__item" open>
+          <summary class="op-faq__q">온팜은 약국인가요?</summary>
+          <div class="op-faq__a">아니요. 온팜은 동네 참여 약국에서 만나는 건강 브랜드예요. 상담 답변과 6일 카드 수령은 가까운 참여 약국에서 이뤄져요.</div>
+        </details>
+        <details class="op-faq__item" open>
           <summary class="op-faq__q">상담은 정말 무료인가요?</summary>
           <div class="op-faq__a">네. 고민을 남기고 답을 받는 데까지는 비용이 들지 않아요. 비용이 생기는 건 약국에서 카드를 받아 가실 때뿐입니다.</div>
         </details>
@@ -1008,6 +1087,10 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
         <details class="op-faq__item" open>
           <summary class="op-faq__q">개인정보는 어떻게 관리되나요?</summary>
           <div class="op-faq__a">전담 상담사 배정과 안내에만 씁니다. 건강 관련 내용은 민감정보로 따로 동의를 받고, 동의를 철회하시면 지웁니다.</div>
+        </details>
+        <details class="op-faq__item" open>
+          <summary class="op-faq__q">언제부터 이용할 수 있나요?</summary>
+          <div class="op-faq__a">참여 약국이 문을 여는 순서대로 시작해요. 사전 등록하신 분께 가장 먼저 알려 드려요.</div>
         </details>
         <details class="op-faq__item" open>
           <summary class="op-faq__q">약국이 우리 동네에 없으면요?</summary>

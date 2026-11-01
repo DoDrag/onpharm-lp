@@ -247,7 +247,31 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
         <p class="op-lead op-mt-16">
           지역별로 순차 오픈합니다. 먼저 신청한 약국부터 배정 지역을 확정합니다.
         </p>
-      </div>      <div class="fb-kakao-cta op-mt-32 op-center">
+      </div>      <div class="fb-process op-mt-40">
+<p class="fb-process__title">신청 후 이렇게 진행됩니다</p>        <ol class="fb-process__list">
+          <li class="fb-process__step" style="--i:0">
+            <span class="fb-process__num" aria-hidden="true">1</span>
+            <p class="fb-process__name">신청서 접수</p>
+            <p class="fb-process__desc">약국명과 주소로 실제 운영 중인 약국인지 확인합니다.</p>
+          </li>
+          <li class="fb-process__step" style="--i:1">
+            <span class="fb-process__num" aria-hidden="true">2</span>
+            <p class="fb-process__name">담당자 연락</p>
+            <p class="fb-process__desc">영업일 기준 3일 안에 담당자가 연락드립니다.</p>
+          </li>
+          <li class="fb-process__step" style="--i:2">
+            <span class="fb-process__num" aria-hidden="true">3</span>
+            <p class="fb-process__name">조건 협의와 계약</p>
+            <p class="fb-process__desc">배정 지역과 운영 조건을 협의해 계약서에 담습니다.</p>
+          </li>
+          <li class="fb-process__step" style="--i:3">
+            <span class="fb-process__num" aria-hidden="true">4</span>
+            <p class="fb-process__name">오픈 준비</p>
+            <p class="fb-process__desc">진열 집기와 안내물을 준비해 드리고, 지역별로 차례로 문을 엽니다.</p>
+          </li>
+        </ol>
+      </div>
+      <div class="fb-kakao-cta op-mt-32 op-center">
         <a class="op-btn op-btn--ghost op-btn--kakao"
    href="https://pf.kakao.com/_wxdxhrX/chat" target="_blank" rel="noopener noreferrer">
   <svg class="op-btn__ico" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true"
@@ -265,7 +289,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
             <input class="fb-input" type="text" name="entry.1635817952"
                    data-field="pharmacy"
                    autocomplete="organization"
-                   placeholder="온팜약국" required>
+                   placeholder="예: ○○약국" required>
           </label>
           <label class="fb-field">
             <span class="fb-label">대표자명</span>

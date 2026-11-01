@@ -1522,6 +1522,215 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
   }
 
   /* ======================================================================
+     13) 6일 카드 직접 뜯기 [data-daycard]  (2026-11-02 대표 "모션 그래픽은 직접 제작, 액션형으로")
+     칸을 누르면 is-taken(소포장이 들려 사라지고 체크가 남음), 첫 빈칸에 is-today(오렌지 맥박).
+     문구는 data-hint / data-taken({n},{left}) / data-done 을 쓰고, 칸 라벨은 data-take / data-back({d}).
+     정지 모드는 이 함수가 아예 안 돌고, 나중에 op-static 이 붙으면 onRestore 가 첫 상태로 되돌린다.
+     ====================================================================== */
+  function fill(tpl, map) {
+    return String(tpl || "").replace(/\\{(\\w+)\\}/g, function (m, k) {
+      return Object.prototype.hasOwnProperty.call(map, k) ? String(map[k]) : m;
+    });
+  }
+
+  function setupDayCards() {
+    var boxes = list("[data-daycard]");
+    for (var i = 0; i < boxes.length; i++) {
+      (function (box) {
+        if (box.__opDay) { return; }
+        try { box.__opDay = 1; } catch (e) {}
+        var cells = list(".fa-daycard__cell", box);
+        if (!cells.length) { return; }
+        var status = box.querySelector(".fa-daycard__status");
+        var reset = box.querySelector(".fa-daycard__reset");
+        var idle = status ? status.textContent : "";
+
+        function render() {
+          var taken = 0;
+          var today = null;
+          for (var k = 0; k < cells.length; k++) {
+            var cell = cells[k];
+            var done = cell.classList.contains("is-taken");
+            if (done) { taken++; } else if (!today) { today = cell; }
+            cell.classList.remove("is-today");
+            cell.setAttribute("aria-pressed", done ? "true" : "false");
+            cell.setAttribute("aria-label", fill(box.getAttribute(done ? "data-back" : "data-take"),
+                                                 { d: cell.getAttribute("data-day") || "" }));
+          }
+          if (today) { today.classList.add("is-today"); }
+          if (status) {
+            if (!taken) { status.textContent = box.getAttribute("data-hint") || idle; }
+            else if (taken >= cells.length) { status.textContent = box.getAttribute("data-done") || ""; }
+            else { status.textContent = fill(box.getAttribute("data-taken"), { n: taken, left: cells.length - taken }); }
+          }
+          if (reset) { reset.hidden = !taken; }
+        }
+
+        for (var c = 0; c < cells.length; c++) {
+          on(cells[c], "click", function (ev) {
+            if (isStatic()) { return; }
+            var cell = (ev && ev.currentTarget) || this;
+            var took = !cell.classList.contains("is-taken");
+            cell.classList.toggle("is-taken", took);
+            render();
+            if (took && !reduceMotion) {
+              try { if (window.navigator && window.navigator.vibrate) { window.navigator.vibrate(10); } } catch (e) {}
+            }
+          });
+        }
+        if (reset) {
+          on(reset, "click", function () {
+            if (isStatic()) { return; }
+            for (var k = 0; k < cells.length; k++) { cells[k].classList.remove("is-taken"); }
+            render();
+            try { cells[0].focus({ preventScroll: true }); } catch (e) {}
+          });
+        }
+        render();
+
+        onRestore(function () {
+          for (var k = 0; k < cells.length; k++) {
+            cells[k].classList.remove("is-taken");
+            cells[k].classList.remove("is-today");
+            cells[k].setAttribute("aria-pressed", "false");
+            cells[k].setAttribute("aria-label", fill(box.getAttribute("data-take"), { d: cells[k].getAttribute("data-day") || "" }));
+          }
+          if (status) { status.textContent = idle; }
+          if (reset) { reset.hidden = true; }
+        });
+      })(boxes[i]);
+    }
+  }
+
+  /* ======================================================================
+     14) 우리 동네 찾기 [data-areafinder]  (2026-11-02, 메가타운약국 매장 찾기 문법 · 액션형)
+     지역 칩 = 같은 섹션의 .fa-pin[data-region] 거르기(밖은 is-dim).
+     검색 = 구 이름으로 .fa-pin[data-area] 찾기(찾은 핀 is-hit, 나머지 is-dim) -> data-found / data-none 문구.
+     결과 버튼(#signup) = 사전 등록 '동네' 칸(id a07-area)에 채우고 그 칸으로 이동.
+     ====================================================================== */
+  function setupAreaFinders() {
+    var boxes = list("[data-areafinder]");
+    for (var i = 0; i < boxes.length; i++) {
+      (function (box) {
+        if (box.__opFinder) { return; }
+        try { box.__opFinder = 1; } catch (e) {}
+        var sec = (box.closest && box.closest("section")) || doc;
+        var pins = list(".fa-pin[data-area]", sec);
+        var chips = list(".fa-finder__chip", box);
+        var form = box.querySelector("[data-finder-form]");
+        var input = box.querySelector(".fa-finder__input");
+        var msg = box.querySelector(".fa-finder__msg");
+        var cta = box.querySelector(".fa-finder__cta");
+        var pick = "";
+
+        function squash(v) { return String(v || "").replace(/\\s+/g, ""); }
+        function setMsg(text, showCta) {
+          if (msg) { msg.textContent = text || ""; }
+          if (cta) { cta.hidden = !showCta; }
+        }
+        function pressChip(region) {
+          for (var k = 0; k < chips.length; k++) {
+            chips[k].setAttribute("aria-pressed", (chips[k].getAttribute("data-region") || "") === region ? "true" : "false");
+          }
+        }
+        function mark(test) {
+          for (var k = 0; k < pins.length; k++) {
+            var hit = test(pins[k]);
+            pins[k].classList.toggle("is-dim", !hit);
+          }
+        }
+        function hop(list2) {
+          for (var k = 0; k < pins.length; k++) { pins[k].classList.remove("is-hit"); }
+          if (reduceMotion) { return; }
+          void sec.offsetWidth;
+          for (var h = 0; h < list2.length; h++) { list2[h].classList.add("is-hit"); }
+        }
+
+        for (var c = 0; c < chips.length; c++) {
+          on(chips[c], "click", function (ev) {
+            if (isStatic()) { return; }
+            var chip = (ev && ev.currentTarget) || this;
+            var region = chip.getAttribute("data-region") || "";
+            pressChip(region);
+            mark(function (p) { return !region || (p.getAttribute("data-region") || "") === region; });
+            hop([]);
+            setMsg("", false);
+          });
+        }
+
+        if (form) {
+          on(form, "submit", function (ev) {
+            if (ev && ev.preventDefault) { ev.preventDefault(); }
+            if (isStatic()) { return; }
+            var q = input ? String(input.value || "").replace(/^\\s+|\\s+$/g, "") : "";
+            var nq = squash(q);
+            if (nq.length < 2) {
+              setMsg(box.getAttribute("data-empty") || "", false);
+              if (input) { try { input.focus(); } catch (e) {} }
+              return;
+            }
+            var hits = [];
+            for (var k = 0; k < pins.length; k++) {
+              var area = pins[k].getAttribute("data-area") || "";
+              var parts = area.split(/\\s+/);
+              var gu = parts[parts.length - 1] || "";
+              var stem = gu.replace(/(구|군|시)$/, "");
+              if (squash(area).indexOf(nq) >= 0 || (gu && nq.indexOf(gu) >= 0) || (stem.length >= 2 && nq.indexOf(stem) >= 0)) {
+                hits.push(pins[k]);
+              }
+            }
+            pressChip(null);
+            if (hits.length) {
+              mark(function (p) { return hits.indexOf(p) >= 0; });
+              hop(hits);
+              pick = hits[0].getAttribute("data-area") || q;
+              setMsg(fill(box.getAttribute("data-found"), {
+                area: hits[0].getAttribute("data-area") || "",
+                status: hits[0].getAttribute("data-status") || ""
+              }), true);
+            } else {
+              mark(function () { return true; });
+              hop([]);
+              pick = q;
+              setMsg(box.getAttribute("data-none") || "", true);
+            }
+          });
+        }
+
+        if (cta) {
+          on(cta, "click", function (ev) {
+            if (isStatic()) { return; }
+            var field = elementFor("a07-area");
+            var target = elementFor((cta.getAttribute("href") || "#signup"));
+            if (ev && ev.preventDefault) { ev.preventDefault(); }
+            if (field && pick) {
+              field.value = pick;
+              try { field.dispatchEvent(new window.Event("input", { bubbles: true })); } catch (e) {}
+            }
+            scrollToEl(target || field);
+            if (field) {
+              window.setTimeout(function () {
+                try { field.focus({ preventScroll: true }); } catch (e) {}
+              }, reduceMotion ? 0 : 650);
+            }
+          });
+        }
+
+        onRestore(function () {
+          for (var k = 0; k < pins.length; k++) {
+            pins[k].classList.remove("is-dim");
+            pins[k].classList.remove("is-hit");
+          }
+          pressChip("");
+          setMsg("", false);
+          if (input) { input.value = ""; }
+          pick = "";
+        });
+      })(boxes[i]);
+    }
+  }
+
+  /* ======================================================================
      정지 모드 감시 - 캡처 스크립트가 나중에 op-static 을 붙여도 최종 프레임 고정
      ====================================================================== */
   function watchStatic() {
@@ -1552,6 +1761,8 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
     guard("카운트업 묶음", setupCountups);
     guard("액션 토글 묶음", setupActionToggles);
     guard("자동 재생 멈춤", setupPauseToggles);
+    guard("6일 카드", setupDayCards);
+    guard("우리 동네 찾기", setupAreaFinders);
     guard("정지 모드 감시", watchStatic);
   }
 

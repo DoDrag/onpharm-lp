@@ -2781,6 +2781,85 @@
 .fa-product__points { margin-top: 0; }
 .fa-product__caption { margin-top: 22px; }
 
+/* --- a02b 6일 카드 직접 뜯기 (2026-11-02, 대표 '모션 그래픽은 직접 제작 · 액션형') ----------
+   GPT 사진(a02b_card) 칸을 직접 만든 카드로 바꿨다. 사진 파일은 남아 있다(copy shots 의 kind 를 빼면 사진).
+   오렌지는 카드 위 띠와 '오늘' 칸 하나에만(BI 단일 액센트). 알약 대신 납작한 소포장 칸(소비자 면 알약 클로즈업 금지). */
+.fa-daycard {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+  padding: 22px 20px;
+  border: 1.5px solid var(--op-line);
+  border-radius: var(--op-radius-card);
+  background: var(--op-bg);
+}
+.fa-daycard__card {
+  width: min(100%, 330px);
+  border: 1px solid var(--op-line);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: var(--op-shadow-card);
+  overflow: hidden;
+}
+.fa-daycard__band {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+  padding: 11px 16px;
+  background: var(--op-orange);
+  color: #fff;
+}
+.fa-daycard__name { font-size: 17px; font-weight: 800; letter-spacing: 0; }
+.fa-daycard__for { font-size: 13px; font-weight: 600; letter-spacing: 0; }
+.fa-daycard__cells {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0; padding: 8px 10px 10px; list-style: none;
+}
+.fa-daycard__slot { border-right: 1.5px dashed var(--op-line); border-bottom: 1.5px dashed var(--op-line); }
+.fa-daycard__slot:nth-child(3n) { border-right: 0; }
+.fa-daycard__slot:nth-child(n+4) { border-bottom: 0; }
+.fa-daycard__cell {
+  position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  width: 100%; padding: 12px 4px 9px;
+  border: 0; border-radius: 12px; background: transparent;
+  font: inherit; color: var(--op-charcoal); cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.fa-daycard__pouch {
+  display: block; width: 62%; height: 30px;
+  border: 1.5px solid var(--op-line); border-radius: 10px;
+  background: var(--op-bg-gray);
+  transition: transform .42s var(--op-ease), opacity .42s var(--op-ease), border-color .2s var(--op-ease);
+}
+.fa-daycard__tick {
+  position: absolute; top: 18px; left: 50%;
+  color: var(--op-orange); opacity: 0;
+  transform: translate(-50%, 0) scale(.6);
+  transition: transform .36s var(--op-ease) .12s, opacity .36s var(--op-ease) .12s;
+}
+.fa-daycard__day { font-size: 13px; font-weight: 700; line-height: 1.2; color: var(--op-ink); }
+.fa-daycard__cell.is-taken .fa-daycard__pouch { transform: translateY(-16px) rotate(-8deg) scale(.86); opacity: 0; }
+.fa-daycard__cell.is-taken .fa-daycard__tick { opacity: 1; transform: translate(-50%, 0) scale(1); }
+.fa-daycard__cell.is-taken .fa-daycard__day { color: var(--op-gray); }
+.op-js:not(.op-static) .fa-daycard__cell.is-today .fa-daycard__pouch {
+  border-color: var(--op-orange);
+  animation: faDayPulse 1.8s ease-in-out infinite;
+}
+@keyframes faDayPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 105, 0, .32); }
+  55% { box-shadow: 0 0 0 7px rgba(255, 105, 0, 0); }
+}
+.fa-daycard__cell:focus-visible { outline: 2px solid var(--op-orange); outline-offset: 2px; }
+@media (hover: hover) {
+  .fa-daycard__cell:not(.is-taken):hover .fa-daycard__pouch { transform: translateY(-3px); border-color: var(--op-orange); }
+}
+.fa-daycard__status { margin: 0; min-height: 1.5em; font-size: 15px; line-height: 1.5; color: var(--op-ink); text-align: center; }
+.fa-daycard__reset {
+  padding: 4px 6px; border: 0; background: transparent; cursor: pointer;
+  font: inherit; font-size: 14px; font-weight: 700; color: var(--op-charcoal);
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.fa-daycard__reset[hidden] { display: none; }
+/* 옆 사진(16:9)과 높이·캡션 줄을 맞춘다. 좁은 칸에서는 내용이 더 커서 저절로 늘어난다 */
+@media (min-width: 1024px) { .fa-daycard { aspect-ratio: 16 / 9; } }
+.fa-daycard__reset:focus-visible { outline: 2px solid var(--op-orange); outline-offset: 2px; border-radius: 6px; }
+
 /* --- a03 스텝 (연결선) -------------------------------------------------- */
 .fa-steps { position: relative; }
 .fa-steps::before {
@@ -3022,6 +3101,67 @@
 }
 /* 상태 문구는 잉크색: 회색(#75767A)은 흰 카드 위(4.6:1)에선 됐지만 warm 면 위에선 4.3:1 로 미달(검출기 실측). */
 .fa-pin__status { font-size: 14px; color: var(--op-ink); margin-top: 6px; }
+
+/* --- a08 우리 동네 찾기 (2026-11-02, 메가타운약국 매장 찾기 문법 · 액션형) ----------
+   컨트롤은 JS 가 있을 때만 보인다(무JS·정지 = 핀 줄만, 지금과 같음). 핀은 섹션이 보이면 차례로 떠오르고,
+   1호 핀에는 잔잔한 맥박 고리. 고른 지역 밖 핀은 흐리게, 찾은 핀은 두 번 튄다. */
+.fa-finder { display: none; }
+.op-js:not(.op-static) .fa-finder { display: block; max-width: 620px; margin-left: auto; margin-right: auto; }
+.fa-finder__chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.fa-finder__chip {
+  padding: 9px 18px;
+  border: 1.5px solid var(--op-line); border-radius: var(--op-radius-pill);
+  background: var(--op-bg); color: var(--op-charcoal);
+  font: inherit; font-size: 15px; font-weight: 700; letter-spacing: 0; cursor: pointer;
+  transition: border-color var(--op-dur-fast) var(--op-ease), background-color var(--op-dur-fast) var(--op-ease);
+}
+.fa-finder__chip[aria-pressed="true"] { border-color: var(--op-orange); background: var(--op-orange-tint); }
+@media (hover: hover) { .fa-finder__chip:hover { border-color: var(--op-orange); } }
+.fa-finder__chip:focus-visible { outline: 2px solid var(--op-orange); outline-offset: 2px; }
+.fa-finder__form { display: flex; gap: 8px; margin-top: 16px; }
+.fa-finder__input { flex: 1 1 auto; min-width: 0; }
+.fa-finder__go { flex: none; }
+/* 사전 등록 폼의 .fa-input 은 어두운 면용(흰 글자). 찾기 칸은 밝은 면이라 덮어쓴다(0-2-0). */
+.fa-finder .fa-finder__input {
+  height: 52px; padding: 0 20px;
+  -webkit-appearance: none; appearance: none;
+  color: var(--op-ink); background: #fff;
+  border: 1.5px solid var(--op-line); border-radius: var(--op-radius-pill);
+}
+.fa-finder .fa-finder__input::placeholder { color: var(--op-gray); }
+.fa-finder .fa-finder__input:focus-visible { outline: none; border-color: var(--op-orange); box-shadow: 0 0 0 3px rgba(255, 105, 0, .18); }
+.fa-finder .fa-finder__go { height: 52px; padding-top: 0; padding-bottom: 0; }
+.fa-finder__result { margin-top: 14px; text-align: center; }
+.fa-finder__msg { margin: 0; font-size: 16px; line-height: 1.6; color: var(--op-ink); }
+.fa-finder__msg:empty { display: none; }
+.fa-finder__cta { margin-top: 12px; }
+.fa-finder__cta[hidden] { display: none; }
+.fa-pin { transition: opacity .32s var(--op-ease), transform .32s var(--op-ease); }
+.fa-pin__ico { position: relative; }
+.op-js:not(.op-static) [data-section="a08_pharmacies"] .fa-pin { opacity: 0; transform: translateY(14px); }
+.op-js:not(.op-static) [data-section="a08_pharmacies"].is-in .fa-pin {
+  opacity: 1; transform: none;
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+.op-js:not(.op-static) [data-section="a08_pharmacies"].is-in .fa-pin.is-dim {
+  opacity: .3; transform: scale(.96); transition-delay: 0s;
+}
+.op-js:not(.op-static) .fa-pin.is-hit .fa-pin__ico { animation: faPinHop .62s var(--op-ease) 2; }
+@keyframes faPinHop { 0%, 100% { transform: none; } 40% { transform: translateY(-9px); } }
+.op-js:not(.op-static) .fa-pin--lead .fa-pin__ico::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: 44px; height: 44px; margin: -22px 0 0 -22px;
+  border: 2px solid var(--op-orange); border-radius: 50%;
+  opacity: 0; pointer-events: none;
+  animation: faPinRing 2.6s ease-out infinite;
+}
+@keyframes faPinRing { 0% { transform: scale(.5); opacity: .5; } 100% { transform: scale(1.45); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .fa-daycard__pouch, .fa-daycard__tick, .fa-pin { transition: none; }
+  .op-js:not(.op-static) .fa-daycard__cell.is-today .fa-daycard__pouch,
+  .op-js:not(.op-static) .fa-pin.is-hit .fa-pin__ico { animation: none; }
+  .op-js:not(.op-static) .fa-pin--lead .fa-pin__ico::after { display: none; }
+}
 
 /* --- a09 FAQ · 마무리 --------------------------------------------------- */
 /* FAQ 는 카드 없이 헤어라인 목록(검수: 바깥 카드 래퍼 제거). 첫 항목 위에도 선 하나 —
@@ -3328,6 +3468,9 @@
   /* 핀은 모바일에서도 2열(1열 4칸 스택은 너무 길다). 테마 1열 규칙(0-1-0)보다 특이도 높음. */
   .fa-pins.op-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .fa-pin { padding: 6px 10px 8px; }
+  .fa-finder__form { flex-direction: column; }
+  .fa-finder__go { width: 100%; }
+  .fa-daycard { padding: 20px 14px; }
   /* 무대: 테마가 sticky 를 풀고 레일을 0 으로 두므로 한 화면 높이도 풀어야 빈 여백이 안 남는다.
      p 는 .fa-stage__switch / .fa-steps 가 각자 끈다(data-scrub-media). */
   .op-js:not(.op-static) .fa-stage__sticky { min-height: 0; }
@@ -3572,6 +3715,48 @@
   /* 화살표를 빼면 기본 basis(168px)로는 4+1 로 접혀 마지막 카드만 전폭이 된다.
      3+2 로 고정해 카드 폭을 균일하게 맞춘다(grow 0 이라 남는 줄이 늘어나지 않는다). */
   .fb-node { flex: 0 1 calc(33.333% - 6px); }
+}
+
+/* --- b06 신청 후 진행 순서 (2026-11-02, 메디코치 '가입 신청 4단계' 문법) -----------
+   차콜 면 위 4단계. 번호 원은 BI 캡슐 모양(오렌지). 섹션이 보이면(is-in) 번호가 차례로 켜지고 잇는 선이 찬다.
+   무JS·정지·감소 모션 = 처음부터 다 켜진 그림(숨기는 규칙은 .op-js:not(.op-static) 아래에만). */
+.fb-process__title { margin: 0 0 18px; text-align: center; font-size: 17px; font-weight: 700; color: #fff; }
+.fb-process__list {
+  position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px;
+  margin: 0; padding: 0; list-style: none;
+}
+.fb-process__list::before {
+  content: ""; position: absolute; top: 17px; left: 12.5%; right: 12.5%; height: 2px;
+  background: rgba(255, 255, 255, .22);
+}
+.fb-process__list::after {
+  content: ""; position: absolute; top: 17px; left: 12.5%; right: 12.5%; height: 2px;
+  background: var(--op-orange); transform-origin: left center;
+}
+.fb-process__step { position: relative; text-align: center; }
+.fb-process__num {
+  position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center;
+  min-width: 52px; height: 36px; padding: 0 14px; border-radius: var(--op-radius-pill);
+  background: var(--op-orange); color: #fff; font-size: 16px; font-weight: 800;
+}
+.fb-process__name { margin: 12px 0 0; font-size: 17px; font-weight: 700; color: #fff; }
+.fb-process__desc { margin: 6px 0 0; font-size: 14px; line-height: 1.6; color: rgba(255, 255, 255, .86); }
+.op-js:not(.op-static) [data-section="b06_apply"] .fb-process__list::after { transform: scaleX(0); transition: transform 1.1s var(--op-ease) .2s; }
+.op-js:not(.op-static) [data-section="b06_apply"].is-in .fb-process__list::after { transform: scaleX(1); }
+.op-js:not(.op-static) [data-section="b06_apply"] .fb-process__num { background: rgba(255, 255, 255, .18); transition: background-color .4s var(--op-ease); }
+.op-js:not(.op-static) [data-section="b06_apply"].is-in .fb-process__num {
+  background: var(--op-orange); transition-delay: calc(.25s + var(--i, 0) * .28s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .op-js:not(.op-static) [data-section="b06_apply"] .fb-process__list::after { transition: none; }
+  .op-js:not(.op-static) [data-section="b06_apply"] .fb-process__num { transition: none; }
+}
+@media (max-width: 767px) {
+  .fb-process__list { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .fb-process__list::before, .fb-process__list::after { display: none; }
+  .fb-process__step { display: grid; grid-template-columns: 52px minmax(0, 1fr); column-gap: 14px; text-align: left; }
+  .fb-process__num { grid-row: span 2; align-self: start; }
+  .fb-process__name { margin-top: 6px; }
 }
 
 @media (max-width: 767px) {
