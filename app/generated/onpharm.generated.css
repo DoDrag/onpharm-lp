@@ -3277,14 +3277,8 @@
 /* (2026-10-23) 히어로 하단 고민 단어 마퀴(.fa-mq)는 삭제 - 사장님 "아래 글씨 배너 지나가는 거 너무 밤티".
    고민 단어는 바로 아래 a02 고민 카드에 그대로 있다. 바닥 패딩 0 규칙(.fa-hero-sec)도 같이 없앴다. */
 
-/* a03 토글 무대 — sticky 는 테마(.op-stage)가, 여기서는 한 화면 세로 중앙정렬만. */
-.fa-stage__sticky { display: flex; align-items: center; }
-/* (2026-10-02) 무대 아래 '6일 뒤' 카드를 지운 뒤 하단이 비어 보였다. JS 화면에서는 스티키(100vh, 세로 가운데)가
-   이미 위아래 여백을 만들므로 섹션 바닥 패딩을 줄인다. 정지 캡처(자연 높이)는 기본 패딩 그대로. */
-.op-js:not(.op-static) .fa-stage-sec { padding-bottom: 24px; }
-.op-js:not(.op-static) .fa-stage__sticky { min-height: 100vh; }
-.fa-stage__inner { width: 100%; }
-/* 액션형 토글 (2026-10-23). 버튼 껍데기는 브라우저 기본값을 지우고 스위치 그림만 남긴다. */
+/* 액션형 토글 (2026-10-23 a03 무대에서 시작 -> 2026-11-02 디자인 맵 개편으로 a09 마무리 띠 .fa-closing 으로 옮김).
+   범위 요소 = [data-action-scope] = .fa-closing. 버튼 껍데기는 브라우저 기본값을 지우고 스위치 그림만 남긴다. */
 .fa-toggle {
   position: relative;
   display: flex;
@@ -3320,54 +3314,43 @@
 }
 .fa-toggle__hint { display: none; margin-top: 6px; font-size: 14px; font-weight: 500; color: var(--op-charcoal); }
 .op-js:not(.op-static) .fa-toggle__hint { display: block; transition: opacity var(--op-dur-mid) var(--op-ease); }
-.op-js:not(.op-static) .fa-stage.is-user .fa-toggle__hint { opacity: 0; }
+.op-js:not(.op-static) .fa-closing.is-user .fa-toggle__hint { opacity: 0; }
 
 /* 실효 진행률 --op-pe: 평소엔 스크롤(--op-p), 스위치를 한 번이라도 만진 뒤로는 사용자 값(--op-u).
    --op-u 는 @property 로 등록해 숫자로 전환된다(미지원 브라우저는 즉시 바뀐다 - 기능은 같다).
    등록 초깃값 0 은 무JS 를 해치지 않는다: is-user 가 없으면 아예 --op-p(무JS 폴백 1)를 쓴다. */
-/* (UX 점검 F09) 노브·트랙은 --op-u(0.28초 감쇠, 누르는 동작엔 오버슈트를 주지 않는다), 슬로건·4단계는 --op-u2(0.9초).
+/* (UX 점검 F09) 노브·트랙은 --op-u(0.28초 감쇠, 누르는 동작엔 오버슈트를 주지 않는다), 슬로건은 --op-u2(0.9초).
    처음 누를 때 JS 가 두 값을 지금 화면 값(--op-pe)으로 심고 시작한다 -> 14px 에서 0 으로 튀던 첫 클릭이 없어졌다.
    값은 JS 가 인라인으로 준다(is-on 클래스는 상태 표시용). */
 @property --op-u { syntax: "<number>"; inherits: true; initial-value: 0; }
 @property --op-u2 { syntax: "<number>"; inherits: true; initial-value: 0; }
-.fa-stage { --op-u: 0; --op-u2: 0; }
-.op-js:not(.op-static) .fa-stage.is-user {
+.fa-closing { --op-u: 0; --op-u2: 0; }
+.op-js:not(.op-static) .fa-closing.is-user {
   transition: --op-u 0.28s cubic-bezier(0.23, 1, 0.32, 1), --op-u2 0.9s cubic-bezier(0.23, 1, 0.32, 1);
 }
-.fa-stage .fa-toggle__knob,
-.fa-stage .fa-toggle__track--on,
-.fa-stage .fa-stage__slogan .op-textfill,
-.fa-stage .fa-stage__step { --op-pe: var(--op-p, 1); }
-.op-js:not(.op-static) .fa-stage.is-user .fa-toggle__knob,
-.op-js:not(.op-static) .fa-stage.is-user .fa-toggle__track--on { --op-pe: var(--op-u, 0); }
-.op-js:not(.op-static) .fa-stage.is-user .fa-stage__slogan .op-textfill,
-.op-js:not(.op-static) .fa-stage.is-user .fa-stage__step { --op-pe: var(--op-u2, 0); }
+.fa-closing .fa-toggle__knob,
+.fa-closing .fa-toggle__track--on,
+.fa-closing .fa-closing__slogan .op-textfill { --op-pe: var(--op-p, 1); }
+.op-js:not(.op-static) .fa-closing.is-user .fa-toggle__knob,
+.op-js:not(.op-static) .fa-closing.is-user .fa-toggle__track--on { --op-pe: var(--op-u, 0); }
+.op-js:not(.op-static) .fa-closing.is-user .fa-closing__slogan .op-textfill { --op-pe: var(--op-u2, 0); }
 .fa-toggle__track { fill: var(--op-line); }
-.fa-toggle__track--on { fill: var(--op-orange); opacity: var(--op-pe, 1); }
+/* 틴트 띠 위에서는 꺼진 트랙(#EAEAEA)이 바탕과 거의 같아 스위치 모양이 안 읽힌다 -> 같은 차콜의 투명도만 */
+.fa-closing .fa-toggle__track { fill: rgba(51, 51, 51, 0.2); }
+.fa-closing .fa-toggle__track--on { fill: var(--op-orange); opacity: var(--op-pe, 1); }
 .fa-toggle__knob {
   fill: #FFFFFF;
   transform: translate(calc(var(--op-pe, 1) * 28px), 0);
   filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.18));
 }
 /* 슬로건 채우기도 같은 실효 진행률로 (테마 .op-textfill 식에서 --op-p 자리만 바꿈) */
-.op-page .fa-stage .fa-stage__slogan .op-textfill {
+.op-page .fa-closing .fa-closing__slogan .op-textfill {
   background-image: linear-gradient(90deg,
       var(--op-textfill-ink)  0,
       var(--op-textfill-ink)  calc(var(--op-pe, 1) * 100%),
       var(--op-textfill-base) calc(var(--op-pe, 1) * 100% + var(--op-textfill-soft)),
       var(--op-textfill-base) 100%);
 }
-.fa-stage__slogan {
-  margin-top: 22px;
-  font-size: 26px;
-  font-weight: 300;
-  letter-spacing: 0;
-  line-height: 1.4;
-}
-/* 4단계: 노브가 사분점을 지날 때 순서대로. p=0 에서도 자리는 읽히게 바닥 0.18. */
-.fa-stage__step { --op-step: 0.25; --op-gain: 4; }
-.op-page .fa-stage .fa-stage__step { --op-q: clamp(0, (var(--op-pe, 1) - var(--op-d) * var(--op-step)) * var(--op-gain), 1); }
-.op-page .fa-stage__step { opacity: calc(0.18 + 0.82 * var(--op-q, 1)); }
 
 /* a05 풀블리드 상담사 밴드 — 히어로와 같은 레이어 계약. 섹션에 overflow 금지 → bg 에. */
 .fa-band { padding-top: 0; }
@@ -3499,6 +3482,406 @@
   .fa-toggle svg { width: 200px; }
   .fa-stage__slogan { margin-top: 12px; font-size: 22px; }
   .fa-steps.op-mt-48 { margin-top: 24px; }
+}
+/* =========================================================================
+   (2026-11-02) 디자인 맵 = 메디코치 첫 화면 순서 (대표 "디자인 맵 자체도 메디코치를 따라해줘")
+   히어로 -> 한 줄 고민(크림) -> 고민 사진 카드(흰) -> 6일 카드 사진 띠 + 흰 카드 4장 -> 이용 순서 탭(크림) ->
+   폰 속 상담 예시(흰) -> 원형 사진 3개(흰) -> 전담 상담사 흐름(흰->크림) -> 참여 약국(크림) -> 사전 등록(차콜) ->
+   자주 묻는 질문 + 마무리 띠(크림). 색은 기존 토큰과 그 투명도만(새 색 0). 크림 = BI 10% 틴트(--op-orange-tint).
+   이 블록은 스타일 맨 끝이라 같은 특이도의 앞 규칙(미디어쿼리 포함)을 이긴다.
+   ========================================================================= */
+
+/* --- a01 히어로: 좁은 화면(영상 상자 아래 차콜 글)에서는 메디코치처럼 가운데 정렬.
+       1024 이상은 왼쪽 칼럼 그대로 - 바탕 영상 가운데에 인물이 걸어가 흰 글이 얹히면 안 읽힌다(10-26 실측 기록). */
+@media (max-width: 1023px) {
+  .fa-film__copy { margin-left: auto; margin-right: auto; text-align: center; }
+  .fa-film__cta, .fa-film__chips { justify-content: center; }
+}
+
+/* --- a06 한 줄 고민: 크림 면 + 약속 알약(메디코치 '누적 상담 · 평균 답변' 알약 자리 - 숫자 없이 사실만) --- */
+.fa-promise {
+  display: inline-flex; flex-wrap: wrap; justify-content: center; align-items: center;
+  margin: 24px 0 0; padding: 10px 22px; border-radius: var(--op-radius-pill);
+  background: #FFFFFF; box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+  font-size: 15px; font-weight: 700; line-height: 1.5; letter-spacing: 0; color: var(--op-ink);
+}
+.fa-promise__i + .fa-promise__i::before {
+  content: ""; display: inline-block; width: 4px; height: 4px; margin: 0 12px; vertical-align: middle;
+  border-radius: var(--op-radius-pill); background: var(--op-orange);
+}
+
+/* --- a02 고민 카드 = 사진 카드 (메디코치 '건강 고민' 문법). 고르기 로직·aria-pressed·패널은 그대로 ------------- */
+.fa-concern.fa-concern--photo { display: flex; flex-direction: column; padding: 0; overflow: hidden; border-radius: 20px; }
+.fa-concern__ph {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  aspect-ratio: 4 / 3; background: var(--op-orange-tint); color: var(--op-charcoal);
+}
+.fa-concern__ph > img {
+  position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover;
+  transition: transform var(--op-dur-mid) var(--op-ease);
+}
+.fa-concern__ph--blank svg { width: 56px; height: 56px; }
+.fa-concern__body { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: 18px 18px 20px; }
+.fa-concern--photo .fa-concern__label { margin-bottom: 4px; font-size: 18px; font-weight: 800; }
+.fa-concern--photo .fa-concern__desc { font-size: 15px; color: var(--op-gray); }
+/* '선택됨' 칩은 사진 왼쪽 위에 얹는다 - 자리를 차지하지 않아 격자 높이가 안 흔들린다 */
+.fa-concern--photo .fa-concern__chip { position: absolute; top: 12px; left: 12px; z-index: 1; margin: 0; }
+.fa-concern--photo .fa-concern__go { margin-top: 14px; }
+@media (hover: hover) and (pointer: fine) {
+  .fa-concern--photo:hover .fa-concern__ph > img { transform: scale(1.04); }
+}
+
+/* --- a02b 6일 카드 = 어두운 사진 띠 + 흰 카드 4장 (메디코치 '품질 기준' 띠 문법) ------------------------- */
+.fa-q { padding-top: 0; }
+.fa-q__band { position: relative; padding: 112px 0 184px; background: var(--op-charcoal); }
+.fa-q__bg { position: absolute; inset: 0; overflow: hidden; }
+.fa-q__bg > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; }
+/* 잉크(#2D2D2D) 투명도만. 가운데 흰 제목이 읽히게 위아래를 조금 더 */
+.fa-q__veil {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(45, 45, 45, 0.78) 0%, rgba(45, 45, 45, 0.62) 55%, rgba(45, 45, 45, 0.84) 100%);
+}
+.fa-q__head { position: relative; z-index: 1; }
+.fa-q .fa-q__h2 { color: #FFFFFF; }
+.fa-q .fa-q__lead { color: rgba(255, 255, 255, 0.9); }
+.fa-q__cards {
+  position: relative; z-index: 2; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px;
+  margin: -112px 0 0; padding: 0; list-style: none;
+}
+.fa-q__card { padding: 26px 22px 24px; border-radius: 20px; background: #FFFFFF; box-shadow: 0 18px 44px rgba(0, 0, 0, 0.1); text-align: left; }
+.fa-q__ico {
+  display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px;
+  border-radius: 14px; background: var(--op-orange-tint); color: var(--op-orange);
+}
+.fa-q__t { margin: 16px 0 0; font-size: 18px; font-weight: 800; line-height: 1.4; letter-spacing: 0; color: var(--op-ink); }
+.fa-q__d { margin: 8px 0 0; font-size: 15px; line-height: 1.65; letter-spacing: 0; color: var(--op-gray); }
+.op-js:not(.op-static) .fa-q .fa-q__card {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.6s var(--op-ease), transform 0.6s var(--op-ease);
+  transition-delay: calc(0.15s + var(--i, 0) * 0.09s);
+}
+.op-js:not(.op-static) .fa-q.is-in .fa-q__card { opacity: 1; transform: none; }
+
+/* --- a03 이용 순서 = 탭 쇼케이스 (메디코치 탭 문법) ---------------------------------------------- */
+.fa-tabs { position: relative; }
+.fa-tabs__list { display: none; }
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__list { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 6px; }
+.fa-tabs__tab {
+  -webkit-appearance: none; appearance: none; margin: 0; padding: 12px 22px; border: 0;
+  border-radius: var(--op-radius-pill); background: #FFFFFF; box-shadow: inset 0 0 0 1px var(--op-line);
+  font: inherit; font-size: 16px; font-weight: 700; line-height: 1.3; letter-spacing: 0; color: var(--op-charcoal);
+  cursor: pointer;
+  transition: background-color var(--op-dur-fast) var(--op-ease), color var(--op-dur-fast) var(--op-ease), box-shadow var(--op-dur-fast) var(--op-ease);
+}
+.fa-tabs__tab[aria-selected="true"] { background: var(--op-orange); box-shadow: none; color: #FFFFFF; }
+@media (hover: hover) and (pointer: fine) {
+  .fa-tabs__tab:not([aria-selected="true"]):hover { box-shadow: inset 0 0 0 1.5px var(--op-orange); }
+}
+.fa-tabs__tab:focus-visible { outline: 3px solid var(--op-orange); outline-offset: 3px; }
+/* 무JS·정지: 네 단계가 세로로 다 보인다 */
+.fa-tabs__panels { display: grid; gap: 88px; margin-top: 32px; }
+.fa-tabs__panel { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.fa-tabs__panel:focus-visible { outline: 2px solid var(--op-orange); outline-offset: 8px; border-radius: 24px; }
+/* JS: 같은 칸에 겹쳐 두고 지금 단계만 보인다(높이 = 가장 큰 단계라 넘길 때 아래가 안 출렁인다) */
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__panels { gap: 0; margin-top: 36px; }
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__panel {
+  grid-area: 1 / 1; visibility: hidden; opacity: 0;
+  transition: opacity 0.4s var(--op-ease), visibility 0s linear 0.4s;
+}
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__panel.is-active { visibility: visible; opacity: 1; transition: opacity 0.4s var(--op-ease); }
+.fa-tabs__num { display: inline-flex; align-items: center; gap: 10px; margin: 0; font-size: 16px; font-weight: 700; color: var(--op-charcoal); }
+.fa-tabs__num > span {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 24px; padding: 0 10px;
+  border-radius: var(--op-radius-pill); background: var(--op-orange); color: #FFFFFF; font-size: 14px; font-weight: 800;
+}
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__num { display: none; }
+.fa-tabs__h { margin: 14px 0 0; font-size: 36px; font-weight: 800; line-height: 1.32; letter-spacing: 0; color: var(--op-ink); text-wrap: balance; }
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__h { margin-top: 0; }
+.fa-tabs__d { max-width: 32em; margin: 16px auto 0; font-size: 18px; line-height: 1.65; letter-spacing: 0; color: var(--op-ink); }
+.fa-tabs__dots { display: none; }
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__dots { display: flex; justify-content: center; gap: 8px; margin: 26px 0 0; }
+.fa-tabs__dots > span { width: 8px; height: 8px; border-radius: var(--op-radius-pill); background: rgba(51, 51, 51, 0.18); }
+.fa-tabs__dots > span.is-on { width: 26px; background: var(--op-orange); }
+.fa-tabs__visual { display: flex; align-items: center; justify-content: center; width: 100%; margin-top: 40px; }
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__visual { min-height: 540px; }
+/* a02b 띠 아래 크림과 a03 크림이 한 면으로 이어진다 - 그 사이 여백만 줄인다 */
+.fa-q { padding-bottom: 56px; }
+.fa-how { padding-top: 64px; }
+.fa-q__lead, .fa-voices-sec .op-lead, .fa-closing .op-lead, .fa-coach .op-lead { text-wrap: balance; }
+.fa-tabs__ctl { display: flex; justify-content: center; margin-top: 20px; }
+
+/* 직접 만든 폰 화면 (사진 생성 0) */
+.fa-ui { position: relative; display: flex; justify-content: center; width: 100%; }
+.fa-ui--card { flex-direction: column; align-items: center; max-width: 600px; }
+.fa-ui--card .fa-daycard { width: 100%; }
+.fa-phone { position: relative; width: 300px; padding: 10px; border-radius: 46px; background: #2D2D2D; box-shadow: 0 26px 54px rgba(0, 0, 0, 0.16); }
+.fa-phone::before {
+  content: ""; position: absolute; z-index: 2; top: 18px; left: 50%; width: 86px; height: 22px; margin-left: -43px;
+  border-radius: var(--op-radius-pill); background: #2D2D2D;
+}
+.fa-phone__screen { display: flex; flex-direction: column; height: 500px; border-radius: 36px; overflow: hidden; background: var(--op-bg-warm); text-align: left; }
+.fa-phone__bar { margin: 0; padding: 48px 16px 12px; border-bottom: 1px solid var(--op-line); background: #FFFFFF; text-align: center; }
+.fa-phone__title { display: block; font-size: 15px; font-weight: 800; color: var(--op-charcoal); }
+.fa-phone__sub { display: block; margin-top: 2px; font-size: 12px; color: var(--op-gray); }
+.fa-phone__body { display: flex; flex: 1; flex-direction: column; justify-content: flex-start; gap: 10px; padding: 16px 14px; }
+.fa-phone__input {
+  display: flex; align-items: center; gap: 8px; margin: 0 12px 14px; padding: 8px 8px 8px 16px;
+  border-radius: var(--op-radius-pill); background: #FFFFFF; box-shadow: inset 0 0 0 1px var(--op-line);
+  font-size: 13px; color: var(--op-gray);
+}
+.fa-phone__input > span:first-child { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.fa-phone__send {
+  display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; width: 30px; height: 30px;
+  border-radius: var(--op-radius-pill); background: var(--op-orange); color: #FFFFFF;
+}
+.fa-bub {
+  max-width: 86%; padding: 10px 13px; border-radius: 16px; background: #FFFFFF; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  font-size: 13.5px; line-height: 1.6; letter-spacing: 0; color: var(--op-ink);
+}
+.fa-bub--me { align-self: flex-end; border-bottom-right-radius: 6px; background: var(--op-orange-tint); }
+.fa-bub--pro { align-self: flex-start; border-bottom-left-radius: 6px; }
+.fa-bub__who { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; font-size: 12px; font-weight: 800; color: var(--op-charcoal); }
+.fa-bub__av { display: inline-flex; flex: 0 0 auto; width: 22px; height: 22px; border-radius: var(--op-radius-pill); overflow: hidden; background: var(--op-orange-tint); }
+.fa-bub__av > img { width: 100%; height: 100%; object-fit: cover; }
+.fa-bub__badge { margin-left: auto; padding: 2px 8px; font-size: 11px; }
+.fa-bub__time { display: block; margin-top: 4px; font-size: 11px; color: var(--op-gray); text-align: right; }
+.fa-bubwrap { position: relative; display: flex; flex-direction: column; }
+.fa-typing { display: none; }
+.fa-typing > i { width: 6px; height: 6px; border-radius: var(--op-radius-pill); background: rgba(51, 51, 51, 0.35); }
+.fa-coupon { display: flex; align-self: stretch; overflow: hidden; border-radius: 16px; background: #FFFFFF; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); }
+.fa-coupon__stub {
+  display: flex; flex: 0 0 64px; align-items: center; justify-content: center;
+  border-right: 2px dashed rgba(255, 255, 255, 0.65); background: var(--op-orange); color: #FFFFFF;
+}
+.fa-coupon__body { display: flex; flex: 1; flex-direction: column; gap: 4px; min-width: 0; padding: 12px 14px; }
+.fa-coupon__t { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 800; color: var(--op-ink); }
+.fa-coupon__row { display: flex; gap: 8px; font-size: 12.5px; color: var(--op-ink); }
+.fa-coupon__row > span { min-width: 3.6em; color: var(--op-gray); }
+/* 폰 옆에 떠 있는 작은 조각(메디코치 폰 옆 아이콘 카드·얼굴 원). 흰 바탕 위 풀컬러 심볼 = BI 허용 조합 */
+.fa-ui__float {
+  position: absolute; z-index: 3; display: inline-flex; align-items: center; justify-content: center;
+  background: #FFFFFF; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+.fa-ui__float--mark { top: 34px; left: calc(50% + 116px); width: 72px; height: 72px; border-radius: 20px; color: var(--op-orange); }
+/* 틴트 면 규칙(.op-sec--tint .op-mark = 차콜)은 면 바탕용이다. 이 조각은 흰 바탕이라 BI 풀컬러(오렌지)로 되돌린다 */
+.op-sec--tint .fa-ui__float--mark .op-mark { width: 46px; height: 15px; color: var(--op-orange); }
+.fa-ui__float--face { top: 150px; right: calc(50% + 118px); width: 96px; height: 96px; border: 4px solid #FFFFFF; border-radius: var(--op-radius-pill); overflow: hidden; }
+.fa-ui__float--face > img { width: 100%; height: 100%; object-fit: cover; }
+/* 단계가 켜질 때 한 번: 말풍선·쿠폰이 올라오고, 답 앞에는 입력 중 점 */
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__panel.is-active .fa-anim {
+  animation: faUiIn 0.55s var(--op-ease) both; animation-delay: calc(var(--d, 0) * 1s);
+}
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__panel.is-active .fa-typing {
+  position: absolute; top: 0; left: 0; display: inline-flex; gap: 4px; padding: 11px 13px;
+  border-radius: 14px; background: #FFFFFF; animation: faTyping 1s linear both;
+}
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__panel.is-active .fa-typing > i { animation: faDot 0.9s ease-in-out infinite; }
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__panel.is-active .fa-typing > i:nth-child(2) { animation-delay: 0.15s; }
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__panel.is-active .fa-typing > i:nth-child(3) { animation-delay: 0.3s; }
+.op-js:not(.op-static) .fa-ui__float { animation: faFloat 5s ease-in-out infinite alternate; }
+.fa-tabs.is-paused .fa-ui__float { animation-play-state: paused; }
+@keyframes faUiIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes faTyping { 0%, 82% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+@keyframes faDot { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+@keyframes faFloat { from { transform: translateY(0); } to { transform: translateY(-8px); } }
+
+/* --- a05b 상담 예시 = 폰 속 캐러셀 (메디코치 '상담 상세' 문법) -------------------------------------- */
+.fa-consult { --fa-cw: 340px; --fa-cg: 22px; }
+.fa-consult__phone { display: none; }
+.fa-consult__track { max-width: 600px; margin: 0 auto; }
+.fa-consult__screen {
+  height: 100%; padding: 22px 22px 24px; border: 1px solid var(--op-line); border-radius: 28px;
+  background: #FFFFFF; box-shadow: 0 8px 26px rgba(0, 0, 0, 0.05); text-align: left;
+}
+.fa-consult__bar { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0 0 16px; font-size: 15px; font-weight: 800; color: var(--op-charcoal); }
+.fa-consult__q { padding: 14px 16px; border: 2px solid var(--op-orange); border-radius: 18px; background: #FFFFFF; }
+.fa-consult__qk { display: block; font-size: 13px; font-weight: 700; color: var(--op-gray); }
+.fa-consult__qt { margin: 4px 0 0; font-size: 17px; font-weight: 800; line-height: 1.5; letter-spacing: 0; color: var(--op-ink); }
+.fa-consult__a { margin-top: 14px; padding: 16px; border-radius: 18px; background: var(--op-bg-warm); }
+.fa-consult__who { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 800; color: var(--op-charcoal); }
+.fa-consult__av {
+  display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; width: 32px; height: 32px;
+  border-radius: var(--op-radius-pill); overflow: hidden; background: var(--op-orange-tint); font-size: 13px;
+}
+.fa-consult__av > img { width: 100%; height: 100%; object-fit: cover; }
+.fa-consult__p { margin: 10px 0 0; font-size: 16px; line-height: 1.7; letter-spacing: 0; color: var(--op-ink); }
+.fa-consult__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; font-size: 16px; color: var(--op-ink); }
+.fa-consult__foot .op-badge { background: var(--op-orange-tint); color: var(--op-charcoal); }
+/* JS: 가로 캐러셀 + 가운데 폰 테두리 + 양옆 카드 비침 */
+.op-js:not(.op-static) .fa-consult__vp { overflow: hidden; padding: 18px 0; border-radius: 0; }
+.op-js:not(.op-static) .fa-consult__track { width: calc(var(--fa-cw) + var(--fa-cg) * 2); max-width: none; margin: 0 auto; align-items: stretch; }
+.op-js:not(.op-static) .fa-consult__slide { display: flex; padding: 0 var(--fa-cg); }
+.op-js:not(.op-static) .fa-consult__screen {
+  width: 100%; min-height: 480px; padding: 54px 20px 24px; border-radius: 34px;
+  transition: opacity 0.35s var(--op-ease), transform 0.35s var(--op-ease);
+}
+.op-js:not(.op-static) .fa-consult__slide:not(.is-current) .fa-consult__screen { opacity: 0.4; transform: scale(0.94); }
+.op-js:not(.op-static) .fa-consult__phone {
+  position: absolute; z-index: 2; top: 6px; bottom: 6px; left: 50%; display: block;
+  width: calc(var(--fa-cw) + 24px); margin-left: calc((var(--fa-cw) + 24px) / -2);
+  border: 12px solid #2D2D2D; border-radius: 46px; pointer-events: none;
+  box-shadow: 0 26px 54px rgba(0, 0, 0, 0.14);
+}
+.fa-consult__notch {
+  position: absolute; top: 4px; left: 50%; width: 96px; height: 24px; margin-left: -48px;
+  border-radius: var(--op-radius-pill); background: #2D2D2D;
+}
+
+/* --- a05c 온팜 방식 = 원형 사진 3개 (메디코치 '스마트 밸류' 문법) --------------------------------- */
+.fa-circles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; max-width: 960px; margin: 56px auto 0; padding: 0; list-style: none; }
+.fa-circle { text-align: center; }
+.fa-circle__ph {
+  display: block; width: min(220px, 100%); aspect-ratio: 1; margin: 0 auto; overflow: hidden;
+  border-radius: var(--op-radius-pill); background: var(--op-orange-tint);
+  box-shadow: 0 0 0 8px #FFFFFF, 0 0 0 9px var(--op-line);
+}
+.fa-circle__ph > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); }
+.fa-circle__t { margin: 28px 0 0; font-size: 20px; font-weight: 800; line-height: 1.4; letter-spacing: 0; color: var(--op-ink); }
+.fa-circle__d { margin: 10px 0 0; font-size: 16px; line-height: 1.65; letter-spacing: 0; color: var(--op-gray); }
+.op-js:not(.op-static) .fa-promise-sec .fa-circle {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.6s var(--op-ease), transform 0.6s var(--op-ease); transition-delay: calc(0.1s + var(--i, 0) * 0.12s);
+}
+.op-js:not(.op-static) .fa-promise-sec.is-in .fa-circle { opacity: 1; transform: none; }
+
+/* --- a05 전담 상담사 = 화면 카드 흐름 + 사진 말풍선 (메디코치 '어떻게 진행되나' 문법) --------------------- */
+.fa-coach { background: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 18%, var(--op-orange-tint) 100%); }
+/* 강조 단어: 밝은 면에서 오렌지 글자는 2.9:1 이라 글자는 잉크, 밑에 오렌지 형광 띠만 */
+.fa-mark { padding: 0 2px; background: linear-gradient(transparent 60%, rgba(255, 105, 0, 0.24) 60%); }
+.fa-flow { display: flex; flex-direction: column; align-items: center; max-width: 400px; margin: 64px auto 0; padding: 0; list-style: none; }
+.fa-flow__step { position: relative; width: 100%; }
+.fa-flow__step + .fa-flow__step { margin-top: 64px; }
+.fa-flow__step + .fa-flow__step::before {
+  content: ""; position: absolute; top: -54px; left: 50%; height: 44px; margin-left: -1px;
+  border-left: 2px dotted rgba(255, 105, 0, 0.6);
+}
+.fa-flow__card { padding: 20px 20px 16px; border-radius: 24px; background: #FFFFFF; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07); text-align: left; }
+.fa-flow__head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 14px; }
+.fa-flow__title { font-size: 15px; font-weight: 800; color: var(--op-charcoal); }
+.fa-flow__who { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; padding: 12px; border-radius: 16px; background: var(--op-bg-warm); }
+.fa-flow__av {
+  display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; width: 48px; height: 48px;
+  border-radius: var(--op-radius-pill); overflow: hidden; background: var(--op-orange-tint); font-weight: 800; color: var(--op-charcoal);
+}
+.fa-flow__av > img { width: 100%; height: 100%; object-fit: cover; }
+.fa-flow__name { display: block; font-size: 16px; font-weight: 800; color: var(--op-ink); }
+.fa-flow__role { display: block; margin-top: 2px; font-size: 13px; color: var(--op-gray); }
+.fa-flow__line { position: relative; margin: 10px 0 0; padding-left: 16px; font-size: 14px; line-height: 1.55; color: var(--op-ink); }
+.fa-flow__line::before { content: ""; position: absolute; top: 0.6em; left: 2px; width: 6px; height: 6px; border-radius: var(--op-radius-pill); background: var(--op-orange); }
+.fa-flow__big { margin: 0; font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: 0; color: var(--op-ink); }
+.fa-flow__cells { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; margin: 14px 0 0; }
+.fa-flow__cells > span { height: 30px; border: 1.5px dashed rgba(255, 105, 0, 0.5); border-radius: 8px; background: var(--op-orange-tint); }
+.fa-flow__cells > span.is-done { border: 1px solid var(--op-line); background: var(--op-bg-gray); }
+.fa-flow__promise { display: flex; align-items: flex-start; gap: 10px; margin: 16px 0 0; padding: 0 6px; text-align: left; }
+.fa-flow__ck { display: inline-flex; flex: 0 0 auto; }
+.fa-flow__ck svg { width: 26px; height: 26px; }
+.fa-flow__pt { display: block; font-size: 16px; font-weight: 800; color: var(--op-ink); }
+.fa-flow__pd { display: block; margin-top: 2px; font-size: 14.5px; line-height: 1.55; color: var(--op-gray); }
+.op-js:not(.op-static) .fa-coach .fa-flow__step {
+  opacity: 0; transform: translateY(26px);
+  transition: opacity 0.6s var(--op-ease), transform 0.6s var(--op-ease); transition-delay: calc(0.15s + var(--i, 0) * 0.14s);
+}
+.op-js:not(.op-static) .fa-coach.is-in .fa-flow__step { opacity: 1; transform: none; }
+.fa-coach__photo { position: relative; max-width: 860px; margin: 112px auto 0; }
+.fa-coach__media { aspect-ratio: 16 / 9; overflow: hidden; border-radius: 28px; background: var(--op-bg-gray); }
+.fa-coach__media > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.fa-coach__bub {
+  position: absolute; z-index: 1; max-width: 360px; padding: 18px 20px; border-radius: 22px;
+  background: #FFFFFF; box-shadow: 0 14px 36px rgba(0, 0, 0, 0.1); text-align: left;
+}
+.fa-coach__bub--q { top: -48px; left: -44px; border-bottom-left-radius: 6px; }
+.fa-coach__bub--a { right: -44px; bottom: -60px; border-top-right-radius: 6px; }
+.fa-coach__k { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; color: var(--op-charcoal); }
+.fa-coach__bub p { margin: 8px 0 0; font-size: 16px; line-height: 1.6; letter-spacing: 0; color: var(--op-ink); }
+.fa-coach__cap {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 10px;
+  margin: 96px 0 0; font-size: 16px; color: var(--op-ink);
+}
+.fa-coach__cap b { font-weight: 800; }
+
+/* --- a08 참여 약국: 크림 면 + 흰 핀 카드 4장(메디코치 흰 카드 4장) + 거리 사진은 아래로 크림에 녹는다 --------- */
+.fa-pharm-sec .fa-pins.op-grid-4 { gap: 16px; }
+.fa-pharm-sec .fa-pins .fa-pin {
+  padding: 26px 18px 22px; border: 0; border-radius: 20px; background: #FFFFFF; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+}
+.fa-pharm-sec .fa-pharm__frame::after {
+  content: ""; position: absolute; right: 0; bottom: 0; left: 0; height: 46%; pointer-events: none;
+  background: linear-gradient(180deg, rgba(254, 243, 233, 0) 0%, var(--op-orange-tint) 100%);
+}
+
+/* --- a09 마무리 띠 (메디코치 맨 아래 '파트너' 띠 문법) + ON 스위치 ---------------------------------- */
+.fa-faq-sec { padding-bottom: 0; }
+.fa-faq-sec .fa-closing { margin-top: 104px; padding: 88px 0 104px; border-radius: 0; background: var(--op-orange-tint); text-align: center; }
+.fa-closing .fa-toggle { margin: 0 auto; }
+.fa-closing .fa-toggle svg { width: 220px; }
+.fa-closing__slogan { margin: 18px 0 0; font-size: 24px; font-weight: 300; line-height: 1.4; letter-spacing: 0; }
+.fa-faq-sec .fa-closing__t { margin-top: 20px; font-size: 32px; font-weight: 800; line-height: 1.35; }
+
+/* --- 감소 모션: 움직임 없이 상태만 --- */
+@media (prefers-reduced-motion: reduce) {
+  .op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__panel,
+  .op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__panel.is-active { transition: none; }
+  .op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__panel.is-active .fa-anim { animation: none; }
+  .op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__panel.is-active .fa-typing { display: none; }
+  .op-js:not(.op-static) .fa-ui__float { animation: none; }
+  .op-js:not(.op-static) .fa-q .fa-q__card,
+  .op-js:not(.op-static) .fa-promise-sec .fa-circle,
+  .op-js:not(.op-static) .fa-coach .fa-flow__step { opacity: 1; transform: none; transition: none; }
+  .op-js:not(.op-static) .fa-consult__screen { transition: none; }
+}
+
+/* --- 반응형 --- */
+@media (max-width: 1023px) {
+  .fa-q__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fa-coach__bub--q { left: -12px; }
+  .fa-coach__bub--a { right: -12px; }
+}
+@media (max-width: 767px) {
+  .fa-concerns.op-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .fa-concern__body { padding: 14px 14px 16px; }
+  .fa-concern--photo .fa-concern__label { font-size: 16px; }
+  .fa-concern--photo .fa-concern__desc { font-size: 13.5px; }
+  .fa-concern--photo .fa-concern__chip { top: 8px; left: 8px; }
+  .fa-q__band { padding: 80px 0 136px; }
+  .fa-q__cards { gap: 10px; margin-top: -84px; }
+  .fa-q__card { padding: 18px 14px 18px; border-radius: 16px; }
+  .fa-q__ico { width: 40px; height: 40px; border-radius: 12px; }
+  .fa-q__t { margin-top: 12px; font-size: 16px; }
+  .fa-q__d { font-size: 13.5px; }
+  .op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; max-width: 340px; margin-left: auto; margin-right: auto; }
+  .fa-tabs__tab { padding: 10px 16px; font-size: 15px; }
+  .fa-tabs__h { font-size: 28px; }
+  .fa-tabs__d { font-size: 16px; }
+  .op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__visual { min-height: 500px; }
+  .fa-phone { width: 272px; }
+  .fa-phone__screen { height: 470px; }
+  .fa-ui__float--mark { left: calc(50% + 96px); width: 56px; height: 56px; border-radius: 16px; }
+  .op-sec--tint .fa-ui__float--mark .op-mark { width: 36px; height: 12px; }
+  .fa-ui__float--face { right: calc(50% + 100px); width: 72px; height: 72px; }
+  .fa-consult { --fa-cw: 276px; --fa-cg: 14px; }
+  .op-js:not(.op-static) .fa-consult__screen { min-height: 460px; padding: 50px 16px 20px; }
+  .fa-consult__qt { font-size: 16px; }
+  .fa-consult__p { font-size: 15px; }
+  .fa-circles { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+  .fa-circle__ph { width: 180px; }
+  .fa-flow__step + .fa-flow__step { margin-top: 56px; }
+  .fa-coach__photo { display: flex; flex-direction: column; margin-top: 72px; }
+  .fa-coach__media { order: 1; border-radius: 20px; }
+  .fa-coach__bub { position: relative; top: auto; right: auto; bottom: auto; left: auto; max-width: 88%; }
+  .fa-coach__bub--q { order: 0; margin: 0 0 -22px; }
+  .fa-coach__bub--a { order: 2; margin: -22px 0 0 auto; }
+  .fa-coach__bub p { font-size: 15px; }
+  .fa-coach__cap { margin-top: 48px; }
+  .fa-pharm-sec .fa-pins.op-grid-4 { gap: 10px; }
+  .fa-pharm-sec .fa-pins .fa-pin { padding: 20px 12px 18px; }
+  .fa-faq-sec .fa-closing { margin-top: 72px; padding: 64px 0 72px; }
+  .fa-closing .fa-toggle svg { width: 180px; }
+  .fa-closing__slogan { font-size: 20px; }
+  .fa-faq-sec .fa-closing__t { font-size: 25px; }
+}
+@media (max-width: 374px) {
+  .fa-q__cards { grid-template-columns: minmax(0, 1fr); }
+  .fa-consult { --fa-cw: 256px; --fa-cg: 10px; }
 }
 
 /* ---- 면 B (약국 파트너) 고유 규칙 ---------------------------- */

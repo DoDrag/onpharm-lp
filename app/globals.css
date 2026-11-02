@@ -272,15 +272,31 @@ a.op-shell-back {
    주 진입점이다. 소비자에게는 자기선택적으로 무시되고, 약국에게는 눈에 띈다.
    생성기 면(face)의 footer 는 embed 추출 대상이 아니라(최상위 <section> 만 잘라낸다)
    사이트에는 오지 않는다. 그래서 셸이 직접 그린다. */
+/* (2026-11-02 디자인 맵) 메디코치 맨 아래 차콜 바닥글 문법. 바로 위가 면 A 의 크림 마무리 띠라 차콜이 끝을 닫는다.
+   로고는 흰색(BI: 어두운 면에서는 흰색), 글은 흰색 투명도만 - 새 색 0. */
 .op-shell-foot {
-  border-top: 1px solid #eaeaea;
-  background: #f9f8f6;
+  border-top: 0;
+  background: #333333;
 }
 .op-shell-foot__inner {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 28px 24px;
+  padding: 36px 24px 40px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+}
+.op-shell-foot__logo {
+  display: inline-flex;
+  color: #ffffff;
+}
+.op-shell-foot__logo .op-shell-logo__svg {
+  display: block;
+  width: auto;
+  height: 20px;
 }
 .op-shell-foot__line {
   display: flex;
@@ -293,7 +309,7 @@ a.op-shell-back {
   letter-spacing: 0;
 }
 .op-shell-foot__q {
-  color: #75767a;
+  color: rgba(255, 255, 255, 0.72);
 }
 .op-shell-foot__link {
   appearance: none;
@@ -312,14 +328,14 @@ a.op-shell-back {
   line-height: 1.2;
   letter-spacing: 0;
   text-decoration: none;
-  color: #333333;
+  color: #ffffff;
   transition: color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .op-shell-foot__link:hover {
   color: #ff6900;
 }
 .op-shell-foot__link:focus-visible {
-  outline: 2px solid #ff6900;
+  outline: 2px solid #ffffff;
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -585,7 +601,7 @@ a.op-shell-back {
     padding: 8px 16px;
   }
   .op-shell-foot__inner {
-    padding: 22px 16px;
+    padding: 28px 16px 32px;
   }
   .op-gate {
     padding: 12px;

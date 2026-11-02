@@ -88,6 +88,10 @@ export default function HomePage() {
           생성기 면의 footer 는 embed 추출 대상이 아니라 사이트에는 오지 않는다. 셸이 직접 그린다. */}
       <footer className="op-shell-foot">
         <div className="op-shell-foot__inner">
+          {/* (2026-11-02 디자인 맵) 메디코치 맨 아래 차콜 바닥글: 흰 로고(BI 어두운 면 = 흰색) + 파트너 한 줄 */}
+          <span className="op-shell-foot__logo" role="img" aria-label="온팜">
+            <BrandLogo />
+          </span>
           <p className="op-shell-foot__line">
             <span className="op-shell-foot__q">{TXT.footQuestion}</span>
             <a className="op-shell-foot__link" href={PARTNER_PATH}>

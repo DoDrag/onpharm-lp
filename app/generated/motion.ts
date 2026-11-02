@@ -71,6 +71,8 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
      9) 스크럽 엔진 [data-scrub] → --op-p   ← 스크롤 연동 모션의 유일한 경로
     10) 카운트업   [data-countup]
     11) 액션 토글  [data-action-toggle] (범위 [data-action-scope]) — 방문자가 직접 켜고 끄는 스위치
+    12) 자동 재생 멈춤 [data-pause-toggle] · 13) 6일 카드 [data-daycard] · 14) 동네 찾기 [data-areafinder]
+    15) 탭 쇼케이스 [data-tabs] — 알약 탭 + 자동 넘김(멈춤 가능), 무JS 는 세로로 다 보임
    ========================================================================== */
 (function () {
   "use strict";
@@ -193,6 +195,10 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
         if (dots[d].classList) { dots[d].classList.toggle("is-on", on_); }
         if (on_) { dots[d].setAttribute("aria-current", "true"); }
         else { dots[d].removeAttribute("aria-current"); }
+      }
+      /* (2026-11-02) 지금 칸 표시 - 폰 캐러셀(a05b)이 양옆 카드를 흐리게 그린다. 정지 모드에서는 떼어 낸다 */
+      for (var c = 0; c < slides.length; c++) {
+        if (slides[c].classList) { slides[c].classList.toggle("is-current", c === index && !isStatic()); }
       }
     }
 
@@ -1731,6 +1737,132 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
   }
 
   /* ======================================================================
+     15) 탭 쇼케이스 [data-tabs]  (2026-11-02 디자인 맵 - 메디코치 탭 문법, a03 이용 순서)
+     마크업은 무JS 그림(네 단계가 세로로 다 보임)이다. 여기서 탭 역할(role·aria)을 붙이고 is-ready 로 한 칸씩 보이게 한다.
+     자동 넘김: data-interval(기본 6초), 화면에 보일 때만, 마우스·초점이 안에 있으면 쉰다, 멈춤 버튼(대상 is-paused)이면 멈춘다,
+     방문자가 탭을 한 번이라도 고르면 다시 켜지 않는다(캐러셀과 같은 약속). 감소 모션이면 자동 넘김 없이 탭만.
+     정지 모드가 나중에 붙으면 onRestore 가 무JS 그림으로 되돌린다.
+     ====================================================================== */
+  function initTabs(box) {
+    if (box.__opTabs) { return; }
+    var tablist = box.querySelector("[data-tablist]");
+    var tabs = list("[data-tab]", box);
+    var panels = list("[data-tabpanel]", box);
+    if (!tablist || tabs.length < 2 || tabs.length !== panels.length) { return; }
+    try { box.__opTabs = 1; } catch (e) {}
+    var index = 0;
+    var timer = null;
+    var hovering = false;
+    var picked = false;
+    var inView = false;
+    var interval = parseInt(box.getAttribute("data-interval"), 10);
+    if (!isFinite(interval) || interval < 3000) { interval = 6000; }
+
+    tablist.setAttribute("role", "tablist");
+    for (var t = 0; t < tabs.length; t++) {
+      tabs[t].setAttribute("role", "tab");
+      if (panels[t].id) { tabs[t].setAttribute("aria-controls", panels[t].id); }
+      panels[t].setAttribute("role", "tabpanel");
+      if (tabs[t].id) { panels[t].setAttribute("aria-labelledby", tabs[t].id); }
+      panels[t].setAttribute("tabindex", "0");
+    }
+
+    function paint() {
+      for (var k = 0; k < tabs.length; k++) {
+        var on_ = (k === index);
+        tabs[k].setAttribute("aria-selected", on_ ? "true" : "false");
+        tabs[k].setAttribute("tabindex", on_ ? "0" : "-1");
+        if (panels[k].classList) { panels[k].classList.toggle("is-active", on_); }
+      }
+    }
+    function stop() {
+      if (timer) { window.clearTimeout(timer); timer = null; }
+    }
+    function tick() {
+      stop();
+      if (reduceMotion || isStatic() || hovering || picked || !inView) { return; }
+      if (box.classList && box.classList.contains("is-paused")) { return; }
+      if (doc.visibilityState === "hidden") { return; }
+      timer = window.setTimeout(function () {
+        go(index + 1, false);
+        tick();
+      }, interval);
+    }
+    function go(next, focus) {
+      if (isStatic()) { return; }
+      var n = tabs.length;
+      index = ((next % n) + n) % n;
+      paint();
+      if (focus) { try { tabs[index].focus(); } catch (e) {} }
+    }
+    function pick(next, focus) {
+      picked = true;
+      stop();
+      go(next, focus);
+    }
+
+    for (var j = 0; j < tabs.length; j++) {
+      (function (k) {
+        on(tabs[k], "click", function (ev) {
+          if (ev && ev.preventDefault) { ev.preventDefault(); }
+          pick(k, false);
+        });
+        on(tabs[k], "keydown", function (ev) {
+          var key = ev && ev.key;
+          var next = null;
+          if (key === "ArrowRight" || key === "Right") { next = index + 1; }
+          else if (key === "ArrowLeft" || key === "Left") { next = index - 1; }
+          else if (key === "Home") { next = 0; }
+          else if (key === "End") { next = tabs.length - 1; }
+          if (next === null) { return; }
+          if (ev.preventDefault) { ev.preventDefault(); }
+          pick(next, true);
+        });
+      })(j);
+    }
+    on(box, "mouseenter", function () { hovering = true; stop(); });
+    on(box, "mouseleave", function () { hovering = false; tick(); });
+    on(box, "focusin", function () { hovering = true; stop(); });
+    on(box, "focusout", function () { hovering = false; tick(); });
+    /* 멈춤 버튼은 12) 이 is-paused 를 붙였다 뗀다 - 그다음 박자에 다시 판단한다 */
+    var pauseBtn = box.querySelector("[data-pause-toggle]");
+    if (pauseBtn) { on(pauseBtn, "click", function () { window.setTimeout(tick, 0); }); }
+    on(doc, "visibilitychange", function () { if (doc.visibilityState === "hidden") { stop(); } else { tick(); } });
+
+    if (typeof window.IntersectionObserver === "function") {
+      var io = new window.IntersectionObserver(function (entries) {
+        for (var e = 0; e < entries.length; e++) { inView = !!entries[e].isIntersecting; }
+        if (inView) { tick(); } else { stop(); }
+      }, { threshold: 0.3 });
+      io.observe(box);
+    } else {
+      inView = true;
+    }
+
+    if (box.classList) { box.classList.add("is-ready"); }
+    paint();
+    tick();
+
+    onRestore(function () {
+      stop();
+      index = 0;
+      if (box.classList) { box.classList.remove("is-ready"); box.classList.remove("is-paused"); }
+      for (var r = 0; r < tabs.length; r++) {
+        if (panels[r].classList) { panels[r].classList.toggle("is-active", r === 0); }
+      }
+    });
+  }
+
+  function setupTabs() {
+    var boxes = list("[data-tabs]");
+    for (var i = 0; i < boxes.length; i++) {
+      (function (box) {
+        guard("탭 쇼케이스", function () { initTabs(box); });
+      })(boxes[i]);
+    }
+  }
+
+  /* ======================================================================
      정지 모드 감시 - 캡처 스크립트가 나중에 op-static 을 붙여도 최종 프레임 고정
      ====================================================================== */
   function watchStatic() {
@@ -1763,6 +1895,7 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
     guard("자동 재생 멈춤", setupPauseToggles);
     guard("6일 카드", setupDayCards);
     guard("우리 동네 찾기", setupAreaFinders);
+    guard("탭 쇼케이스 묶음", setupTabs);
     guard("정지 모드 감시", watchStatic);
   }
 
