@@ -298,6 +298,32 @@ a.op-shell-back {
   width: auto;
   height: 20px;
 }
+/* (2026-11-11) 바닥글 오른쪽 묶음: 파트너 한 줄 + 인스타그램 원 버튼(메디코치 바닥글의 SNS 원 문법, 흰 선 한 가지 색) */
+.op-shell-foot__right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+.op-shell-foot__sns {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 999px;
+  color: #ffffff;
+  transition: background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.op-shell-foot__sns:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+}
+.op-shell-foot__sns:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
 .op-shell-foot__line {
   display: flex;
   flex-wrap: wrap;
@@ -673,6 +699,7 @@ a.op-shell-back {
   .op-shell-link,
   .op-shell-back,
   .op-shell-foot__link,
+  .op-shell-foot__sns,
   .op-gate__x,
   .op-gate__input,
   .op-gate__go,

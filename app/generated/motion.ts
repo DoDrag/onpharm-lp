@@ -716,6 +716,26 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
 
     var wrap = box.querySelector("[data-suggest]");
     var panels = wrap ? list("[data-for]", wrap) : [];
+    /* (2026-11-11 메디코치 '셀프 체크 -> 결과 문장 -> 버튼' 문법) 결과 문장과 상담 신청 버튼.
+       버튼을 누르면 고른 고민을 사전 등록 폼의 같은 이름 칩에 미리 표시해 둔다(이동은 [data-scroll-to] 가 한다). */
+    var resultEl = box.querySelector("[data-concern-result]");
+    var resultInit = resultEl ? resultEl.textContent : "";
+    var ctaEl = box.querySelector("[data-concern-cta]");
+    if (ctaEl) {
+      on(ctaEl, "click", function () {
+        if (isStatic() || !resultEl) { return; }
+        var label = (resultEl.textContent || "").replace(/^\\s+|\\s+$/g, "");
+        if (!label) { return; }
+        var chips = list('input[data-field="concern"]');
+        for (var c = 0; c < chips.length; c++) {
+          if ((chips[c].value || "").replace(/^\\s+|\\s+$/g, "") === label && !chips[c].checked) {
+            chips[c].checked = true;
+            try { chips[c].dispatchEvent(new window.Event("change", { bubbles: true })); } catch (e) {}
+          }
+        }
+      });
+    }
+    if (resultEl) { onRestore(function () { resultEl.textContent = resultInit; }); }
 
     function select(key) {
       var found = false;
@@ -732,6 +752,11 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
           "aria-pressed",
           buttons[j].getAttribute("data-concern") === key ? "true" : "false"
         );
+        /* (2026-11-11) 결과 문장 '○○ 고민이 있으시다면' 의 ○○ 를 고른 카드 이름으로 */
+        if (resultEl && buttons[j].getAttribute("data-concern") === key) {
+          var lb = buttons[j].querySelector(".fa-concern__label");
+          if (lb) { resultEl.textContent = (lb.textContent || "").replace(/\\s+/g, " ").replace(/^\\s+|\\s+$/g, ""); }
+        }
       }
       return true;
     }

@@ -41,8 +41,12 @@ const TXT = {
   skip: '본문 바로가기',
   headerLink: '약국 파트너 안내',
   footQuestion: '약국 운영자이신가요?',
-  footLink: '파트너 안내 보기'
+  footLink: '파트너 안내 보기',
+  instaLabel: '온팜 인스타그램 (새 창)'
 } as const;
+
+/** 온팜 공식 인스타그램(2026-11-11 대표 지시로 바닥글에 연결). 아이콘은 흰 선 한 가지 색 - 인스타 고유색은 쓰지 않는다(BI 단일 강조색). */
+const INSTAGRAM_URL = 'https://www.instagram.com/onpharm_official/';
 
 export default function HomePage() {
   /* 구 링크 호환. replace 라 뒤로가기에 `/#partner` 가 남지 않는다. */
@@ -92,12 +96,38 @@ export default function HomePage() {
           <span className="op-shell-foot__logo" role="img" aria-label="온팜">
             <BrandLogo />
           </span>
-          <p className="op-shell-foot__line">
-            <span className="op-shell-foot__q">{TXT.footQuestion}</span>
-            <a className="op-shell-foot__link" href={PARTNER_PATH}>
-              {TXT.footLink}
+          <div className="op-shell-foot__right">
+            <p className="op-shell-foot__line">
+              <span className="op-shell-foot__q">{TXT.footQuestion}</span>
+              <a className="op-shell-foot__link" href={PARTNER_PATH}>
+                {TXT.footLink}
+              </a>
+            </p>
+            <a
+              className="op-shell-foot__sns"
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={TXT.instaLabel}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="22"
+                height="22"
+                aria-hidden="true"
+                focusable="false"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none" />
+              </svg>
             </a>
-          </p>
+          </div>
         </div>
       </footer>
     </>

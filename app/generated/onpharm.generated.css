@@ -3883,6 +3883,266 @@
   .fa-q__cards { grid-template-columns: minmax(0, 1fr); }
   .fa-consult { --fa-cw: 256px; --fa-cg: 10px; }
 }
+/* =========================================================================
+   (2026-11-11) 메디코치 수치 맞춤 v2
+   대표 "메디코치 인용할 수 있는 점·디자인 소스 전체 점검하고 유사하게 카피"(11-10) + "간판 빠져도 상관없어 · 바닥글 인스타 연결"(11-11).
+   받아 둔 clone-website 스킬 절차(관찰 -> 만들기 -> 같은 화면 크기로 나란히 비교)로 메디코치 첫 화면을 실측해 맞춘 값이다.
+   실측(1440): 크림 바탕 rgb(254,251,245) · 제목 32px/700/40px · 보조 20px/500/28px · 섹션 위 90px · 카드 둥글기 16~20 ·
+     첫 화면 글 가운데 + 위아래 선 보조 문장 + 버튼 260x60 · 롤링 카드 250x450(사진 210 정사각, 간격 60, 초당 75px) ·
+     고민 줄 폭 1400 · 셀프 체크 카드 720 · 품질 띠 카드 250x202(띠 안) · 탭 109x48 둥글기 12(약 3초 자동) · 폰 테두리 561x856 ·
+     원형 220(칸 260) · 어두운 띠 흰 카드 180x179 · 큰 사진이 크림으로 녹는 면 · 버튼 68px.
+   가져오지 않은 것: 문장·사진·로고, 할인 문구·누적 숫자, 영어 라벨, 파란색 - 전부 BI 오렌지·틴트·차콜로 대응(새 색상 계열 0).
+   측정 원자료: ai-website-cloner-template/docs/research/medicoach/2026-11-10/ . 이 블록은 스타일 맨 끝이라 같은 특이도의 앞 규칙을 이긴다.
+   ========================================================================= */
+
+/* --- 공통: 크림 바탕 · 글자 크기 · 섹션 여백 ------------------------------------------------- */
+.op-page { --op-cream: #FEF9F4; }   /* BI 10% 틴트(#FEF3E9)를 흰색과 반씩 = 메디코치 크림과 같은 밝기. 틴트 자체는 칩·아이콘 칸에 그대로 */
+[data-section^="a"].op-sec--tint,
+.fa-faq-sec .fa-closing { background: var(--op-cream); }
+[data-section^="a"] { --op-sec-pad-y: 90px; }
+[data-section^="a"] .op-h2 { font-size: 32px; line-height: 1.3; font-weight: 700; }
+[data-section^="a"] .op-lead { font-size: 20px; line-height: 1.45; }
+.fa-eyebrow { font-size: 16px; }
+/* 등장: 메디코치 전환 값(0.7초, 40px 아래에서) */
+.op-js:not(.op-static) [data-section^="a"][data-reveal] { transform: translateY(40px); transition-duration: 0.7s; }
+.op-js:not(.op-static) [data-section^="a"][data-reveal].is-in { transform: none; }
+
+/* --- a01 첫 화면: 글 가운데 + 위아래 선 보조 문장 + 버튼 260x60 (영상은 인물이 오른쪽 3분의 1에 오게 다시 잘랐다) --- */
+.fa-film__lead {
+  display: inline-block; padding: 14px 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.5); border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  font-size: 20px; font-weight: 500; line-height: 1.35;
+}
+.fa-film__h1 .op-accent--strong { color: #FFFFFF; }
+.fa-film__cta .op-btn { min-width: 260px; min-height: 60px; }
+.fa-film__poster, .fa-film__video { object-position: 50% 30%; }
+.op-js:not(.op-static) .fa-film__poster { transform-origin: 62% 40%; }
+@media (min-width: 1024px) {
+  .fa-film__copy { max-width: 780px; margin-left: auto; margin-right: auto; text-align: center; }
+  .fa-film__h1 { font-size: clamp(32px, 2.7vw, 40px); line-height: 1.45; }
+  .fa-film__lead { margin-top: 28px; }
+  .fa-film__cta { margin-top: 40px; justify-content: center; }
+  .fa-film__chips { justify-content: center; }
+  /* 가운데 글 뒤를 고르게 어둡게(잉크 투명도만). 영상이 밝은 낮 장면이라 해 질 녘처럼 가라앉힌다 */
+  .fa-film__veil {
+    background:
+      radial-gradient(ellipse 46% 58% at 50% 48%, rgba(45, 45, 45, 0.5) 0%, rgba(45, 45, 45, 0) 100%),
+      linear-gradient(180deg, rgba(45, 45, 45, 0.46) 0%, rgba(45, 45, 45, 0.3) 48%, rgba(45, 45, 45, 0.5) 100%);
+  }
+}
+
+/* --- a06 한 줄 고민: 알약(393x49 · 흰색 60% · 18px) → 아래 작은 안내, 카드 250 · 정사각 사진 · 간격 60 --- */
+.fa-promise { margin-top: 20px; padding: 14px 32px; background: rgba(255, 255, 255, 0.6); box-shadow: none; font-size: 18px; }
+.fa-voices-sec .fa-voices__cap { margin-top: 14px; font-size: 15px; line-height: 1.6; }
+.fa-voices { --op-marquee-item: 250px; --op-marquee-gap: 60px; }
+.fa-voice { padding: 20px; border-radius: 20px; box-shadow: 0 0 16px rgba(51, 51, 51, 0.06); }
+.fa-voice__ph { aspect-ratio: 1 / 1; border-radius: 16px; }
+.fa-voice__meta { margin-top: 16px; padding: 0; }
+.fa-voice__name { font-size: 14px; }
+.fa-voice__t {
+  margin-top: 10px; padding: 0; font-size: 15px; line-height: 26px;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; overflow: hidden;
+}
+
+/* --- a02 고민: 줄 폭 1400(좌우 20) · 카드 둥글기 16 · 구분선 → 720 흰 카드 → 결과 문장 → 버튼 --- */
+.fa-wide { width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 20px; }
+.fa-concern-sec .fa-concerns { gap: 16px; }
+.fa-concern.fa-concern--photo { border-radius: 16px; border-color: transparent; box-shadow: 0 0 16px rgba(51, 51, 51, 0.06); }
+.fa-concern.fa-concern--photo[aria-pressed="true"] { border-color: var(--op-orange); }
+.fa-concern__ph { aspect-ratio: 336 / 236; }
+.fa-concern__body { padding: 19px 24px 22px; }
+.fa-rule { width: min(720px, 100%); height: 1px; margin: 72px auto 0; background: var(--op-line); }
+.fa-suggest__head { margin-top: 56px; }
+.fa-suggest__h { margin: 0; font-size: 28px; font-weight: 700; line-height: 1.35; letter-spacing: 0; color: var(--op-charcoal); text-wrap: balance; }
+.fa-concern-sec .fa-suggest {
+  max-width: 720px; margin: 32px auto 0; padding: 28px; border: 0; border-radius: 16px;
+  background: #FFFFFF; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+.fa-concern-sec .fa-suggest__panels { margin-top: 0; }
+.fa-concern-result { margin: 30px 0 0; text-align: center; font-size: 16px; line-height: 1.5; color: var(--op-ink); }
+.fa-concern-result b { margin-right: 4px; font-size: 22px; font-weight: 800; color: var(--op-charcoal); }
+.fa-concern-cta { min-width: 290px; min-height: 52px; padding: 0 32px; font-size: 16px; }
+
+/* --- a02b 6일 카드 띠: 흰 카드 5장을 띠 안에(250x202 · 둥글기 16 · 주황빛 그림자) --- */
+.fa-q { padding-bottom: 40px; }
+.fa-q__band { padding: 72px 0 90px; }
+/* 가운데(글 뒤)만 진하게, 양옆은 옅게 - 제품 패키지와 로고가 보이게 */
+.fa-q__veil {
+  background: radial-gradient(ellipse 50% 60% at 50% 30%, rgba(45, 45, 45, 0.84) 0%, rgba(45, 45, 45, 0.6) 58%, rgba(45, 45, 45, 0.3) 100%);
+}
+/* 상자 윗면의 영문 로고가 띠 위에서 잘리지 않게 사진을 위쪽 기준으로 */
+.fa-q .fa-q__bg > img { object-position: 50% 12%; }
+.fa-q__row { position: relative; z-index: 2; }
+.fa-q__cards { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; max-width: 1330px; margin: 56px auto 0; }
+.fa-q__card { display: flex; flex-direction: column; min-height: 202px; padding: 22px; border-radius: 16px; box-shadow: 0 0 15px rgba(255, 105, 0, 0.15); }
+.fa-q__t { margin: 0; font-size: 20px; font-weight: 700; }
+.fa-q__d { margin-top: 10px; font-size: 15px; line-height: 23px; }
+.fa-q__ico { align-self: flex-end; width: 44px; height: 44px; margin-top: auto; border-radius: 12px; }
+
+/* --- a03 탭: 109x48 · 둥글기 12 · 꺼진 탭 회색 면, 제목 32/40 · 설명 20/28 · 점 14, 화면은 오른쪽에서 들어온다 --- */
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__list { gap: 14px; }
+.fa-tabs__tab { min-width: 109px; height: 48px; padding: 0 18px; border-radius: 12px; background: var(--op-bg-gray); box-shadow: none; font-size: 18px; }
+.fa-tabs__tab[aria-selected="true"] { background: var(--op-orange); color: #FFFFFF; }
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__panels { margin-top: 56px; overflow-x: clip; }
+.fa-tabs__h { font-size: 32px; font-weight: 700; line-height: 40px; }
+.fa-tabs__d { margin-top: 24px; font-size: 20px; line-height: 28px; }
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__dots { gap: 10px; margin-top: 32px; }
+.fa-tabs__dots > span { width: 14px; height: 14px; background: rgba(51, 51, 51, 0.14); }
+.fa-tabs__dots > span.is-on { width: 14px; background: var(--op-orange); }
+.fa-tabs { --op-slide: 250px; }
+.op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__panel.is-active .fa-ui { animation: faLeftToCenter 0.55s cubic-bezier(0.215, 0.61, 0.355, 1) both; }
+@keyframes faLeftToCenter { from { opacity: 0; transform: translateX(var(--op-slide, 250px)); } to { opacity: 1; transform: none; } }
+.fa-phone { width: 320px; }
+.fa-phone__screen { height: 540px; }
+.fa-ui__float--mark { left: calc(50% + 126px); }
+.fa-ui__float--face { right: calc(50% + 128px); }
+
+/* --- a05b 상담 예시 폰: 폭 400 · 질문 상자 색 테두리(둥글기 22) · 답 상자 굵은 틴트 테두리(둥글기 28) --- */
+.fa-consult { --fa-cw: 400px; --fa-cg: 26px; }
+.op-js:not(.op-static) .fa-consult__screen { min-height: 600px; padding: 62px 24px 28px; border-radius: 40px; }
+.op-js:not(.op-static) .fa-consult__slide:not(.is-current) .fa-consult__screen { opacity: 0.45; transform: none; }
+.op-js:not(.op-static) .fa-consult__phone { border-radius: 54px; }
+.fa-consult__q {
+  padding: 14px 18px; border: 3px solid transparent; border-radius: 22px;
+  background: linear-gradient(#FFFFFF, #FFFFFF) padding-box, linear-gradient(90deg, #FF6900, #F7B98D) border-box;
+}
+.fa-consult__qk { font-size: 15px; }
+.fa-consult__qt { font-size: 20px; line-height: 1.45; }
+.fa-consult__a {
+  margin-top: 16px; padding: 16px; border: 8px solid transparent; border-radius: 28px;
+  background: linear-gradient(#FFFFFF, #FFFFFF) padding-box, linear-gradient(90deg, #FCE5D2, #FEF3E9 50%, #FBD6BB) border-box;
+}
+.fa-consult__who { font-size: 16px; }
+.fa-consult__av { width: 44px; height: 44px; }
+
+/* --- a05c 원형 사진: 220 · 칸 260 · 제목 22 · 설명 16/23 --- */
+.fa-circles { grid-template-columns: repeat(3, minmax(0, 260px)); justify-content: center; gap: 0; max-width: none; margin-top: 64px; }
+.fa-circle__ph { width: min(220px, 100%); box-shadow: none; }
+.fa-circle__t { margin-top: 24px; font-size: 22px; font-weight: 700; }
+.fa-circle__d { margin-top: 14px; font-size: 16px; line-height: 23px; }
+
+/* --- a05 전담 상담사: 버튼 284x68 · 화면 카드 폭 420 --- */
+.fa-coach .op-btn--lg { min-width: 284px; min-height: 68px; padding: 0 40px; font-size: 18px; }
+.fa-flow { max-width: 420px; }
+
+/* --- a08 참여 약국: 어두운 거리 사진 띠 + 흰 카드 4장(180x179) --- */
+.fa-pharm-band { padding: 110px 0 116px; background: var(--op-charcoal); }
+.fa-pharm-band .fa-pharm__bg { position: absolute; inset: 0; overflow: hidden; }
+.fa-pharm-band .fa-pharm__bg > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.fa-pharm__veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(45, 45, 45, 0.74) 0%, rgba(45, 45, 45, 0.64) 50%, rgba(45, 45, 45, 0.8) 100%); }
+.fa-pharm-band .fa-pharm__inner { position: relative; z-index: 1; }
+.fa-pharm-band .op-h2 { color: #FFFFFF; }
+.fa-pharm-band .op-lead { color: rgba(255, 255, 255, 0.92); }
+.fa-pharm-band .op-note { color: rgba(255, 255, 255, 0.82); }
+.fa-pharm-band .fa-pins.op-grid-4 { grid-template-columns: repeat(4, minmax(0, 180px)); justify-content: center; gap: 16px; margin-top: 44px; }
+.fa-pharm-band .fa-pins .fa-pin {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 179px; padding: 20px 12px; border-radius: 16px; box-shadow: 0 0 15px rgba(255, 105, 0, 0.15);
+}
+.fa-pharm-band .fa-pin__ico svg { width: 46px; height: 46px; }
+.fa-pharm-band .fa-pin__area { font-size: 18px; }
+.fa-pharm-band .fa-pin__status { margin-top: 8px; font-size: 16px; color: var(--op-gray); }
+.fa-pharm-band .fa-finder__chip { border-color: rgba(255, 255, 255, 0.42); background: rgba(255, 255, 255, 0.14); color: #FFFFFF; }
+.fa-pharm-band .fa-finder__chip[aria-pressed="true"] { border-color: #FFFFFF; background: #FFFFFF; color: var(--op-charcoal); }
+.fa-pharm-band .fa-finder__chip:focus-visible { outline-color: #FFFFFF; }
+.fa-pharm-band .fa-finder .fa-finder__input { border-color: transparent; }
+.fa-pharm-band .fa-finder__msg { color: #FFFFFF; }
+.op-page .fa-pharm-band .fa-finder__cta { border-color: #FFFFFF; color: #FFFFFF; }
+
+/* --- a07 사전 등록: 큰 사진이 크림으로 녹고, 그 아래 밝은 폼(흰 카드) --- */
+.fa-signup--photo { padding-top: 0; }
+/* 사진 속 제품 상자와 로고가 또렷하게 보여야 한다(대표 11-11) -> 16:9 를 거의 그대로 쓰고, 크림으로 녹는 구간은 바닥 16% 만 */
+.fa-signup__photo { position: relative; height: clamp(300px, 52vw, 760px); overflow: hidden; background: var(--op-bg-gray); }
+.fa-signup__photo > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 70%; }
+.fa-signup__photo::after {
+  content: ""; position: absolute; right: 0; bottom: 0; left: 0; height: 16%; pointer-events: none;
+  background: linear-gradient(180deg, rgba(254, 249, 244, 0) 0%, var(--op-cream) 96%);
+}
+.fa-signup--photo .fa-signup__inner { margin-top: 44px; }
+.fa-signup .fa-form {
+  max-width: 920px; margin-left: auto; margin-right: auto; border: 0; background: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04), 0 0 16px rgba(51, 51, 51, 0.05);
+}
+.fa-signup .fa-label { color: var(--op-charcoal); }
+.fa-signup .fa-input,
+.fa-signup .fa-textarea,
+.fa-signup .fa-select { border: 1px solid rgba(51, 51, 51, 0.3); background: #FFFFFF; color: var(--op-ink); }
+.fa-signup .fa-select { color-scheme: light; }
+.fa-signup .fa-select-caret { color: var(--op-gray); }
+.fa-signup .fa-input::placeholder,
+.fa-signup .fa-textarea::placeholder { color: #75767A; }
+.fa-signup .fa-chip-input:checked + .fa-chip { border-color: var(--op-orange); background: var(--op-orange-tint); color: var(--op-charcoal); }
+
+/* --- a09 마무리 띠: 제목 32 · 설명 20/28 · 버튼 213x68 --- */
+.fa-faq-sec .fa-closing__t { font-size: 32px; font-weight: 700; }
+.fa-closing .op-lead { margin-top: 16px; line-height: 28px; }
+.fa-closing .op-btn--lg { min-width: 213px; min-height: 68px; padding: 0 40px; font-size: 20px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__panel.is-active .fa-ui { animation: none; }
+}
+
+/* --- 반응형 (메디코치 모바일 실측: 제목 23/36 · 탭 4개 한 줄 83x48 · 고민 카드 2열 · 상담 카드 371 · 원형 230) --- */
+@media (max-width: 1199px) {
+  .fa-q__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 820px; }
+}
+@media (max-width: 1023px) {
+  .fa-film__lead { margin-top: 18px; }
+}
+@media (max-width: 767px) {
+  [data-section^="a"] { --op-sec-pad-y: 64px; }
+  [data-section^="a"] .op-h2 { font-size: 24px; line-height: 1.5; }
+  [data-section^="a"] .op-lead { font-size: 16px; }
+  .fa-eyebrow { font-size: 15px; }
+  .fa-film__h1 { font-size: 26px; line-height: 1.45; }
+  .fa-film__lead { margin-top: 16px; padding: 10px 16px; font-size: 14px; }
+  .fa-promise { padding: 10px 18px; font-size: 14px; }
+  .fa-voices { --op-marquee-item: 250px; --op-marquee-gap: 24px; }
+  .fa-wide { padding: 0 16px; }
+  .fa-concern-sec .fa-concerns { gap: 12px; }
+  .fa-concern__body { padding: 14px 14px 16px; }
+  .fa-rule { margin-top: 48px; }
+  .fa-suggest__head { margin-top: 40px; }
+  .fa-suggest__h { font-size: 22px; }
+  .fa-concern-sec .fa-suggest { padding: 22px 20px; }
+  .fa-concern-result b { font-size: 20px; }
+  .fa-q { padding-bottom: 24px; }
+  .fa-q__band { padding: 64px 0 64px; }
+  .fa-q__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 36px; }
+  .fa-q__card { min-height: 168px; padding: 16px; }
+  .fa-q__card:last-child { grid-column: 1 / -1; min-height: 0; }
+  .fa-q__t { margin-top: 0; font-size: 16px; }
+  .fa-q__d { font-size: 13.5px; line-height: 21px; }
+  .fa-q__ico { width: 38px; height: 38px; }
+  .op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; max-width: 360px; }
+  .fa-tabs__tab { min-width: 0; padding: 0 2px; font-size: 15px; }
+  .op-js:not(.op-static) .fa-tabs.is-ready .fa-tabs__panels { margin-top: 40px; }
+  .fa-tabs__h { font-size: 24px; line-height: 36px; }
+  .fa-tabs__d { margin-top: 16px; font-size: 16px; line-height: 24px; }
+  .fa-tabs { --op-slide: 110px; }
+  .fa-phone { width: 288px; }
+  .fa-phone__screen { height: 490px; }
+  .fa-ui__float--mark { left: calc(50% + 100px); }
+  .fa-ui__float--face { right: calc(50% + 104px); }
+  .fa-consult { --fa-cw: 310px; --fa-cg: 12px; }
+  .op-js:not(.op-static) .fa-consult__screen { min-height: 520px; padding: 54px 18px 22px; border-radius: 36px; }
+  .fa-consult__qt { font-size: 17px; }
+  .fa-consult__a { padding: 12px; border-width: 6px; }
+  .fa-circles { grid-template-columns: 260px; gap: 48px; }
+  .fa-circle__ph { width: 220px; }
+  .fa-flow { max-width: 351px; }
+  .fa-pharm-band { padding: 72px 0 80px; }
+  .fa-pharm-band .fa-pins.op-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .fa-signup__photo { height: 56vw; }
+  .fa-signup--photo .fa-signup__inner { margin-top: 32px; }
+  .fa-faq-sec .fa-closing__t { font-size: 24px; }
+  .fa-closing .op-lead { line-height: 1.5; }
+}
+@media (max-width: 374px) {
+  .fa-consult { --fa-cw: 280px; --fa-cg: 10px; }
+  .fa-q__cards { grid-template-columns: minmax(0, 1fr); }
+  .fa-q__card:last-child { grid-column: auto; }
+}
 
 /* ---- 면 B (약국 파트너) 고유 규칙 ---------------------------- */
 /* onpharm face B · onpharm.kr 이식용 스타일

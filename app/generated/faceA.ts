@@ -37,9 +37,8 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
 
 <section class="op-sec op-sec--tint fa-voices-sec" data-section="a06_voices" data-reveal>
   <div class="op-inner op-center">
-<p class="fa-eyebrow">한 줄 고민</p>    <h2 class="op-h2">이런 한 줄이면<br>충분해요</h2>
-    <p class="op-lead op-mt-16 op-measure--center">아래 사전 등록의 한 줄 고민 칸에 이렇게 적어 주시면 돼요.</p>
-    <p class="fa-promise"><span class="fa-promise__i">상담 무료</span><span class="fa-promise__i">같은 상담사가 이어서 봐요</span></p>
+<p class="fa-eyebrow">한 줄 고민</p>    <h2 class="op-h2">이런 한 줄이면<br>충분해요</h2>    <p class="fa-promise"><span class="fa-promise__i">상담 무료</span><span class="fa-promise__i">같은 상담사가 이어서 봐요</span></p>
+    <p class="op-lead op-measure--center fa-voices__cap">아래 사전 등록의 한 줄 고민 칸에 이렇게 적어 주시면 돼요.</p>
   </div>
   <ul class="op-sr">
     <li>하** 예시: 요즘 오후만 되면 축 처져요. 영양제는 많은데 뭐부터 먹어야 할지 모르겠어요.</li>
@@ -53,7 +52,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
     <li>장** 예시: 환절기마다 컨디션이 흔들려요. 미리 챙길 수 있는 게 있을까요?</li>
     <li>고** 예시: 아침을 자주 걸러요. 이런 리듬에도 맞는 게 있을까요?</li>
   </ul>
-  <div class="op-marquee fa-voices op-mt-48" id="fa-voices" data-marquee data-speed="70" aria-hidden="true">
+  <div class="op-marquee fa-voices op-mt-48" id="fa-voices" data-marquee data-speed="auto" data-pxs="75" style="--op-marquee-dur:41s" aria-hidden="true">
     <div class="op-marquee__track" tabindex="-1">
       <div class="op-marquee__item">
         <div class="fa-voice">
@@ -263,12 +262,14 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
   </div>
 </section>
 
-<section class="op-sec" data-section="a02_concerns" data-concern-picker data-reveal>
+<section class="op-sec op-sec--tint fa-concern-sec" data-section="a02_concerns" data-concern-picker data-reveal>
   <div class="op-inner">
     <div class="op-center">
 <p class="fa-eyebrow">고민 고르기</p>      <h2 class="op-h2">요즘 뭐가 제일 신경 쓰이세요?</h2>
       <p class="op-lead op-mt-16 op-measure--center">고민 하나에서 시작해도 충분해요. 전담 상담사가 거기서부터 같이 봐요.</p>
-    </div><div class="op-grid-4 fa-concerns op-mt-48" role="group" aria-label="고민 선택"
+    </div></div>
+  <div class="fa-wide">
+    <div class="op-grid-4 fa-concerns op-mt-48" role="group" aria-label="고민 선택"
          data-scrub="0.09" data-scrub-from="0.98" data-scrub-to="1.45" data-scrub-media="(min-width: 1024px)">
       <button type="button" class="op-card fa-concern fa-concern--photo op-anim-rise op-anim-rise--sm"
               style="--op-d:0"
@@ -357,9 +358,14 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
         </span>
       </button>
     </div>
+  </div>
+  <div class="op-inner">
 
-    <div class="fa-suggest op-mt-40" data-suggest>
-      <p class="fa-suggest__lead op-center">고민을 고르면 상담에서 자주 같이 살펴보는 성분 이름을 보여드려요.</p>
+    <div class="fa-rule" role="presentation"></div>
+    <div class="op-center fa-suggest__head">
+<p class="fa-eyebrow">성분 살펴보기</p>      <h3 class="fa-suggest__h">고른 고민에 따라 상담에서 같이 보는 성분이에요</h3>
+    </div>
+    <div class="fa-suggest" data-suggest>
       <div class="fa-suggest__panels" aria-live="polite">
         <div class="fa-suggest__panel is-on"
              id="a02-panel-fatigue" data-for="fatigue"
@@ -465,6 +471,8 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
       </div>
       <p class="op-note fa-suggest__note op-center">성분 이름만 적어 둔 안내예요. 무엇을 담을지는 상담에서 사람마다 다르게 정해요.</p>
     </div>
+    <p class="fa-concern-result"><b class="fa-mark" data-concern-result>피로</b>고민이 있으시다면</p>
+    <div class="op-row op-row--center op-mt-16"><a class="op-btn fa-concern-cta" href="#signup" data-scroll-to="#signup" data-concern-cta>1분 상담 신청 (무료)</a></div>
 
     <p class="op-note op-mt-32 op-center">여기서는 하나씩 살펴보실 수 있어요. 여러 고민은 아래 사전 등록에서 함께 골라 주세요.</p>
   </div>
@@ -481,51 +489,60 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
 <p class="fa-eyebrow fa-eyebrow--light">6일 카드</p>      <h2 class="op-h2 fa-q__h2">하루 한 칸씩 챙기는<br>나만의 6일 카드</h2>
       <p class="op-lead op-mt-16 op-measure--center fa-q__lead">상담에서 정한 구성을 6일 카드 한 장에 담아 둬요. 가까운 참여 약국에 들러 받아 가시면 돼요.</p>
     </div>
-  </div>
-  <div class="op-inner">
-    <ul class="fa-q__cards">
-      <li class="fa-q__card" style="--i:0">
-        <span class="fa-q__ico"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <div class="fa-wide fa-q__row">
+      <ul class="fa-q__cards">
+        <li class="fa-q__card" style="--i:0">
+          <p class="fa-q__t">상담으로 정해요</p>
+          <p class="fa-q__d">무엇을 담을지는 전담 상담사와 이야기해서 정해요.</p>
+          <span class="fa-q__ico"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
   <path d="M4.5 5h15A1.5 1.5 0 0 1 21 6.5v9a1.5 1.5 0 0 1-1.5 1.5H11l-4.5 3.5V17h-2A1.5 1.5 0 0 1 3 15.5v-9A1.5 1.5 0 0 1 4.5 5z"/><path d="M7.5 9.5h9M7.5 12.5h5.5"/>
 </svg></span>
-        <p class="fa-q__t">상담으로 정해요</p>
-        <p class="fa-q__d">무엇을 담을지는 전담 상담사와 이야기해서 정해요.</p>
-      </li>
-      <li class="fa-q__card" style="--i:1">
-        <span class="fa-q__ico"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        </li>
+        <li class="fa-q__card" style="--i:1">
+          <p class="fa-q__t">6일 카드 한 장</p>
+          <p class="fa-q__d">상담에서 정한 구성을 카드 한 장에 담아 둬요.</p>
+          <span class="fa-q__ico"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
   <rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M9 5.5v13M15 5.5v13M3.5 12h17" stroke-dasharray="1.6 2.2"/>
 </svg></span>
-        <p class="fa-q__t">6일 카드 한 장</p>
-        <p class="fa-q__d">하루 한 칸씩 뜯어서 챙기는 카드형 소포장이에요.</p>
-      </li>
-      <li class="fa-q__card" style="--i:2">
-        <span class="fa-q__ico"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        </li>
+        <li class="fa-q__card" style="--i:2">
+          <p class="fa-q__t">하루 한 칸씩</p>
+          <p class="fa-q__d">하루 한 칸씩 뜯어서 챙기는 카드형 소포장이에요.</p>
+          <span class="fa-q__ico"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/>
+</svg></span>
+        </li>
+        <li class="fa-q__card" style="--i:3">
+          <p class="fa-q__t">약국에서 받아요</p>
+          <p class="fa-q__d">온라인 판매 없이 가까운 참여 약국에서 직접 받아 가요.</p>
+          <span class="fa-q__ico"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
   <path d="M4.5 10.5V19a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-8.5"/><path d="M3 9.5 4.7 5A1.5 1.5 0 0 1 6.1 4h11.8a1.5 1.5 0 0 1 1.4 1L21 9.5a2.6 2.6 0 0 1-4.5 1.6 2.6 2.6 0 0 1-4.5 0 2.6 2.6 0 0 1-4.5 0A2.6 2.6 0 0 1 3 9.5z"/><path d="M10 20v-4.5h4V20"/>
 </svg></span>
-        <p class="fa-q__t">약국에서 받아요</p>
-        <p class="fa-q__d">온라인 판매 없이 가까운 참여 약국에서 직접 받아 가요.</p>
-      </li>
-      <li class="fa-q__card" style="--i:3">
-        <span class="fa-q__ico"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        </li>
+        <li class="fa-q__card" style="--i:4">
+          <p class="fa-q__t">먼저 여쭤봐요</p>
+          <p class="fa-q__d">다 드실 때쯤 전담 상담사가 먼저 여쭤봐요.</p>
+          <span class="fa-q__ico"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
   <path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/>
 </svg></span>
-        <p class="fa-q__t">먼저 여쭤봐요</p>
-        <p class="fa-q__d">다 드실 때쯤 전담 상담사가 먼저 여쭤봐요.</p>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="op-inner">
     <p class="op-note op-center op-mt-24">전달 방식을 보여드리는 예시예요. 실제 구성은 상담에서 정합니다.</p>
   </div>
 </section>
 
 <section class="op-sec op-sec--tint fa-how" data-section="a03_how">
   <div class="op-inner">
-    <div class="fa-tabs" id="fa-tabs" data-tabs data-interval="6000">
+    <div class="fa-tabs" id="fa-tabs" data-tabs data-interval="4500">
       <h2 class="op-sr">고민 한 줄에서 동네 약국 픽업까지</h2>
 <p class="fa-eyebrow op-center">이용 순서</p>      <div class="fa-tabs__list" data-tablist aria-label="이용 순서">
         <button type="button" class="fa-tabs__tab" data-tab id="fa-tab-1">고민 적기</button>
-        <button type="button" class="fa-tabs__tab" data-tab id="fa-tab-2">상담사 답변</button>
-        <button type="button" class="fa-tabs__tab" data-tab id="fa-tab-3">쿠폰·픽업 안내</button>
-        <button type="button" class="fa-tabs__tab" data-tab id="fa-tab-4">약국에서 받기</button>
+        <button type="button" class="fa-tabs__tab" data-tab id="fa-tab-2">상담 답변</button>
+        <button type="button" class="fa-tabs__tab" data-tab id="fa-tab-3">쿠폰 안내</button>
+        <button type="button" class="fa-tabs__tab" data-tab id="fa-tab-4">약국 픽업</button>
       </div>
       <div class="fa-tabs__panels">
         <div class="fa-tabs__panel is-active" data-tabpanel id="fa-tabpanel-1">
@@ -554,7 +571,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
         </div>
         <div class="fa-tabs__panel" data-tabpanel id="fa-tabpanel-2">
           <div class="fa-tabs__text">
-            <p class="fa-tabs__num"><span>2</span>상담사 답변</p>
+            <p class="fa-tabs__num"><span>2</span>상담 답변</p>
             <h3 class="fa-tabs__h">전담 상담사가<br>직접 읽고 답해요</h3>
             <p class="fa-tabs__d">배정된 전담 상담사가 직접 읽고 답을 드려요.</p>
             <p class="fa-tabs__dots" aria-hidden="true"><span class=""></span><span class="is-on"></span><span class=""></span><span class=""></span></p>
@@ -585,7 +602,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
         </div>
         <div class="fa-tabs__panel" data-tabpanel id="fa-tabpanel-3">
           <div class="fa-tabs__text">
-            <p class="fa-tabs__num"><span>3</span>쿠폰·픽업 안내</p>
+            <p class="fa-tabs__num"><span>3</span>쿠폰 안내</p>
             <h3 class="fa-tabs__h">쿠폰과 받을 약국을<br>알려 드려요</h3>
             <p class="fa-tabs__d">무엇부터 먹어볼지 정하면 쿠폰과 받을 약국 안내를 보내드려요.</p>
             <p class="fa-tabs__dots" aria-hidden="true"><span class=""></span><span class=""></span><span class="is-on"></span><span class=""></span></p>
@@ -621,7 +638,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
         </div>
         <div class="fa-tabs__panel" data-tabpanel id="fa-tabpanel-4">
           <div class="fa-tabs__text">
-            <p class="fa-tabs__num"><span>4</span>약국에서 받기</p>
+            <p class="fa-tabs__num"><span>4</span>약국 픽업</p>
             <h3 class="fa-tabs__h">동네 약국에서<br>6일 카드를 받아요</h3>
             <p class="fa-tabs__d">가까운 참여 약국에 들러 6일 카드를 받아 가세요.</p>
             <p class="fa-tabs__dots" aria-hidden="true"><span class=""></span><span class=""></span><span class=""></span><span class="is-on"></span></p>
@@ -705,7 +722,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
   <div class="op-inner op-center">
 <p class="fa-eyebrow">상담 예시</p>    <h2 class="op-h2">이렇게 답해 드려요</h2>
   </div>
-  <div class="op-carousel fa-consult__car op-mt-48" data-carousel data-interval="6000">
+  <div class="op-carousel fa-consult__car op-mt-48" data-carousel data-interval="4500">
     <div class="op-carousel__viewport fa-consult__vp" aria-live="off">
       <span class="fa-consult__phone" aria-hidden="true"><span class="fa-consult__notch"></span></span>
       <div class="op-carousel__track fa-consult__track">
@@ -905,10 +922,14 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
   </div>
 </section>
 
-<section class="op-sec op-sec--tint fa-pharm-sec" data-section="a08_pharmacies" data-reveal>
-  <div class="op-inner">
+<section class="op-sec fa-pharm-sec fa-pharm-band" data-section="a08_pharmacies" data-reveal><div class="fa-pharm__bg">
+    <img src="/onpharm/a08_pharmacies.jpg" alt="" width="1536" height="864" loading="lazy" decoding="async"
+         data-scrub="0.12" data-scrub-from="1" data-scrub-to="0.35" class="op-anim-zoom">
+    <span class="fa-pharm__veil"></span>
+  </div>
+  <div class="op-inner fa-pharm__inner">
     <div class="op-center">
-<p class="fa-eyebrow">참여 약국</p>      <h2 class="op-h2">함께하는 약국</h2>
+<p class="fa-eyebrow fa-eyebrow--light">참여 약국</p>      <h2 class="op-h2">함께하는 약국</h2>
       <p class="op-lead op-mt-16 op-measure--center">네 곳에서 먼저 시작합니다. 가까운 동네부터 차례로 문을 열어요.</p>
     </div>    <div class="fa-finder op-mt-40" data-areafinder
          data-found="{area} · {status}. 상세 위치는 문을 여는 날 사전 등록하신 분께 먼저 알려 드려요." data-none="아직 준비 중인 동네예요. 사전 등록에 동네를 남겨 주시면 가까운 곳부터 차례로 알려 드려요." data-empty="구 이름을 먼저 적어 주세요.">
@@ -927,7 +948,7 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
         <a class="op-btn op-btn--ghost op-btn--sm fa-finder__cta" href="#signup" hidden>이 동네로 사전 등록</a>
       </div>
     </div>
-<div class="fa-pins op-grid-4 op-mt-64">
+<div class="fa-pins op-grid-4">
       <div class="fa-pin fa-pin--lead" data-area="인천 연수구" data-region="인천" data-status="1호 준비 중" style="--i:0">
         <span class="fa-pin__ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">
   <path d="M12 22.2s7.2-6.4 7.2-11.4a7.2 7.2 0 1 0-14.4 0c0 5 7.2 11.4 7.2 11.4z" fill="#FF6900"/>
@@ -961,18 +982,13 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
         <p class="fa-pin__status">오픈 예정</p>
       </div>
     </div>
-  </div>  <div class="fa-pharm__frame">
-    <div class="fa-pharm__bg"><img src="/onpharm/a08_pharmacies.jpg" alt="" width="1536" height="864" loading="lazy" decoding="async"
-         data-scrub="0.12" data-scrub-from="1" data-scrub-to="0.35" class="op-anim-zoom"></div>
-  </div>
-
-  <div class="op-inner">
     <p class="op-note op-mt-40 op-center op-measure--center">참여 약국은 순차적으로 문을 열 예정이며, 지역과 일정은 달라질 수 있어요. 사전 등록에 동네를 남겨 주시면 가장 먼저 알려드립니다.</p>
   </div>
 </section>
 
-<section class="op-sec op-sec--charcoal" data-section="a07_signup" id="signup" data-reveal>
-  <div class="op-inner">
+<section class="op-sec op-sec--tint fa-signup fa-signup--photo" data-section="a07_signup" data-reveal>
+  <div class="fa-signup__photo"><img src="/onpharm/a01_story_4.jpg" alt="" width="1536" height="864" loading="lazy" decoding="async"></div>
+  <div class="op-inner fa-signup__inner" id="signup">
     <div class="op-center">
 <p class="fa-eyebrow">사전 등록</p>      <h2 class="op-h2">가장 먼저<br>6일 카드를 받아 보세요</h2>
       <p class="op-lead op-mt-16 op-measure--center">동네에 참여 약국이 열리면 가장 먼저 알려드려요. 사전 등록하신 분은 첫 카드를 먼저 받아보실 수 있어요.</p>      <div class="fa-kakao-cta op-mt-32">
