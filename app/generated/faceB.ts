@@ -172,10 +172,8 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
         <p class="op-lead op-mt-16">
           손님이 왜 오는지 미리 알고 맞이합니다.
         </p>
-      </div>
-
-      <div class="op-grid-3 op-grid--top op-mt-48">
-        <div class="op-card fb-value">
+      </div>      <div class="fb-values op-mt-48">
+        <div class="op-card fb-value fb-value--media">
           <span class="op-eyebrow">첫째</span>
           <h3 class="op-h3 fb-value__title">집객</h3>
           <ul class="op-list fb-value__list">
@@ -183,8 +181,8 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
             <li>지역 단위로 배정돼 가까운 약국끼리 겹치지 않습니다</li>
             <li>처음 오는 손님도 상담 기록을 들고 들어옵니다</li>
           </ul>
-        </div>
-        <div class="op-card fb-value">
+<div class="fb-value__media"><img src="/onpharm/a08_pharmacies.jpg" alt="" loading="lazy" decoding="async"></div>        </div>
+        <div class="op-card fb-value fb-value--media">
           <span class="op-eyebrow">둘째</span>
           <h3 class="op-h3 fb-value__title">전용 상품</h3>
           <ul class="op-list fb-value__list">
@@ -192,8 +190,8 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
             <li>온라인 판매가 없어 가격 비교에 휘말리지 않습니다</li>
             <li>6일치 소포장이라 처음 권하기가 가볍습니다</li>
           </ul>
-        </div>
-        <div class="op-card fb-value">
+<div class="fb-value__media"><img src="/onpharm/a02b_lineup.jpg" alt="" loading="lazy" decoding="async"></div>        </div>
+        <div class="op-card fb-value fb-value--media">
           <span class="op-eyebrow">셋째</span>
           <h3 class="op-h3 fb-value__title">재방문</h3>
           <ul class="op-list fb-value__list">
@@ -201,7 +199,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
             <li>안내에는 담당 상담사 이름이 그대로 들어갑니다</li>
             <li>다음 방문 시점을 미리 알 수 있습니다</li>
           </ul>
-        </div>
+<div class="fb-value__media"><img src="/onpharm/a02b_handover.jpg" alt="" loading="lazy" decoding="async"></div>        </div>
       </div>
     </div>
   </section>
@@ -250,22 +248,22 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
       </div>      <div class="fb-process op-mt-40">
 <p class="fb-process__title">신청 후 이렇게 진행됩니다</p>        <ol class="fb-process__list">
           <li class="fb-process__step" style="--i:0">
-            <span class="fb-process__num" aria-hidden="true">1</span>
+            <span class="fb-process__num" aria-hidden="true">01</span>
             <p class="fb-process__name">신청서 접수</p>
             <p class="fb-process__desc">약국명과 주소로 실제 운영 중인 약국인지 확인합니다.</p>
           </li>
           <li class="fb-process__step" style="--i:1">
-            <span class="fb-process__num" aria-hidden="true">2</span>
+            <span class="fb-process__num" aria-hidden="true">02</span>
             <p class="fb-process__name">담당자 연락</p>
             <p class="fb-process__desc">영업일 기준 3일 안에 담당자가 연락드립니다.</p>
           </li>
           <li class="fb-process__step" style="--i:2">
-            <span class="fb-process__num" aria-hidden="true">3</span>
+            <span class="fb-process__num" aria-hidden="true">03</span>
             <p class="fb-process__name">조건 협의와 계약</p>
             <p class="fb-process__desc">배정 지역과 운영 조건을 협의해 계약서에 담습니다.</p>
           </li>
           <li class="fb-process__step" style="--i:3">
-            <span class="fb-process__num" aria-hidden="true">4</span>
+            <span class="fb-process__num" aria-hidden="true">04</span>
             <p class="fb-process__name">오픈 준비</p>
             <p class="fb-process__desc">진열 집기와 안내물을 준비해 드리고, 지역별로 차례로 문을 엽니다.</p>
           </li>
@@ -371,11 +369,14 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
 
       <p class="op-note op-center op-mt-20">
         신청해 주시면 담당자가 영업일 기준 3일 안에 연락드립니다.
-      </p>
-
-      <div class="fb-sign">
-        <span class="op-logotype op-logotype--sm" role="img" aria-label="온팜"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 363 50" role="img" aria-label="ONPHARM"><g fill="currentColor"><path d="M128.05 0.98L23.01 0.98C10.17 0.98 -0.28 11.43 -0.28 24.27C-0.28 37.11 10.17 47.56 23.01 47.56L128.05 47.56C140.89 47.56 151.34 37.11 151.34 24.27C151.34 11.43 140.89 0.98 128.05 0.98M128.05 36.98L23.01 36.98C16 36.98 10.3 31.28 10.3 24.27C10.3 17.26 16 11.56 23.01 11.56L128.05 11.56C135.06 11.56 140.77 17.26 140.77 24.27C140.77 31.28 135.06 36.98 128.05 36.98 Z"/><path d="M24.2 16.99C20.19 16.99 16.92 20.26 16.92 24.27C16.92 28.29 20.19 31.55 24.2 31.55C28.22 31.55 31.48 28.29 31.48 24.27C31.48 20.26 28.22 16.99 24.2 16.99 Z"/><path d="M239.89 17.19L235.32 17.19L235.32 13.64C235.32 10.32 232.63 7.63 229.31 7.63L239.89 7.63L239.89 1.79L206.88 1.79L206.88 7.63L211.61 7.63L211.61 17.19L206.88 17.19L206.88 23.04L239.89 23.04L239.89 17.19M225.82 17.19L221.1 17.19L221.1 13.64C221.1 10.32 218.41 7.63 215.09 7.63L225.82 7.63L225.82 17.19 Z"/><path d="M211.51 44.55C211.51 46.21 212.86 47.56 214.52 47.56L254.03 47.56L254.03 27.05L211.51 27.05L211.51 44.55M221.01 32.89H244.54V41.71H221.01Z Z"/><path d="M254.03 1.79L244.54 1.79L244.54 23.04L254.03 23.04L254.03 14.22L259.43 14.22L259.43 8.37L254.03 8.37L254.03 1.79 Z"/><path d="M168.96 35.91L159.46 35.91L159.46 44.55C159.46 46.21 160.81 47.56 162.47 47.56L201.98 47.56L201.98 41.71L168.96 41.71L168.96 35.91 Z"/><path d="M191.35 23.04C197.22 23.04 201.98 18.28 201.98 12.41C201.98 6.54 197.22 1.79 191.35 1.79L170.09 1.79C164.22 1.79 159.46 6.54 159.46 12.41C159.46 18.28 164.22 23.04 170.09 23.04L175.97 23.04L175.97 27.05L159.46 27.05L159.46 32.89L201.98 32.89L201.98 27.05L185.47 27.05L185.47 23.04L191.35 23.04M173.74 17.19C171.1 17.19 168.96 15.05 168.96 12.41C168.96 9.77 171.1 7.63 173.74 7.63L187.71 7.63C190.35 7.63 192.49 9.77 192.49 12.41C192.49 15.05 190.35 17.19 187.71 17.19L173.74 17.19 Z"/><path d="M360.63 1.79L321.12 1.79L321.12 7.63L354.14 7.63L354.14 17.63L363.63 17.63L363.63 4.79C363.63 3.13 362.29 1.79 360.63 1.79 Z"/><path d="M321.12 21.12L321.12 26.97L337.63 26.97L337.63 32.8L321.12 32.8L321.12 38.65L354.14 38.65L354.14 47.56L363.63 47.56L363.63 35.81C363.63 34.15 362.29 32.8 360.63 32.8L347.12 32.8L347.12 26.97L363.63 26.97L363.63 21.12L321.12 21.12 Z"/><path d="M308.23 30.16L268.72 30.16L268.72 36L301.74 36L301.74 47.56L311.23 47.56L311.23 33.16C311.23 31.5 309.89 30.16 308.23 30.16 Z"/><path d="M284.91 26.15C291.64 26.15 297.09 20.7 297.09 13.97C297.09 7.24 291.64 1.79 284.91 1.79L276.1 1.79C269.37 1.79 263.91 7.24 263.91 13.97C263.91 20.7 269.37 26.15 276.1 26.15L284.91 26.15M273.4 13.97C273.4 10.47 276.24 7.63 279.74 7.63L281.26 7.63C284.76 7.63 287.6 10.47 287.6 13.97C287.6 17.47 284.76 20.31 281.26 20.31L279.74 20.31C276.24 20.31 273.4 17.47 273.4 13.97 Z"/><path d="M311.23 1.79L301.74 1.79L301.74 26.15L311.23 26.15L311.23 21.56L316.63 21.56L316.63 15.71L311.23 15.71L311.23 12.23L316.63 12.23L316.63 6.38L311.23 6.38L311.23 1.79 Z"/></g></svg></span>
-        <span>들르면, 건강이 켜집니다</span>
+      </p>      <div class="fb-sign fb-closing fb-closing--photo">
+<div class="fb-closing__bg" aria-hidden="true"><img src="/onpharm/b01_hero_2.jpg" alt="" loading="lazy" decoding="async"></div>        <div class="fb-closing__body">
+          <span class="op-logotype op-logotype--sm" role="img" aria-label="온팜"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 363 50" role="img" aria-label="ONPHARM"><g fill="currentColor"><path d="M128.05 0.98L23.01 0.98C10.17 0.98 -0.28 11.43 -0.28 24.27C-0.28 37.11 10.17 47.56 23.01 47.56L128.05 47.56C140.89 47.56 151.34 37.11 151.34 24.27C151.34 11.43 140.89 0.98 128.05 0.98M128.05 36.98L23.01 36.98C16 36.98 10.3 31.28 10.3 24.27C10.3 17.26 16 11.56 23.01 11.56L128.05 11.56C135.06 11.56 140.77 17.26 140.77 24.27C140.77 31.28 135.06 36.98 128.05 36.98 Z"/><path d="M24.2 16.99C20.19 16.99 16.92 20.26 16.92 24.27C16.92 28.29 20.19 31.55 24.2 31.55C28.22 31.55 31.48 28.29 31.48 24.27C31.48 20.26 28.22 16.99 24.2 16.99 Z"/><path d="M239.89 17.19L235.32 17.19L235.32 13.64C235.32 10.32 232.63 7.63 229.31 7.63L239.89 7.63L239.89 1.79L206.88 1.79L206.88 7.63L211.61 7.63L211.61 17.19L206.88 17.19L206.88 23.04L239.89 23.04L239.89 17.19M225.82 17.19L221.1 17.19L221.1 13.64C221.1 10.32 218.41 7.63 215.09 7.63L225.82 7.63L225.82 17.19 Z"/><path d="M211.51 44.55C211.51 46.21 212.86 47.56 214.52 47.56L254.03 47.56L254.03 27.05L211.51 27.05L211.51 44.55M221.01 32.89H244.54V41.71H221.01Z Z"/><path d="M254.03 1.79L244.54 1.79L244.54 23.04L254.03 23.04L254.03 14.22L259.43 14.22L259.43 8.37L254.03 8.37L254.03 1.79 Z"/><path d="M168.96 35.91L159.46 35.91L159.46 44.55C159.46 46.21 160.81 47.56 162.47 47.56L201.98 47.56L201.98 41.71L168.96 41.71L168.96 35.91 Z"/><path d="M191.35 23.04C197.22 23.04 201.98 18.28 201.98 12.41C201.98 6.54 197.22 1.79 191.35 1.79L170.09 1.79C164.22 1.79 159.46 6.54 159.46 12.41C159.46 18.28 164.22 23.04 170.09 23.04L175.97 23.04L175.97 27.05L159.46 27.05L159.46 32.89L201.98 32.89L201.98 27.05L185.47 27.05L185.47 23.04L191.35 23.04M173.74 17.19C171.1 17.19 168.96 15.05 168.96 12.41C168.96 9.77 171.1 7.63 173.74 7.63L187.71 7.63C190.35 7.63 192.49 9.77 192.49 12.41C192.49 15.05 190.35 17.19 187.71 17.19L173.74 17.19 Z"/><path d="M360.63 1.79L321.12 1.79L321.12 7.63L354.14 7.63L354.14 17.63L363.63 17.63L363.63 4.79C363.63 3.13 362.29 1.79 360.63 1.79 Z"/><path d="M321.12 21.12L321.12 26.97L337.63 26.97L337.63 32.8L321.12 32.8L321.12 38.65L354.14 38.65L354.14 47.56L363.63 47.56L363.63 35.81C363.63 34.15 362.29 32.8 360.63 32.8L347.12 32.8L347.12 26.97L363.63 26.97L363.63 21.12L321.12 21.12 Z"/><path d="M308.23 30.16L268.72 30.16L268.72 36L301.74 36L301.74 47.56L311.23 47.56L311.23 33.16C311.23 31.5 309.89 30.16 308.23 30.16 Z"/><path d="M284.91 26.15C291.64 26.15 297.09 20.7 297.09 13.97C297.09 7.24 291.64 1.79 284.91 1.79L276.1 1.79C269.37 1.79 263.91 7.24 263.91 13.97C263.91 20.7 269.37 26.15 276.1 26.15L284.91 26.15M273.4 13.97C273.4 10.47 276.24 7.63 279.74 7.63L281.26 7.63C284.76 7.63 287.6 10.47 287.6 13.97C287.6 17.47 284.76 20.31 281.26 20.31L279.74 20.31C276.24 20.31 273.4 17.47 273.4 13.97 Z"/><path d="M311.23 1.79L301.74 1.79L301.74 26.15L311.23 26.15L311.23 21.56L316.63 21.56L316.63 15.71L311.23 15.71L311.23 12.23L316.63 12.23L316.63 6.38L311.23 6.38L311.23 1.79 Z"/></g></svg></span>
+          <span class="fb-closing__slogan">들르면, 건강이 켜집니다</span>
+          <div class="fb-closing__acts">
+            <a class="op-btn op-btn--lg" href="#b06_apply">파트너 신청하기</a>
+<a class="op-btn op-btn--lg fb-closing__alt" href="https://pf.kakao.com/_wxdxhrX/chat" target="_blank" rel="noopener">카카오톡으로 문의하기</a>          </div>
+        </div>
       </div>
     </div>
   </section>

@@ -1904,6 +1904,31 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
   /* ======================================================================
      부팅
      ====================================================================== */
+
+  // 휴대폰 아래 상담 바 (2026-11-20) — 첫 화면을 지나면 올라오고, 사전 등록 섹션이 보이면 내려간다.
+  // 보일 때만 낭독기 · 키보드 초점에 잡힌다. 정지 모드가 나중에 붙으면 처음 상태로.
+  function setupDock() {
+    var dock = doc.querySelector("[data-dock]");
+    if (!dock || !("IntersectionObserver" in window)) { return; }
+    var hero = doc.querySelector('[data-section="a01_hero"]');
+    var signup = doc.querySelector('[data-section="a07_signup"]');
+    var closing = doc.querySelector(".fa-closing");   // 마무리 띠(자기 단추가 있음)부터 바닥글까지는 내려 둔다
+    var heroOut = false, signupIn = false, endZone = false;
+    var links = dock.querySelectorAll("a");
+    function paint() {
+      var on = heroOut && !signupIn && !endZone;
+      dock.classList.toggle("is-on", on);
+      dock.setAttribute("aria-hidden", on ? "false" : "true");
+      for (var i = 0; i < links.length; i++) {
+        if (on) { links[i].removeAttribute("tabindex"); } else { links[i].setAttribute("tabindex", "-1"); }
+      }
+    }
+    if (hero) { new IntersectionObserver(function (es) { heroOut = !es[0].isIntersecting; paint(); }).observe(hero); }
+    if (signup) { new IntersectionObserver(function (es) { signupIn = es[0].isIntersecting; paint(); }, { rootMargin: "0px 0px -15% 0px" }).observe(signup); }
+    if (closing) { new IntersectionObserver(function (es) { endZone = es[0].isIntersecting || es[0].boundingClientRect.top < 0; paint(); }).observe(closing); }
+    onRestore(function () { heroOut = false; signupIn = false; endZone = false; paint(); });
+  }
+
   function init() {
     if (isStatic()) { return; }
     guard("캐러셀 묶음", setupCarousels);
@@ -1921,6 +1946,7 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
     guard("6일 카드", setupDayCards);
     guard("우리 동네 찾기", setupAreaFinders);
     guard("탭 쇼케이스 묶음", setupTabs);
+    guard("휴대폰 상담 바", setupDock);
     guard("정지 모드 감시", watchStatic);
   }
 

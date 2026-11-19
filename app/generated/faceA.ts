@@ -33,6 +33,10 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
     </div>
   </div>
   <button type="button" class="op-pause op-pause--dark fa-film__pause" data-pause-toggle aria-controls="fa-hero-media" aria-pressed="false" aria-label="배경 영상 멈춤"><svg class="op-pause__i op-pause__i--pause" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><rect x="3.5" y="2.5" width="3" height="11" rx="1" fill="currentColor"/><rect x="9.5" y="2.5" width="3" height="11" rx="1" fill="currentColor"/></svg><svg class="op-pause__i op-pause__i--play" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4.5 2.8v10.4a.6.6 0 0 0 .9.5l8.2-5.2a.6.6 0 0 0 0-1L5.4 2.3a.6.6 0 0 0-.9.5z" fill="currentColor"/></svg></button>
+  <div class="fa-dock" data-dock aria-hidden="true">
+    <a class="fa-dock__btn fa-dock__btn--main" href="https://pf.kakao.com/_wxdxhrX/chat" target="_blank" rel="noopener noreferrer" tabindex="-1"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.3c-4.4 0-8 2.8-8 6.2 0 2.2 1.5 4.1 3.7 5.2l-.9 3.2c-.1.4.3.7.6.5l3.6-2.2c.3 0 .7.1 1 .1 4.4 0 8-2.8 8-6.2s-3.6-6.2-8-6.2z"/></svg><span>실시간 상담</span><span class="op-sr"> (카카오톡 채널 1:1 채팅, 새 창)</span></a>
+    <a class="fa-dock__btn" href="#signup" tabindex="-1">사전 등록</a>
+  </div>
 </section>
 
 <section class="op-sec op-sec--tint fa-voices-sec" data-section="a06_voices" data-reveal>
