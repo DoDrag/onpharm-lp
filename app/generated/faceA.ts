@@ -273,8 +273,10 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
       <p class="op-lead op-mt-16 op-measure--center">고민 하나에서 시작해도 충분해요. 전담 상담사가 거기서부터 같이 봐요.</p>
     </div></div>
   <div class="fa-wide">
-    <div class="op-grid-4 fa-concerns op-mt-48" role="group" aria-label="고민 선택"
-         data-scrub="0.09" data-scrub-from="0.98" data-scrub-to="1.45" data-scrub-media="(min-width: 1024px)">
+  <div class="fa-pick op-mt-48">
+    <div class="fa-pick__list">
+    <div class="op-grid-4 fa-concerns" role="group" aria-label="고민 선택"
+         data-scrub="0.09" data-scrub-from="0.98" data-scrub-to="1.3" data-scrub-media="(min-width: 1024px)">
       <button type="button" class="op-card fa-concern fa-concern--photo op-anim-rise op-anim-rise--sm"
               style="--op-d:0"
               data-concern="fatigue"
@@ -362,9 +364,8 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
         </span>
       </button>
     </div>
-  </div>
-  <div class="op-inner">
-
+    </div>
+    <div class="fa-pick__out">
     <div class="fa-rule" role="presentation"></div>
     <div class="op-center fa-suggest__head">
 <p class="fa-eyebrow">성분 살펴보기</p>      <h3 class="fa-suggest__h">고른 고민에 따라 상담에서 같이 보는 성분이에요</h3>
@@ -476,8 +477,11 @@ export const FACE_A_HTML: string = `<section class="op-sec fa-film" data-section
       <p class="op-note fa-suggest__note op-center">성분 이름만 적어 둔 안내예요. 무엇을 담을지는 상담에서 사람마다 다르게 정해요.</p>
     </div>
     <p class="fa-concern-result"><b class="fa-mark" data-concern-result>피로</b>고민이 있으시다면</p>
-    <div class="op-row op-row--center op-mt-16"><a class="op-btn fa-concern-cta" href="#signup" data-scroll-to="#signup" data-concern-cta>1분 상담 신청 (무료)</a></div>
-
+    <div class="op-row op-row--center op-mt-16 fa-concern-act"><a class="op-btn fa-concern-cta" href="#signup" data-scroll-to="#signup" data-concern-cta>1분 상담 신청 (무료)</a></div>
+    </div>
+  </div>
+  </div>
+  <div class="op-inner">
     <p class="op-note op-mt-32 op-center">여기서는 하나씩 살펴보실 수 있어요. 여러 고민은 아래 사전 등록에서 함께 골라 주세요.</p>
   </div>
 </section>

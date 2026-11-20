@@ -780,6 +780,8 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
     var live = false;
     if (panels.length && initial && select(initial) && wrap && wrap.classList) {
       wrap.classList.add("is-live");     /* ← 여기서만 "하나만 보이기" 가 켜진다 */
+      /* (2026-11-20 대표 "두 칸이 한 화면에, 좌우로") 고민 카드 | 결과 카드 나란히 배치도 고르기가 살아 있을 때만 */
+      if (box.classList) { box.classList.add("is-picking"); }
       live = true;
     }
 
@@ -802,8 +804,9 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
           if (!live) { return; }
           if (ev && ev.preventDefault) { ev.preventDefault(); }
           select(keyOf(btn));
-          /* (UX 점검 F07) 1열 모바일에서는 바뀐 패널이 화면 밖이다 -> 보이는 만큼만 끌어온다 */
-          var shown = wrap && wrap.querySelector(".fa-suggest__panel.is-on");
+          /* (UX 점검 F07) 1열 모바일에서는 바뀐 패널이 화면 밖이다 -> 보이는 만큼만 끌어온다
+             (2026-11-20) 결과 카드가 카드 줄 바로 아래로 와서 보통은 움직이지 않는다. 카드가 화면 밖이면 버튼까지 보이게 카드째 */
+          var shown = box.querySelector(".fa-pick__out") || (wrap && wrap.querySelector(".fa-suggest__panel.is-on"));
           var narrow = false;
           try { narrow = window.matchMedia("(max-width: 767px)").matches; } catch (e) {}
           if (shown && narrow && shown.scrollIntoView) {
@@ -833,6 +836,7 @@ export const MOTION_JS: string = `/*! onpharm-motion (next export wrapper)
     onRestore(function () {
       /* 정지 모드 = 8개 전부 보이는 상태로 되돌린다 (섹션 PNG 에 다 담긴다) */
       if (wrap && wrap.classList) { wrap.classList.remove("is-live"); }
+      if (box.classList) { box.classList.remove("is-picking"); }   /* 배치도 세로 순서로 */
     });
   }
 

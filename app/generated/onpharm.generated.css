@@ -4154,15 +4154,90 @@
     transform: translateY(calc(100% + 24px)); transition: transform 0.35s var(--op-ease); visibility: hidden;
   }
   .op-js:not(.op-static) .fa-dock.is-on { transform: none; visibility: visible; }
-  .op-page .fa-dock__btn {
+  /* (2026-11-20 고침) 선택자를 .fa-dock 까지 한 단계 더 - 테마의 .op-page a:not([class*="op-btn"]) { color: inherit }(0-2-1)이
+     .op-page .fa-dock__btn(0-2-0)을 이겨 '사전 등록' 글자가 첫 화면의 흰 글자를 물려받아 흰 바탕에 안 보였다(390 실측 rgb 255) */
+  .op-page .fa-dock .fa-dock__btn {
     flex: 1 1 0; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 48px;
     border-radius: var(--op-radius-pill); font-size: 15.5px; font-weight: 700; color: var(--op-charcoal); background: var(--op-bg-warm);
     text-decoration: none;
   }
-  .op-page .fa-dock__btn--main { flex: 1.4 1 0; background: var(--op-orange); color: #FFFFFF; }
+  .op-page .fa-dock .fa-dock__btn--main { flex: 1.4 1 0; background: var(--op-orange); color: #FFFFFF; }
 }
 @media (max-width: 767px) and (prefers-reduced-motion: reduce) {
   .op-js:not(.op-static) .fa-dock { transition: none; }
+}
+
+/* --- a02 고르기 좌우 배치 (2026-11-20 대표 "두 칸이 한 화면에 보여야, 스크롤 없이 좌우로") -------------------
+   메디코치 '셀프 체크'(고르는 칸 · 결과 문장 · 버튼이 한 화면, 11-20 실측)처럼 고르기와 결과를 한눈에 둔다.
+   JS 가 고르기를 켰을 때(섹션 .is-picking - initPicker 가 .fa-suggest.is-live 와 함께 붙인다)만 바뀐다.
+   무JS · 정지 모드(캡처)는 예전 세로 순서(카드 -> 성분 8개 전부 -> 버튼) 그대로.
+   1024 이상 = 고민 카드 4x2 | 결과 카드(높이를 맞추고 버튼은 카드 바닥).
+   1023 이하 = 고민 카드 한 줄을 옆으로 넘기고, 결과 카드는 바로 아래(둘 다 한 화면에 들어온다). */
+/* 이동형 카드의 '사전 등록으로 이동' 글자는 차콜(밝은 면 위 오렌지 글자는 2.9:1 이라 쓰지 않는다), 테두리만 오렌지 */
+.fa-concern__go { color: var(--op-charcoal); background: #FFFFFF; }
+.op-js:not(.op-static) .fa-concern-sec.is-picking .fa-pick__out {
+  display: flex; flex-direction: column; min-width: 0;
+  padding: 28px; border-radius: 16px; background: #FFFFFF; box-shadow: 0 0 16px rgba(51, 51, 51, 0.06);
+}
+.op-js:not(.op-static) .fa-concern-sec.is-picking .fa-rule { display: none; }
+.op-js:not(.op-static) .fa-concern-sec.is-picking .fa-suggest__head { margin-top: 0; text-align: left; }
+.op-js:not(.op-static) .fa-concern-sec.is-picking .fa-suggest__h { margin-top: 10px; font-size: 22px; line-height: 1.4; }
+.op-js:not(.op-static) .fa-concern-sec.is-picking .fa-suggest {
+  max-width: none; margin: 20px 0 0; padding: 20px 0 0;
+  border: 0; border-top: 1px solid var(--op-line); border-radius: 0; background: none; box-shadow: none;
+}
+.op-js:not(.op-static) .fa-concern-sec.is-picking .fa-suggest__panel { text-align: left; }
+.op-js:not(.op-static) .fa-concern-sec.is-picking .fa-suggest__title { font-size: 18px; }
+/* 고른 고민 이름: 오렌지 글자 대신 차콜 + 형광 밑줄(.fa-mark 와 같은 값) */
+.op-js:not(.op-static) .fa-concern-sec.is-picking .fa-suggest__for {
+  padding: 0 2px; color: var(--op-charcoal); background: linear-gradient(transparent 60%, rgba(255, 105, 0, 0.24) 60%);
+}
+.op-js:not(.op-static) .fa-concern-sec.is-picking .fa-suggest__chips { justify-content: flex-start; }
+.op-js:not(.op-static) .fa-concern-sec.is-picking .fa-suggest__note { margin-top: 16px; text-align: left; }
+.op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern-result { margin-top: auto; padding-top: 24px; text-align: left; }
+.op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern-cta { flex: 1 1 auto; min-width: 0; }
+/* 이동형 카드의 '사전 등록으로 이동'은 그림 칸 위(선택됨 칩 자리)로 - 몸통 높이가 다른 카드와 같아진다 */
+.op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern--go { position: relative; }
+.op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern--go .fa-concern__go {
+  position: absolute; top: 12px; left: 12px; z-index: 1; margin: 0;
+}
+@media (min-width: 1024px) {
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-pick {
+    display: grid; grid-template-columns: minmax(0, 1fr) clamp(320px, 30vw, 420px); gap: 32px; align-items: stretch;
+  }
+  /* 왼쪽 칸이 결과 카드보다 짧으면 카드 줄이 그 높이를 나눠 갖는다(두 칸 바닥선이 맞는다) */
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-pick__list { display: grid; min-width: 0; }
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern__body { padding: 14px 18px 16px; }
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern--photo .fa-concern__label { margin-bottom: 2px; font-size: 17px; }
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern--photo .fa-concern__desc { font-size: 14px; line-height: 1.45; }
+}
+@media (max-width: 1023px) {
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concerns {
+    display: flex; gap: 12px; margin: 0 -20px; padding: 8px 20px 16px;
+    overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: 20px;
+    scrollbar-width: none;
+  }
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concerns::-webkit-scrollbar { display: none; }
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern { flex: 0 0 176px; scroll-snap-align: start; }
+  /* 줄의 카드 높이는 가장 긴 카드를 따른다. '뭐부터 볼지 모르겠어요'가 두 줄로 꺾이면 모든 카드에 빈 몸통이 생겨(390 실측 85px)
+     이동형 카드만 넓혀 한 줄로 둔다 */
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern--go { flex-basis: 224px; }
+  /* 넓힌 이동형 카드의 그림 칸은 비율 대신 남는 높이만 - 4:3 그대로면 그 카드가 줄 높이를 다시 키운다(390 실측 +21px) */
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern--go .fa-concern__ph { flex: 1 1 auto; aspect-ratio: auto; min-height: 96px; }
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern--go .fa-concern__body { flex: 0 0 auto; }
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern__body { padding: 14px 14px 16px; }
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern--photo .fa-concern__label { font-size: 16px; }
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern--photo .fa-concern__desc { font-size: 13.5px; line-height: 1.45; }
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-pick__out { max-width: 640px; margin: 4px auto 0; padding: 24px 20px; }
+}
+@media (max-width: 767px) {
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concerns { margin: 0 -16px; padding: 8px 16px 14px; scroll-padding-inline: 16px; }
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern { flex-basis: 152px; }
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern--go { flex-basis: 204px; }
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-concern--go .fa-concern__go { top: 8px; left: 8px; }
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-suggest__h { font-size: 20px; }
+  /* 카드를 고르면 결과 카드를 '보이는 만큼만' 끌어온다 - 아래 상담 바(약 70px)에 버튼이 가리지 않게 */
+  .op-js:not(.op-static) .fa-concern-sec.is-picking .fa-pick__out { scroll-margin-bottom: 88px; }
 }
 
 /* ---- 면 B (약국 파트너) 고유 규칙 ---------------------------- */
