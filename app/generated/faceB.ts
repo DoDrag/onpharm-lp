@@ -284,14 +284,14 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
             data-form="partner" target="op-form-sink"><div class="op-grid-2">
           <label class="fb-field">
             <span class="fb-label">약국명</span>
-            <input class="fb-input" type="text" name="entry.1635817952"
+            <input class="fb-input" type="text" name="entry.798727568"
                    data-field="pharmacy"
                    autocomplete="organization"
                    placeholder="예: ○○약국" required>
           </label>
           <label class="fb-field">
             <span class="fb-label">대표자명</span>
-            <input class="fb-input" type="text" name="entry.961979349"
+            <input class="fb-input" type="text" name="entry.127989608"
                    data-field="owner"
                    autocomplete="name"
                    placeholder="홍길동" required>
@@ -300,7 +300,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
 
         <div class="op-grid-2 op-mt-24">
           <label class="fb-field">
-            <span class="fb-label">사업자등록번호</span><input class="fb-input" type="text" name="biz_no"
+            <span class="fb-label">사업자등록번호</span><input class="fb-input" type="text" name="entry.2117579167"
                    data-field="biz_no"
                    inputmode="numeric" autocomplete="off" maxlength="14"
                    pattern="[0-9\\-\\s]{10,14}"
@@ -309,7 +309,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
           </label>
           <label class="fb-field">
             <span class="fb-label">연락처</span>
-            <input class="fb-input" type="tel" name="entry.281860316"
+            <input class="fb-input" type="tel" name="entry.644101959"
                    data-field="phone"
                    autocomplete="tel"
                    placeholder="010-0000-0000" required>
@@ -318,7 +318,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
 
         <label class="fb-field op-mt-24">
           <span class="fb-label">약국 주소</span>
-          <input class="fb-input" type="text" name="address"
+          <input class="fb-input" type="text" name="entry.77834974"
                  data-field="address"
                  autocomplete="street-address"
                  placeholder="예: 인천 연수구 ○○로 12" required>
@@ -330,7 +330,7 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
             요양기관기호
             <span class="fb-opt">선택</span>
           </span>
-          <input class="fb-input" type="text" name="ykiho"
+          <input class="fb-input" type="text" name="entry.1822387050"
                  data-field="ykiho"
                  inputmode="numeric" autocomplete="off" maxlength="8"
                  pattern="[0-9]{8}"
@@ -343,14 +343,14 @@ export const FACE_B_HTML: string = `<section class="op-sec op-sec--navy op-sec--
             문의 내용
             <span class="fb-opt">선택</span>
           </span>
-          <textarea class="fb-textarea" name="entry.79913361"
+          <textarea class="fb-textarea" name="entry.844342138"
                     data-field="message"
                     placeholder="약국 위치나 지금 궁금한 점을 자유롭게 적어 주세요."></textarea>
         </label><p class="op-note fb-purpose op-mt-16">
           적어 주신 정보는 약국 확인과 배정 상담 연락에만 씁니다. 그 밖의 용도로 쓰지 않습니다.
         </p><label class="op-check fb-check">
           <input class="op-check__input" type="checkbox"
-                 name="entry.1935935562" data-field="consent"
+                 name="entry.27366624" data-field="consent"
                  value="동의합니다" required>
           <span class="op-check__box" aria-hidden="true"></span>
           <span class="op-check__text">
